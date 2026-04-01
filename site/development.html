@@ -449,26 +449,38 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#development-environment-setup" class="md-nav__link">
+  <a href="#local-workflow" class="md-nav__link">
     <span class="md-ellipsis">
-      🛠️ Development Environment Setup
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ Development Environment Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-clone-and-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Clone and Setup
+      Local Workflow
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#useful-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful Commands
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend Development
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Development
+    </span>
+  </a>
   
 </li>
       
@@ -627,26 +639,38 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#development-environment-setup" class="md-nav__link">
+  <a href="#local-workflow" class="md-nav__link">
     <span class="md-ellipsis">
-      🛠️ Development Environment Setup
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ Development Environment Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-clone-and-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Clone and Setup
+      Local Workflow
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#useful-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful Commands
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend Development
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Development
+    </span>
+  </a>
   
 </li>
       
@@ -666,567 +690,26 @@
 
 
 <h1 id="development">Development</h1>
-<p>This guide covers the development workflow, tools, and best practices for contributing to PortalRH.</p>
-<hr />
-<h2 id="development-environment-setup">🛠️ Development Environment Setup</h2>
-<h3 id="1-clone-and-setup">1. Clone and Setup</h3>
-<p>```bash</p>
-<h1 id="clone-repository">Clone repository</h1>
-<p>git clone https://github.com/GabrielDLobo/01-PortalRH.git
-cd 01-PortalRH</p>
-<h1 id="create-virtual-environment">Create virtual environment</h1>
-<p>python -m venv venv</p>
-<h1 id="activate-virtual-environment">Activate virtual environment</h1>
-<p>venv\Scripts\activate  # Windows
-source venv/bin/activate  # Linux/macOS</p>
-<h1 id="install-dependencies">Install dependencies</h1>
-<p>pip install -r requirements.txt</p>
-<h1 id="install-dependencies_1">Install dependencies</h1>
-<p>pip install -r requirements.txt
-```</p>
-<h3 id="2-environment-configuration">2. Environment Configuration</h3>
-<p>```bash</p>
-<h1 id="copy-environment-template">Copy environment template</h1>
-<p>copy .env.example .env  # Windows
-cp .env.example .env    # Linux/macOS</p>
-<h1 id="edit-env-with-development-settings">Edit .env with development settings</h1>
-<h1 id="minimum-required">Minimum required:</h1>
-<p>SECRET_KEY=dev-secret-key-change-in-production
-DEBUG=True
-DATABASE_URL=sqlite:///db.sqlite3
-ALLOWED_HOSTS=localhost,127.0.0.1
-```</p>
-<h3 id="3-database-setup">3. Database Setup</h3>
-<p>```bash</p>
-<h1 id="run-migrations">Run migrations</h1>
-<p>python manage.py migrate</p>
-<h1 id="create-superuser">Create superuser</h1>
-<p>python manage.py createsuperuser</p>
-<h1 id="optional-load-sample-data">(Optional) Load sample data</h1>
-<p>python manage.py loaddata fixtures/sample_data.json
-```</p>
-<h3 id="4-start-development-server">4. Start Development Server</h3>
-<p>```bash</p>
-<h1 id="run-server">Run server</h1>
-<p>python manage.py runserver</p>
-<h1 id="run-on-specific-port">Run on specific port</h1>
-<p>python manage.py runserver 8001</p>
-<h1 id="run-with-live-reload">Run with live reload</h1>
-<p>python manage.py runserver --noreload
-```</p>
-<hr />
-<h2 id="project-structure">📁 Project Structure</h2>
-<p><code>PortalRH/
-├── accounts/              # Authentication module
-├── app/                   # Core settings
-├── employees/             # Employee management
-├── evaluations/           # Performance evaluations
-├── leave_requests/        # Leave management
-├── reports/               # Reporting system
-├── staff/                 # Staff management
-├── termination/           # Termination workflows
-├── frontend/              # React frontend
-├── docs/                  # Documentation
-├── media/                 # User uploads
-├── static/                # Static files
-└── logs/                  # Log files</code></p>
-<hr />
-<h2 id="development-tools">💻 Development Tools</h2>
-<h3 id="recommended-ide">Recommended IDE</h3>
-<p><strong>VS Code</strong> with extensions:
-- Python (Microsoft)
-- Django Template
-- Pylance
-- GitLens
-- REST Client</p>
-<p><strong>PyCharm Professional</strong> (alternative):
-- Built-in Django support
-- Database tools
-- Template debugging</p>
-<h3 id="useful-extensions">Useful Extensions</h3>
-<p><code>json
-{
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
-  "python.formatting.provider": "black",
-  "editor.formatOnSave": true,
-  "files.exclude": {
-    "**/__pycache__": true,
-    "**/*.pyc": true,
-    "**/.env": true
-  }
-}</code></p>
-<h3 id="browser-extensions">Browser Extensions</h3>
-<ul>
-<li>React Developer Tools</li>
-<li>Redux DevTools</li>
-<li>JSON Viewer</li>
-</ul>
-<hr />
-<h2 id="django-management-commands">🔧 Django Management Commands</h2>
-<h3 id="common-commands">Common Commands</h3>
-<p>```bash</p>
-<h1 id="database-operations">Database operations</h1>
-<p>python manage.py migrate
-python manage.py makemigrations
-python manage.py makemigrations <app_name></p>
-<h1 id="server">Server</h1>
-<p>python manage.py runserver
-python manage.py runserver 0.0.0.0:8000</p>
-<h1 id="static-files">Static files</h1>
-<p>python manage.py collectstatic
-python manage.py collectstatic --noinput</p>
-<h1 id="admin">Admin</h1>
-<p>python manage.py createsuperuser
-python manage.py changepassword <username></p>
-<h1 id="shell">Shell</h1>
-<p>python manage.py shell
-python manage.py shell_plus  # With django-extensions</p>
-<h1 id="testing">Testing</h1>
-<p>python manage.py test
-python manage.py test <app_name>
-python manage.py test --coverage</p>
-<h1 id="data">Data</h1>
-<p>python manage.py loaddata <fixture>
-python manage.py dumpdata <app_name> &gt; fixture.json
-```</p>
-<h3 id="custom-commands">Custom Commands</h3>
-<p>Create custom management commands in:
-<code>&lt;app_name&gt;/management/commands/&lt;command_name&gt;.py</code></p>
-<p>Example:
-```python</p>
-<h1 id="employeesmanagementcommandsgenerate_employee_idpy">employees/management/commands/generate_employee_id.py</h1>
-<p>from django.core.management.base import BaseCommand
-from employees.models import Employee</p>
-<p>class Command(BaseCommand):
-    help = 'Generate employee IDs for all employees'</p>
-<pre><code>def handle(self, *args, **options):
-    for employee in Employee.objects.all():
-        if not employee.employee_id:
-            employee.generate_employee_id()
-            employee.save()
-    self.stdout.write(self.style.SUCCESS('Employee IDs generated'))
-</code></pre>
-<p>```</p>
-<hr />
-<h2 id="coding-standards">📝 Coding Standards</h2>
-<h3 id="python-style-guide">Python Style Guide</h3>
-<p>Follow <strong>PEP 8</strong> with these specifics:</p>
-<p>```python</p>
-<h1 id="imports-grouped-and-sorted">Imports - grouped and sorted</h1>
-<p>from django.db import models
-from rest_framework import serializers</p>
-<h1 id="constants-upper_case">Constants - UPPER_CASE</h1>
-<p>MAX_FILE_SIZE = 10 * 1024 * 1024</p>
-<h1 id="classes-pascalcase">Classes - PascalCase</h1>
-<p>class EmployeeSerializer(serializers.ModelSerializer):
-    """Docstring for class."""</p>
-<pre><code># Methods - snake_case
-def validate_email(self, value):
-    """Docstring for method."""
-    return value
-</code></pre>
-<h1 id="private-attributes-_prefix">Private attributes - _prefix</h1>
-<p>_internal_cache = {}</p>
-<h1 id="line-length-max-100-characters">Line length - max 100 characters</h1>
-<p>```</p>
-<h3 id="docstring-format">Docstring Format</h3>
-<p>Use Google-style docstrings:</p>
-<p>```python
-def calculate_leave_balance(employee, year):
-    """
-    Calculate available leave days for an employee.</p>
-<pre><code>Args:
-    employee (Employee): The employee instance
-    year (int): The year to calculate for
-
-Returns:
-    int: Number of available leave days
-
-Raises:
-    ValueError: If year is invalid
-"""
-if year &gt; datetime.now().year:
-    raise ValueError("Cannot calculate for future years")
-return balance
-</code></pre>
-<p>```</p>
-<hr />
-<h2 id="architecture-patterns">🏗️ Architecture Patterns</h2>
-<h3 id="model-view-serializer-pattern">Model-View-Serializer Pattern</h3>
-<p>```python</p>
-<h1 id="modelspy">models.py</h1>
-<p>class Employee(models.Model):
-    """Employee model."""
-    full_name = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)</p>
-<pre><code>def __str__(self):
-    return self.full_name
-
-@property
-def is_active(self):
-    return self.status == 'active'
-</code></pre>
-<h1 id="serializerspy">serializers.py</h1>
-<p>class EmployeeSerializer(serializers.ModelSerializer):
-    """Employee serializer."""</p>
-<pre><code>class Meta:
-    model = Employee
-    fields = ['id', 'full_name', 'email', 'is_active']
-    read_only_fields = ['id']
-</code></pre>
-<h1 id="viewspy">views.py</h1>
-<p>class EmployeeViewSet(viewsets.ModelViewSet):
-    """Employee viewset."""
-    queryset = Employee.objects.all()
-    serializer_class = EmployeeSerializer
-    permission_classes = [IsAuthenticated, CanManageEmployee]
-```</p>
-<h3 id="service-layer-pattern">Service Layer Pattern</h3>
-<p>For complex business logic:</p>
-<p>```python</p>
-<h1 id="servicespy">services.py</h1>
-<p>class EmployeeService:
-    """Service class for employee operations."""</p>
-<pre><code>@staticmethod
-def create_employee(data, created_by):
-    """Create employee with all related data."""
-    with transaction.atomic():
-        employee = Employee.objects.create(**data)
-        AdmissionProcess.objects.create(employee=employee)
-        EmployeeService.send_welcome_email(employee)
-        return employee
-
-@staticmethod
-def send_welcome_email(employee):
-    """Send welcome email to new employee."""
-    # Email logic
-    pass
-</code></pre>
-<h1 id="viewspy_1">views.py</h1>
-<p>class EmployeeViewSet(viewsets.ModelViewSet):
-    def perform_create(self, serializer):
-        EmployeeService.create_employee(
-            serializer.validated_data,
-            self.request.user
-        )
-```</p>
-<hr />
-<h2 id="testing_1">🧪 Testing</h2>
-<h3 id="running-tests">Running Tests</h3>
-<p>```bash</p>
-<h1 id="run-all-tests">Run all tests</h1>
-<p>python manage.py test</p>
-<h1 id="run-specific-app-tests">Run specific app tests</h1>
-<p>python manage.py test employees</p>
-<h1 id="run-with-verbosity">Run with verbosity</h1>
-<p>python manage.py test -v 2</p>
-<h1 id="run-with-coverage">Run with coverage</h1>
-<p>coverage run manage.py test
-coverage report
-coverage html
-```</p>
-<h3 id="test-structure">Test Structure</h3>
-<p>```python</p>
-<h1 id="teststest_modelspy">tests/test_models.py</h1>
-<p>from django.test import TestCase
-from employees.models import Employee</p>
-<p>class EmployeeModelTest(TestCase):
-    """Test Employee model."""</p>
-<pre><code>def setUp(self):
-    self.employee = Employee.objects.create(
-        full_name='Test User',
-        email='test@example.com'
-    )
-
-def test_employee_creation(self):
-    """Test employee is created correctly."""
-    self.assertEqual(self.employee.full_name, 'Test User')
-    self.assertIsNotNone(self.employee.employee_id)
-
-def test_employee_str(self):
-    """Test string representation."""
-    self.assertEqual(str(self.employee), 'Test User')
-</code></pre>
-<p>```</p>
-<h3 id="test-coverage-goals">Test Coverage Goals</h3>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Coverage Goal</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Models</td>
-<td>90%</td>
-</tr>
-<tr>
-<td>Serializers</td>
-<td>85%</td>
-</tr>
-<tr>
-<td>Views</td>
-<td>80%</td>
-</tr>
-<tr>
-<td>Permissions</td>
-<td>95%</td>
-</tr>
-<tr>
-<td>Services</td>
-<td>85%</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="debugging">🐛 Debugging</h2>
-<h3 id="django-debug-toolbar">Django Debug Toolbar</h3>
-<p>```bash</p>
-<h1 id="install">Install</h1>
-<p>pip install django-debug-toolbar</p>
-<h1 id="add-to-installed_apps">Add to INSTALLED_APPS</h1>
-<p>INSTALLED_APPS += ['debug_toolbar']</p>
-<h1 id="add-middleware">Add middleware</h1>
-<p>MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
-```</p>
-<h3 id="python-debugger">Python Debugger</h3>
-<p>```python
-import pdb</p>
-<p>def problematic_function():
-    pdb.set_trace()  # Breakpoint
-    # Use: n (next), c (continue), q (quit)
-```</p>
-<h3 id="logging">Logging</h3>
-<p>```python
-import logging</p>
-<p>logger = logging.getLogger(<strong>name</strong>)</p>
-<p>def my_function():
-    logger.debug('Debug message')
-    logger.info('Info message')
-    logger.warning('Warning message')
-    logger.error('Error message')
-    logger.critical('Critical message')
-```</p>
-<hr />
-<h2 id="dependencies">📦 Dependencies</h2>
-<h3 id="managing-dependencies">Managing Dependencies</h3>
-<p>```bash</p>
-<h1 id="list-installed-packages">List installed packages</h1>
-<p>pip list</p>
-<h1 id="check-for-outdated-packages">Check for outdated packages</h1>
-<p>pip list --outdated</p>
-<h1 id="update-specific-package">Update specific package</h1>
-<p>pip install package-name --upgrade</p>
-<h1 id="freeze-dependencies">Freeze dependencies</h1>
-<p>pip freeze &gt; requirements.txt</p>
-<h1 id="install-from-requirements">Install from requirements</h1>
-<p>pip install -r requirements.txt
-```</p>
-<h3 id="dependency-groups">Dependency Groups</h3>
-<p>```txt</p>
-<h1 id="requirementstxt-production">requirements.txt - Production</h1>
-<p>Django&gt;=5.0.4,&lt;5.1
-djangorestframework&gt;=3.15.1</p>
-<h1 id="optional-tools-for-local-quality-checks">Optional tools for local quality checks</h1>
-<p>pytest&gt;=7.0.0
-pytest-cov&gt;=4.0.0
-black&gt;=23.0.0
-pylint&gt;=2.17.0
-django-debug-toolbar&gt;=4.0.0
-```</p>
-<hr />
-<h2 id="git-workflow">🔄 Git Workflow</h2>
-<h3 id="branch-strategy">Branch Strategy</h3>
-<p><code>main              # Production-ready
-├── develop       # Integration branch
-│   ├── feature/employee-crud
-│   ├── feature/leave-requests
-│   └── fix/login-bug
-└── hotfix/       # Production fixes</code></p>
-<h3 id="commit-messages">Commit Messages</h3>
-<p>Follow Conventional Commits:</p>
-<p><code>feat: add employee document verification
-fix: resolve leave balance calculation
-docs: update API documentation
-style: format code according to PEP 8
-refactor: extract validation to service
-test: add unit tests for serializer
-chore: update dependencies</code></p>
-<h3 id="pull-request-process">Pull Request Process</h3>
+<h2 id="local-workflow">Local Workflow</h2>
 <ol>
-<li>
-<p><strong>Create feature branch</strong>
-   <code>bash
-   git checkout -b feature/description</code></p>
-</li>
-<li>
-<p><strong>Make changes and commit</strong>
-   <code>bash
-   git add .
-   git commit -m "feat: add new feature"</code></p>
-</li>
-<li>
-<p><strong>Push and create PR</strong>
-   <code>bash
-   git push origin feature/description</code></p>
-</li>
-<li>
-<p><strong>Code review</strong></p>
-</li>
-<li>Address reviewer comments</li>
-<li>
-<p>Update PR as needed</p>
-</li>
-<li>
-<p><strong>Merge after approval</strong></p>
-</li>
-<li>Squash and merge</li>
-<li>Delete branch</li>
+<li>Pull latest <code>master</code></li>
+<li>Create feature branch</li>
+<li>Implement changes with tests</li>
+<li>Run backend and frontend locally</li>
+<li>Open PR with clear scope</li>
 </ol>
-<hr />
-<h2 id="frontend-development">🚀 Frontend Development</h2>
-<h3 id="setup-frontend">Setup Frontend</h3>
-<p>```bash
-cd frontend</p>
-<h1 id="install-dependencies_2">Install dependencies</h1>
-<p>npm install</p>
-<h1 id="start-development-server">Start development server</h1>
-<p>npm run dev</p>
-<h1 id="build-for-production">Build for production</h1>
-<p>npm run build
-```</p>
-<h3 id="frontend-structure">Frontend Structure</h3>
-<p><code>frontend/
-├── src/
-│   ├── components/     # Reusable components
-│   ├── pages/          # Page components
-│   ├── services/       # API services
-│   ├── hooks/          # Custom hooks
-│   ├── utils/          # Utility functions
-│   └── styles/         # Global styles
-└── public/</code></p>
-<h3 id="api-integration">API Integration</h3>
-<p>```javascript
-// services/api.js
-import axios from 'axios';</p>
-<p>const api = axios.create({
-  baseURL: 'http://localhost:8000/api/v1/',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});</p>
-<p>// Add auth token to requests
-api.interceptors.request.use((config) =&gt; {
-  const token = localStorage.getItem('access_token');
-  if (token) {
-    config.headers.Authorization = <code>Bearer ${token}</code>;
-  }
-  return config;
-});</p>
-<p>export default api;
-```</p>
-<hr />
-<h2 id="database-development">📊 Database Development</h2>
-<h3 id="migrations">Migrations</h3>
-<p>```bash</p>
-<h1 id="create-migrations">Create migrations</h1>
-<p>python manage.py makemigrations</p>
-<h1 id="create-named-migration">Create named migration</h1>
-<p>python manage.py makemigrations --name add_employee_field</p>
-<h1 id="show-sql-that-will-run">Show SQL that will run</h1>
-<p>python manage.py sqlmigrate employees 0001</p>
-<h1 id="apply-migrations">Apply migrations</h1>
-<p>python manage.py migrate</p>
-<h1 id="rollback-migration">Rollback migration</h1>
-<p>python manage.py migrate employees 0000
-```</p>
-<h3 id="database-commands">Database Commands</h3>
-<p>```bash</p>
-<h1 id="open-database-shell">Open database shell</h1>
-<p>python manage.py dbshell</p>
-<h1 id="export-data">Export data</h1>
-<p>python manage.py dumpdata employees.Employee &gt; employees.json</p>
-<h1 id="import-data">Import data</h1>
-<p>python manage.py loaddata employees.json
-```</p>
-<hr />
-<h2 id="code-quality">🔍 Code Quality</h2>
-<h3 id="linting">Linting</h3>
-<p>```bash</p>
-<h1 id="run-pylint">Run pylint</h1>
-<p>pylint accounts employees evaluations</p>
-<h1 id="run-black-formatter">Run black (formatter)</h1>
-<p>black .</p>
-<h1 id="run-isort-imports">Run isort (imports)</h1>
-<p>isort .</p>
-<h1 id="run-flake8">Run flake8</h1>
-<p>flake8 .
-```</p>
-<h3 id="pre-commit-hooks">Pre-commit Hooks</h3>
-<p>```bash</p>
-<h1 id="install-pre-commit">Install pre-commit</h1>
-<p>pip install pre-commit
-pre-commit install</p>
-<h1 id="run-manually">Run manually</h1>
-<p>pre-commit run --all-files
-```</p>
-<p>Example <code>.pre-commit-config.yaml</code>:</p>
-<p><code>yaml
-repos:
-  - repo: https://github.com/psf/black
-    rev: 23.0.0
-    hooks:
-      - id: black
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-  - repo: https://github.com/pycqa/flake8
-    rev: 6.0.0
-    hooks:
-      - id: flake8</code></p>
-<hr />
-<h2 id="development-checklist">📝 Development Checklist</h2>
-<p>Before submitting code:</p>
-<ul>
-<li>[ ] Code follows style guide</li>
-<li>[ ] Tests are written and passing</li>
-<li>[ ] Documentation is updated</li>
-<li>[ ] No console.log or debug statements</li>
-<li>[ ] No hardcoded values</li>
-<li>[ ] Error handling is adequate</li>
-<li>[ ] Security considerations addressed</li>
-<li>[ ] Performance impact considered</li>
-<li>[ ] Git commit message follows convention</li>
-</ul>
-<hr />
-<h2 id="troubleshooting">🆘 Troubleshooting</h2>
-<h3 id="common-issues">Common Issues</h3>
-<p><strong>Migration errors:</strong>
-```bash</p>
-<h1 id="delete-migrations-and-recreate">Delete migrations and recreate</h1>
-<p>find . -path "<em>/migrations/</em>.py" -not -name "<strong>init</strong>.py" -delete
-python manage.py makemigrations
-python manage.py migrate
-```</p>
-<p><strong>Port already in use:</strong>
-```bash</p>
-<h1 id="use-different-port">Use different port</h1>
-<p>python manage.py runserver 8001</p>
-<h1 id="or-kill-process-on-windows">Or kill process on Windows</h1>
-<p>netstat -ano | findstr :8000
-taskkill /PID <PID> /F
-```</p>
-<p><strong>Static files not loading:</strong>
-```bash</p>
-<h1 id="clear-cache-and-collect">Clear cache and collect</h1>
-<p>rm -rf staticfiles
-python manage.py collectstatic --clear
-```</p>
-<hr />
-<p><strong>Next:</strong> <a href="testing.html">Testing</a></p>
+<h2 id="useful-commands">Useful Commands</h2>
+<p><code>bash
+python manage.py runserver
+python manage.py test
+venv\Scripts\python -m mkdocs serve -a 127.0.0.1:8011</code></p>
+<h2 id="frontend-development">Frontend Development</h2>
+<p><code>bash
+cd frontend
+npm run dev</code></p>
+<h2 id="documentation-development">Documentation Development</h2>
+<p><code>bash
+venv\Scripts\python -m mkdocs build</code></p>
 
 
 

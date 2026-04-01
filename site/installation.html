@@ -309,9 +309,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#step-1-clone-the-repository" class="md-nav__link">
+  <a href="#1-clone-repository" class="md-nav__link">
     <span class="md-ellipsis">
-      📥 Step 1: Clone the Repository
+      1. Clone Repository
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-create-virtual-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Create Virtual Environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-install-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Install Dependencies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-configure-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Configure Environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-prepare-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Prepare Database
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-start-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Start Backend
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-start-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Start Frontend
     </span>
   </a>
   
@@ -612,9 +666,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#step-1-clone-the-repository" class="md-nav__link">
+  <a href="#1-clone-repository" class="md-nav__link">
     <span class="md-ellipsis">
-      📥 Step 1: Clone the Repository
+      1. Clone Repository
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-create-virtual-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Create Virtual Environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-install-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Install Dependencies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-configure-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Configure Environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-prepare-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Prepare Database
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-start-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Start Backend
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-start-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Start Frontend
     </span>
   </a>
   
@@ -636,170 +744,36 @@
 
 
 <h1 id="installation">Installation</h1>
-<p>Follow this step-by-step guide to install and set up PortalRH on your local machine.</p>
-<hr />
-<h2 id="step-1-clone-the-repository">📥 Step 1: Clone the Repository</h2>
-<p>```bash</p>
-<h1 id="clone-the-repository">Clone the repository</h1>
-<p>git clone https://github.com/GabrielDLobo/01-PortalRH.git</p>
-<h1 id="navigate-to-project-directory">Navigate to project directory</h1>
-<p>cd 01-PortalRH
-```</p>
-<hr />
-<h2 id="step-2-create-virtual-environment">🐍 Step 2: Create Virtual Environment</h2>
-<h3 id="windows">Windows</h3>
-<p>```bash</p>
-<h1 id="create-virtual-environment">Create virtual environment</h1>
-<p>python -m venv venv</p>
-<h1 id="activate-virtual-environment">Activate virtual environment</h1>
-<p>venv\Scripts\activate
-```</p>
-<h3 id="linuxmacos">Linux/macOS</h3>
-<p>```bash</p>
-<h1 id="create-virtual-environment_1">Create virtual environment</h1>
-<p>python3 -m venv venv</p>
-<h1 id="activate-virtual-environment_1">Activate virtual environment</h1>
-<p>source venv/bin/activate
-```</p>
-<p>You should see <code>(venv)</code> prefix in your terminal.</p>
-<hr />
-<h2 id="step-3-install-dependencies">📦 Step 3: Install Dependencies</h2>
-<p>```bash</p>
-<h1 id="upgrade-pip">Upgrade pip</h1>
-<p>pip install --upgrade pip</p>
-<h1 id="install-all-dependencies">Install all dependencies</h1>
-<p>pip install -r requirements.txt
-```</p>
-<h3 id="verify-installation">Verify Installation</h3>
-<p>```bash</p>
-<h1 id="check-django-installation">Check Django installation</h1>
-<p>python -m django --version</p>
-<h1 id="check-drf-installation">Check DRF installation</h1>
-<p>python -c "import rest_framework; print(rest_framework.VERSION)"
-```</p>
-<hr />
-<h2 id="step-4-database-setup">🗄️ Step 4: Database Setup</h2>
-<h3 id="option-a-sqlite-development-default">Option A: SQLite (Development - Default)</h3>
-<p>No configuration needed. SQLite will be created automatically.</p>
-<h3 id="option-b-postgresql-production">Option B: PostgreSQL (Production)</h3>
-<p>```bash</p>
-<h1 id="create-database">Create database</h1>
-<p>psql -U postgres
-CREATE DATABASE portalrh;
-CREATE USER portalrh_user WITH PASSWORD 'your_password';
-GRANT ALL PRIVILEGES ON DATABASE portalrh TO portalrh_user;
-\q</p>
-<h1 id="update-env-file-with-postgresql-connection-string">Update .env file with PostgreSQL connection string</h1>
-<p>DATABASE_URL=postgres://portalrh_user:your_password@localhost:5432/portalrh
-```</p>
-<hr />
-<h2 id="step-5-environment-configuration">⚙️ Step 5: Environment Configuration</h2>
-<p>```bash</p>
-<h1 id="copy-example-environment-file">Copy example environment file</h1>
-<p>copy .env.example .env  # Windows
-cp .env.example .env    # Linux/macOS</p>
-<h1 id="edit-env-file-with-your-configurations">Edit .env file with your configurations</h1>
-<h1 id="use-your-preferred-text-editor">Use your preferred text editor</h1>
-<p>```</p>
-<h3 id="minimum-required-configuration">Minimum Required Configuration</h3>
+<h2 id="1-clone-repository">1. Clone Repository</h2>
+<p><code>bash
+git clone https://github.com/GabrielDLobo/01-PortalRH.git
+cd 01-PortalRH</code></p>
+<h2 id="2-create-virtual-environment">2. Create Virtual Environment</h2>
+<p><code>bash
+python -m venv venv
+venv\Scripts\activate</code></p>
+<h2 id="3-install-dependencies">3. Install Dependencies</h2>
+<p><code>bash
+pip install -r requirements.txt</code></p>
+<h2 id="4-configure-environment">4. Configure Environment</h2>
+<p>Create <code>.env</code> in project root:</p>
 <p><code>env
-SECRET_KEY=your-secret-key-here
+SECRET_KEY=change-me
 DEBUG=True
-DATABASE_URL=sqlite:///db.sqlite3
-ALLOWED_HOSTS=localhost,127.0.0.1</code></p>
-<hr />
-<h2 id="step-6-database-migrations">🔧 Step 6: Database Migrations</h2>
-<p>```bash</p>
-<h1 id="create-database-tables">Create database tables</h1>
-<p>python manage.py migrate</p>
-<h1 id="collect-static-files-production">Collect static files (production)</h1>
-<p>python manage.py collectstatic --noinput
-```</p>
-<hr />
-<h2 id="step-7-create-superuser">👤 Step 7: Create Superuser</h2>
+ALLOWED_HOSTS=localhost,127.0.0.1
+DATABASE_URL=sqlite:///db.sqlite3</code></p>
+<h2 id="5-prepare-database">5. Prepare Database</h2>
 <p><code>bash
+python manage.py migrate
 python manage.py createsuperuser</code></p>
-<p>Follow the prompts:
-- Email: admin@portalrh.com
-- Password: (choose a strong password)</p>
-<hr />
-<h2 id="step-8-start-development-server">🚀 Step 8: Start Development Server</h2>
-<p>```bash</p>
-<h1 id="run-the-development-server">Run the development server</h1>
-<p>python manage.py runserver
-```</p>
-<p>Access the application:
-- <strong>API Root:</strong> http://localhost:8000/api/v1/
-- <strong>API Docs:</strong> http://localhost:8000/api/docs/
-- <strong>Admin Panel:</strong> http://localhost:8000/admin/</p>
-<hr />
-<h2 id="step-9-verify-installation">🧪 Step 9: Verify Installation</h2>
-<h3 id="test-api-endpoint">Test API Endpoint</h3>
+<h2 id="6-start-backend">6. Start Backend</h2>
 <p><code>bash
-curl http://localhost:8000/api/v1/</code></p>
-<h3 id="test-authentication">Test Authentication</h3>
-<p>```bash</p>
-<h1 id="login-to-get-jwt-tokens">Login to get JWT tokens</h1>
-<p>curl -X POST http://localhost:8000/api/v1/accounts/auth/login/ \
-  -H "Content-Type: application/json" \
-  -d '{"email":"admin@portalrh.com","password":"your-password"}'
-```</p>
-<hr />
-<h2 id="docker-installation-alternative">🐳 Docker Installation (Alternative)</h2>
-<h3 id="prerequisites">Prerequisites</h3>
-<ul>
-<li>Docker installed</li>
-<li>Docker Compose installed</li>
-</ul>
-<h3 id="run-with-docker">Run with Docker</h3>
-<p>```bash</p>
-<h1 id="build-and-start-containers">Build and start containers</h1>
-<p>docker-compose up -d</p>
-<h1 id="view-logs">View logs</h1>
-<p>docker-compose logs -f</p>
-<h1 id="run-migrations">Run migrations</h1>
-<p>docker-compose exec web python manage.py migrate</p>
-<h1 id="create-superuser">Create superuser</h1>
-<p>docker-compose exec web python manage.py createsuperuser
-```</p>
-<hr />
-<h2 id="troubleshooting">🔍 Troubleshooting</h2>
-<h3 id="issue-pip-not-recognized">Issue: <code>pip</code> not recognized</h3>
-<p>```bash</p>
-<h1 id="windows-add-python-to-path">Windows - Add Python to PATH</h1>
-<p>setx PATH "%PATH%;C:\Python310\Scripts"</p>
-<h1 id="or-use-py-launcher">Or use py launcher</h1>
-<p>py -m pip install -r requirements.txt
-```</p>
-<h3 id="issue-database-connection-error">Issue: Database connection error</h3>
-<p>```bash</p>
-<h1 id="verify-database_url-in-env">Verify DATABASE_URL in .env</h1>
-<h1 id="for-postgresql-ensure-service-is-running">For PostgreSQL, ensure service is running</h1>
-<p>net start postgresql  # Windows
-sudo service postgresql start  # Linux
-```</p>
-<h3 id="issue-port-8000-already-in-use">Issue: Port 8000 already in use</h3>
-<p>```bash</p>
-<h1 id="use-different-port">Use different port</h1>
-<p>python manage.py runserver 8001
-```</p>
-<h3 id="issue-missing-dependencies">Issue: Missing dependencies</h3>
-<p>```bash</p>
-<h1 id="clear-pip-cache-and-reinstall">Clear pip cache and reinstall</h1>
-<p>pip cache purge
-pip install -r requirements.txt --force-reinstall
-```</p>
-<hr />
-<h2 id="post-installation">📝 Post-Installation</h2>
-<p>After successful installation:</p>
-<ol>
-<li><strong>Configure email settings</strong> (optional, for admission emails)</li>
-<li><strong>Set up CORS origins</strong> for frontend integration</li>
-<li><strong>Create initial data</strong> (leave types, departments, etc.)</li>
-<li><strong>Review security settings</strong> before production deployment</li>
-</ol>
-<hr />
-<p><strong>Next:</strong> <a href="configuration.html">Configuration</a></p>
+python manage.py runserver</code></p>
+<h2 id="7-start-frontend">7. Start Frontend</h2>
+<p><code>bash
+cd frontend
+npm install
+npm run dev</code></p>
 
 
 

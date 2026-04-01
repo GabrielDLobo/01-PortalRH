@@ -291,66 +291,36 @@
         <li class="md-nav__item">
   <a href="#required-software" class="md-nav__link">
     <span class="md-ellipsis">
-      📦 Required Software
+      Required Software
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="📦 Required Software">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#python" class="md-nav__link">
-    <span class="md-ellipsis">
-      Python
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pip-python-package-manager" class="md-nav__link">
-    <span class="md-ellipsis">
-      pip (Python Package Manager)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#git" class="md-nav__link">
-    <span class="md-ellipsis">
-      Git
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#database" class="md-nav__link">
+  <a href="#recommended-environment" class="md-nav__link">
     <span class="md-ellipsis">
-      🗄️ Database
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🗄️ Database">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#postgresql-production" class="md-nav__link">
-    <span class="md-ellipsis">
-      PostgreSQL (Production)
+      Recommended Environment
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#backend-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend Dependencies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend Dependencies
+    </span>
+  </a>
   
 </li>
       
@@ -671,66 +641,36 @@
         <li class="md-nav__item">
   <a href="#required-software" class="md-nav__link">
     <span class="md-ellipsis">
-      📦 Required Software
+      Required Software
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="📦 Required Software">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#python" class="md-nav__link">
-    <span class="md-ellipsis">
-      Python
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pip-python-package-manager" class="md-nav__link">
-    <span class="md-ellipsis">
-      pip (Python Package Manager)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#git" class="md-nav__link">
-    <span class="md-ellipsis">
-      Git
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#database" class="md-nav__link">
+  <a href="#recommended-environment" class="md-nav__link">
     <span class="md-ellipsis">
-      🗄️ Database
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🗄️ Database">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#postgresql-production" class="md-nav__link">
-    <span class="md-ellipsis">
-      PostgreSQL (Production)
+      Recommended Environment
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#backend-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend Dependencies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend Dependencies
+    </span>
+  </a>
   
 </li>
       
@@ -750,185 +690,51 @@
 
 
 <h1 id="prerequisites">Prerequisites</h1>
-<p>Before installing and running PortalRH, ensure you have the following software and tools installed on your system.</p>
-<hr />
-<h2 id="required-software">📦 Required Software</h2>
-<h3 id="python">Python</h3>
-<ul>
-<li><strong>Version:</strong> Python 3.10 or higher (tested with 3.10+)</li>
-<li><strong>Download:</strong> <a href="https://www.python.org/downloads/">python.org</a></li>
-<li><strong>Verification:</strong>
-  <code>bash
-  python --version</code></li>
-</ul>
-<h3 id="pip-python-package-manager">pip (Python Package Manager)</h3>
-<ul>
-<li>Usually comes bundled with Python 3.4+</li>
-<li><strong>Verification:</strong>
-  <code>bash
-  pip --version</code></li>
-</ul>
-<h3 id="git">Git</h3>
-<ul>
-<li><strong>Version:</strong> 2.30 or higher</li>
-<li><strong>Download:</strong> <a href="https://git-scm.com/downloads">git-scm.com</a></li>
-<li><strong>Verification:</strong>
-  <code>bash
-  git --version</code></li>
-</ul>
-<hr />
-<h2 id="database">🗄️ Database</h2>
-<h3 id="postgresql-production">PostgreSQL (Production)</h3>
-<ul>
-<li><strong>Version:</strong> 15 or higher</li>
-<li><strong>Download:</strong> <a href="https://www.postgresql.org/download/">postgresql.org</a></li>
-<li><strong>Alternative:</strong> Docker container (postgres:15)</li>
-</ul>
-<p>```bash</p>
-<h1 id="check-postgresql-version">Check PostgreSQL version</h1>
-<p>psql --version
-```</p>
-<h3 id="sqlite-development">SQLite (Development)</h3>
-<ul>
-<li>Comes bundled with Python</li>
-<li>No additional installation required</li>
-</ul>
-<hr />
-<h2 id="virtual-environment">🐍 Virtual Environment</h2>
-<p>It's <strong>highly recommended</strong> to use a virtual environment:</p>
-<h3 id="option-1-venv-built-in">Option 1: venv (Built-in)</h3>
-<p><code>bash
-python -m venv venv</code></p>
-<h3 id="option-2-virtualenv">Option 2: virtualenv</h3>
-<p><code>bash
-pip install virtualenv
-virtualenv venv</code></p>
-<h3 id="option-3-conda">Option 3: conda</h3>
-<p><code>bash
-conda create -n portalrh python=3.10
-conda activate portalrh</code></p>
-<hr />
-<h2 id="frontend-optional">🌐 Frontend (Optional)</h2>
-<p>If you plan to work on the frontend:</p>
-<h3 id="nodejs">Node.js</h3>
-<ul>
-<li><strong>Version:</strong> 18.x LTS or higher</li>
-<li><strong>Download:</strong> <a href="https://nodejs.org/">nodejs.org</a></li>
-<li><strong>Verification:</strong>
-  <code>bash
-  node --version
-  npm --version</code></li>
-</ul>
-<h3 id="typescript">TypeScript</h3>
-<ul>
-<li><strong>Version:</strong> 4.9+</li>
-<li>Installed via npm with React project</li>
-</ul>
-<hr />
-<h2 id="development-tools-recommended">🛠️ Development Tools (Recommended)</h2>
-<h3 id="code-editor-ide">Code Editor / IDE</h3>
-<ul>
-<li><strong>VS Code</strong> - <a href="https://code.visualstudio.com/">Download</a></li>
-<li><strong>PyCharm</strong> - <a href="https://www.jetbrains.com/pycharm/">Download</a></li>
-</ul>
-<h3 id="python-extensions">Python Extensions</h3>
-<ul>
-<li>Pylance / Python Language Server</li>
-<li>Django Template support</li>
-<li>GitLens</li>
-</ul>
-<h3 id="api-testing">API Testing</h3>
-<ul>
-<li><strong>Postman</strong> - <a href="https://www.poststudio.com/">Download</a></li>
-<li><strong>Insomnia</strong> - <a href="https://insomnia.rest/">Download</a></li>
-<li>Or use built-in Django REST Framework browsable API</li>
-</ul>
-<h3 id="database-management">Database Management</h3>
-<ul>
-<li><strong>pgAdmin</strong> (PostgreSQL)</li>
-<li><strong>DBeaver</strong> (Universal)</li>
-<li><strong>TablePlus</strong> (Modern UI)</li>
-</ul>
-<hr />
-<h2 id="system-requirements">📋 System Requirements</h2>
+<h2 id="required-software">Required Software</h2>
 <table>
 <thead>
 <tr>
-<th>Component</th>
-<th>Minimum</th>
-<th>Recommended</th>
+<th>Tool</th>
+<th>Version</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>RAM</strong></td>
-<td>4 GB</td>
-<td>8 GB</td>
+<td>Python</td>
+<td>3.10+</td>
 </tr>
 <tr>
-<td><strong>Storage</strong></td>
-<td>2 GB</td>
-<td>5 GB</td>
+<td>Node.js</td>
+<td>18+</td>
 </tr>
 <tr>
-<td><strong>CPU</strong></td>
-<td>2 cores</td>
-<td>4 cores</td>
+<td>npm</td>
+<td>9+</td>
 </tr>
 <tr>
-<td><strong>OS</strong></td>
-<td>Windows 10, macOS 11, Linux</td>
-<td>Latest stable</td>
+<td>Git</td>
+<td>latest</td>
+</tr>
+<tr>
+<td>Docker (optional)</td>
+<td>latest</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h2 id="pre-installation-checklist">✅ Pre-Installation Checklist</h2>
-<p>Before proceeding with installation, verify:</p>
+<h2 id="recommended-environment">Recommended Environment</h2>
 <ul>
-<li>[ ] Python 3.10+ is installed and in PATH</li>
-<li>[ ] pip is working</li>
-<li>[ ] Git is installed</li>
-<li>[ ] PostgreSQL is installed (for production) or SQLite is available (for development)</li>
-<li>[ ] You have administrator/sudo access for package installation</li>
-<li>[ ] You have a code editor ready</li>
+<li>OS: Windows, Linux, or macOS</li>
+<li>RAM: 8 GB+</li>
+<li>Free disk: 3 GB+</li>
 </ul>
-<hr />
-<h2 id="environment-variables">🔧 Environment Variables</h2>
-<p>You'll need to configure the following environment variables. Prepare the values for:</p>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Description</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>SECRET_KEY</code></td>
-<td>Django secret key</td>
-<td><code>your-secret-key-here</code></td>
-</tr>
-<tr>
-<td><code>DEBUG</code></td>
-<td>Debug mode</td>
-<td><code>True</code> (dev) / <code>False</code> (prod)</td>
-</tr>
-<tr>
-<td><code>DATABASE_URL</code></td>
-<td>Database connection string</td>
-<td><code>postgres://user:pass@localhost:5432/db</code></td>
-</tr>
-<tr>
-<td><code>ALLOWED_HOSTS</code></td>
-<td>Allowed host headers</td>
-<td><code>localhost,127.0.0.1</code></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<p><strong>Next:</strong> <a href="installation.html">Installation</a></p>
+<h2 id="backend-dependencies">Backend Dependencies</h2>
+<p>Install Python packages from:</p>
+<p><code>bash
+pip install -r requirements.txt</code></p>
+<h2 id="frontend-dependencies">Frontend Dependencies</h2>
+<p><code>bash
+cd frontend
+npm install</code></p>
 
 
 

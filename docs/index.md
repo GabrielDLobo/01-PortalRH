@@ -31,8 +31,7 @@ Welcome to the **PortalRH** documentation. This guide centralizes setup, archite
 
 ## Quick Start
 
-```bash
-git clone https://github.com/GabrielDLobo/01-PortalRH.git
+<pre><code>git clone https://github.com/GabrielDLobo/01-PortalRH.git
 cd 01-PortalRH
 
 python -m venv venv
@@ -41,22 +40,18 @@ venv\Scripts\activate
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser
-python manage.py runserver
-```
+python manage.py runserver</code></pre>
 
 ## Docker Quick Start
 
-```bash
-docker-compose up -d
-```
+<pre><code>docker-compose up -d</code></pre>
 
 - Backend: `http://localhost:8000`
 - Frontend: `http://localhost:3000`
 
 ## System Architecture
 
-```text
-┌─────────────────────────────────────────────────────────────┐
+<pre><code>┌─────────────────────────────────────────────────────────────┐
 │                   Frontend (React + TypeScript)           │
 │                        + TailwindCSS                       │
 └─────────────────────────────────────────────────────────────┘
@@ -76,8 +71,7 @@ docker-compose up -d
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                    PostgreSQL / SQLite                     │
-└─────────────────────────────────────────────────────────────┘
-```
+└─────────────────────────────────────────────────────────────┘</code></pre>
 
 ## Tech Stack
 

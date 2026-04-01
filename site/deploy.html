@@ -489,44 +489,38 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pre-deployment-checklist" class="md-nav__link">
-    <span class="md-ellipsis">
-      📋 Pre-Deployment Checklist
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#deployment-options" class="md-nav__link">
     <span class="md-ellipsis">
-      🌐 Deployment Options
+      Deployment Options
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#vercel-deployment" class="md-nav__link">
+  <a href="#docker-compose" class="md-nav__link">
     <span class="md-ellipsis">
-      🚀 Vercel Deployment
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🚀 Vercel Deployment">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-prepare-for-vercel" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Prepare for Vercel
+      Docker Compose
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#production-essentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production Essentials
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-deploy-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Post-Deploy Checklist
+    </span>
+  </a>
   
 </li>
       
@@ -645,44 +639,38 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pre-deployment-checklist" class="md-nav__link">
-    <span class="md-ellipsis">
-      📋 Pre-Deployment Checklist
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#deployment-options" class="md-nav__link">
     <span class="md-ellipsis">
-      🌐 Deployment Options
+      Deployment Options
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#vercel-deployment" class="md-nav__link">
+  <a href="#docker-compose" class="md-nav__link">
     <span class="md-ellipsis">
-      🚀 Vercel Deployment
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🚀 Vercel Deployment">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-prepare-for-vercel" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Prepare for Vercel
+      Docker Compose
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#production-essentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production Essentials
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-deploy-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Post-Deploy Checklist
+    </span>
+  </a>
   
 </li>
       
@@ -702,589 +690,31 @@
 
 
 <h1 id="deploy">Deploy</h1>
-<p>This guide covers deployment procedures for PortalRH in production environments.</p>
-<hr />
-<h2 id="pre-deployment-checklist">📋 Pre-Deployment Checklist</h2>
-<p>Before deploying to production:</p>
+<h2 id="deployment-options">Deployment Options</h2>
 <ul>
-<li>[ ] All tests passing</li>
-<li>[ ] Code reviewed and approved</li>
-<li>[ ] Environment variables configured</li>
-<li>[ ] Database migrations prepared</li>
-<li>[ ] Static files collection tested</li>
-<li>[ ] SSL certificates ready</li>
-<li>[ ] Backup strategy in place</li>
-<li>[ ] Monitoring configured</li>
-<li>[ ] Rollback plan documented</li>
+<li>Docker Compose</li>
+<li>VPS with Gunicorn + Nginx</li>
 </ul>
-<hr />
-<h2 id="deployment-options">🌐 Deployment Options</h2>
-<p>PortalRH can be deployed using several methods:</p>
-<ol>
-<li><strong>Vercel</strong> (Recommended for simplicity)</li>
-<li><strong>Docker</strong> (Containerized deployment)</li>
-<li><strong>Traditional VPS</strong> (Manual deployment)</li>
-<li><strong>Cloud Platforms</strong> (AWS, GCP, Azure)</li>
-</ol>
-<hr />
-<h2 id="vercel-deployment">🚀 Vercel Deployment</h2>
-<h3 id="1-prepare-for-vercel">1. Prepare for Vercel</h3>
-<p>```bash</p>
-<h1 id="install-vercel-cli">Install Vercel CLI</h1>
-<p>npm install -g vercel</p>
-<h1 id="login-to-vercel">Login to Vercel</h1>
-<p>vercel login
-```</p>
-<h3 id="2-configure-project">2. Configure Project</h3>
-<p>Create <code>vercel.json</code>:</p>
-<p><code>json
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "app/wsgi.py",
-      "use": "@vercel/python"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "app/wsgi.py"
-    }
-  ],
-  "env": {
-    "DJANGO_SETTINGS_MODULE": "app.settings",
-    "PYTHON_VERSION": "3.10"
-  }
-}</code></p>
-<h3 id="3-environment-variables">3. Environment Variables</h3>
-<p>Set environment variables in Vercel dashboard:</p>
+<h2 id="docker-compose">Docker Compose</h2>
 <p><code>bash
-SECRET_KEY=&lt;production-secret-key&gt;
-DEBUG=False
-DATABASE_URL=&lt;postgres-connection-string&gt;
-ALLOWED_HOSTS=&lt;your-domain.com&gt;</code></p>
-<h3 id="4-deploy">4. Deploy</h3>
-<p>```bash</p>
-<h1 id="preview-deployment">Preview deployment</h1>
-<p>vercel</p>
-<h1 id="production-deployment">Production deployment</h1>
-<p>vercel --prod
-```</p>
-<hr />
-<h2 id="docker-deployment">🐳 Docker Deployment</h2>
-<h3 id="dockerfile">Dockerfile</h3>
-<p>```dockerfile</p>
-<h1 id="dockerfile_1">Dockerfile</h1>
-<p>FROM python:3.10-slim</p>
-<h1 id="set-environment-variables">Set environment variables</h1>
-<p>ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1</p>
-<h1 id="set-work-directory">Set work directory</h1>
-<p>WORKDIR /app</p>
-<h1 id="install-system-dependencies">Install system dependencies</h1>
-<p>RUN apt-get update &amp;&amp; apt-get install -y \
-    postgresql-client \
-    libpq-dev \
-    gcc \
-    &amp;&amp; rm -rf /var/lib/apt/lists/*</p>
-<h1 id="install-python-dependencies">Install Python dependencies</h1>
-<p>COPY requirements.txt .
-RUN pip install --upgrade pip &amp;&amp; pip install -r requirements.txt</p>
-<h1 id="copy-project">Copy project</h1>
-<p>COPY . .</p>
-<h1 id="collect-static-files">Collect static files</h1>
-<p>RUN python manage.py collectstatic --noinput</p>
-<h1 id="create-non-root-user">Create non-root user</h1>
-<p>RUN adduser --disabled-password --gecos '' appuser
-USER appuser</p>
-<h1 id="expose-port">Expose port</h1>
-<p>EXPOSE 8000</p>
-<h1 id="run-gunicorn">Run gunicorn</h1>
-<p>CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "app.wsgi:application"]
-```</p>
-<h3 id="docker-compose">Docker Compose</h3>
-<p>```yaml</p>
-<h1 id="docker-composeyml">docker-compose.yml</h1>
-<p>version: '3.8'</p>
-<p>services:
-  # PostgreSQL Database
-  db:
-    image: postgres:15
-    container_name: portalrh_db
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    networks:
-      - portalrh_network
-    restart: unless-stopped</p>
-<p># Django Backend
-  backend:
-    build:
-      context: .
-      dockerfile: ./test/Dockerfile.backend
-    container_name: portalrh_backend
-    environment:
-      - DEBUG=${DEBUG}
-      - SECRET_KEY=${SECRET_KEY}
-      - DATABASE_URL=${DATABASE_URL}
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
-      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS}
-    volumes:
-      - media_files:/app/media
-      - static_files:/app/static
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-    networks:
-      - portalrh_network
-    restart: unless-stopped
-    command: &gt;
-      sh -c "python manage.py collectstatic --noinput &amp;&amp;
-             python manage.py migrate &amp;&amp;
-             python manage.py setup_initial_data --skip-if-exists &amp;&amp;
-             gunicorn app.wsgi:application --bind 0.0.0.0:8000"</p>
-<p># React Frontend
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: portalrh_frontend
-    environment:
-      - REACT_APP_API_URL=${REACT_APP_API_URL}
-    ports:
-      - "3000:80"
-    depends_on:
-      - backend
-    networks:
-      - portalrh_network
-    restart: unless-stopped</p>
-<p># Nginx Reverse Proxy
-  nginx:
-    image: nginx:alpine
-    container_name: portalrh_nginx
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - static_files:/var/www/static
-      - media_files:/var/www/media
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - backend
-      - frontend
-    networks:
-      - portalrh_network
-    restart: unless-stopped</p>
-<p>volumes:
-  postgres_data:
-  media_files:
-  static_files:</p>
-<p>networks:
-  portalrh_network:
-    driver: bridge
-```</p>
-<h3 id="build-and-run">Build and Run</h3>
-<p>```bash</p>
-<h1 id="build-images">Build images</h1>
-<p>docker-compose build</p>
-<h1 id="start-services">Start services</h1>
-<p>docker-compose up -d</p>
-<h1 id="view-logs">View logs</h1>
-<p>docker-compose logs -f</p>
-<h1 id="run-migrations">Run migrations</h1>
-<p>docker-compose exec web python manage.py migrate</p>
-<h1 id="create-superuser">Create superuser</h1>
-<p>docker-compose exec web python manage.py createsuperuser</p>
-<h1 id="stop-services">Stop services</h1>
-<p>docker-compose down
-```</p>
-<hr />
-<h2 id="traditional-vps-deployment">🖥️ Traditional VPS Deployment</h2>
-<h3 id="server-requirements">Server Requirements</h3>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Minimum</th>
-<th>Recommended</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>RAM</strong></td>
-<td>2 GB</td>
-<td>4 GB</td>
-</tr>
-<tr>
-<td><strong>CPU</strong></td>
-<td>2 cores</td>
-<td>4 cores</td>
-</tr>
-<tr>
-<td><strong>Storage</strong></td>
-<td>20 GB</td>
-<td>50 GB SSD</td>
-</tr>
-<tr>
-<td><strong>OS</strong></td>
-<td>Ubuntu 20.04 LTS</td>
-<td>Ubuntu 22.04 LTS</td>
-</tr>
-</tbody>
-</table>
-<h3 id="step-1-server-setup">Step 1: Server Setup</h3>
-<p>```bash</p>
-<h1 id="update-system">Update system</h1>
-<p>sudo apt update &amp;&amp; sudo apt upgrade -y</p>
-<h1 id="install-dependencies">Install dependencies</h1>
-<p>sudo apt install -y python3.10 python3.10-venv python3-pip
-sudo apt install -y postgresql postgresql-contrib nginx
-sudo apt install -y git curl</p>
-<h1 id="create-application-user">Create application user</h1>
-<p>sudo useradd -m -s /bin/bash portalrh
-```</p>
-<h3 id="step-2-database-setup">Step 2: Database Setup</h3>
-<p>```bash</p>
-<h1 id="access-postgresql">Access PostgreSQL</h1>
-<p>sudo -u postgres psql</p>
-<h1 id="create-database-and-user">Create database and user</h1>
-<p>CREATE DATABASE portalrh;
-CREATE USER portalrh_user WITH PASSWORD 'secure_password';
-ALTER ROLE portalrh_user SET client_encoding TO 'utf8';
-ALTER ROLE portalrh_user SET default_transaction_isolation TO 'read committed';
-ALTER ROLE portalrh_user SET timezone TO 'UTC';
-GRANT ALL PRIVILEGES ON DATABASE portalrh TO portalrh_user;
-\q
-```</p>
-<h3 id="step-3-application-setup">Step 3: Application Setup</h3>
-<p>```bash</p>
-<h1 id="clone-repository">Clone repository</h1>
-<p>sudo -u portalrh -i
-git clone https://github.com/GabrielDLobo/01-PortalRH.git /home/portalrh/portalrh
-cd /home/portalrh/portalrh</p>
-<h1 id="create-virtual-environment">Create virtual environment</h1>
-<p>python3 -m venv venv
-source venv/bin/activate</p>
-<h1 id="install-dependencies_1">Install dependencies</h1>
-<p>pip install --upgrade pip
-pip install -r requirements.txt
-pip install gunicorn
-```</p>
-<h3 id="step-4-environment-configuration">Step 4: Environment Configuration</h3>
-<p>```bash</p>
-<h1 id="create-env-file">Create .env file</h1>
-<p>nano /home/portalrh/portalrh/.env
-```</p>
-<p><code>env
-SECRET_KEY=&lt;production-secret-key&gt;
-DEBUG=False
-DATABASE_URL=postgres://portalrh_user:secure_password@localhost:5432/portalrh
-ALLOWED_HOSTS=your-domain.com,www.your-domain.com,&lt;server-ip&gt;
-CSRF_TRUSTED_ORIGINS=https://your-domain.com</code></p>
-<h3 id="step-5-database-migrations">Step 5: Database Migrations</h3>
-<p><code>bash
-source venv/bin/activate
-python manage.py migrate
-python manage.py collectstatic --noinput
-python manage.py createsuperuser</code></p>
-<h3 id="step-6-gunicorn-service">Step 6: Gunicorn Service</h3>
-<p>```bash</p>
-<h1 id="create-systemd-service">Create systemd service</h1>
-<p>sudo nano /etc/systemd/system/portalrh.service
-```</p>
-<p>```ini
-[Unit]
-Description=PortalRH Gunicorn daemon
-After=network.target</p>
-<p>[Service]
-User=portalrh
-Group=www-data
-WorkingDirectory=/home/portalrh/portalrh
-ExecStart=/home/portalrh/portalrh/venv/bin/gunicorn \
-    --access-logfile - \
-    --workers 4 \
-    --bind unix:/home/portalrh/portalrh/portalrh.sock \
-    app.wsgi:application</p>
-<p>[Install]
-WantedBy=multi-user.target
-```</p>
-<p>```bash</p>
-<h1 id="start-and-enable-service">Start and enable service</h1>
-<p>sudo systemctl start portalrh
-sudo systemctl enable portalrh
-sudo systemctl status portalrh
-```</p>
-<h3 id="step-7-nginx-configuration">Step 7: Nginx Configuration</h3>
-<p>```bash</p>
-<h1 id="create-nginx-config">Create Nginx config</h1>
-<p>sudo nano /etc/nginx/sites-available/portalrh
-```</p>
-<p>```nginx
-server {
-    listen 80;
-    server_name your-domain.com www.your-domain.com;</p>
-<pre><code>location = /favicon.ico { access_log off; log_not_found off; }
-
-location /static/ {
-    alias /home/portalrh/portalrh/staticfiles/;
-}
-
-location /media/ {
-    alias /home/portalrh/portalrh/media/;
-}
-
-location / {
-    include proxy_params;
-    proxy_pass http://unix:/home/portalrh/portalrh/portalrh.sock;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
-}
-</code></pre>
-<p>}
-```</p>
-<p>```bash</p>
-<h1 id="enable-site">Enable site</h1>
-<p>sudo ln -s /etc/nginx/sites-available/portalrh /etc/nginx/sites-enabled
-sudo nginx -t
-sudo systemctl restart nginx
-```</p>
-<h3 id="step-8-ssl-certificate-lets-encrypt">Step 8: SSL Certificate (Let's Encrypt)</h3>
-<p>```bash</p>
-<h1 id="install-certbot">Install Certbot</h1>
-<p>sudo apt install -y certbot python3-certbot-nginx</p>
-<h1 id="obtain-certificate">Obtain certificate</h1>
-<p>sudo certbot --nginx -d your-domain.com -d www.your-domain.com</p>
-<h1 id="auto-renewal-is-configured-automatically">Auto-renewal is configured automatically</h1>
-<h1 id="test-renewal">Test renewal</h1>
-<p>sudo certbot renew --dry-run
-```</p>
-<hr />
-<h2 id="production-settings">📊 Production Settings</h2>
-<h3 id="security-settings">Security Settings</h3>
-<p>```python</p>
-<h1 id="appsettingspy">app/settings.py</h1>
-<p>DEBUG = False</p>
-<h1 id="security">Security</h1>
-<p>SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_SECONDS = 31536000
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-X_FRAME_OPTIONS = 'DENY'</p>
-<h1 id="allowed-hosts">Allowed hosts</h1>
-<p>ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])</p>
-<h1 id="cors-update-for-production">CORS (update for production)</h1>
-<p>CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=[])
-```</p>
-<h3 id="database-settings">Database Settings</h3>
-<p>```python</p>
-<h1 id="use-postgresql-in-production">Use PostgreSQL in production</h1>
-<p>DATABASES = {
-    'default': env.db('DATABASE_URL')
-}
-```</p>
-<h3 id="logging">Logging</h3>
-<p><code>python
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-            'style': '{',
-        },
-    },
-    'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': '/var/log/portalrh/django.log',
-            'formatter': 'verbose',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-    },
-}</code></p>
-<hr />
-<h2 id="deployment-workflow">🔄 Deployment Workflow</h2>
-<h3 id="automated-deployment-script">Automated Deployment Script</h3>
-<p>```bash</p>
-<h1 id="binbash">!/bin/bash</h1>
-<h1 id="deploysh">deploy.sh</h1>
-<p>set -e</p>
-<p>echo "🚀 Starting deployment..."</p>
-<h1 id="pull-latest-changes">Pull latest changes</h1>
-<p>echo "📥 Pulling latest changes..."
-git pull origin main</p>
-<h1 id="activate-virtual-environment">Activate virtual environment</h1>
-<p>source venv/bin/activate</p>
-<h1 id="install-dependencies_2">Install dependencies</h1>
-<p>echo "📦 Installing dependencies..."
-pip install -r requirements.txt</p>
-<h1 id="run-migrations_1">Run migrations</h1>
-<p>echo "🗄️  Running migrations..."
-python manage.py migrate</p>
-<h1 id="collect-static-files_1">Collect static files</h1>
-<p>echo "📁 Collecting static files..."
-python manage.py collectstatic --noinput</p>
-<h1 id="restart-gunicorn">Restart Gunicorn</h1>
-<p>echo "🔄 Restarting Gunicorn..."
-sudo systemctl restart portalrh</p>
-<h1 id="clear-cache-if-using-redis">Clear cache (if using Redis)</h1>
-<h1 id="redis-cli-flushall">redis-cli FLUSHALL</h1>
-<p>echo "✅ Deployment complete!"
-```</p>
-<h3 id="usage">Usage</h3>
-<p><code>bash
-chmod +x deploy.sh
-./deploy.sh</code></p>
-<hr />
-<h2 id="monitoring-logging">📈 Monitoring &amp; Logging</h2>
-<h3 id="application-monitoring">Application Monitoring</h3>
-<p>```bash</p>
-<h1 id="install-monitoring-tools">Install monitoring tools</h1>
-<p>pip install sentry-sdk</p>
-<h1 id="configure-sentry">Configure Sentry</h1>
-<h1 id="appsettingspy_1">app/settings.py</h1>
-<p>import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration</p>
-<p>sentry_sdk.init(
-    dsn=env('SENTRY_DSN'),
-    integrations=[DjangoIntegration()],
-    traces_sample_rate=1.0,
-    send_default_pii=True
-)
-```</p>
-<h3 id="log-rotation">Log Rotation</h3>
-<p>```bash</p>
-<h1 id="etclogrotatedportalrh">/etc/logrotate.d/portalrh</h1>
-<p>/var/log/portalrh/*.log {
-    daily
-    missingok
-    rotate 14
-    compress
-    delaycompress
-    notifempty
-    create 0640 portalrh www-data
-    sharedscripts
-    postrotate
-        systemctl reload portalrh
-    endscript
-}
-```</p>
-<hr />
-<h2 id="backup-strategy">💾 Backup Strategy</h2>
-<h3 id="database-backup-script">Database Backup Script</h3>
-<p>```bash</p>
-<h1 id="binbash_1">!/bin/bash</h1>
-<h1 id="backupsh">backup.sh</h1>
-<p>DATE=$(date +%Y%m%d_%H%M%S)
-BACKUP_DIR="/backups/portalrh"
-DB_NAME="portalrh"
-DB_USER="portalrh_user"</p>
-<h1 id="create-backup-directory">Create backup directory</h1>
-<p>mkdir -p $BACKUP_DIR</p>
-<h1 id="backup-database">Backup database</h1>
-<p>pg_dump -U $DB_USER $DB_NAME | gzip &gt; $BACKUP_DIR/db_$DATE.sql.gz</p>
-<h1 id="backup-media-files">Backup media files</h1>
-<p>tar -czf $BACKUP_DIR/media_$DATE.tar.gz /home/portalrh/portalrh/media/</p>
-<h1 id="delete-backups-older-than-30-days">Delete backups older than 30 days</h1>
-<p>find $BACKUP_DIR -name "*.gz" -mtime +30 -delete</p>
-<p>echo "Backup completed: $DATE"
-```</p>
-<h3 id="cron-job">Cron Job</h3>
-<p>```bash</p>
-<h1 id="add-to-crontab-daily-at-2-am">Add to crontab (daily at 2 AM)</h1>
-<p>0 2 * * * /home/portalrh/portalrh/backup.sh
-```</p>
-<hr />
-<h2 id="rollback-procedure">🔧 Rollback Procedure</h2>
-<h3 id="rollback-script">Rollback Script</h3>
-<p>```bash</p>
-<h1 id="binbash_2">!/bin/bash</h1>
-<h1 id="rollbacksh">rollback.sh</h1>
-<p>set -e</p>
-<p>echo "🔄 Starting rollback..."</p>
-<h1 id="get-previous-commit">Get previous commit</h1>
-<p>PREVIOUS_COMMIT=$(git rev-parse HEAD~1)</p>
-<h1 id="checkout-previous-version">Checkout previous version</h1>
-<p>git checkout $PREVIOUS_COMMIT</p>
-<h1 id="activate-virtual-environment_1">Activate virtual environment</h1>
-<p>source venv/bin/activate</p>
-<h1 id="install-dependencies-from-previous-version">Install dependencies from previous version</h1>
-<p>pip install -r requirements.txt</p>
-<h1 id="run-migrations-django-handles-rollback">Run migrations (Django handles rollback)</h1>
-<p>python manage.py migrate</p>
-<h1 id="collect-static-files_2">Collect static files</h1>
-<p>python manage.py collectstatic --noinput</p>
-<h1 id="restart-service">Restart service</h1>
-<p>sudo systemctl restart portalrh</p>
-<p>echo "✅ Rollback complete to commit: $PREVIOUS_COMMIT"
-```</p>
-<hr />
-<h2 id="troubleshooting">🚨 Troubleshooting</h2>
-<h3 id="common-issues">Common Issues</h3>
-<p><strong>502 Bad Gateway:</strong>
-```bash</p>
-<h1 id="check-if-gunicorn-is-running">Check if Gunicorn is running</h1>
-<p>sudo systemctl status portalrh</p>
-<h1 id="check-socket-permissions">Check socket permissions</h1>
-<p>ls -la /home/portalrh/portalrh/portalrh.sock</p>
-<h1 id="restart-services">Restart services</h1>
-<p>sudo systemctl restart portalrh
-sudo systemctl restart nginx
-```</p>
-<p><strong>Static files not loading:</strong>
-```bash</p>
-<h1 id="verify-static-files-location">Verify static files location</h1>
-<p>ls -la /home/portalrh/portalrh/staticfiles/</p>
-<h1 id="check-nginx-configuration">Check Nginx configuration</h1>
-<p>sudo nginx -t</p>
-<h1 id="clear-browser-cache">Clear browser cache</h1>
-<p>```</p>
-<p><strong>Database connection error:</strong>
-```bash</p>
-<h1 id="check-postgresql-status">Check PostgreSQL status</h1>
-<p>sudo systemctl status postgresql</p>
-<h1 id="verify-database_url">Verify DATABASE_URL</h1>
-<p>cat .env | grep DATABASE_URL</p>
-<h1 id="test-connection">Test connection</h1>
-<p>psql $DATABASE_URL
-```</p>
-<hr />
-<h2 id="post-deployment-checklist">📋 Post-Deployment Checklist</h2>
-<p>After deployment:</p>
+docker-compose build
+docker-compose up -d
+docker-compose logs -f</code></p>
+<h2 id="production-essentials">Production Essentials</h2>
 <ul>
-<li>[ ] Verify all endpoints are accessible</li>
-<li>[ ] Test authentication flow</li>
-<li>[ ] Check error pages</li>
-<li>[ ] Verify SSL certificate</li>
-<li>[ ] Test file uploads</li>
-<li>[ ] Check email functionality</li>
-<li>[ ] Monitor error logs</li>
-<li>[ ] Verify backup jobs</li>
-<li>[ ] Test rollback procedure</li>
-<li>[ ] Update DNS records</li>
+<li><code>DEBUG=False</code></li>
+<li>strong <code>SECRET_KEY</code></li>
+<li>PostgreSQL configured</li>
+<li>HTTPS enabled</li>
+<li>static and media persistence configured</li>
 </ul>
-<hr />
-<p><strong>Next:</strong> <a href="contributing.html">Contributing</a></p>
+<h2 id="post-deploy-checklist">Post-Deploy Checklist</h2>
+<ul>
+<li>Health endpoint responding</li>
+<li>Admin login working</li>
+<li>API docs accessible</li>
+<li>Logs monitored</li>
+</ul>
 
 
 
