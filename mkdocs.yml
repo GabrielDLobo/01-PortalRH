@@ -38,6 +38,7 @@ nav:
   - Authentication and Security: authentication.md
   - Deployment: deployment.md
   - Contributing: contributing.md
+  - Project Images: project-images.md
   - Release Notes: release-notes.md
 
 plugins:
