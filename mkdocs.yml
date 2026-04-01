@@ -1,13 +1,8 @@
 site_name: PortalRH Documentation
 site_description: Human Resources Management System documentation
 site_author: GabrielDLobo
-site_url: https://gabrieldlobo.github.io/01-PortalRH/
-repo_name: GabrielDLobo/01-PortalRH
-repo_url: https://github.com/GabrielDLobo/01-PortalRH
-edit_uri: edit/master/docs/
 
 docs_dir: docs
-site_dir: site
 
 theme:
   name: material
