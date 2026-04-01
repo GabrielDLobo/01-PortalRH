@@ -6,6 +6,8 @@ A production-ready **Human Resources Management System** built with **Django RES
 
 Full project documentation is available at:
 
+<a href="./docs/" target="_blank" rel="noopener noreferrer"><strong>Open Documentation (docs/)</strong></a>
+
 - **Local preview:**
   ```bash
   mkdocs serve -a 127.0.0.1:8011
