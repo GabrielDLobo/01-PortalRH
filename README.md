@@ -1,193 +1,302 @@
 # PortalRH — Human Resources Management System
 
-A production-ready **Human Resources Management System** built with **Django REST Framework** and **React + TypeScript**. Manage employees, leave requests, evaluations, admissions, terminations, and more with advanced analytics and reporting capabilities.
+<div align="center">
 
-## Documentation
+[![License](https://img.shields.io/badge/license-Private-green)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-5.2-green.svg)](https://www.djangoproject.com/)
+[![React](https://img.shields.io/badge/React-19-61dafb.svg)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue.svg)](https://www.typescriptlang.org/)
 
-Full project documentation is available at:
+**A comprehensive HR Management System built with Django REST Framework and React + TypeScript**
 
-- **Published docs (outside GitHub tree):**
-  https://htmlpreview.github.io/?https://raw.githubusercontent.com/GabrielDLobo/01-PortalRH/master/site/index.html
+[Documentation](https://gabrieldlobo.github.io/01-PortalRH/) | [API Docs](https://github.com/GabrielDLobo/01-PortalRH#-api-documentation) | [Report Bug](https://github.com/GabrielDLobo/01-PortalRH/issues)
 
-- **Docs source (repository):**
-  https://github.com/GabrielDLobo/01-PortalRH/tree/master/docs
+</div>
 
-- **Local preview:**
-  ```bash
-  mkdocs serve -a 127.0.0.1:8011
-  ```
-  Open: http://127.0.0.1:8011/
+---
 
-- **Docs source:**
-  Edit markdown pages in `docs/` and navigation in `mkdocs.yml`.
+## 📖 Documentation
 
-## Key Features
+**👉 For complete documentation, visit:**
 
-- **Employee Management**
-  - Complete employee profiles
-  - Document management and uploads
-  - Department and position tracking
-  - Hire date and contract information
+### [📚 PortalRH Documentation Site](https://gabrieldlobo.github.io/01-PortalRH/)
 
-- **Leave Management**
-  - Leave request submission and approval workflow
-  - Leave balance tracking
-  - Multiple leave types support
-  - Streamlined time-off requests
+The documentation includes:
 
-- **Performance Reviews**
-  - Structured evaluation system
-  - Performance ratings and feedback
-  - Goals & objectives tracking
-  - Development areas identification
+- 🚀 [Quick Start Guide](https://gabrieldlobo.github.io/01-PortalRH/quick-start.html)
+- 📦 [Installation Guide](https://gabrieldlobo.github.io/01-PortalRH/installation.html)
+- ⚙️ [Configuration](https://gabrieldlobo.github.io/01-PortalRH/configuration.html)
+- 📝 [API Reference](https://gabrieldlobo.github.io/01-PortalRH/api-endpoints.html)
+- 🏗️ [System Architecture](https://gabrieldlobo.github.io/01-PortalRH/system-modeling.html)
+- 🔐 [Security Guide](https://gabrieldlobo.github.io/01-PortalRH/authentication.html)
+- 🧪 [Testing](https://gabrieldlobo.github.io/01-PortalRH/testing.html)
+- 🚀 [Deployment](https://gabrieldlobo.github.io/01-PortalRH/deployment.html)
+- 🤝 [Contributing](https://gabrieldlobo.github.io/01-PortalRH/contributing.html)
 
-- **Admission Process**
-  - Pre-admission RH workflows
-  - Department assignment
-  - New hire onboarding
-  - Document verification
+---
 
-- **Termination Management**
-  - Termination request and approval
-  - Notice period tracking
-  - Severance process management
-  - Exit documentation
+## 🎯 Quick Overview
 
-- **Reports & Analytics**
-  - Employee data reports
-  - Leave analytics
-  - Termination reports
-  - Performance summary reports
-  - Export to PDF and Excel
+PortalRH is a production-ready **Human Resources Management System** that provides:
 
-- **Staff Management**
-  - Team and department organization
-  - Staff hierarchy
-  - Role-based access control
+| Feature | Description |
+|---------|-------------|
+| 👥 **Employee Management** | Complete profiles, documents, and admission tracking |
+| 🏖️ **Leave Management** | Request workflow, balance tracking, approvals |
+| 📊 **Performance Reviews** | Evaluations, templates, cycles, and 360° feedback |
+| 📋 **Admission Process** | Pre-admission RH, onboarding, document verification |
+| 🚪 **Termination** | Termination requests, approvals, and documentation |
+| 📈 **Reports & Analytics** | Generate reports, export to PDF/Excel, scheduling |
+| 👔 **Staff Management** | Department organization and hierarchy |
 
-## Tech Stack
+---
 
-- **Backend:** Python / Django 5.2
-- **Frontend:** React 19 + TypeScript
-- **API:** Django REST Framework
-- **Database:** PostgreSQL (production) / SQLite (development)
-- **Documentation:** MkDocs + Material Theme
-- **Styling:** TailwindCSS
+## 🛠️ Tech Stack
 
-## Project Structure (high-level)
+<div align="center">
 
-- `app/` — Django project configuration (settings/urls) and main views
-- `accounts/` — User authentication and authorization
-- `employees/` — Employee profiles and document management
-- `leave_requests/` — Leave management module
-- `evaluations/` — Performance reviews and evaluations
-- `accounts/` — Admin accounts and access control
-- `staff/` — Staff and team management
-- `termination/` — Employee termination processes
-- `reports/` — Analytics and reporting
-- `frontend/` — React TypeScript frontend application
-- `docs/` — Full project documentation
+| Backend | Frontend | Database | DevOps |
+|---------|----------|----------|--------|
+| ![Django](https://img.shields.io/badge/Django-5.2-092E20?logo=django) | ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react) | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?logo=postgresql) | ![Docker](https://img.shields.io/badge/Docker-Latest-2496ED?logo=docker) |
+| ![DRF](https://img.shields.io/badge/DRF-3.16-A30000?logo=django) | ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript) | ![SQLite](https://img.shields.io/badge/SQLite-3-07405E?logo=sqlite) | ![Nginx](https://img.shields.io/badge/Nginx-Latest-009639?logo=nginx) |
 
-## Main Routes (typical)
+</div>
 
-- `GET /api/v1/auth/login/` — Login endpoint
-- `POST /api/v1/auth/login/` — Login submit
-- `GET /api/v1/employees/` — List employees
-- `GET /api/v1/leave-requests/` — Leave requests
-- `GET /api/v1/evaluations/` — Performance evaluations
-- `GET /api/v1/reports/` — Generate reports
+---
 
-> Other routes depend on each module (departments, staff, terminations, etc.).
+## 🚀 Quick Start
 
-## Getting Started (development)
+### Prerequisites
 
-### 1) Clone and create a virtual environment
+- Python 3.10+
+- Node.js 18+
+- PostgreSQL 15+ (optional for development)
+
+### Installation
 
 ```bash
+# Clone repository
 git clone https://github.com/GabrielDLobo/01-PortalRH.git
 cd 01-PortalRH
 
+# Create virtual environment
 python -m venv venv
-# Linux/Mac:
-source venv/bin/activate
-# Windows:
-venv\Scripts\activate
-```
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate  # Windows
 
-### 2) Install dependencies
-
-```bash
+# Install dependencies
 pip install -r requirements.txt
-```
+cd frontend && npm install && cd ..
 
-### 3) Configure environment variables
+# Configure environment
+cp .env.example .env
 
-Create a `.env` file in the project root:
-
-```env
-SECRET_KEY=your-secret-key-here
-DEBUG=True
-ALLOWED_HOSTS=localhost,127.0.0.1
-DATABASE_URL=sqlite:///db.sqlite3
-```
-
-### 4) Run migrations and create an admin user
-
-```bash
+# Run migrations
 python manage.py migrate
 python manage.py createsuperuser
+
+# Start servers
+python manage.py runserver  # Terminal 1
+cd frontend && npm run dev  # Terminal 2
 ```
 
-### 5) Run the backend server
+**👉 For detailed instructions, see the [Installation Guide](https://gabrieldlobo.github.io/01-PortalRH/installation.html)**
 
-```bash
-python manage.py runserver
+---
+
+## 📁 Project Structure
+
+```
+01-PortalRH/
+├── app/                 # Django project configuration
+├── accounts/            # User authentication & authorization
+├── employees/           # Employee management & documents
+├── leave_requests/      # Leave request workflow
+├── evaluations/         # Performance evaluations
+├── termination/         # Termination management
+├── staff/               # Staff & department management
+├── reports/             # Reports & analytics
+├── frontend/            # React TypeScript application
+├── docs/                # Project documentation
+├── media/               # User-uploaded files
+└── docker-compose.yml   # Docker configuration
 ```
 
-Open: http://127.0.0.1:8000/
+---
 
-### 6) Run the frontend (separate terminal)
+## 🔗 API Documentation
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+### Interactive API Docs
 
-Open: http://localhost:3000/
+Once the backend is running, access:
 
-## Project Images
+- **Swagger UI:** http://localhost:8000/api/docs/
+- **ReDoc:** http://localhost:8000/api/redoc/
+- **OpenAPI Schema:** http://localhost:8000/api/schema/
 
-### Login & Dashboard
+### Main Endpoints
 
-![Screenshot 1](media/projecting/1.png)
-![Screenshot 2](media/projecting/2.png)
-![Screenshot 3](media/projecting/3.png)
+| Endpoint | Description |
+|----------|-------------|
+| `POST /api/v1/accounts/login/` | User authentication |
+| `GET /api/v1/employees/` | List employees |
+| `POST /api/v1/leave-requests/` | Submit leave request |
+| `GET /api/v1/evaluations/` | List evaluations |
+| `POST /api/v1/reports/templates/{id}/execute/` | Generate report |
+
+**👉 For complete API reference, see [API Endpoints](https://gabrieldlobo.github.io/01-PortalRH/api-endpoints.html)**
+
+---
+
+## 📸 Screenshots
+
+### Dashboard & Authentication
+
+| Login | Dashboard |
+|-------|-----------|
+| ![Login](media/projecting/1.png) | ![Dashboard](media/projecting/2.png) |
 
 ### Employee Management
 
-![Screenshot 4](media/projecting/4.png)
-![Screenshot 5](media/projecting/5.png)
-![Screenshot 6](media/projecting/6.png)
+| Employee List | Employee Detail |
+|---------------|-----------------|
+| ![Employees](media/projecting/4.png) | ![Employee Detail](media/projecting/5.png) |
 
 ### Reports & Analytics
 
-![Screenshot 7](media/projecting/7.png)
-![Screenshot 8](media/projecting/8.png)
-![Screenshot 9](media/projecting/9.png)
+| Reports | Analytics |
+|---------|-----------|
+| ![Reports](media/projecting/7.png) | ![Analytics](media/projecting/8.png) |
 
-### Administration
+---
 
-![Screenshot 10](media/projecting/10.png)
-![Screenshot 11](media/projecting/11.png)
-![Screenshot 12](media/projecting/12.png)
+## 🏗️ System Architecture
 
-### Additional Features
+```mermaid
+graph TB
+    subgraph Client
+        Browser[Web Browser]
+    end
+    
+    subgraph Frontend
+        React[React 19 + TypeScript]
+    end
+    
+    subgraph Backend
+        Django[Django 5.2 + DRF]
+    end
+    
+    subgraph Database
+        PostgreSQL[(PostgreSQL)]
+    end
+    
+    Browser --> React
+    React --> Django
+    Django --> PostgreSQL
+```
 
-![Screenshot 13](media/projecting/13.png)
-![Screenshot 14](media/projecting/14.png)
-![Screenshot 15](media/projecting/15.png)
+**👉 For detailed architecture, see [System Modeling](https://gabrieldlobo.github.io/01-PortalRH/system-modeling.html)**
 
-## License
+---
 
-Private repository for internal use.
+## 🔐 Security Features
+
+- ✅ JWT-based authentication
+- ✅ Role-based access control (RBAC)
+- ✅ CORS protection
+- ✅ CSRF protection
+- ✅ Input validation
+- ✅ Password hashing (PBKDF2)
+- ✅ HTTPS support
+
+**👉 For security details, see [Authentication Guide](https://gabrieldlobo.github.io/01-PortalRH/authentication.html)**
+
+---
+
+## 🧪 Testing
+
+### Backend Tests
+
+```bash
+pytest
+pytest --cov=app --cov-report=html
+```
+
+### Frontend Tests
+
+```bash
+cd frontend
+npm test
+npm test -- --coverage
+```
+
+**👉 For testing guide, see [Testing Documentation](https://gabrieldlobo.github.io/01-PortalRH/testing.html)**
+
+---
+
+## 🐳 Docker Deployment
+
+```bash
+# Start all services
+docker compose up -d
+
+# View logs
+docker compose logs -f
+
+# Run migrations
+docker compose exec backend python manage.py migrate
+
+# Create superuser
+docker compose exec backend python manage.py createsuperuser
+```
+
+**👉 For deployment guide, see [Deployment Documentation](https://gabrieldlobo.github.io/01-PortalRH/deployment.html)**
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](https://gabrieldlobo.github.io/01-PortalRH/contributing.html) for details.
+
+### Ways to Contribute
+
+- 🐛 Report bugs
+- ✨ Suggest features
+- 📝 Improve documentation
+- 💻 Submit pull requests
+- 🧪 Write tests
+- 💡 Share ideas
+
+---
+
+## 📋 License
+
+This project is private and for internal use only.
+
+---
+
+## 👨‍💻 Author
+
+**GabrielDLobo**
+
+- GitHub: [@GabrielDLobo](https://github.com/GabrielDLobo)
+- LinkedIn: [Gabriel D'Lobo](https://linkedin.com/in/gabrieldlobo)
+
+---
+
+## 📞 Support
+
+- **Documentation:** [PortalRH Docs](https://gabrieldlobo.github.io/01-PortalRH/)
+- **Issues:** [GitHub Issues](https://github.com/GabrielDLobo/01-PortalRH/issues)
+- **API Docs:** `/api/docs/` or `/api/redoc/`
+
+---
+
+<div align="center">
+
+**If you find this project helpful, please consider giving it a ⭐!**
+
+[Back to top](#portalrh--human-resources-management-system)
+
+</div>

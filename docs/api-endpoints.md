@@ -1,453 +1,167 @@
 # API Endpoints
 
-Complete reference for the Inventory Management System REST API.
-
-## Table of Contents
-
-1. [API Overview](#api-overview)
-2. [Authentication](#authentication)
-3. [Brands](#brands)
-4. [Categories](#categories)
-5. [Suppliers](#suppliers)
-6. [Products](#products)
-7. [Inflows](#inflows)
-8. [Outflows](#outflows)
-9. [Error Handling](#error-handling)
-10. [Pagination](#pagination)
+Complete API reference documentation for PortalRH REST API.
 
 ---
 
-## API Overview
+## 📋 Overview
 
-### Base URL
-
-```
-Development: http://localhost:8000/api/v1/
-Production: https://yourdomain.com/api/v1/
-```
-
-### Content Type
-
-All requests and responses use JSON format:
-
-```
-Content-Type: application/json
-```
-
-### HTTP Methods
-
-| Method | Description |
-|--------|-------------|
-| `GET` | Retrieve resource(s) |
-| `POST` | Create new resource |
-| `PUT` | Update entire resource |
-| `PATCH` | Partial update |
-| `DELETE` | Delete resource |
+- **Base URL:** `/api/v1/`
+- **Authentication:** JWT Bearer Token
+- **Content Type:** `application/json`
+- **API Documentation:** `/api/docs/` (Swagger UI) or `/api/redoc/` (ReDoc)
 
 ---
 
-## Authentication
+## 🔐 Authentication
 
-### Obtain JWT Token
+### Obtain Token
 
-**Endpoint:** `POST /api/v1/authentication/token/`
+**POST** `/api/v1/accounts/login/`
+
+Authenticate user and obtain access/refresh tokens.
 
 **Request:**
 ```json
 {
-  "username": "admin",
-  "password": "yourpassword"
+  "email": "user@example.com",
+  "password": "securepassword"
 }
 ```
 
 **Response:**
 ```json
 {
-  "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
-  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": 1,
+    "email": "user@example.com",
+    "username": "johndoe",
+    "role": "admin_rh"
+  }
 }
-```
-
-**Usage:**
-Include the access token in the Authorization header:
-
-```
-Authorization: Bearer <access_token>
 ```
 
 ---
 
 ### Refresh Token
 
-**Endpoint:** `POST /api/v1/authentication/token/refresh/`
+**POST** `/api/v1/accounts/token/refresh/`
+
+Refresh access token using refresh token.
 
 **Request:**
 ```json
 {
-  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 ```
 
 **Response:**
 ```json
 {
-  "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 ```
 
 ---
 
-### Verify Token
+### Register User
 
-**Endpoint:** `POST /api/v1/authentication/token/verify/`
+**POST** `/api/v1/accounts/register/`
+
+Create a new user account.
 
 **Request:**
 ```json
 {
-  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
-}
-```
-
-**Response:**
-```
-200 OK (if valid)
-401 Unauthorized (if invalid)
-```
-
----
-
-## Brands
-
-### List Brands
-
-**Endpoint:** `GET /api/v1/brands/`
-
-**Headers:**
-```
-Authorization: Bearer <token>
-```
-
-**Query Parameters:**
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `page` | int | 1 | Page number |
-| `search` | string | - | Search by name |
-| `ordering` | string | `name` | Field to order by |
-
-**Response:**
-```json
-{
-  "count": 50,
-  "next": "http://localhost:8000/api/v1/brands/?page=2",
-  "previous": null,
-  "results": [
-    {
-      "id": 1,
-      "name": "Samsung",
-      "description": "Electronics brand",
-      "created_at": "2024-01-15T10:30:00Z",
-      "updated_at": "2024-01-15T10:30:00Z"
-    }
-  ]
+  "email": "user@example.com",
+  "username": "johndoe",
+  "password": "securepassword",
+  "role": "funcionario"
 }
 ```
 
 ---
 
-### Create Brand
+### Get Profile
 
-**Endpoint:** `POST /api/v1/brands/`
+**GET** `/api/v1/accounts/profile/`
 
-**Request:**
-```json
-{
-  "name": "LG",
-  "description": "Korean electronics manufacturer"
-}
-```
-
-**Response:**
-```json
-{
-  "id": 2,
-  "name": "LG",
-  "description": "Korean electronics manufacturer",
-  "created_at": "2024-01-16T14:20:00Z",
-  "updated_at": "2024-01-16T14:20:00Z"
-}
-```
-
----
-
-### Get Brand
-
-**Endpoint:** `GET /api/v1/brands/<id>/`
+Get current user profile information.
 
 **Response:**
 ```json
 {
   "id": 1,
-  "name": "Samsung",
-  "description": "Electronics brand",
-  "created_at": "2024-01-15T10:30:00Z",
-  "updated_at": "2024-01-15T10:30:00Z"
+  "email": "user@example.com",
+  "username": "johndoe",
+  "first_name": "John",
+  "last_name": "Doe",
+  "role": "admin_rh",
+  "is_active": true,
+  "created_at": "2024-01-01T00:00:00Z"
 }
 ```
 
 ---
 
-### Update Brand
+### Update Profile
 
-**Endpoint:** `PUT /api/v1/brands/<id>/` or `PATCH /api/v1/brands/<id>/`
+**PUT** `/api/v1/accounts/profile/`
+
+Update current user profile.
 
 **Request:**
 ```json
 {
-  "name": "Samsung Electronics",
-  "description": "Updated description"
-}
-```
-
-**Response:**
-```json
-{
-  "id": 1,
-  "name": "Samsung Electronics",
-  "description": "Updated description",
-  "created_at": "2024-01-15T10:30:00Z",
-  "updated_at": "2024-01-16T15:00:00Z"
+  "first_name": "John",
+  "last_name": "Doe",
+  "email": "newemail@example.com"
 }
 ```
 
 ---
 
-### Delete Brand
+## 👥 Employees API
 
-**Endpoint:** `DELETE /api/v1/brands/<id>/`
+### List Employees
 
-**Response:**
-```
-204 No Content
-```
+**GET** `/api/v1/employees/`
 
----
-
-## Categories
-
-### List Categories
-
-**Endpoint:** `GET /api/v1/categories/`
+Get all employees with pagination and filtering.
 
 **Query Parameters:**
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `page` | int | Page number |
-| `search` | string | Search by name |
-
-**Response:**
-```json
-{
-  "count": 30,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "id": 1,
-      "name": "Electronics",
-      "description": "Electronic devices and accessories",
-      "created_at": "2024-01-10T08:00:00Z",
-      "updated_at": "2024-01-10T08:00:00Z"
-    }
-  ]
-}
-```
-
----
-
-### Create Category
-
-**Endpoint:** `POST /api/v1/categories/`
-
-**Request:**
-```json
-{
-  "name": "Home Appliances",
-  "description": "Household appliances"
-}
-```
-
-**Response:**
-```json
-{
-  "id": 2,
-  "name": "Home Appliances",
-  "description": "Household appliances",
-  "created_at": "2024-01-16T14:30:00Z",
-  "updated_at": "2024-01-16T14:30:00Z"
-}
-```
-
----
-
-### Get Category
-
-**Endpoint:** `GET /api/v1/categories/<id>/`
-
-**Response:**
-```json
-{
-  "id": 1,
-  "name": "Electronics",
-  "description": "Electronic devices and accessories",
-  "created_at": "2024-01-10T08:00:00Z",
-  "updated_at": "2024-01-10T08:00:00Z"
-}
-```
-
----
-
-### Update Category
-
-**Endpoint:** `PUT /api/v1/categories/<id>/` or `PATCH /api/v1/categories/<id>/`
-
-**Request:**
-```json
-{
-  "name": "Consumer Electronics",
-  "description": "Updated description"
-}
-```
-
----
-
-### Delete Category
-
-**Endpoint:** `DELETE /api/v1/categories/<id>/`
-
-**Response:**
-```
-204 No Content
-```
-
----
-
-## Suppliers
-
-### List Suppliers
-
-**Endpoint:** `GET /api/v1/suppliers/`
-
-**Query Parameters:**
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `page` | int | Page number |
-| `search` | string | Search by name |
-
-**Response:**
-```json
-{
-  "count": 25,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "id": 1,
-      "name": "Tech Distributors Inc.",
-      "description": "Main electronics distributor",
-      "created_at": "2024-01-05T09:00:00Z",
-      "updated_at": "2024-01-05T09:00:00Z"
-    }
-  ]
-}
-```
-
----
-
-### Create Supplier
-
-**Endpoint:** `POST /api/v1/suppliers/`
-
-**Request:**
-```json
-{
-  "name": "Global Supplies Ltd.",
-  "description": "International supplier"
-}
-```
-
-**Response:**
-```json
-{
-  "id": 2,
-  "name": "Global Supplies Ltd.",
-  "description": "International supplier",
-  "created_at": "2024-01-16T14:45:00Z",
-  "updated_at": "2024-01-16T14:45:00Z"
-}
-```
-
----
-
-### Get Supplier
-
-**Endpoint:** `GET /api/v1/suppliers/<id>/`
-
----
-
-### Update Supplier
-
-**Endpoint:** `PUT /api/v1/suppliers/<id>/` or `PATCH /api/v1/suppliers/<id>/`
-
----
-
-### Delete Supplier
-
-**Endpoint:** `DELETE /api/v1/suppliers/<id>/`
-
----
-
-## Products
-
-### List Products
-
-**Endpoint:** `GET /api/v1/products/`
-
-**Query Parameters:**
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `page` | int | Page number |
-| `search` | string | Search by title |
-| `category` | int | Filter by category ID |
-| `brand` | int | Filter by brand ID |
-| `min_price` | decimal | Minimum price filter |
-| `max_price` | decimal | Maximum price filter |
+| `page_size` | int | Items per page |
+| `search` | string | Search by name or email |
+| `department` | string | Filter by department |
+| `status` | string | Filter by status |
 | `ordering` | string | Ordering field |
 
 **Response:**
 ```json
 {
-  "count": 150,
-  "next": "http://localhost:8000/api/v1/products/?page=2",
+  "count": 100,
+  "next": "/api/v1/employees/?page=2",
   "previous": null,
   "results": [
     {
       "id": 1,
-      "title": "Samsung Galaxy S23",
-      "category": {
-        "id": 1,
-        "name": "Electronics"
-      },
-      "brand": {
-        "id": 1,
-        "name": "Samsung"
-      },
-      "description": "Latest flagship smartphone",
-      "serie_number": "SN123456789",
-      "cost_price": "500.00",
-      "selling_price": "799.99",
-      "quantity": 50,
-      "created_at": "2024-01-10T10:00:00Z",
-      "updated_at": "2024-01-15T14:30:00Z"
+      "employee_id": "EMP-0001",
+      "user": 1,
+      "full_name": "John Doe",
+      "email": "john@example.com",
+      "cpf": "123.456.789-00",
+      "position": "Developer",
+      "department": "Engineering",
+      "hire_date": "2024-01-01",
+      "salary": "5000.00",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z"
     }
   ]
 }
@@ -455,292 +169,804 @@ Authorization: Bearer <token>
 
 ---
 
-### Create Product
+### Get Employee
 
-**Endpoint:** `POST /api/v1/products/`
+**GET** `/api/v1/employees/{id}/`
 
-**Request:**
-```json
-{
-  "title": "iPhone 15 Pro",
-  "category": 1,
-  "brand": 2,
-  "description": "Apple flagship phone",
-  "cost_price": "899.00",
-  "selling_price": "1199.00",
-  "quantity": 30
-}
-```
-
-**Response:**
-```json
-{
-  "id": 2,
-  "title": "iPhone 15 Pro",
-  "category": {
-    "id": 1,
-    "name": "Electronics"
-  },
-  "brand": {
-    "id": 2,
-    "name": "Apple"
-  },
-  "description": "Apple flagship phone",
-  "serie_number": null,
-  "cost_price": "899.00",
-  "selling_price": "1199.00",
-  "quantity": 30,
-  "created_at": "2024-01-16T15:00:00Z",
-  "updated_at": "2024-01-16T15:00:00Z"
-}
-```
-
----
-
-### Get Product
-
-**Endpoint:** `GET /api/v1/products/<id>/`
+Get detailed employee information.
 
 **Response:**
 ```json
 {
   "id": 1,
-  "title": "Samsung Galaxy S23",
-  "category": {
-    "id": 1,
-    "name": "Electronics"
-  },
-  "brand": {
-    "id": 1,
-    "name": "Samsung"
-  },
-  "description": "Latest flagship smartphone",
-  "serie_number": "SN123456789",
-  "cost_price": "500.00",
-  "selling_price": "799.99",
-  "quantity": 50,
-  "created_at": "2024-01-10T10:00:00Z",
-  "updated_at": "2024-01-15T14:30:00Z"
+  "employee_id": "EMP-0001",
+  "user": 1,
+  "full_name": "John Doe",
+  "email": "john@example.com",
+  "cpf": "123.456.789-00",
+  "rg": "12.345.678-9",
+  "birth_date": "1990-01-01",
+  "marital_status": "married",
+  "phone": "+55 11 99999-9999",
+  "street_address": "Rua Principal",
+  "address_number": "123",
+  "neighborhood": "Centro",
+  "city": "São Paulo",
+  "state": "SP",
+  "zip_code": "01000-000",
+  "pis_pasep": "12345678901",
+  "education_level": "undergraduate",
+  "bank_name": "Banco do Brasil",
+  "agency_number": "1234-5",
+  "account_number": "12345-6",
+  "department": "Engineering",
+  "position": "Developer",
+  "hire_date": "2024-01-01",
+  "salary": "5000.00",
+  "status": "active",
+  "created_at": "2024-01-01T00:00:00Z",
+  "updated_at": "2024-01-01T00:00:00Z"
 }
 ```
 
 ---
 
-### Update Product
+### Create Employee
 
-**Endpoint:** `PUT /api/v1/products/<id>/` or `PATCH /api/v1/products/<id>/`
+**POST** `/api/v1/employees/`
+
+Create a new employee.
 
 **Request:**
 ```json
 {
-  "title": "Samsung Galaxy S23 Ultra",
-  "selling_price": "899.99",
-  "quantity": 45
+  "full_name": "Jane Smith",
+  "email": "jane@example.com",
+  "cpf": "987.654.321-00",
+  "position": "Designer",
+  "department": "Marketing",
+  "hire_date": "2024-02-01",
+  "salary": "4500.00",
+  "status": "pending"
 }
 ```
 
 ---
 
-### Delete Product
+### Update Employee
 
-**Endpoint:** `DELETE /api/v1/products/<id>/`
+**PUT** `/api/v1/employees/{id}/`
 
-**Note:** Fails if product has related inflows/outflows (PROTECT constraint).
-
----
-
-## Inflows
-
-### List Inflows
-
-**Endpoint:** `GET /api/v1/inflows/`
-
-**Query Parameters:**
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `page` | int | Page number |
-| `supplier` | int | Filter by supplier ID |
-| `product` | int | Filter by product ID |
-| `date_from` | date | Start date filter |
-| `date_to` | date | End date filter |
-
-**Response:**
-```json
-{
-  "count": 100,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "id": 1,
-      "supplier": {
-        "id": 1,
-        "name": "Tech Distributors Inc."
-      },
-      "product": {
-        "id": 1,
-        "title": "Samsung Galaxy S23"
-      },
-      "quantity": 20,
-      "description": "Monthly restock",
-      "created_at": "2024-01-15T09:00:00Z",
-      "updated_at": "2024-01-15T09:00:00Z"
-    }
-  ]
-}
-```
-
----
-
-### Create Inflow
-
-**Endpoint:** `POST /api/v1/inflows/`
+Update employee information.
 
 **Request:**
 ```json
 {
-  "supplier": 1,
-  "product": 1,
-  "quantity": 50,
-  "description": "Emergency restock"
+  "position": "Senior Developer",
+  "salary": "6000.00",
+  "status": "active"
 }
 ```
+
+---
+
+### Delete Employee
+
+**DELETE** `/api/v1/employees/{id}/`
+
+Delete an employee.
+
+**Response:** `204 No Content`
+
+---
+
+### List Employee Documents
+
+**GET** `/api/v1/employees/{id}/documents/`
+
+Get all documents for an employee.
 
 **Response:**
 ```json
-{
-  "id": 2,
-  "supplier": {
+[
+  {
     "id": 1,
-    "name": "Tech Distributors Inc."
-  },
-  "product": {
-    "id": 1,
-    "title": "Samsung Galaxy S23"
-  },
-  "quantity": 50,
-  "description": "Emergency restock",
-  "created_at": "2024-01-16T10:00:00Z",
-  "updated_at": "2024-01-16T10:00:00Z"
-}
-```
-
-**Note:** Creating an inflow automatically updates the product quantity.
-
----
-
-### Get Inflow
-
-**Endpoint:** `GET /api/v1/inflows/<id>/`
-
----
-
-### Delete Inflow
-
-**Endpoint:** `DELETE /api/v1/inflows/<id>/`
-
-**Note:** Inflows cannot be updated (immutable record). Delete and create new if needed.
-
----
-
-## Outflows
-
-### List Outflows
-
-**Endpoint:** `GET /api/v1/outflows/`
-
-**Query Parameters:**
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `page` | int | Page number |
-| `product` | int | Filter by product ID |
-| `date_from` | date | Start date filter |
-| `date_to` | date | End date filter |
-
-**Response:**
-```json
-{
-  "count": 200,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "id": 1,
-      "product": {
-        "id": 1,
-        "title": "Samsung Galaxy S23"
-      },
-      "quantity": 5,
-      "description": "Sale to customer #1234",
-      "created_at": "2024-01-15T14:30:00Z",
-      "updated_at": "2024-01-15T14:30:00Z"
-    }
-  ]
-}
-```
-
----
-
-### Create Outflow
-
-**Endpoint:** `POST /api/v1/outflows/`
-
-**Request:**
-```json
-{
-  "product": 1,
-  "quantity": 10,
-  "description": "Bulk sale"
-}
-```
-
-**Response:**
-```json
-{
-  "id": 2,
-  "product": {
-    "id": 1,
-    "title": "Samsung Galaxy S23"
-  },
-  "quantity": 10,
-  "description": "Bulk sale",
-  "created_at": "2024-01-16T11:00:00Z",
-  "updated_at": "2024-01-16T11:00:00Z"
-}
-```
-
-**Note:** 
-- Creating an outflow automatically decreases product quantity
-- Triggers webhook notification if enabled
-- Fails if quantity exceeds available stock
-
----
-
-### Get Outflow
-
-**Endpoint:** `GET /api/v1/outflows/<id>/`
-
----
-
-### Delete Outflow
-
-**Endpoint:** `DELETE /api/v1/outflows/<id>/`
-
-**Note:** Outflows cannot be updated (immutable record).
-
----
-
-## Error Handling
-
-### Error Response Format
-
-```json
-{
-  "error": {
-    "code": "ERROR_CODE",
-    "message": "Human-readable message",
-    "details": {}
+    "employee": 1,
+    "document_type": "rg",
+    "document_name": "RG Document",
+    "file": "/media/employee_documents/1/rg.pdf",
+    "file_size": 1024000,
+    "uploaded_at": "2024-01-01T00:00:00Z",
+    "is_required": true,
+    "is_verified": false
   }
+]
+```
+
+---
+
+### Upload Employee Document
+
+**POST** `/api/v1/employees/{id}/documents/`
+
+Upload a new document for an employee.
+
+**Request:** `multipart/form-data`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `document_type` | string | Document type code |
+| `file` | file | Document file |
+| `is_required` | boolean | Is required document |
+
+---
+
+## 🏖️ Leave Requests API
+
+### List Leave Types
+
+**GET** `/api/v1/leave-requests/types/`
+
+Get all leave types.
+
+**Response:**
+```json
+[
+  {
+    "id": 1,
+    "nome": "Férias",
+    "descricao": "Annual vacation leave",
+    "max_dias_ano": 30,
+    "requer_aprovacao": true,
+    "antecedencia_minima": 15,
+    "ativo": true
+  }
+]
+```
+
+---
+
+### List Leave Requests
+
+**GET** `/api/v1/leave-requests/`
+
+Get all leave requests with filtering.
+
+**Query Parameters:**
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `status` | string | Filter by status |
+| `tipo` | int | Filter by leave type ID |
+| `solicitante` | int | Filter by requester ID |
+| `data_inicio` | date | Filter by start date |
+
+**Response:**
+```json
+{
+  "count": 50,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "solicitante": 1,
+      "solicitante_nome": "John Doe",
+      "tipo": 1,
+      "tipo_nome": "Férias",
+      "data_inicio": "2024-06-01",
+      "data_fim": "2024-06-30",
+      "motivo": "Annual vacation",
+      "dias_solicitados": 30,
+      "dias_gozo": 20,
+      "tem_abono_pecuniario": true,
+      "dias_abono_pecuniario": 10,
+      "prioridade": "media",
+      "status": "pendente",
+      "created_at": "2024-01-15T00:00:00Z"
+    }
+  ]
+}
+```
+
+---
+
+### Get Leave Request
+
+**GET** `/api/v1/leave-requests/{id}/`
+
+Get detailed leave request information.
+
+---
+
+### Create Leave Request
+
+**POST** `/api/v1/leave-requests/`
+
+Submit a new leave request.
+
+**Request:**
+```json
+{
+  "tipo": 1,
+  "data_inicio": "2024-06-01",
+  "data_fim": "2024-06-30",
+  "motivo": "Annual vacation",
+  "prioridade": "media",
+  "dias_gozo": 20,
+  "tem_abono_pecuniario": true,
+  "dias_abono_pecuniario": 10
+}
+```
+
+---
+
+### Approve Leave Request
+
+**POST** `/api/v1/leave-requests/{id}/approve/`
+
+Approve a leave request.
+
+**Request:**
+```json
+{
+  "comentario": "Approved - Enjoy your vacation!"
+}
+```
+
+---
+
+### Reject Leave Request
+
+**POST** `/api/v1/leave-requests/{id}/reject/`
+
+Reject a leave request.
+
+**Request:**
+```json
+{
+  "comentario": "Rejected - Insufficient staffing for this period"
+}
+```
+
+---
+
+### Cancel Leave Request
+
+**POST** `/api/v1/leave-requests/{id}/cancel/`
+
+Cancel a leave request.
+
+---
+
+### Get Leave Balances
+
+**GET** `/api/v1/leave-requests/balances/`
+
+Get current user's leave balances.
+
+**Response:**
+```json
+[
+  {
+    "id": 1,
+    "funcionario": 1,
+    "tipo": 1,
+    "tipo_nome": "Férias",
+    "ano": 2024,
+    "dias_disponiveis": 30,
+    "dias_utilizados": 0,
+    "dias_restantes": 30
+  }
+]
+```
+
+---
+
+## 📊 Evaluations API
+
+### List Evaluation Templates
+
+**GET** `/api/v1/evaluations/templates/`
+
+Get all evaluation templates.
+
+**Response:**
+```json
+[
+  {
+    "id": 1,
+    "nome": "Performance Review 2024",
+    "descricao": "Annual performance evaluation",
+    "ativo": true,
+    "created_at": "2024-01-01T00:00:00Z"
+  }
+]
+```
+
+---
+
+### List Evaluations
+
+**GET** `/api/v1/evaluations/`
+
+Get all evaluations with filtering.
+
+**Query Parameters:**
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `status` | string | Filter by status |
+| `avaliado` | int | Filter by evaluatee ID |
+| `avaliador` | int | Filter by evaluator ID |
+| `tipo` | string | Filter by evaluation type |
+
+**Response:**
+```json
+{
+  "count": 25,
+  "results": [
+    {
+      "id": 1,
+      "template": 1,
+      "template_nome": "Performance Review 2024",
+      "avaliado": 2,
+      "avaliado_nome": "Jane Smith",
+      "avaliador": 1,
+      "avaliador_nome": "John Doe",
+      "tipo": "avaliacao_superior",
+      "periodo_inicio": "2024-01-01",
+      "periodo_fim": "2024-12-31",
+      "status": "pendente",
+      "nota_final": null,
+      "data_limite": "2024-12-15T23:59:59Z",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  ]
+}
+```
+
+---
+
+### Create Evaluation
+
+**POST** `/api/v1/evaluations/`
+
+Create a new evaluation.
+
+**Request:**
+```json
+{
+  "template": 1,
+  "avaliado": 2,
+  "tipo": "avaliacao_superior",
+  "periodo_inicio": "2024-01-01",
+  "periodo_fim": "2024-12-31",
+  "data_limite": "2024-12-15T23:59:59Z"
+}
+```
+
+---
+
+### Submit Evaluation Score
+
+**POST** `/api/v1/evaluations/{id}/scores/`
+
+Submit scores for evaluation criteria.
+
+**Request:**
+```json
+{
+  "criterio": 1,
+  "nota": 8.5,
+  "comentario": "Excellent performance in technical skills"
+}
+```
+
+---
+
+### Finalize Evaluation
+
+**POST** `/api/v1/evaluations/{id}/finalize/`
+
+Finalize an evaluation and calculate final score.
+
+---
+
+## 📄 Termination API
+
+### List Termination Reasons
+
+**GET** `/api/v1/termination/reasons/`
+
+Get all termination reasons.
+
+**Response:**
+```json
+[
+  {
+    "id": 1,
+    "nome": "Resignation",
+    "codigo": "RES",
+    "descricao": "Employee initiated resignation",
+    "ativo": true
+  }
+]
+```
+
+---
+
+### List Termination Requests
+
+**GET** `/api/v1/termination/`
+
+Get all termination requests.
+
+**Response:**
+```json
+{
+  "count": 10,
+  "results": [
+    {
+      "id": 1,
+      "funcionario": 3,
+      "funcionario_nome": "Bob Johnson",
+      "solicitante": 1,
+      "solicitante_nome": "John Doe",
+      "motivo": 1,
+      "motivo_nome": "Resignation",
+      "data_ultimo_dia": "2024-03-31",
+      "data_desligamento": "2024-04-01",
+      "justificativa": "Employee requested resignation for personal reasons",
+      "status": "pendente_rh",
+      "created_at": "2024-02-15T00:00:00Z"
+    }
+  ]
+}
+```
+
+---
+
+### Create Termination Request
+
+**POST** `/api/v1/termination/`
+
+Create a new termination request.
+
+**Request:**
+```json
+{
+  "funcionario": 3,
+  "motivo": 1,
+  "data_ultimo_dia": "2024-03-31",
+  "data_desligamento": "2024-04-01",
+  "justificativa": "Employee requested resignation"
+}
+```
+
+---
+
+### Approve Termination (HR)
+
+**POST** `/api/v1/termination/{id}/approve/`
+
+Approve termination request by HR.
+
+**Request:**
+```json
+{
+  "comentario": "Approved - All documentation complete"
+}
+```
+
+---
+
+### Reject Termination (HR)
+
+**POST** `/api/v1/termination/{id}/reject/`
+
+Reject termination request by HR.
+
+---
+
+### Complete Termination
+
+**POST** `/api/v1/termination/{id}/complete/`
+
+Mark termination as completed.
+
+---
+
+## 👔 Staff API
+
+### List Staff Employees
+
+**GET** `/api/v1/staff/`
+
+Get all staff employees.
+
+---
+
+### Get Staff Employee
+
+**GET** `/api/v1/staff/{id}/`
+
+Get detailed staff employee information.
+
+---
+
+### Create Staff Employee
+
+**POST** `/api/v1/staff/`
+
+Create a new staff employee.
+
+**Request:**
+```json
+{
+  "user": 1,
+  "nome": "Alice Williams",
+  "cargo": "Manager",
+  "setor": "Human Resources",
+  "data_admissao": "2024-01-01",
+  "salario": "7000.00",
+  "cpf": "111.222.333-44",
+  "rg": "11.222.333-4",
+  "telefone": "+55 11 98888-8888",
+  "endereco": "Rua das Flores, 456",
+  "data_nascimento": "1985-05-15",
+  "status": "ativo"
+}
+```
+
+---
+
+### List Departments
+
+**GET** `/api/v1/staff/departments/`
+
+Get all departments.
+
+**Response:**
+```json
+[
+  {
+    "id": 1,
+    "nome": "Human Resources",
+    "descricao": "HR department",
+    "employee_count": 5
+  }
+]
+```
+
+---
+
+## 📈 Reports API
+
+### List Report Templates
+
+**GET** `/api/v1/reports/templates/`
+
+Get all available report templates.
+
+**Response:**
+```json
+[
+  {
+    "id": "uuid-1234-5678",
+    "name": "Employee Summary Report",
+    "description": "Summary of all employees",
+    "report_type": "employees",
+    "category": 1,
+    "category_nome": "HR Reports",
+    "output_formats": ["json", "pdf", "excel"],
+    "default_format": "pdf",
+    "is_public": true,
+    "created_by": 1
+  }
+]
+```
+
+---
+
+### Execute Report
+
+**POST** `/api/v1/reports/templates/{id}/execute/`
+
+Execute a report template.
+
+**Request:**
+```json
+{
+  "output_format": "pdf",
+  "parameters": {
+    "department": "Engineering",
+    "status": "active",
+    "date_range": {
+      "start": "2024-01-01",
+      "end": "2024-12-31"
+    }
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "id": "execution-uuid",
+  "template": "uuid-1234-5678",
+  "status": "completed",
+  "result_data": {...},
+  "file_path": "/media/reports/report_20240101.pdf",
+  "execution_time_seconds": 2.5,
+  "rows_processed": 100
+}
+```
+
+---
+
+### Get Report Execution
+
+**GET** `/api/v1/reports/executions/{id}/`
+
+Get report execution result.
+
+---
+
+### List Report Schedules
+
+**GET** `/api/v1/reports/schedules/`
+
+Get all scheduled reports.
+
+---
+
+### Create Report Schedule
+
+**POST** `/api/v1/reports/schedules/`
+
+Create a new report schedule.
+
+**Request:**
+```json
+{
+  "name": "Monthly Employee Report",
+  "template": "uuid-1234-5678",
+  "frequency": "monthly",
+  "output_format": "pdf",
+  "email_recipients": ["hr@example.com"],
+  "send_email_on_success": true
+}
+```
+
+---
+
+### Bookmark Report
+
+**POST** `/api/v1/reports/bookmarks/`
+
+Bookmark a report for quick access.
+
+**Request:**
+```json
+{
+  "template": "uuid-1234-5678",
+  "name": "My Favorite Report",
+  "parameters": {"department": "Engineering"}
+}
+```
+
+---
+
+## 📝 Admission API
+
+### Get Pre-Admission
+
+**GET** `/api/v1/employees/pre-admission/{id}/`
+
+Get pre-admission RH information.
+
+---
+
+### Create Pre-Admission
+
+**POST** `/api/v1/employees/pre-admission/`
+
+Create pre-admission RH record.
+
+**Request:**
+```json
+{
+  "personal_email": "newemployee@example.com",
+  "full_name": "New Employee",
+  "position": "Developer",
+  "department": "Engineering",
+  "job_description": "Software development",
+  "work_schedule": "9:00-18:00",
+  "weekly_workload": "40h",
+  "contract_type": "clt",
+  "salary": "5000.00",
+  "benefits": "VT, VR, Plano de Saúde",
+  "start_date": "2024-03-01",
+  "direct_manager": "John Doe"
+}
+```
+
+---
+
+### Create Employee User
+
+**POST** `/api/v1/employees/pre-admission/{id}/create-user/`
+
+Create user account for pre-admitted employee.
+
+---
+
+### Send Admission Email
+
+**POST** `/api/v1/employees/pre-admission/{id}/send-email/`
+
+Send admission email to employee.
+
+---
+
+### Get Admission Process
+
+**GET** `/api/v1/employees/admission/{id}/`
+
+Get admission process status.
+
+---
+
+### Update Admission Process
+
+**PATCH** `/api/v1/employees/admission/{id}/`
+
+Update admission process progress.
+
+---
+
+## 🔍 Filter & Search Parameters
+
+### Common Filters
+
+Most list endpoints support these query parameters:
+
+| Parameter | Description | Example |
+|-----------|-------------|---------|
+| `search` | Full-text search | `?search=john` |
+| `page` | Page number | `?page=2` |
+| `page_size` | Items per page | `?page_size=50` |
+| `ordering` | Sort field | `?ordering=-created_at` |
+
+### Ordering
+
+Prefix with `-` for descending order:
+
+- `?ordering=name` - Ascending by name
+- `?ordering=-created_at` - Descending by date
+- `?ordering=status,name` - Multiple fields
+
+---
+
+## ⚠️ Error Responses
+
+### Standard Error Format
+
+```json
+{
+  "detail": "Error message here"
+}
+```
+
+### Validation Errors
+
+```json
+{
+  "field_name": [
+    "Error message for this field"
+  ],
+  "another_field": [
+    "Another error message"
+  ]
 }
 ```
 
@@ -755,128 +981,63 @@ Authorization: Bearer <token>
 | `401` | Unauthorized |
 | `403` | Forbidden |
 | `404` | Not Found |
-| `405` | Method Not Allowed |
 | `422` | Validation Error |
 | `500` | Server Error |
 
-### Error Examples
+---
 
-**401 Unauthorized:**
-```json
-{
-  "detail": "Authentication credentials were not provided."
-}
-```
+## 🔒 Permissions
 
-**403 Forbidden:**
-```json
-{
-  "detail": "You do not have permission to perform this action."
-}
-```
-
-**404 Not Found:**
-```json
-{
-  "detail": "Not found."
-}
-```
-
-**422 Validation Error:**
-```json
-{
-  "title": [
-    "This field is required."
-  ],
-  "selling_price": [
-    "Ensure that there are no more than 20 digits before the decimal point."
-  ]
-}
-```
+| Endpoint | Permission Required |
+|----------|---------------------|
+| `/accounts/login/` | None |
+| `/accounts/register/` | None |
+| `/accounts/*` | Authenticated |
+| `/employees/` | Admin RH |
+| `/leave-requests/` | Authenticated |
+| `/evaluations/` | Authenticated |
+| `/termination/` | Admin RH |
+| `/staff/` | Admin RH |
+| `/reports/` | Authenticated |
 
 ---
 
-## Pagination
+## 📚 Related Documentation
 
-### Default Pagination
+- [System Modeling](system-modeling.md) - Data models
+- [Authentication](authentication.md) - Security details
+- [Development Guide](development.md) - API development
 
-All list endpoints return paginated responses:
+---
 
-```json
-{
-  "count": 100,
-  "next": "http://localhost:8000/api/v1/products/?page=2",
-  "previous": null,
-  "results": [...]
-}
-```
+## 🆘 API Testing
 
-### Pagination Parameters
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `page` | 1 | Page number |
-| `page_size` | 10 | Items per page (if configured) |
-
-### Navigation
+### Using cURL
 
 ```bash
-# First page
-GET /api/v1/products/
-
-# Second page
-GET /api/v1/products/?page=2
-
-# With custom page size
-GET /api/v1/products/?page=2&page_size=25
-```
-
----
-
-## Rate Limiting
-
-API rate limiting may be configured. Typical limits:
-
-| Endpoint Type | Limit |
-|---------------|-------|
-| Authentication | 10 requests/minute |
-| Read (GET) | 100 requests/minute |
-| Write (POST/PUT/DELETE) | 50 requests/minute |
-
----
-
-## cURL Examples
-
-### Authenticate
-```bash
-curl -X POST http://localhost:8000/api/v1/authentication/token/ \
+# Login
+curl -X POST http://localhost:8000/api/v1/accounts/login/ \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"password"}'
+  -d '{"email":"admin@example.com","password":"admin123"}'
+
+# Get employees
+curl http://localhost:8000/api/v1/employees/ \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
-### List Products
-```bash
-curl -X GET http://localhost:8000/api/v1/products/ \
-  -H "Authorization: Bearer <token>"
-```
+### Using Postman
 
-### Create Product
-```bash
-curl -X POST http://localhost:8000/api/v1/products/ \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "New Product",
-    "category": 1,
-    "brand": 1,
-    "cost_price": "10.00",
-    "selling_price": "20.00",
-    "quantity": 100
-  }'
-```
+1. Create a new request
+2. Set method and URL
+3. Add `Authorization: Bearer <token>` header
+4. Send request
 
 ---
 
-**Next Steps**: 
-- [System Modeling](system-modeling.md) - Architecture diagrams
-- [Authentication & Security](authentication-security.md) - Security details
+## 🌐 Interactive Documentation
+
+Visit the following URLs for interactive API documentation:
+
+- **Swagger UI:** http://localhost:8000/api/docs/
+- **ReDoc:** http://localhost:8000/api/redoc/
+- **OpenAPI Schema:** http://localhost:8000/api/schema/

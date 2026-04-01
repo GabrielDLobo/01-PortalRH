@@ -2,161 +2,208 @@
 
 ## Introduction
 
-The **Inventory Management System (SGE - Sistema de Gestão de Estoque)** is a comprehensive web application built with Django for managing inventory, products, suppliers, brands, and categories. It provides both a user-friendly web interface and a RESTful API for programmatic access.
-
-## Purpose
-
-SGE was designed to help businesses of all sizes efficiently manage their inventory operations, including:
-
-- **Stock Tracking** - Real-time monitoring of product quantities
-- **Purchase Management** - Record and track product inflows from suppliers
-- **Sales Management** - Track product outflows and sales
-- **Financial Control** - Monitor cost prices, selling prices, and profit margins
-- **Analytics** - Visual dashboards with key performance indicators
-- **AI-Powered Insights** - Automated recommendations for stock replenishment
-
-## Key Features
-
-### 📦 Product Management
-- Complete CRUD operations for products
-- Track cost price, selling price, and quantity
-- Associate products with brands and categories
-- Serial number tracking (optional)
-
-### 🔄 Stock Control
-- **Inflows** - Register product entries from suppliers
-- **Outflows** - Register product sales/outputs
-- Automatic quantity updates on stock movements
-- Stock history tracking
-
-### 🏢 Supplier Management
-- Maintain supplier information
-- Link suppliers to product inflows
-- Track supplier relationships
-
-### 🏷️ Brands & Categories
-- Organize products by brand
-- Categorize products for better organization
-- Hierarchical product organization
-
-### 📊 Dashboard & Analytics
-- Real-time metrics and KPIs
-- Sales charts (daily, weekly)
-- Product distribution by category and brand
-- Profit calculations
-- Total inventory value
-
-### 🤖 AI Integration
-- OpenAI GPT-3.5-turbo integration
-- Automated stock analysis
-- Replenishment recommendations
-- Sales trend insights
-
-### 🔐 Authentication & Authorization
-- Django authentication for web interface
-- JWT authentication for API
-- Role-based access control
-- Granular permissions per model
-
-### 🔗 External Integrations
-- Webhook support for outflow events
-- RESTful API for third-party integration
-- HTTPX client for external services
-
-## User Interface
-
-### Web Interface
-- **Django Templates** - Server-side rendered pages
-- **TailwindCSS** - Modern, responsive design
-- **Chart.js** - Interactive charts and graphs
-- **Dark Theme** - Professional purple/blue gradient design
-- **Responsive** - Mobile-first design
-
-### API Interface
-- **RESTful Design** - Standard HTTP methods
-- **JSON Format** - Easy integration
-- **JWT Authentication** - Secure token-based auth
-- **Pagination** - Efficient data retrieval
-- **Filtering** - Advanced query capabilities
-
-## System Capabilities
-
-### Multi-User Support
-- User authentication and session management
-- Permission-based access control
-- Admin interface for user management
-
-### Real-Time Updates
-- Automatic stock quantity updates
-- Signal-based event handling
-- Real-time dashboard metrics
-
-### Data Integrity
-- Foreign key constraints (PROTECT)
-- Transaction safety
-- Data validation at model level
-
-### Scalability
-- PostgreSQL support for production
-- Docker containerization
-- Horizontal scaling ready
-
-## Business Value
-
-| Benefit | Description |
-|---------|-------------|
-| **Efficiency** | Automate manual inventory tracking |
-| **Accuracy** | Reduce human errors in stock counting |
-| **Visibility** | Real-time insights into inventory status |
-| **Control** | Track all stock movements |
-| **Profitability** | Monitor margins and optimize pricing |
-| **Integration** | Connect with external systems via API |
-
-## Target Audience
-
-- Small to medium businesses
-- Retail stores
-- Warehouses
-- Distribution centers
-- E-commerce operations
-- Manufacturing facilities
-
-## Use Cases
-
-### Retail Store
-Track products, manage supplier relationships, monitor sales, and get AI recommendations for restocking.
-
-### Warehouse
-Manage large inventories, track inflows/outflows, and maintain accurate stock levels.
-
-### E-commerce
-Integrate via API with online stores, automate stock updates, and track sales across channels.
-
-### Distribution
-Manage multiple suppliers, track product movements, and analyze sales patterns.
-
-## Technology Highlights
-
-- **Modern Stack** - Django 5.0.1, Python 3.11
-- **REST API** - Full-featured API with DRF
-- **Security** - JWT tokens, permission-based access
-- **AI-Powered** - OpenAI integration for insights
-- **Containerized** - Docker-ready for easy deployment
-- **Responsive** - Works on desktop, tablet, and mobile
-
-## Future Roadmap
-
-- [ ] Multi-warehouse support
-- [ ] Barcode/QR code scanning
-- [ ] Advanced reporting
-- [ ] Mobile application
-- [ ] Email notifications
-- [ ] Export to Excel/PDF
-- [ ] Multi-currency support
-- [ ] Advanced AI predictions
+**PortalRH** is a comprehensive Human Resources Management System built with **Django REST Framework** and **React + TypeScript**. It provides a complete suite of tools for managing employees, leave requests, performance evaluations, admissions, terminations, and more with advanced analytics and reporting capabilities.
 
 ---
 
-**Next Steps**: 
-- [Prerequisites](prerequisites.md) - Check system requirements
-- [Installation](installation.md) - Install and set up the project
+## 🎯 Purpose
+
+PortalRH streamlines HR processes by providing:
+
+- Centralized employee data management
+- Automated leave request workflows
+- Structured performance evaluation system
+- Complete admission and termination processes
+- Comprehensive reporting and analytics
+- Role-based access control for security
+
+---
+
+## ✨ Key Features
+
+### Employee Management
+
+- **Complete Profiles** - Comprehensive employee information including personal data, work documents, education, and banking information
+- **Document Management** - Upload and manage employee documents with verification workflow
+- **Department Tracking** - Organize employees by department and position
+- **Contract Information** - Track hire dates, contract types, and employment status
+
+### Leave Management
+
+- **Request Submission** - Employees can submit leave requests with type selection
+- **Approval Workflow** - Multi-level approval process with manager and HR involvement
+- **Leave Balance Tracking** - Track available and used leave days by type
+- **Multiple Leave Types** - Support for vacation, sick leave, personal leave, and more
+- **Vacation-Specific Features** - Abono pecuniário (vacation bonus) support
+
+### Performance Reviews
+
+- **Structured Evaluations** - Customizable evaluation templates and criteria
+- **Multiple Evaluation Types** - Self-evaluation, manager evaluation, 360° feedback
+- **Scoring System** - Weighted criteria with final score calculation
+- **Goal Tracking** - Set and track development objectives
+- **Evaluation Cycles** - Organize periodic evaluation campaigns
+
+### Admission Process
+
+- **Pre-Admission RH** - HR pre-admission workflows with contract details
+- **User Creation** - Automatic user account creation with temporary password
+- **Onboarding** - Guided new hire onboarding process
+- **Document Verification** - Required document upload and verification
+- **Email Notifications** - Automated welcome emails with credentials
+
+### Termination Management
+
+- **Termination Requests** - Formal termination request workflow
+- **Approval Process** - HR review and approval process
+- **Notice Period** - Track notice period and last working day
+- **Document Generation** - Generate termination documents
+- **Exit Documentation** - Manage exit interview and final paperwork
+
+### Reports & Analytics
+
+- **Employee Reports** - Generate reports on employee data
+- **Leave Analytics** - Analyze leave patterns and balances
+- **Termination Reports** - Track termination statistics
+- **Performance Summary** - Evaluation results and trends
+- **Export Options** - PDF, Excel, and CSV export capabilities
+
+### Staff Management
+
+- **Team Organization** - Organize staff into teams and departments
+- **Hierarchy Management** - Define reporting relationships
+- **Role-Based Access** - Granular permissions based on user roles
+
+---
+
+## 🏗️ Architecture
+
+PortalRH follows a **client-server architecture** with:
+
+```
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│   React SPA     │────▶│  Django REST    │────▶│   PostgreSQL    │
+│   (Frontend)    │◀────│     API         │◀────│    (Database)   │
+│   Port 3000     │     │   Port 8000     │     │   Port 5432     │
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+                                │
+                                ▼
+                        ┌─────────────────┐
+                        │   File Storage  │
+                        │   (Media/Docs)  │
+                        └─────────────────┘
+```
+
+### Backend Components
+
+| Component | Description |
+|-----------|-------------|
+| **Django** | Web framework handling business logic |
+| **Django REST Framework** | API layer for data serialization and endpoints |
+| **SimpleJWT** | JWT-based authentication |
+| **Django Filters** | Advanced filtering capabilities |
+| **DRF Spectacular** | OpenAPI schema generation |
+
+### Frontend Components
+
+| Component | Description |
+|-----------|-------------|
+| **React 19** | UI framework |
+| **TypeScript** | Type-safe JavaScript |
+| **TailwindCSS** | Utility-first CSS framework |
+| **React Router** | Client-side routing |
+| **Axios** | HTTP client for API calls |
+
+---
+
+## 👥 User Roles
+
+### Administrador RH (HR Admin)
+
+- Full system access
+- Manage all employees and documents
+- Approve/reject leave requests
+- Conduct performance evaluations
+- Process admissions and terminations
+- Generate all reports
+
+### Funcionário (Employee)
+
+- View own profile and documents
+- Submit leave requests
+- Participate in evaluations
+- Upload personal documents
+- View reports related to own data
+
+---
+
+## 📊 System Capabilities
+
+| Feature | Description |
+|---------|-------------|
+| **Multi-tenant Ready** | Designed for multiple organizations |
+| **Responsive Design** | Works on desktop, tablet, and mobile |
+| **Document Upload** | Secure file upload with validation |
+| **Email Notifications** | Automated email for key events |
+| **Audit Trail** | Track changes and actions |
+| **Data Export** | Export data in multiple formats |
+| **API Documentation** | Auto-generated Swagger/ReDoc docs |
+
+---
+
+## 🔐 Security Features
+
+- JWT-based authentication
+- Role-based access control (RBAC)
+- CORS protection
+- CSRF protection
+- Input validation and sanitization
+- Secure password hashing
+- HTTPS support in production
+
+---
+
+## 📈 Performance Considerations
+
+- Database query optimization
+- Selective field loading
+- Pagination for large datasets
+- Caching strategies
+- Async operations where applicable
+- Static file serving via CDN
+
+---
+
+## 🌐 Browser Support
+
+| Browser | Version |
+|---------|---------|
+| Chrome | Latest 2 versions |
+| Firefox | Latest 2 versions |
+| Safari | Latest 2 versions |
+| Edge | Latest 2 versions |
+
+---
+
+## 📝 API Versioning
+
+All API endpoints follow the v1 versioning pattern:
+
+```
+/api/v1/accounts/
+/api/v1/employees/
+/api/v1/leave-requests/
+/api/v1/evaluations/
+/api/v1/reports/
+/api/v1/termination/
+/api/v1/staff/
+```
+
+---
+
+## 📚 Related Documentation
+
+- [Installation Guide](installation.md) - Get started with installation
+- [API Endpoints](api-endpoints.md) - Complete API reference
+- [System Modeling](system-modeling.md) - Data models and architecture
+- [Development Guide](development.md) - Development workflow

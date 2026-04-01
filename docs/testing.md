@@ -1,74 +1,56 @@
 # Testing Guide
 
-This guide covers testing strategies, frameworks, and best practices for the Inventory Management System.
-
-## Table of Contents
-
-1. [Testing Overview](#testing-overview)
-2. [Test Configuration](#test-configuration)
-3. [Unit Tests](#unit-tests)
-4. [Integration Tests](#integration-tests)
-5. [API Tests](#api-tests)
-6. [Frontend Tests](#frontend-tests)
-7. [Running Tests](#running-tests)
-8. [Test Coverage](#test-coverage)
-9. [Best Practices](#best-practices)
+This guide covers testing strategies, frameworks, and best practices for PortalRH.
 
 ---
 
-## Testing Overview
+## 📋 Table of Contents
 
-### Test Pyramid
+- [Testing Overview](#testing-overview)
+- [Backend Testing](#backend-testing)
+- [Frontend Testing](#frontend-testing)
+- [Integration Testing](#integration-testing)
+- [End-to-End Testing](#end-to-end-testing)
+- [Test Coverage](#test-coverage)
+- [Continuous Integration](#continuous-integration)
+- [Best Practices](#best-practices)
+
+---
+
+## 🎯 Testing Overview
+
+### Testing Pyramid
 
 ```
         /\
        /  \
-      / E2E \      Few tests (slow, expensive)
+      / E2E \     End-to-End Tests (Few)
      /--------\
     /          \
-   / Integration \   Some tests
-  /----------------\
- /                  \
-/     Unit Tests     \  Many tests (fast, cheap)
-----------------------
+   / Integration\  Integration Tests (Some)
+  /--------------\
+ /                \
+/    Unit Tests    \  Unit Tests (Many)
+--------------------
 ```
 
-### Testing Tools
+### Test Types
 
-| Tool | Purpose | Installation |
-|------|---------|--------------|
-| **pytest** | Test framework | `pip install pytest` |
-| **pytest-django** | Django integration | `pip install pytest-django` |
-| **factory-boy** | Test data generation | `pip install factory-boy` |
-| **coverage.py** | Coverage reporting | `pip install coverage` |
-| **pytest-cov** | Coverage plugin | `pip install pytest-cov` |
+| Type | Purpose | Tools | Speed |
+|------|---------|-------|-------|
+| **Unit** | Test individual components | pytest, Jest | Fast |
+| **Integration** | Test component interaction | pytest, RTL | Medium |
+| **E2E** | Test complete user flows | Playwright, Cypress | Slow |
 
 ---
 
-## Test Configuration
+## 🐍 Backend Testing
 
-### pytest Configuration
+### Pytest Configuration
 
-**pytest.ini** or **pyproject.toml**:
-
-```ini
-# pytest.ini
-
-[pytest]
-DJANGO_SETTINGS_MODULE = app.settings
-python_files = tests.py test_*.py *_tests.py
-python_classes = Test*
-python_functions = test_*
-addopts = 
-    -v
-    --tb=short
-    --strict-markers
-    -rf
-```
+**pyproject.toml:**
 
 ```toml
-# pyproject.toml
-
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "app.settings"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
@@ -76,841 +58,781 @@ python_classes = ["Test*"]
 python_functions = ["test_*"]
 addopts = [
     "-v",
-    "--tb=short",
     "--strict-markers",
-    "-rf",
+    "--tb=short",
+    "--cov=app",
+    "--cov-report=term-missing",
+]
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks tests as integration tests",
+    "e2e: marks tests as end-to-end",
 ]
 ```
 
-### Test Settings
+### Fixtures
 
-**tests/conftest.py**:
+**conftest.py:**
 
 ```python
 import pytest
-from django.contrib.auth.models import User, Group, Permission
-from products.models import Product, Category, Brand
-from suppliers.models import Supplier
-from inflows.models import Inflow
-from outflows.models import Outflow
+from django.contrib.auth import get_user_model
+from rest_framework.test import APIClient
 
-
-@pytest.fixture
-def db():
-    """Use Django test database."""
-    pass
-
-
-@pytest.fixture
-def user():
-    """Create a test user."""
-    return User.objects.create_user(
-        username='testuser',
-        email='test@example.com',
-        password='testpass123'
-    )
-
-
-@pytest.fixture
-def admin_user():
-    """Create an admin user."""
-    return User.objects.create_superuser(
-        username='admin',
-        email='admin@example.com',
-        password='adminpass123'
-    )
-
-
-@pytest.fixture
-def category():
-    """Create a test category."""
-    return Category.objects.create(
-        name='Electronics',
-        description='Electronic products'
-    )
-
-
-@pytest.fixture
-def brand():
-    """Create a test brand."""
-    return Brand.objects.create(
-        name='Samsung',
-        description='Korean electronics brand'
-    )
-
-
-@pytest.fixture
-def supplier():
-    """Create a test supplier."""
-    return Supplier.objects.create(
-        name='Tech Distributors',
-        description='Main supplier'
-    )
-
-
-@pytest.fixture
-def product(category, brand):
-    """Create a test product."""
-    return Product.objects.create(
-        title='Galaxy S23',
-        category=category,
-        brand=brand,
-        cost_price=500.00,
-        selling_price=799.99,
-        quantity=50
-    )
-
-
-@pytest.fixture
-def authenticated_client(client, user):
-    """Create an authenticated test client."""
-    client.force_login(user)
-    return client
-
+User = get_user_model()
 
 @pytest.fixture
 def api_client():
-    """Create an API test client."""
-    from rest_framework.test import APIClient
+    """API client for testing"""
     return APIClient()
 
+@pytest.fixture
+def user():
+    """Create a test user"""
+    return User.objects.create_user(
+        email='test@example.com',
+        password='testpass123',
+        username='testuser'
+    )
 
 @pytest.fixture
-def authenticated_api_client(api_client, user):
-    """Create an authenticated API client."""
-    from rest_framework_simplejwt.tokens import RefreshToken
-    
-    refresh = RefreshToken.for_user(user)
-    api_client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh.access_token}')
+def admin_rh_user():
+    """Create an admin RH user"""
+    return User.objects.create_user(
+        email='admin@example.com',
+        password='adminpass123',
+        username='admin',
+        role='admin_rh'
+    )
+
+@pytest.fixture
+def authenticated_client(api_client, user):
+    """Authenticated API client"""
+    api_client.force_authenticate(user=user)
     return api_client
+
+@pytest.fixture
+def employee(user):
+    """Create a test employee"""
+    from employees.models import Employee
+    return Employee.objects.create(
+        user=user,
+        full_name='Test User',
+        position='Developer',
+        department='Engineering'
+    )
 ```
-
----
-
-## Unit Tests
 
 ### Model Tests
 
-**products/tests/test_models.py**:
+**test_employee_model.py:**
 
 ```python
 import pytest
-from django.core.exceptions import ValidationError
-from products.models import Product
-
-
-@pytest.mark.django_db
-class TestProductModel:
-    """Test Product model."""
-    
-    def test_product_creation(self, category, brand):
-        """Test product is created correctly."""
-        product = Product.objects.create(
-            title='Test Product',
-            category=category,
-            brand=brand,
-            cost_price=10.00,
-            selling_price=20.00,
-            quantity=100
-        )
-        
-        assert product.title == 'Test Product'
-        assert product.cost_price == 10.00
-        assert product.selling_price == 20.00
-        assert product.quantity == 100
-    
-    def test_product_str_representation(self, category, brand):
-        """Test product string representation."""
-        product = Product.objects.create(
-            title='Test Product',
-            category=category,
-            brand=brand,
-            cost_price=10.00,
-            selling_price=20.00,
-            quantity=100
-        )
-        
-        assert str(product) == 'Test Product'
-    
-    def test_profit_margin_calculation(self, category, brand):
-        """Test profit margin calculation."""
-        product = Product.objects.create(
-            title='Test Product',
-            category=category,
-            brand=brand,
-            cost_price=100.00,
-            selling_price=150.00,
-            quantity=10
-        )
-        
-        profit = product.selling_price - product.cost_price
-        assert profit == 50.00
-    
-    def test_low_stock_detection(self, category, brand):
-        """Test low stock detection."""
-        product = Product.objects.create(
-            title='Test Product',
-            category=category,
-            brand=brand,
-            cost_price=10.00,
-            selling_price=20.00,
-            quantity=5
-        )
-        
-        assert product.is_low_stock(threshold=10) is True
-        assert product.is_low_stock(threshold=3) is False
-    
-    def test_selling_price_less_than_cost(self, category, brand):
-        """Test validation when selling price < cost price."""
-        product = Product(
-            title='Invalid Product',
-            category=category,
-            brand=brand,
-            cost_price=100.00,
-            selling_price=50.00,  # Less than cost
-            quantity=10
-        )
-        
-        with pytest.raises(ValidationError):
-            product.full_clean()
-    
-    def test_unique_serie_number(self, category, brand):
-        """Test unique serie number constraint."""
-        Product.objects.create(
-            title='Product 1',
-            category=category,
-            brand=brand,
-            cost_price=10.00,
-            selling_price=20.00,
-            serie_number='SN123'
-        )
-        
-        duplicate = Product(
-            title='Product 2',
-            category=category,
-            brand=brand,
-            cost_price=10.00,
-            selling_price=20.00,
-            serie_number='SN123'  # Duplicate
-        )
-        
-        with pytest.raises(Exception):  # IntegrityError
-            duplicate.full_clean()
-```
-
-### Form Tests
-
-**products/tests/test_forms.py**:
-
-```python
-import pytest
-from products.forms import ProductForm
-
+from django.db.utils import IntegrityError
+from employees.models import Employee
 
 @pytest.mark.django_db
-class TestProductForm:
-    """Test Product form."""
+class TestEmployeeModel:
     
-    def test_valid_form(self, category, brand):
-        """Test form with valid data."""
-        form = ProductForm(data={
-            'title': 'Test Product',
-            'category': category.id,
-            'brand': brand.id,
-            'cost_price': '10.00',
-            'selling_price': '20.00',
-            'quantity': 100
-        })
-        
-        assert form.is_valid()
-    
-    def test_invalid_form_missing_fields(self):
-        """Test form with missing required fields."""
-        form = ProductForm(data={})
-        
-        assert not form.is_valid()
-        assert 'title' in form.errors
-        assert 'cost_price' in form.errors
-        assert 'selling_price' in form.errors
-    
-    def test_invalid_negative_price(self, category, brand):
-        """Test form with negative price."""
-        form = ProductForm(data={
-            'title': 'Test Product',
-            'category': category.id,
-            'brand': brand.id,
-            'cost_price': '-10.00',
-            'selling_price': '20.00',
-            'quantity': 100
-        })
-        
-        assert not form.is_valid()
-        assert 'cost_price' in form.errors
-    
-    def test_invalid_selling_less_than_cost(self, category, brand):
-        """Test form when selling price < cost price."""
-        form = ProductForm(data={
-            'title': 'Test Product',
-            'category': category.id,
-            'brand': brand.id,
-            'cost_price': '100.00',
-            'selling_price': '50.00',
-            'quantity': 100
-        })
-        
-        assert not form.is_valid()
-```
-
----
-
-## Integration Tests
-
-### View Tests
-
-**products/tests/test_views.py**:
-
-```python
-import pytest
-from django.urls import reverse
-from products.models import Product
-
-
-@pytest.mark.django_db
-class TestProductViews:
-    """Test Product views."""
-    
-    def test_product_list_view(self, authenticated_client, product):
-        """Test product list view."""
-        url = reverse('products:product_list')
-        response = authenticated_client.get(url)
-        
-        assert response.status_code == 200
-        assert 'products' in response.context
-        assert product in response.context['products']
-    
-    def test_product_list_view_unauthorized(self, client):
-        """Test product list view requires login."""
-        url = reverse('products:product_list')
-        response = client.get(url)
-        
-        assert response.status_code == 302  # Redirect to login
-        assert '/login/' in response.url
-    
-    def test_product_detail_view(self, authenticated_client, product):
-        """Test product detail view."""
-        url = reverse('products:product_detail', kwargs={'pk': product.pk})
-        response = authenticated_client.get(url)
-        
-        assert response.status_code == 200
-        assert response.context['product'] == product
-    
-    def test_product_create_view(self, authenticated_client, category, brand):
-        """Test product create view."""
-        url = reverse('products:product_create')
-        data = {
-            'title': 'New Product',
-            'category': category.id,
-            'brand': brand.id,
-            'cost_price': '10.00',
-            'selling_price': '20.00',
-            'quantity': 100
-        }
-        
-        response = authenticated_client.post(url, data, follow=True)
-        
-        assert response.status_code == 200
-        assert Product.objects.filter(title='New Product').exists()
-    
-    def test_product_update_view(self, authenticated_client, product):
-        """Test product update view."""
-        url = reverse('products:product_update', kwargs={'pk': product.pk})
-        data = {
-            'title': 'Updated Product',
-            'category': product.category.id,
-            'brand': product.brand.id,
-            'cost_price': '15.00',
-            'selling_price': '25.00',
-            'quantity': 150
-        }
-        
-        response = authenticated_client.post(url, data, follow=True)
-        
-        assert response.status_code == 200
-        product.refresh_from_db()
-        assert product.title == 'Updated Product'
-        assert product.quantity == 150
-    
-    def test_product_delete_view(self, authenticated_client, product):
-        """Test product delete view."""
-        url = reverse('products:product_delete', kwargs={'pk': product.pk})
-        
-        response = authenticated_client.post(url, follow=True)
-        
-        assert response.status_code == 200
-        assert not Product.objects.filter(pk=product.pk).exists()
-```
-
-### Signal Tests
-
-**inflows/tests/test_signals.py**:
-
-```python
-import pytest
-from inflows.models import Inflow
-from outflows.models import Outflow
-
-
-@pytest.mark.django_db
-class TestStockSignals:
-    """Test stock movement signals."""
-    
-    def test_inflow_increases_product_quantity(self, product, supplier):
-        """Test that creating inflow increases product quantity."""
-        initial_quantity = product.quantity
-        
-        Inflow.objects.create(
-            supplier=supplier,
-            product=product,
-            quantity=50,
-            description='Restock'
+    def test_employee_creation(self, user):
+        """Test creating an employee"""
+        employee = Employee.objects.create(
+            user=user,
+            full_name='John Doe',
+            position='Developer'
         )
         
-        product.refresh_from_db()
-        assert product.quantity == initial_quantity + 50
+        assert employee.id is not None
+        assert employee.employee_id is not None
+        assert employee.employee_id.startswith('EMP-')
+        assert str(employee) == f'{employee.full_name} - {employee.employee_id}'
     
-    def test_outflow_decreases_product_quantity(self, product):
-        """Test that creating outflow decreases product quantity."""
-        initial_quantity = product.quantity
-        
-        Outflow.objects.create(
-            product=product,
-            quantity=20,
-            description='Sale'
+    def test_employee_id_auto_generation(self, user):
+        """Test employee ID is auto-generated"""
+        employee1 = Employee.objects.create(
+            user=user,
+            full_name='John Doe'
         )
         
-        product.refresh_from_db()
-        assert product.quantity == initial_quantity - 20
-    
-    def test_outflow_prevented_when_insufficient_stock(self, product):
-        """Test that outflow is prevented when stock is insufficient."""
-        product.quantity = 10
-        product.save()
+        user2 = User.objects.create_user(
+            email='test2@example.com',
+            password='testpass'
+        )
+        employee2 = Employee.objects.create(
+            user=user2,
+            full_name='Jane Doe'
+        )
         
-        with pytest.raises(Exception):  # Or specific validation error
-            Outflow.objects.create(
-                product=product,
-                quantity=50,  # More than available
-                description='Invalid sale'
+        assert employee1.employee_id != employee2.employee_id
+    
+    def test_unique_cpf(self, user):
+        """Test CPF uniqueness"""
+        Employee.objects.create(
+            user=user,
+            full_name='John Doe',
+            cpf='123.456.789-00'
+        )
+        
+        user2 = User.objects.create_user(
+            email='test2@example.com',
+            password='testpass'
+        )
+        
+        with pytest.raises(IntegrityError):
+            Employee.objects.create(
+                user=user2,
+                full_name='Jane Doe',
+                cpf='123.456.789-00'
             )
+    
+    def test_employee_status_default(self, user):
+        """Test default status"""
+        employee = Employee.objects.create(
+            user=user,
+            full_name='John Doe'
+        )
+        
+        assert employee.status == 'pending'
+    
+    def test_employee_str_representation(self, employee):
+        """Test string representation"""
+        expected = f'{employee.full_name} - {employee.employee_id}'
+        assert str(employee) == expected
 ```
 
----
+### Serializer Tests
 
-## API Tests
+**test_employee_serializer.py:**
 
-**products/tests/test_api.py**:
+```python
+import pytest
+from employees.serializers import EmployeeSerializer
+
+@pytest.mark.django_db
+class TestEmployeeSerializer:
+    
+    def test_serializer_fields(self, employee):
+        """Test serializer includes correct fields"""
+        serializer = EmployeeSerializer(employee)
+        
+        assert 'id' in serializer.data
+        assert 'employee_id' in serializer.data
+        assert 'full_name' in serializer.data
+        assert 'position' in serializer.data
+        assert 'email' not in serializer.data  # Nested
+    
+    def test_serializer_validation(self, user):
+        """Test serializer validation"""
+        data = {
+            'full_name': 'Test User',
+            'position': 'Developer',
+            'department': 'Engineering',
+        }
+        
+        serializer = EmployeeSerializer(data=data)
+        
+        # Should fail - missing required fields
+        assert not serializer.is_valid()
+        assert 'user' in serializer.errors
+    
+    def test_serializer_create(self, user):
+        """Test serializer create"""
+        data = {
+            'user': user.id,
+            'full_name': 'Test User',
+            'position': 'Developer',
+            'department': 'Engineering',
+            'salary': '5000.00',
+        }
+        
+        serializer = EmployeeSerializer(data=data)
+        assert serializer.is_valid()
+        
+        employee = serializer.save()
+        assert employee.full_name == data['full_name']
+```
+
+### View/API Tests
+
+**test_employee_api.py:**
 
 ```python
 import pytest
 from rest_framework import status
-from django.urls import reverse
-
+from employees.models import Employee
 
 @pytest.mark.django_db
-class TestProductAPI:
-    """Test Product API endpoints."""
+class TestEmployeeAPI:
     
-    def test_list_products(self, authenticated_api_client, product):
-        """Test listing products."""
-        url = reverse('product-api-list')
-        response = authenticated_api_client.get(url)
+    def test_list_employees_authenticated(self, authenticated_client, employee):
+        """Test listing employees requires authentication"""
+        url = '/api/v1/employees/'
+        response = authenticated_client.get(url)
         
         assert response.status_code == status.HTTP_200_OK
-        assert response.data['count'] == 1
-        assert len(response.data['results']) == 1
+        assert response.data['count'] >= 1
     
-    def test_create_product(self, authenticated_api_client, category, brand):
-        """Test creating a product via API."""
-        url = reverse('product-api-list')
-        data = {
-            'title': 'API Product',
-            'category_id': category.id,
-            'brand_id': brand.id,
-            'cost_price': '10.00',
-            'selling_price': '20.00',
-            'quantity': 100
-        }
-        
-        response = authenticated_api_client.post(url, data, format='json')
-        
-        assert response.status_code == status.HTTP_201_CREATED
-        assert response.data['title'] == 'API Product'
-    
-    def test_retrieve_product(self, authenticated_api_client, product):
-        """Test retrieving a single product."""
-        url = reverse('product-api-detail', kwargs={'pk': product.pk})
-        response = authenticated_api_client.get(url)
-        
-        assert response.status_code == status.HTTP_200_OK
-        assert response.data['title'] == product.title
-    
-    def test_update_product(self, authenticated_api_client, product):
-        """Test updating a product via API."""
-        url = reverse('product-api-detail', kwargs={'pk': product.pk})
-        data = {
-            'title': 'Updated via API',
-            'category_id': product.category.id,
-            'brand_id': product.brand.id,
-            'cost_price': '15.00',
-            'selling_price': '25.00',
-            'quantity': 150
-        }
-        
-        response = authenticated_api_client.put(url, data, format='json')
-        
-        assert response.status_code == status.HTTP_200_OK
-        product.refresh_from_db()
-        assert product.title == 'Updated via API'
-    
-    def test_delete_product(self, authenticated_api_client, product):
-        """Test deleting a product via API."""
-        url = reverse('product-api-detail', kwargs={'pk': product.pk})
-        
-        response = authenticated_api_client.delete(url)
-        
-        assert response.status_code == status.HTTP_204_NO_CONTENT
-        assert not Product.objects.filter(pk=product.pk).exists()
-    
-    def test_unauthenticated_access(self, api_client, product):
-        """Test that unauthenticated access is denied."""
-        url = reverse('product-api-list')
+    def test_list_employees_unauthenticated(self, api_client):
+        """Test listing employees requires authentication"""
+        url = '/api/v1/employees/'
         response = api_client.get(url)
         
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
     
-    def test_search_products(self, authenticated_api_client, product):
-        """Test searching products."""
-        url = reverse('product-api-list')
-        response = authenticated_api_client.get(url, {'search': 'Galaxy'})
+    def test_create_employee_admin_rh(self, api_client, admin_rh_user):
+        """Test creating employee - admin RH only"""
+        api_client.force_authenticate(user=admin_rh_user)
         
-        assert response.status_code == status.HTTP_200_OK
-        assert response.data['count'] == 1
+        url = '/api/v1/employees/'
+        data = {
+            'full_name': 'New Employee',
+            'position': 'Developer',
+            'department': 'Engineering',
+        }
+        
+        response = api_client.post(url, data)
+        assert response.status_code == status.HTTP_201_CREATED
+        assert Employee.objects.filter(full_name='New Employee').exists()
     
-    def test_filter_by_category(self, authenticated_api_client, product, category):
-        """Test filtering products by category."""
-        url = reverse('product-api-list')
-        response = authenticated_api_client.get(url, {'category': category.id})
+    def test_create_employee_funcionario(self, api_client, user):
+        """Test funcionario cannot create employee"""
+        api_client.force_authenticate(user=user)
+        
+        url = '/api/v1/employees/'
+        data = {
+            'full_name': 'New Employee',
+            'position': 'Developer',
+        }
+        
+        response = api_client.post(url, data)
+        assert response.status_code == status.HTTP_403_FORBIDDEN
+    
+    def test_retrieve_employee(self, authenticated_client, employee):
+        """Test retrieving single employee"""
+        url = f'/api/v1/employees/{employee.id}/'
+        response = authenticated_client.get(url)
         
         assert response.status_code == status.HTTP_200_OK
-        assert response.data['count'] == 1
+        assert response.data['id'] == employee.id
+    
+    def test_update_employee(self, authenticated_client, employee):
+        """Test updating employee"""
+        url = f'/api/v1/employees/{employee.id}/'
+        data = {
+            'position': 'Senior Developer',
+            'salary': '6000.00',
+        }
+        
+        response = authenticated_client.patch(url, data)
+        assert response.status_code == status.HTTP_200_OK
+        
+        employee.refresh_from_db()
+        assert employee.position == 'Senior Developer'
+    
+    def test_delete_employee(self, api_client, admin_rh_user, employee):
+        """Test deleting employee"""
+        api_client.force_authenticate(user=admin_rh_user)
+        
+        url = f'/api/v1/employees/{employee.id}/'
+        response = api_client.delete(url)
+        
+        assert response.status_code == status.HTTP_204_NO_CONTENT
+        assert not Employee.objects.filter(id=employee.id).exists()
+```
 
+### Service Tests
+
+**test_leave_services.py:**
+
+```python
+import pytest
+from datetime import date, timedelta
+from leave_requests.services import calculate_leave_balance
 
 @pytest.mark.django_db
-class TestAuthenticationAPI:
-    """Test Authentication API endpoints."""
+class TestLeaveServices:
     
-    def test_obtain_token(self, api_client, user):
-        """Test obtaining JWT token."""
-        url = reverse('authentication:token_obtain_pair')
-        data = {
-            'username': 'testuser',
-            'password': 'testpass123'
-        }
+    def test_calculate_leave_balance(self, user):
+        """Test leave balance calculation"""
+        balance = calculate_leave_balance(user, year=2024)
         
-        response = api_client.post(url, data, format='json')
-        
-        assert response.status_code == status.HTTP_200_OK
-        assert 'access' in response.data
-        assert 'refresh' in response.data
+        assert balance['available_days'] == 30
+        assert balance['used_days'] == 0
+        assert balance['remaining_days'] == 30
     
-    def test_refresh_token(self, authenticated_api_client):
-        """Test refreshing JWT token."""
-        # First, get a refresh token
-        from rest_framework_simplejwt.tokens import RefreshToken
-        refresh = RefreshToken.for_user(authenticated_api_client.handler._user)
+    def test_calculate_leave_balance_with_used_days(self, user, leave_request):
+        """Test balance with used days"""
+        balance = calculate_leave_balance(user, year=2024)
         
-        url = reverse('authentication:token_refresh')
-        data = {'refresh': str(refresh)}
-        
-        response = authenticated_api_client.post(url, data, format='json')
-        
-        assert response.status_code == status.HTTP_200_OK
-        assert 'access' in response.data
-    
-    def test_invalid_credentials(self, api_client):
-        """Test authentication with invalid credentials."""
-        url = reverse('authentication:token_obtain_pair')
-        data = {
-            'username': 'wronguser',
-            'password': 'wrongpass'
-        }
-        
-        response = api_client.post(url, data, format='json')
-        
-        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+        assert balance['used_days'] == leave_request.dias_solicitados
+        assert balance['remaining_days'] == 30 - leave_request.dias_solicitados
 ```
 
 ---
 
-## Running Tests
+## ⚛️ Frontend Testing
 
-### Basic Commands
+### Jest Configuration
+
+**frontend/jest.config.js:**
+
+```javascript
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+  moduleNameMapper: {
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/main.tsx',
+  ],
+  testMatch: [
+    '**/__tests__/**/*.[jt]s?(x)',
+    '**/?(*.)+(spec|test).[tj]s?(x)',
+  ],
+};
+```
+
+### Component Tests
+
+**EmployeeList.test.tsx:**
+
+```typescript
+import React from 'react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { EmployeeList } from './EmployeeList';
+import * as api from '../services/api';
+
+const createWrapper = () => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { retry: false },
+    },
+  });
+  
+  return ({ children }) => (
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        {children}
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
+};
+
+describe('EmployeeList', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('renders loading state initially', () => {
+    jest.spyOn(api, 'getEmployees').mockImplementation(() => new Promise(() => {}));
+    
+    render(<EmployeeList />, { wrapper: createWrapper() });
+    
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+  });
+
+  it('displays employees after successful fetch', async () => {
+    const mockEmployees = [
+      { id: 1, full_name: 'John Doe', position: 'Developer' },
+      { id: 2, full_name: 'Jane Smith', position: 'Designer' },
+    ];
+    
+    jest.spyOn(api, 'getEmployees').mockResolvedValue({ data: mockEmployees });
+    
+    render(<EmployeeList />, { wrapper: createWrapper() });
+    
+    await waitFor(() => {
+      expect(screen.getByText('John Doe')).toBeInTheDocument();
+      expect(screen.getByText('Jane Smith')).toBeInTheDocument();
+    });
+  });
+
+  it('displays error message on fetch failure', async () => {
+    jest.spyOn(api, 'getEmployees').mockRejectedValue(new Error('API Error'));
+    
+    render(<EmployeeList />, { wrapper: createWrapper() });
+    
+    await waitFor(() => {
+      expect(screen.getByText(/error/i)).toBeInTheDocument();
+    });
+  });
+
+  it('handles search input', async () => {
+    const mockEmployees = [
+      { id: 1, full_name: 'John Doe', position: 'Developer' },
+    ];
+    
+    jest.spyOn(api, 'getEmployees').mockResolvedValue({ data: mockEmployees });
+    
+    render(<EmployeeList />, { wrapper: createWrapper() });
+    
+    await waitFor(() => {
+      expect(screen.getByText('John Doe')).toBeInTheDocument();
+    });
+    
+    const searchInput = screen.getByPlaceholderText(/search/i);
+    fireEvent.change(searchInput, { target: { value: 'John' } });
+    
+    // Verify search is triggered
+    await waitFor(() => {
+      expect(api.getEmployees).toHaveBeenCalledWith(
+        expect.objectContaining({ search: 'John' })
+      );
+    });
+  });
+});
+```
+
+### Hook Tests
+
+**useAuth.test.ts:**
+
+```typescript
+import { renderHook, act, waitFor } from '@testing-library/react';
+import { useAuth } from './useAuth';
+import * as authAPI from '../services/auth';
+
+describe('useAuth', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    localStorage.clear();
+  });
+
+  it('returns initial auth state', () => {
+    const { result } = renderHook(() => useAuth());
+    
+    expect(result.current.isAuthenticated).toBe(false);
+    expect(result.current.user).toBeNull();
+  });
+
+  it('logs in successfully', async () => {
+    const mockUser = { id: 1, email: 'test@example.com' };
+    const mockTokens = { access: 'token', refresh: 'refresh' };
+    
+    jest.spyOn(authAPI, 'login').mockResolvedValue({
+      user: mockUser,
+      ...mockTokens,
+    });
+    
+    const { result } = renderHook(() => useAuth());
+    
+    await act(async () => {
+      await result.current.login('test@example.com', 'password');
+    });
+    
+    expect(result.current.isAuthenticated).toBe(true);
+    expect(result.current.user).toEqual(mockUser);
+    expect(localStorage.getItem('access_token')).toBeTruthy();
+  });
+
+  it('handles login error', async () => {
+    jest.spyOn(authAPI, 'login').mockRejectedValue(new Error('Invalid credentials'));
+    
+    const { result } = renderHook(() => useAuth());
+    
+    await act(async () => {
+      try {
+        await result.current.login('test@example.com', 'wrong');
+      } catch (error) {
+        // Expected
+      }
+    });
+    
+    expect(result.current.isAuthenticated).toBe(false);
+    expect(result.current.error).toBe('Invalid credentials');
+  });
+
+  it('logs out successfully', async () => {
+    localStorage.setItem('access_token', 'token');
+    
+    const { result } = renderHook(() => useAuth());
+    
+    await act(async () => {
+      await result.current.logout();
+    });
+    
+    expect(result.current.isAuthenticated).toBe(false);
+    expect(localStorage.getItem('access_token')).toBeNull();
+  });
+});
+```
+
+### Page Tests
+
+**LoginPage.test.tsx:**
+
+```typescript
+import React from 'react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import { LoginPage } from './LoginPage';
+import * as authAPI from '../services/auth';
+
+const renderLoginPage = () => {
+  return render(
+    <BrowserRouter>
+      <LoginPage />
+    </BrowserRouter>
+  );
+};
+
+describe('LoginPage', () => {
+  it('renders login form', () => {
+    renderLoginPage();
+    
+    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
+  });
+
+  it('validates required fields', async () => {
+    renderLoginPage();
+    
+    const submitButton = screen.getByRole('button', { name: /login/i });
+    fireEvent.click(submitButton);
+    
+    await waitFor(() => {
+      expect(screen.getAllByText(/required/i)).toHaveLength(2);
+    });
+  });
+
+  it('submits form with valid data', async () => {
+    jest.spyOn(authAPI, 'login').mockResolvedValue({
+      user: { id: 1, email: 'test@example.com' },
+      access: 'token',
+      refresh: 'refresh',
+    });
+    
+    renderLoginPage();
+    
+    fireEvent.change(screen.getByLabelText(/email/i), {
+      target: { value: 'test@example.com' },
+    });
+    fireEvent.change(screen.getByLabelText(/password/i), {
+      target: { value: 'password123' },
+    });
+    
+    fireEvent.click(screen.getByRole('button', { name: /login/i }));
+    
+    await waitFor(() => {
+      expect(authAPI.login).toHaveBeenCalledWith(
+        'test@example.com',
+        'password123'
+      );
+    });
+  });
+});
+```
+
+---
+
+## 🔗 Integration Testing
+
+### API Integration Tests
+
+**test_leave_request_workflow.py:**
+
+```python
+import pytest
+from rest_framework import status
+from datetime import date, timedelta
+
+@pytest.mark.django_db
+class TestLeaveRequestWorkflow:
+    
+    def test_complete_leave_request_workflow(
+        self,
+        api_client,
+        user,
+        admin_rh_user,
+        leave_type
+    ):
+        """Test complete leave request workflow"""
+        
+        # 1. Employee submits leave request
+        api_client.force_authenticate(user=user)
+        
+        url = '/api/v1/leave-requests/'
+        data = {
+            'tipo': leave_type.id,
+            'data_inicio': (date.today() + timedelta(days=30)).isoformat(),
+            'data_fim': (date.today() + timedelta(days=44)).isoformat(),
+            'motivo': 'Annual vacation',
+            'prioridade': 'media',
+        }
+        
+        response = api_client.post(url, data)
+        assert response.status_code == status.HTTP_201_CREATED
+        leave_request_id = response.data['id']
+        
+        # 2. Verify status is pending
+        response = api_client.get(f'/api/v1/leave-requests/{leave_request_id}/')
+        assert response.data['status'] == 'pendente'
+        
+        # 3. Admin approves request
+        api_client.force_authenticate(user=admin_rh_user)
+        
+        url = f'/api/v1/leave-requests/{leave_request_id}/approve/'
+        data = {'comentario': 'Approved!'}
+        
+        response = api_client.post(url, data)
+        assert response.status_code == status.HTTP_200_OK
+        
+        # 4. Verify status is approved
+        response = api_client.get(f'/api/v1/leave-requests/{leave_request_id}/')
+        assert response.data['status'] == 'aprovada'
+        
+        # 5. Verify leave balance updated
+        response = api_client.get('/api/v1/leave-requests/balances/')
+        balance = next(
+            b for b in response.data if b['tipo'] == leave_type.id
+        )
+        assert balance['dias_utilizados'] == 14
+```
+
+---
+
+## 🎭 End-to-End Testing
+
+### Playwright Setup
+
+**frontend/tests/e2e/login.spec.ts:**
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+test.describe('Authentication', () => {
+  test('should log in successfully', async ({ page }) => {
+    // Navigate to login page
+    await page.goto('http://localhost:3000/login');
+    
+    // Fill credentials
+    await page.fill('[name="email"]', 'admin@example.com');
+    await page.fill('[name="password"]', 'admin123');
+    
+    // Submit form
+    await page.click('button[type="submit"]');
+    
+    // Wait for navigation
+    await page.waitForURL('http://localhost:3000/dashboard');
+    
+    // Verify logged in
+    await expect(page.locator('text=Dashboard')).toBeVisible();
+  });
+
+  test('should show error on invalid credentials', async ({ page }) => {
+    await page.goto('http://localhost:3000/login');
+    
+    await page.fill('[name="email"]', 'invalid@example.com');
+    await page.fill('[name="password"]', 'wrongpassword');
+    
+    await page.click('button[type="submit"]');
+    
+    await expect(page.locator('text=Invalid credentials')).toBeVisible();
+  });
+});
+
+test.describe('Employee Management', () => {
+  test('should create new employee', async ({ page }) => {
+    // Login first
+    await page.goto('http://localhost:3000/login');
+    await page.fill('[name="email"]', 'admin@example.com');
+    await page.fill('[name="password"]', 'admin123');
+    await page.click('button[type="submit"]');
+    await page.waitForURL('http://localhost:3000/dashboard');
+    
+    // Navigate to employees
+    await page.click('text=Employees');
+    await page.waitForURL('http://localhost:3000/employees');
+    
+    // Click create button
+    await page.click('text=New Employee');
+    
+    // Fill form
+    await page.fill('[name="full_name"]', 'Test Employee');
+    await page.fill('[name="email"]', 'test@example.com');
+    await page.fill('[name="position"]', 'Developer');
+    
+    // Submit
+    await page.click('button[type="submit"]');
+    
+    // Verify creation
+    await expect(page.locator('text=Test Employee')).toBeVisible();
+  });
+});
+```
+
+---
+
+## 📊 Test Coverage
+
+### Running Coverage Reports
+
+**Backend:**
 
 ```bash
-# Run all tests
-pytest
+# Terminal coverage
+pytest --cov=app --cov-report=term-missing
 
-# Run with verbose output
-pytest -v
+# HTML report
+pytest --cov=app --cov-report=html
 
-# Run specific test file
-pytest products/tests/test_models.py
-
-# Run specific test class
-pytest products/tests/test_models.py::TestProductModel
-
-# Run specific test function
-pytest products/tests/test_models.py::TestProductModel::test_product_creation
-
-# Run tests matching keyword
-pytest -k "test_product"
-
-# Run tests by marker
-pytest -m django_db
-
-# Run with coverage
-pytest --cov=.
-
-# Run with HTML coverage report
-pytest --cov=. --cov-report=html
-
-# Open coverage report
+# Open report
 open htmlcov/index.html  # macOS
-xdg-open htmlcov/index.html  # Linux
-start htmlcov\\index.html  # Windows
+start htmlcov/index.html  # Windows
 ```
 
-### Test Markers
-
-```python
-# Mark tests in conftest.py or pytest.ini
-
-# In pytest.ini
-[pytest]
-markers =
-    slow: marks tests as slow
-    integration: marks tests as integration tests
-    api: marks tests as API tests
-
-# Usage
-@pytest.mark.slow
-def test_slow_operation():
-    pass
-
-@pytest.mark.integration
-def test_integration():
-    pass
-
-# Run only marked tests
-pytest -m slow
-pytest -m integration
-```
-
-### Parallel Testing
+**Frontend:**
 
 ```bash
-# Install pytest-xdist
-pip install pytest-xdist
+cd frontend
 
-# Run tests in parallel
-pytest -n auto  # Auto-detect CPU count
-pytest -n 4     # Use 4 workers
-```
-
----
-
-## Test Coverage
-
-### Configuration
-
-**.coveragerc**:
-
-```ini
-[run]
-source = .
-omit = 
-    */migrations/*
-    */tests/*
-    */venv/*
-    */__pycache__/*
-    manage.py
-    app/settings.py
-    */admin.py
-
-[report]
-exclude_lines =
-    pragma: no cover
-    def __str__
-    raise NotImplementedError
-    if DEBUG:
-    if settings.DEBUG:
-
-[html]
-directory = htmlcov
-```
-
-### Coverage Commands
-
-```bash
 # Run tests with coverage
-coverage run -m pytest
-coverage report
+npm test -- --coverage
 
-# Show missing lines
-coverage report -m
-
-# Generate HTML report
-coverage html
-
-# Generate XML report (for CI/CD)
-coverage xml
-
-# Check minimum coverage
-coverage report --fail-under=80
+# Open report
+open coverage/index.html  # macOS
+start coverage/index.html  # Windows
 ```
 
-### Coverage Badge
+### Coverage Goals
 
-Add to README.md:
-
-```markdown
-![Coverage](https://img.shields.io/badge/coverage-85%25-brightgreen)
-```
+| Component | Goal |
+|-----------|------|
+| **Models** | 90%+ |
+| **Serializers** | 85%+ |
+| **Views/APIs** | 80%+ |
+| **Services** | 85%+ |
+| **Components** | 70%+ |
+| **Overall** | 80%+ |
 
 ---
 
-## Best Practices
+## 🔄 Continuous Integration
 
-### Test Naming
+### GitHub Actions Example
 
-```python
-# ✅ Good
-def test_product_creation():
-    pass
-
-def test_product_str_representation():
-    pass
-
-def test_profit_margin_calculation():
-    pass
-
-# ❌ Bad
-def test_1():
-    pass
-
-def test_product():
-    pass
-```
-
-### Arrange-Act-Assert Pattern
-
-```python
-def test_product_profit_calculation(self, category, brand):
-    # Arrange
-    product = Product.objects.create(
-        title='Test Product',
-        category=category,
-        brand=brand,
-        cost_price=100.00,
-        selling_price=150.00,
-        quantity=10
-    )
-    
-    # Act
-    profit = product.selling_price - product.cost_price
-    
-    # Assert
-    assert profit == 50.00
-```
-
-### Test Isolation
-
-```python
-# ✅ Good - Each test is independent
-@pytest.mark.django_db
-class TestProduct:
-    def test_creation(self):
-        product = Product.objects.create(...)
-        assert product.title == 'Test'
-    
-    def test_update(self):
-        product = Product.objects.create(...)
-        product.title = 'Updated'
-        product.save()
-        assert product.title == 'Updated'
-
-# ❌ Bad - Tests depend on each other
-@pytest.mark.django_db
-class TestProduct:
-    def test_creation(self):
-        self.product = Product.objects.create(...)
-    
-    def test_update(self):
-        self.product.title = 'Updated'  # Depends on test_creation
-```
-
-### Fixtures Over Setup
-
-```python
-# ✅ Good - Using fixtures
-def test_product(product, category, brand):
-    assert product.category == category
-
-# ❌ Bad - Using setUp
-class TestProduct:
-    def setUp(self):
-        self.category = Category.objects.create(...)
-        self.product = Product.objects.create(...)
-    
-    def test_something(self):
-        # Test code
-```
-
-### Test Data Guidelines
-
-```python
-# ✅ Good - Realistic test data
-product = Product.objects.create(
-    title='Samsung Galaxy S23',
-    cost_price=Decimal('500.00'),
-    selling_price=Decimal('799.99'),
-    quantity=50
-)
-
-# ❌ Bad - Unrealistic data
-product = Product.objects.create(
-    title='a',
-    cost_price=1,
-    selling_price=2,
-    quantity=1
-)
-```
-
----
-
-## CI/CD Integration
-
-### GitHub Actions
-
-**.github/workflows/tests.yml**:
+**.github/workflows/tests.yml:**
 
 ```yaml
 name: Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
 
 jobs:
-  test:
+  backend-tests:
     runs-on: ubuntu-latest
     
     services:
@@ -918,8 +840,13 @@ jobs:
         image: postgres:15
         env:
           POSTGRES_DB: test_db
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_pass
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
         ports:
           - 5432:5432
     
@@ -933,21 +860,120 @@ jobs:
       
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install -r requirements_dev.txt
       
       - name: Run tests
         run: |
-          pytest --cov=. --cov-report=xml
+          pytest --cov=app --cov-report=xml
       
       - name: Upload coverage
         uses: codecov/codecov-action@v3
         with:
           file: ./coverage.xml
+
+  frontend-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm ci
+      
+      - name: Run tests
+        run: |
+          cd frontend
+          npm test -- --coverage --ci
+      
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./frontend/coverage/coverage-final.json
 ```
 
 ---
 
-**Next Steps**: 
-- [Deploy](deploy.md) - Deployment guide
-- [Contribution](contribution.md) - How to contribute
+## ✅ Best Practices
+
+### DO ✅
+
+- Write tests before fixing bugs (TDD)
+- Use descriptive test names
+- Test edge cases
+- Mock external dependencies
+- Keep tests independent
+- Use fixtures for common data
+- Test both success and failure cases
+- Run tests before committing
+- Keep tests fast
+- Document complex tests
+
+### DON'T ❌
+
+- Test implementation details
+- Write tests that depend on each other
+- Skip tests for "simple" code
+- Hardcode sensitive data
+- Write flaky tests
+- Test only happy paths
+- Ignore failing tests
+- Write tests that are too large
+
+---
+
+## 📚 Related Documentation
+
+- [Development Guide](development.md) - Development workflow
+- [API Endpoints](api-endpoints.md) - API reference
+- [Guidelines](guidelines.md) - Coding standards
+
+---
+
+## 🆘 Troubleshooting
+
+### Common Issues
+
+**Tests not discovered:**
+
+```bash
+# Ensure test files are named correctly
+# test_*.py or *_tests.py
+
+# Check pytest configuration
+pytest --collect-only
+```
+
+**Database errors:**
+
+```bash
+# Ensure test database is created
+pytest --create-db
+
+# Use @pytest.mark.django_db decorator
+```
+
+**Import errors:**
+
+```bash
+# Ensure virtual environment is activated
+# Install test dependencies
+pip install pytest pytest-django pytest-cov
+```
+
+---
+
+## 📖 Resources
+
+- [pytest Documentation](https://docs.pytest.org/)
+- [Django Testing](https://docs.djangoproject.com/en/stable/topics/testing/)
+- [React Testing Library](https://testing-library.com/react/)
+- [Jest Documentation](https://jestjs.io/)
+- [Playwright](https://playwright.dev/)
