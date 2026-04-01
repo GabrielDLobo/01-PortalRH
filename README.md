@@ -6,7 +6,11 @@ A production-ready **Human Resources Management System** built with **Django RES
 
 Full project documentation is available at:
 
-<a href="./docs/" target="_blank" rel="noopener noreferrer"><strong>Open Documentation (docs/)</strong></a>
+- **Published docs (outside GitHub tree):**
+  https://htmlpreview.github.io/?https://github.com/GabrielDLobo/01-PortalRH/blob/master/site/index.html
+
+- **Docs source (repository):**
+  https://github.com/GabrielDLobo/01-PortalRH/tree/master/docs
 
 - **Local preview:**
   ```bash
