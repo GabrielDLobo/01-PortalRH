@@ -1,11 +1,11 @@
-site_name: PortalRH Documentation
-site_description: Human Resources Management System documentation
+site_name: Inventory Management System
+site_description: A Django-based Inventory Management System (SGE - Sistema de Gestão de Estoque) that allows you to manage products, suppliers, and stock movements (inflows/outflows), providing a dashboard with metrics and charts. It also includes an optional AI insights module to generate short daily inventory/sales recommendations based on system data.
 site_author: GabrielDLobo
 use_directory_urls: false
 
 docs_dir: docs
 
-theme:
+theme: 
   name: material
   palette:
     primary: navy blue
@@ -26,19 +26,15 @@ nav:
   - Development: development.md
   - Testing: testing.md
   - Deploy: deploy.md
-  - Contribution: contributing.md
-  - Image Projects: gallery.md
+  - Contribution: contribution.md
+  - Image Projects: image-projects.md
   - Release Notes: release-notes.md
-  - Update Log: UPDATE_LOG.md
 
 plugins:
   - search
 
 markdown_extensions:
-  - fenced_code
-  - tables
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
