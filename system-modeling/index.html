@@ -1,0 +1,503 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Human Resources Management System documentation built with Django REST Framework and React + TypeScript."><meta name=author content=GabrielDLobo><link href=https://gabrieldlobo.github.io/01-PortalRH/system-modeling/ rel=canonical><link href=../api-endpoints/ rel=prev><link href=../authentication/ rel=next><link rel=icon href=../assets/images/favicon.png><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.5.34"><title>System Modeling - PortalRH Documentation</title><link rel=stylesheet href=../assets/stylesheets/main.35f28582.min.css><link rel=stylesheet href=../assets/stylesheets/palette.06af60db.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style><script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=green data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#system-modeling class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=.. title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5zM6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> PortalRH Documentation </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> System Modeling </span> </div> </div> </div> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/GabrielDLobo/01-PortalRH title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg> </div> <div class=md-source__repository> GabrielDLobo/01-PortalRH </div> </a> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=.. title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5zM6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5"/></svg> </a> PortalRH Documentation </label> <div class=md-nav__source> <a href=https://github.com/GabrielDLobo/01-PortalRH title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg> </div> <div class=md-source__repository> GabrielDLobo/01-PortalRH </div> </a> </div> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../overview/ class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> </li> <li class=md-nav__item> <a href=../prerequisites/ class=md-nav__link> <span class=md-ellipsis> Prerequisites </span> </a> </li> <li class=md-nav__item> <a href=../installation/ class=md-nav__link> <span class=md-ellipsis> Installation </span> </a> </li> <li class=md-nav__item> <a href=../configuration/ class=md-nav__link> <span class=md-ellipsis> Configuration </span> </a> </li> <li class=md-nav__item> <a href=../quick-start/ class=md-nav__link> <span class=md-ellipsis> Quick Start </span> </a> </li> <li class=md-nav__item> <a href=../guidelines/ class=md-nav__link> <span class=md-ellipsis> Guidelines and Standards </span> </a> </li> <li class=md-nav__item> <a href=../structure/ class=md-nav__link> <span class=md-ellipsis> Project Structure </span> </a> </li> <li class=md-nav__item> <a href=../development/ class=md-nav__link> <span class=md-ellipsis> Development </span> </a> </li> <li class=md-nav__item> <a href=../testing/ class=md-nav__link> <span class=md-ellipsis> Testing </span> </a> </li> <li class=md-nav__item> <a href=../api-endpoints/ class=md-nav__link> <span class=md-ellipsis> API Endpoints </span> </a> </li> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> System Modeling </span> <span class="md-nav__icon md-icon"></span> </label> <a href=./ class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> System Modeling </span> </a> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#entity-relationship-diagram-erd class=md-nav__link> <span class=md-ellipsis> 📊 Entity Relationship Diagram (ERD) </span> </a> </li> <li class=md-nav__item> <a href=#system-architecture class=md-nav__link> <span class=md-ellipsis> 🏗️ System Architecture </span> </a> </li> <li class=md-nav__item> <a href=#authentication-flow class=md-nav__link> <span class=md-ellipsis> 🔐 Authentication Flow </span> </a> </li> <li class=md-nav__item> <a href=#crud-operations-flow class=md-nav__link> <span class=md-ellipsis> 📝 CRUD Operations Flow </span> </a> <nav class=md-nav aria-label="📝 CRUD Operations Flow"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#employee-management-crud class=md-nav__link> <span class=md-ellipsis> Employee Management CRUD </span> </a> </li> <li class=md-nav__item> <a href=#leave-request-workflow class=md-nav__link> <span class=md-ellipsis> Leave Request Workflow </span> </a> </li> <li class=md-nav__item> <a href=#evaluation-process-flow class=md-nav__link> <span class=md-ellipsis> Evaluation Process Flow </span> </a> </li> <li class=md-nav__item> <a href=#termination-process-flow class=md-nav__link> <span class=md-ellipsis> Termination Process Flow </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#security-architecture class=md-nav__link> <span class=md-ellipsis> 🔒 Security Architecture </span> </a> </li> <li class=md-nav__item> <a href=#component-architecture class=md-nav__link> <span class=md-ellipsis> 📦 Component Architecture </span> </a> <nav class=md-nav aria-label="📦 Component Architecture"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#backend-component-diagram class=md-nav__link> <span class=md-ellipsis> Backend Component Diagram </span> </a> </li> <li class=md-nav__item> <a href=#frontend-component-hierarchy class=md-nav__link> <span class=md-ellipsis> Frontend Component Hierarchy </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#state-management class=md-nav__link> <span class=md-ellipsis> 🔄 State Management </span> </a> <nav class=md-nav aria-label="🔄 State Management"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#frontend-state-flow class=md-nav__link> <span class=md-ellipsis> Frontend State Flow </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#database-schema-details class=md-nav__link> <span class=md-ellipsis> 📊 Database Schema Details </span> </a> <nav class=md-nav aria-label="📊 Database Schema Details"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#user-authentication class=md-nav__link> <span class=md-ellipsis> User &amp; Authentication </span> </a> </li> <li class=md-nav__item> <a href=#leave-management class=md-nav__link> <span class=md-ellipsis> Leave Management </span> </a> </li> <li class=md-nav__item> <a href=#evaluations class=md-nav__link> <span class=md-ellipsis> Evaluations </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#deployment-architecture class=md-nav__link> <span class=md-ellipsis> 🌐 Deployment Architecture </span> </a> </li> <li class=md-nav__item> <a href=#performance-architecture class=md-nav__link> <span class=md-ellipsis> 📈 Performance Architecture </span> </a> </li> <li class=md-nav__item> <a href=#integration-points class=md-nav__link> <span class=md-ellipsis> 🔄 Integration Points </span> </a> </li> <li class=md-nav__item> <a href=#user-interface-flow class=md-nav__link> <span class=md-ellipsis> 📱 User Interface Flow </span> </a> </li> <li class=md-nav__item> <a href=#related-documentation class=md-nav__link> <span class=md-ellipsis> 📚 Related Documentation </span> </a> </li> <li class=md-nav__item> <a href=#key-design-decisions class=md-nav__link> <span class=md-ellipsis> 🎯 Key Design Decisions </span> </a> <nav class=md-nav aria-label="🎯 Key Design Decisions"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#database-design class=md-nav__link> <span class=md-ellipsis> Database Design </span> </a> </li> <li class=md-nav__item> <a href=#api-design class=md-nav__link> <span class=md-ellipsis> API Design </span> </a> </li> <li class=md-nav__item> <a href=#security-design class=md-nav__link> <span class=md-ellipsis> Security Design </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#diagram-legend class=md-nav__link> <span class=md-ellipsis> 🆘 Diagram Legend </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../authentication/ class=md-nav__link> <span class=md-ellipsis> Authentication and Security </span> </a> </li> <li class=md-nav__item> <a href=../deployment/ class=md-nav__link> <span class=md-ellipsis> Deployment </span> </a> </li> <li class=md-nav__item> <a href=../contributing/ class=md-nav__link> <span class=md-ellipsis> Contributing </span> </a> </li> <li class=md-nav__item> <a href=../release-notes/ class=md-nav__link> <span class=md-ellipsis> Release Notes </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#entity-relationship-diagram-erd class=md-nav__link> <span class=md-ellipsis> 📊 Entity Relationship Diagram (ERD) </span> </a> </li> <li class=md-nav__item> <a href=#system-architecture class=md-nav__link> <span class=md-ellipsis> 🏗️ System Architecture </span> </a> </li> <li class=md-nav__item> <a href=#authentication-flow class=md-nav__link> <span class=md-ellipsis> 🔐 Authentication Flow </span> </a> </li> <li class=md-nav__item> <a href=#crud-operations-flow class=md-nav__link> <span class=md-ellipsis> 📝 CRUD Operations Flow </span> </a> <nav class=md-nav aria-label="📝 CRUD Operations Flow"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#employee-management-crud class=md-nav__link> <span class=md-ellipsis> Employee Management CRUD </span> </a> </li> <li class=md-nav__item> <a href=#leave-request-workflow class=md-nav__link> <span class=md-ellipsis> Leave Request Workflow </span> </a> </li> <li class=md-nav__item> <a href=#evaluation-process-flow class=md-nav__link> <span class=md-ellipsis> Evaluation Process Flow </span> </a> </li> <li class=md-nav__item> <a href=#termination-process-flow class=md-nav__link> <span class=md-ellipsis> Termination Process Flow </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#security-architecture class=md-nav__link> <span class=md-ellipsis> 🔒 Security Architecture </span> </a> </li> <li class=md-nav__item> <a href=#component-architecture class=md-nav__link> <span class=md-ellipsis> 📦 Component Architecture </span> </a> <nav class=md-nav aria-label="📦 Component Architecture"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#backend-component-diagram class=md-nav__link> <span class=md-ellipsis> Backend Component Diagram </span> </a> </li> <li class=md-nav__item> <a href=#frontend-component-hierarchy class=md-nav__link> <span class=md-ellipsis> Frontend Component Hierarchy </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#state-management class=md-nav__link> <span class=md-ellipsis> 🔄 State Management </span> </a> <nav class=md-nav aria-label="🔄 State Management"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#frontend-state-flow class=md-nav__link> <span class=md-ellipsis> Frontend State Flow </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#database-schema-details class=md-nav__link> <span class=md-ellipsis> 📊 Database Schema Details </span> </a> <nav class=md-nav aria-label="📊 Database Schema Details"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#user-authentication class=md-nav__link> <span class=md-ellipsis> User &amp; Authentication </span> </a> </li> <li class=md-nav__item> <a href=#leave-management class=md-nav__link> <span class=md-ellipsis> Leave Management </span> </a> </li> <li class=md-nav__item> <a href=#evaluations class=md-nav__link> <span class=md-ellipsis> Evaluations </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#deployment-architecture class=md-nav__link> <span class=md-ellipsis> 🌐 Deployment Architecture </span> </a> </li> <li class=md-nav__item> <a href=#performance-architecture class=md-nav__link> <span class=md-ellipsis> 📈 Performance Architecture </span> </a> </li> <li class=md-nav__item> <a href=#integration-points class=md-nav__link> <span class=md-ellipsis> 🔄 Integration Points </span> </a> </li> <li class=md-nav__item> <a href=#user-interface-flow class=md-nav__link> <span class=md-ellipsis> 📱 User Interface Flow </span> </a> </li> <li class=md-nav__item> <a href=#related-documentation class=md-nav__link> <span class=md-ellipsis> 📚 Related Documentation </span> </a> </li> <li class=md-nav__item> <a href=#key-design-decisions class=md-nav__link> <span class=md-ellipsis> 🎯 Key Design Decisions </span> </a> <nav class=md-nav aria-label="🎯 Key Design Decisions"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#database-design class=md-nav__link> <span class=md-ellipsis> Database Design </span> </a> </li> <li class=md-nav__item> <a href=#api-design class=md-nav__link> <span class=md-ellipsis> API Design </span> </a> </li> <li class=md-nav__item> <a href=#security-design class=md-nav__link> <span class=md-ellipsis> Security Design </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#diagram-legend class=md-nav__link> <span class=md-ellipsis> 🆘 Diagram Legend </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=system-modeling>System Modeling<a class=headerlink href=#system-modeling title="Permanent link">&para;</a></h1> <p>This document provides comprehensive system modeling including data models, architecture diagrams, and workflow visualizations.</p> <hr> <h2 id=entity-relationship-diagram-erd>📊 Entity Relationship Diagram (ERD)<a class=headerlink href=#entity-relationship-diagram-erd title="Permanent link">&para;</a></h2> <pre class=mermaid><code>erDiagram
+    ACCOUNTS_USER ||--o| EMPLOYEES_EMPLOYEE : has_profile
+    ACCOUNTS_USER ||--o| LEAVE_REQUESTS_LEAVE_REQUEST : submits
+    ACCOUNTS_USER ||--o| EVALUATIONS_EVALUATION : evaluates
+    ACCOUNTS_USER ||--o| TERMINATION_TERMINATION_REQUEST : requests
+    ACCOUNTS_USER ||--o| REPORTS_REPORT_EXECUTION : executes
+
+    EMPLOYEES_EMPLOYEE ||--o| EMPLOYEES_EMPLOYEE_DOCUMENT : has_documents
+    EMPLOYEES_EMPLOYEE ||--o| EMPLOYEES_ADMISSION_PROCESS : has_process
+    EMPLOYEES_EMPLOYEE ||--o| STAFF_EMPLOYEE : works_as
+
+    LEAVE_REQUESTS_LEAVE_TYPE ||--o| LEAVE_REQUESTS_LEAVE_REQUEST : defines
+    LEAVE_REQUESTS_LEAVE_REQUEST ||--o| LEAVE_REQUESTS_LEAVE_BALANCE : affects
+
+    EVALUATIONS_EVALUATION_TEMPLATE ||--o| EVALUATIONS_EVALUATION_CRITERIA : contains
+    EVALUATIONS_EVALUATION_TEMPLATE ||--o| EVALUATIONS_EVALUATION : used_in
+    EVALUATIONS_EVALUATION ||--o| EVALUATIONS_EVALUATION_SCORE : contains
+    EVALUATIONS_EVALUATION_CYCLE ||--o| EVALUATIONS_CYCLE_PARTICIPANT : includes
+
+    TERMINATION_TERMINATION_REASON ||--o| TERMINATION_TERMINATION_REQUEST : defines
+    TERMINATION_TERMINATION_REQUEST ||--o| TERMINATION_TERMINATION_DOCUMENT : generates
+
+    REPORTS_REPORT_TEMPLATE ||--o| REPORTS_REPORT_EXECUTION : executed_as
+    REPORTS_REPORT_TEMPLATE ||--o| REPORTS_REPORT_SCHEDULE : scheduled_as
+    REPORTS_REPORT_CATEGORY ||--o| REPORTS_REPORT_TEMPLATE : categorizes
+
+    STAFF_DEPARTMENT ||--o{ STAFF_EMPLOYEE : contains</code></pre> <hr> <h2 id=system-architecture>🏗️ System Architecture<a class=headerlink href=#system-architecture title="Permanent link">&para;</a></h2> <pre class=mermaid><code>graph TB
+    subgraph Client Layer
+        Browser[Web Browser]
+        Mobile[Mobile Device]
+    end
+
+    subgraph Frontend Layer
+        React[React 19 + TypeScript]
+        Tailwind[TailwindCSS]
+        Router[React Router]
+    end
+
+    subgraph API Gateway
+        Nginx[Nginx Reverse Proxy]
+    end
+
+    subgraph Backend Layer
+        Django[Django 5.2]
+        DRF[Django REST Framework]
+        JWT[SimpleJWT Auth]
+        Filters[Django Filters]
+    end
+
+    subgraph Data Layer
+        PostgreSQL[(PostgreSQL Database)]
+        SQLite[(SQLite Dev)]
+        Media[File Storage]
+    end
+
+    Browser --&gt; React
+    Mobile --&gt; React
+    React --&gt; Nginx
+    Nginx --&gt; Django
+    Django --&gt; DRF
+    DRF --&gt; JWT
+    DRF --&gt; Filters
+    DRF --&gt; PostgreSQL
+    DRF --&gt; SQLite
+    DRF --&gt; Media</code></pre> <hr> <h2 id=authentication-flow>🔐 Authentication Flow<a class=headerlink href=#authentication-flow title="Permanent link">&para;</a></h2> <pre class=mermaid><code>sequenceDiagram
+    participant User
+    participant Frontend
+    participant Backend
+    participant Database
+
+    User-&gt;&gt;Frontend: Enter credentials
+    Frontend-&gt;&gt;Backend: POST /api/v1/accounts/login/
+    Backend-&gt;&gt;Database: Validate credentials
+    Database--&gt;&gt;Backend: User data
+    Backend-&gt;&gt;Backend: Generate JWT tokens
+    Backend--&gt;&gt;Frontend: Access + Refresh tokens
+    Frontend-&gt;&gt;Frontend: Store tokens
+    Frontend--&gt;&gt;User: Redirect to dashboard
+
+    User-&gt;&gt;Frontend: Request protected resource
+    Frontend-&gt;&gt;Backend: GET /api/v1/employees/
+    Backend-&gt;&gt;Backend: Validate JWT token
+    Backend-&gt;&gt;Database: Query data
+    Database--&gt;&gt;Backend: Results
+    Backend--&gt;&gt;Frontend: Data response
+    Frontend--&gt;&gt;User: Display data
+
+    Note over Frontend,Backend: Token expires after 15 minutes
+    Frontend-&gt;&gt;Backend: POST /api/v1/accounts/token/refresh/
+    Backend-&gt;&gt;Backend: Validate refresh token
+    Backend--&gt;&gt;Frontend: New access token</code></pre> <hr> <h2 id=crud-operations-flow>📝 CRUD Operations Flow<a class=headerlink href=#crud-operations-flow title="Permanent link">&para;</a></h2> <h3 id=employee-management-crud>Employee Management CRUD<a class=headerlink href=#employee-management-crud title="Permanent link">&para;</a></h3> <pre class=mermaid><code>graph LR
+    subgraph Create
+        A1[HR Admin] --&gt; A2[Fill Employee Form]
+        A2 --&gt; A3[POST /api/v1/employees/]
+        A3 --&gt; A4[Validate Data]
+        A4 --&gt; A5[Save to Database]
+        A5 --&gt; A6[Return Employee]
+    end
+
+    subgraph Read
+        B1[User] --&gt; B2[GET /api/v1/employees/]
+        B2 --&gt; B3[Apply Filters]
+        B3 --&gt; B4[Query Database]
+        B4 --&gt; B5[Serialize Data]
+        B5 --&gt; B6[Return List]
+    end
+
+    subgraph Update
+        C1[HR Admin] --&gt; C2[Edit Employee Data]
+        C2 --&gt; C3[PUT /api/v1/employees/{id}/]
+        C3 --&gt; C4[Validate Changes]
+        C4 --&gt; C5[Update Database]
+        C5 --&gt; C6[Return Updated]
+    end
+
+    subgraph Delete
+        D1[HR Admin] --&gt; D2[Confirm Delete]
+        D2 --&gt; D3[DELETE /api/v1/employees/{id}/]
+        D3 --&gt; D4[Soft Delete]
+        D4 --&gt; D5[Return 204]
+    end</code></pre> <h3 id=leave-request-workflow>Leave Request Workflow<a class=headerlink href=#leave-request-workflow title="Permanent link">&para;</a></h3> <pre class=mermaid><code>stateDiagram-v2
+    [*] --&gt; Draft: Employee creates
+    Draft --&gt; Pending: Submit request
+    Pending --&gt; Approved: Manager approves
+    Pending --&gt; Rejected: Manager rejects
+    Approved --&gt; Cancelled: Employee cancels
+    Rejected --&gt; Draft: Employee edits
+    Approved --&gt; Taken: Leave period starts
+    Taken --&gt; Completed: Leave ends
+    Completed --&gt; [*]
+    Cancelled --&gt; [*]
+    Rejected --&gt; [*]
+
+    note right of Pending
+        Requires approval
+        if days &gt; limit
+    end note
+
+    note right of Approved
+        Balance deducted
+        Email notification
+    end note</code></pre> <h3 id=evaluation-process-flow>Evaluation Process Flow<a class=headerlink href=#evaluation-process-flow title="Permanent link">&para;</a></h3> <pre class=mermaid><code>flowchart TD
+    A[Create Evaluation Cycle] --&gt; B[Assign Participants]
+    B --&gt; C[Send Notifications]
+    C --&gt; D[Self-Evaluation]
+    D --&gt; E[Manager Evaluation]
+    E --&gt; F[360° Feedback]
+    F --&gt; G[Calculate Scores]
+    G --&gt; H[Generate Report]
+    H --&gt; I[Review Meeting]
+    I --&gt; J[Set Goals]
+    J --&gt; K[Complete Cycle]
+
+    style A fill:#e1f5fe
+    style K fill:#c8e6c9</code></pre> <h3 id=termination-process-flow>Termination Process Flow<a class=headerlink href=#termination-process-flow title="Permanent link">&para;</a></h3> <pre class=mermaid><code>flowchart LR
+    A[Manager Request] --&gt; B[HR Review]
+    B --&gt; C{Decision}
+    C --&gt;|Approve| D[Process Documentation]
+    C --&gt;|Reject| E[Return to Manager]
+    D --&gt; F[Generate Documents]
+    F --&gt; G[Final Calculations]
+    G --&gt; H[Exit Interview]
+    H --&gt; I[Complete Termination]
+    I --&gt; J[Update Records]
+
+    style C fill:#fff3e0
+    style I fill:#ffcdd2</code></pre> <hr> <h2 id=security-architecture>🔒 Security Architecture<a class=headerlink href=#security-architecture title="Permanent link">&para;</a></h2> <pre class=mermaid><code>flowchart TB
+    subgraph Security Layers
+        A[Request] --&gt; B[CORS Check]
+        B --&gt; C[CSRF Protection]
+        C --&gt; D[JWT Validation]
+        D --&gt; E[Permission Check]
+        E --&gt; F[Data Validation]
+        F --&gt; G[Execute Action]
+    end
+
+    subgraph Data Protection
+        H[Sensitive Data] --&gt; I[Encryption at Rest]
+        J[Data in Transit] --&gt; K[HTTPS/TLS]
+        L[Passwords] --&gt; M[PBKDF2 Hashing]
+    end
+
+    subgraph Audit
+        N[All Actions] --&gt; O[Activity Logs]
+        O --&gt; P[Security Events]
+        P --&gt; Q[Alert System]
+    end
+
+    G --&gt; H
+    G --&gt; J
+    G --&gt; L
+    G --&gt; N</code></pre> <hr> <h2 id=component-architecture>📦 Component Architecture<a class=headerlink href=#component-architecture title="Permanent link">&para;</a></h2> <h3 id=backend-component-diagram>Backend Component Diagram<a class=headerlink href=#backend-component-diagram title="Permanent link">&para;</a></h3> <pre class=mermaid><code>graph TB
+    subgraph Core
+        Settings[Django Settings]
+        URLs[URL Routing]
+        Middleware[Middleware Layer]
+    end
+
+    subgraph Apps
+        Accounts[Accounts App]
+        Employees[Employees App]
+        Leave[Leave Requests App]
+        Evaluations[Evaluations App]
+        Termination[Termination App]
+        Staff[Staff App]
+        Reports[Reports App]
+    end
+
+    subgraph Shared
+        Models[Shared Models]
+        Serializers[API Serializers]
+        Permissions[Permission Classes]
+        Utils[Utilities]
+    end
+
+    Settings --&gt; URLs
+    URLs --&gt; Middleware
+    Middleware --&gt; Accounts
+    Middleware --&gt; Employees
+    Middleware --&gt; Leave
+    Middleware --&gt; Evaluations
+    Middleware --&gt; Termination
+    Middleware --&gt; Staff
+    Middleware --&gt; Reports
+
+    Accounts --&gt; Shared
+    Employees --&gt; Shared
+    Leave --&gt; Shared
+    Evaluations --&gt; Shared
+    Termination --&gt; Shared
+    Staff --&gt; Shared
+    Reports --&gt; Shared</code></pre> <h3 id=frontend-component-hierarchy>Frontend Component Hierarchy<a class=headerlink href=#frontend-component-hierarchy title="Permanent link">&para;</a></h3> <pre class=mermaid><code>graph TD
+    A[App] --&gt; B[AuthProvider]
+    A --&gt; C[Layout]
+
+    B --&gt; D[Login Page]
+    B --&gt; E[Dashboard Page]
+
+    C --&gt; F[Header]
+    C --&gt; G[Sidebar]
+    C --&gt; H[Main Content]
+
+    H --&gt; I[Employee List]
+    H --&gt; J[Leave Request Form]
+    H --&gt; K[Evaluation Cards]
+    H --&gt; L[Reports Dashboard]
+
+    I --&gt; M[Employee Card]
+    I --&gt; N[Pagination]
+    I --&gt; O[Search Filter]
+
+    J --&gt; P[Date Picker]
+    J --&gt; Q[Leave Type Select]
+    J --&gt; R[Submit Button]
+
+    style A fill:#e3f2fd
+    style C fill:#f3e5f5</code></pre> <hr> <h2 id=state-management>🔄 State Management<a class=headerlink href=#state-management title="Permanent link">&para;</a></h2> <h3 id=frontend-state-flow>Frontend State Flow<a class=headerlink href=#frontend-state-flow title="Permanent link">&para;</a></h3> <pre class=mermaid><code>stateDiagram-v2
+    [*] --&gt; Loading: App starts
+    Loading --&gt; Unauthenticated: No token
+    Loading --&gt; Authenticated: Valid token
+    Unauthenticated --&gt; Authenticated: Login success
+    Authenticated --&gt; Unauthenticated: Logout
+    Authenticated --&gt; TokenExpired: Token expires
+    TokenExpired --&gt; Authenticated: Refresh success
+    TokenExpired --&gt; Unauthenticated: Refresh failed
+
+    state Authenticated {
+        [*] --&gt; Idle
+        Idle --&gt; Fetching: API call
+        Fetching --&gt; Idle: Response received
+        Idle --&gt; Error: API error
+        Error --&gt; Idle: Retry
+    }</code></pre> <hr> <h2 id=database-schema-details>📊 Database Schema Details<a class=headerlink href=#database-schema-details title="Permanent link">&para;</a></h2> <h3 id=user-authentication>User &amp; Authentication<a class=headerlink href=#user-authentication title="Permanent link">&para;</a></h3> <pre class=mermaid><code>classDiagram
+    class User {
+        +int id
+        +string email
+        +string username
+        +string role
+        +boolean is_active
+        +datetime created_at
+        +datetime updated_at
+        +has_perm_for_employee()
+        +is_admin_rh
+        +is_funcionario
+    }
+
+    class Employee {
+        +int id
+        +string employee_id
+        +User user
+        +string full_name
+        +string cpf
+        +string position
+        +string department
+        +date hire_date
+        +decimal salary
+        +string status
+        +get_employee_id()
+        +get_full_name()
+    }
+
+    User "1" -- "1" Employee : has_profile</code></pre> <h3 id=leave-management>Leave Management<a class=headerlink href=#leave-management title="Permanent link">&para;</a></h3> <pre class=mermaid><code>classDiagram
+    class LeaveType {
+        +int id
+        +string nome
+        +string descricao
+        +int max_dias_ano
+        +boolean requer_aprovacao
+        +int antecedencia_minima
+    }
+
+    class LeaveRequest {
+        +int id
+        +User solicitante
+        +LeaveType tipo
+        +date data_inicio
+        +date data_fim
+        +string motivo
+        +string status
+        +int dias_gozo
+        +boolean tem_abono_pecuniario
+        +approve()
+        +reject()
+        +cancel()
+        +dias_solicitados
+    }
+
+    class LeaveBalance {
+        +int id
+        +User funcionario
+        +LeaveType tipo
+        +int ano
+        +int dias_disponiveis
+        +int dias_utilizados
+        +dias_restantes
+        +can_request_days()
+        +use_days()
+    }
+
+    LeaveType "1" -- "*" LeaveRequest : defines
+    LeaveType "1" -- "*" LeaveBalance : tracks
+    LeaveRequest "*" -- "1" LeaveBalance : affects</code></pre> <h3 id=evaluations>Evaluations<a class=headerlink href=#evaluations title="Permanent link">&para;</a></h3> <pre class=mermaid><code>classDiagram
+    class EvaluationTemplate {
+        +int id
+        +string nome
+        +string descricao
+        +boolean ativo
+    }
+
+    class EvaluationCriteria {
+        +int id
+        +EvaluationTemplate template
+        +string nome
+        +string descricao
+        +decimal peso
+        +int ordem
+    }
+
+    class Evaluation {
+        +int id
+        +EvaluationTemplate template
+        +User avaliado
+        +User avaliador
+        +string tipo
+        +date periodo_inicio
+        +date periodo_fim
+        +string status
+        +decimal nota_final
+        +calculate_final_score()
+        +finalize_evaluation()
+    }
+
+    class EvaluationScore {
+        +int id
+        +Evaluation avaliacao
+        +EvaluationCriteria criterio
+        +decimal nota
+        +string comentario
+        +weighted_score
+    }
+
+    EvaluationTemplate "1" -- "*" EvaluationCriteria : contains
+    EvaluationTemplate "1" -- "*" Evaluation : used_in
+    Evaluation "1" -- "*" EvaluationScore : contains
+    EvaluationCriteria "1" -- "*" EvaluationScore : scored_in</code></pre> <hr> <h2 id=deployment-architecture>🌐 Deployment Architecture<a class=headerlink href=#deployment-architecture title="Permanent link">&para;</a></h2> <pre class=mermaid><code>graph TB
+    subgraph Production
+        LB[Load Balancer]
+
+        subgraph App Servers
+            App1[Django + Gunicorn]
+            App2[Django + Gunicorn]
+        end
+
+        subgraph Frontend Servers
+            FE1[Nginx + React]
+            FE2[Nginx + React]
+        end
+
+        subgraph Database
+            Primary[(PostgreSQL Primary)]
+            Replica[(PostgreSQL Replica)]
+        end
+
+        subgraph Storage
+            S3[Object Storage]
+            CDN[CDN]
+        end
+    end
+
+    Users[Users] --&gt; LB
+    LB --&gt; App1
+    LB --&gt; App2
+    LB --&gt; FE1
+    LB --&gt; FE2
+
+    App1 --&gt; Primary
+    App2 --&gt; Primary
+    Primary --&gt; Replica
+
+    App1 --&gt; S3
+    App2 --&gt; S3
+    S3 --&gt; CDN
+    CDN --&gt; FE1
+    CDN --&gt; FE2</code></pre> <hr> <h2 id=performance-architecture>📈 Performance Architecture<a class=headerlink href=#performance-architecture title="Permanent link">&para;</a></h2> <pre class=mermaid><code>flowchart LR
+    subgraph Caching Layer
+        A[Redis Cache]
+    end
+
+    subgraph Query Optimization
+        B[select_related]
+        C[prefetch_related]
+        D[only/defer]
+    end
+
+    subgraph Database
+        E[(PostgreSQL)]
+        F[Indexing]
+        G[Query Cache]
+    end
+
+    subgraph Frontend
+        H[Lazy Loading]
+        I[Code Splitting]
+        J[Virtual Scrolling]
+    end
+
+    Request --&gt; A
+    A --&gt; B
+    A --&gt; C
+    A --&gt; D
+    B --&gt; E
+    C --&gt; E
+    D --&gt; E
+    E --&gt; F
+    E --&gt; G
+    Response --&gt; H
+    Response --&gt; I
+    Response --&gt; J</code></pre> <hr> <h2 id=integration-points>🔄 Integration Points<a class=headerlink href=#integration-points title="Permanent link">&para;</a></h2> <pre class=mermaid><code>flowchart TB
+    subgraph PortalRH
+        Core[Core System]
+    end
+
+    subgraph External Services
+        Email[Email Service]
+        Storage[File Storage]
+        Auth[Authentication]
+    end
+
+    subgraph Future Integrations
+        Payroll[Payroll System]
+        ATS[ATS System]
+        SSO[SSO Provider]
+    end
+
+    Core --&gt; Email
+    Core --&gt; Storage
+    Core --&gt; Auth
+
+    Core -.-&gt; Payroll
+    Core -.-&gt; ATS
+    Core -.-&gt; SSO</code></pre> <hr> <h2 id=user-interface-flow>📱 User Interface Flow<a class=headerlink href=#user-interface-flow title="Permanent link">&para;</a></h2> <pre class=mermaid><code>flowchart LR
+    A[Login] --&gt; B[Dashboard]
+    B --&gt; C[Employees]
+    B --&gt; D[Leave Requests]
+    B --&gt; E[Evaluations]
+    B --&gt; F[Reports]
+    B --&gt; G[Settings]
+
+    C --&gt; C1[List]
+    C --&gt; C2[Detail]
+    C --&gt; C3[Create/Edit]
+
+    D --&gt; D1[My Requests]
+    D --&gt; D2[Pending Approval]
+    D --&gt; D3[History]
+
+    E --&gt; E1[My Evaluations]
+    E --&gt; E2[Given Evaluations]
+    E --&gt; E3[Cycles]
+
+    F --&gt; F1[Generate]
+    F --&gt; F2[Templates]
+    F --&gt; F3[Scheduled]</code></pre> <hr> <h2 id=related-documentation>📚 Related Documentation<a class=headerlink href=#related-documentation title="Permanent link">&para;</a></h2> <ul> <li><a href=../api-endpoints/ >API Endpoints</a> - API reference</li> <li><a href=../authentication/ >Authentication</a> - Security details</li> <li><a href=../development/ >Development Guide</a> - Implementation guide</li> </ul> <hr> <h2 id=key-design-decisions>🎯 Key Design Decisions<a class=headerlink href=#key-design-decisions title="Permanent link">&para;</a></h2> <h3 id=database-design>Database Design<a class=headerlink href=#database-design title="Permanent link">&para;</a></h3> <ul> <li><strong>Custom User Model:</strong> Extended AbstractUser for role-based access</li> <li><strong>One-to-One Relationships:</strong> Employee profiles linked to users</li> <li><strong>Soft Deletes:</strong> Preserve historical data</li> <li><strong>Audit Fields:</strong> created_at, updated_at on all models</li> </ul> <h3 id=api-design>API Design<a class=headerlink href=#api-design title="Permanent link">&para;</a></h3> <ul> <li><strong>RESTful:</strong> Resource-based endpoints</li> <li><strong>Versioning:</strong> URL-based versioning (/api/v1/)</li> <li><strong>Pagination:</strong> Standard pagination for lists</li> <li><strong>Filtering:</strong> Django Filters for complex queries</li> </ul> <h3 id=security-design>Security Design<a class=headerlink href=#security-design title="Permanent link">&para;</a></h3> <ul> <li><strong>JWT Authentication:</strong> Stateless token-based auth</li> <li><strong>Role-Based Access:</strong> Two-tier role system</li> <li><strong>Input Validation:</strong> Serializer validation</li> <li><strong>CORS:</strong> Strict origin policy</li> </ul> <hr> <h2 id=diagram-legend>🆘 Diagram Legend<a class=headerlink href=#diagram-legend title="Permanent link">&para;</a></h2> <table> <thead> <tr> <th>Symbol</th> <th>Meaning</th> </tr> </thead> <tbody> <tr> <td><code>||--o{</code></td> <td>One-to-many relationship</td> </tr> <tr> <td><code>||--||</code></td> <td>One-to-one relationship</td> </tr> <tr> <td><code>o{--o{</code></td> <td>Many-to-many relationship</td> </tr> <tr> <td><code>--&gt;</code></td> <td>Data flow direction</td> </tr> <tr> <td><code>-.-&gt;</code></td> <td>Optional/future integration</td> </tr> <tr> <td><code>[]</code></td> <td>Component/Service</td> </tr> <tr> <td><code>[()]</code></td> <td>Database</td> </tr> </tbody> </table> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> </main> <footer class=md-footer> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> <div class=md-copyright__highlight> Copyright &copy; 2026 GabrielDLobo </div> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../assets/javascripts/bundle.56dfad97.min.js></script> </body> </html>
