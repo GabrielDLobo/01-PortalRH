@@ -6,51 +6,13 @@ docs_dir: docs
 
 theme:
   name: material
-  logo: assets/logo.svg
-  favicon: assets/favicon.svg
-  language: en
-  features:
-    - navigation.instant
-    - navigation.tabs
-    - navigation.sections
-    - navigation.top
-    - navigation.footer
-    - search.suggest
-    - search.highlight
-    - content.code.copy
-    - content.action.edit
   palette:
-    - scheme: default
-      primary: teal
-      accent: amber
-
-plugins:
-  - search
-  - minify:
-      minify_html: true
-
-markdown_extensions:
-  - admonition
-  - attr_list
-  - md_in_html
-  - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.tabbed:
-      alternate_style: true
-  - toc:
-      permalink: true
-
-extra_css:
-  - stylesheets/extra.css
-
-extra_javascript:
-  - javascripts/extra.js
+    primary: navy blue
+  font:
+    text: Roboto
 
 nav:
   - Home: index.md
-  - Gallery: gallery.md
   - Overview: overview.md
   - Prerequisites: prerequisites.md
   - Installation: installation.md
@@ -63,6 +25,16 @@ nav:
   - Development: development.md
   - Testing: testing.md
   - Deploy: deploy.md
-  - Contributing: contributing.md
+  - Contribution: contributing.md
+  - Image Projects: gallery.md
   - Release Notes: release-notes.md
   - Update Log: UPDATE_LOG.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid

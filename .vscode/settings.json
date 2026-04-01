@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^venv\\\\Scripts\\\\python -m mkdocs build$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
