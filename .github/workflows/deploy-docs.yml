@@ -1,0 +1,73 @@
+name: Deploy Documentation to GitHub Pages
+
+on:
+  # Deploy on pushes to main branch
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'requirements.txt'
+  
+  # Allow manual deployment from Actions tab
+  workflow_dispatch:
+
+# Sets permissions for GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install mike
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+      
+      - name: Build and Deploy Documentation
+        run: |
+          # Deploy to gh-pages branch
+          mike deploy --push --update-aliases master latest
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
