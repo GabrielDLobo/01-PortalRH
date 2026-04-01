@@ -1,693 +1,1809 @@
-<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Human Resources Management System documentation"><meta name=author content=GabrielDLobo><link href=../api-endpoints/ rel=prev><link href=../authentication-security/ rel=next><link rel=icon href=../assets/favicon.svg><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.5.34"><title>System Modeling - PortalRH Documentation</title><link rel=stylesheet href=../assets/stylesheets/main.35f28582.min.css><link rel=stylesheet href=../assets/stylesheets/palette.06af60db.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style><link rel=stylesheet href=../stylesheets/extra.css><script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=teal data-md-color-accent=amber> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#system-modeling class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=.. title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component=logo> <img src=../assets/logo.svg alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> PortalRH Documentation </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> System Modeling </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=teal data-md-color-accent=amber aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> </header> <div class=md-container data-md-component=container> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=.. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=../gallery/ class=md-tabs__link> Gallery </a> </li> <li class=md-tabs__item> <a href=../overview/ class=md-tabs__link> Overview </a> </li> <li class=md-tabs__item> <a href=../prerequisites/ class=md-tabs__link> Prerequisites </a> </li> <li class=md-tabs__item> <a href=../installation/ class=md-tabs__link> Installation </a> </li> <li class=md-tabs__item> <a href=../configuration/ class=md-tabs__link> Configuration </a> </li> <li class=md-tabs__item> <a href=../guidelines/ class=md-tabs__link> Guidelines and Standards </a> </li> <li class=md-tabs__item> <a href=../project-structure/ class=md-tabs__link> Project Structure </a> </li> <li class=md-tabs__item> <a href=../api-endpoints/ class=md-tabs__link> API Endpoints </a> </li> <li class="md-tabs__item md-tabs__item--active"> <a href=./ class=md-tabs__link> System Modeling </a> </li> <li class=md-tabs__item> <a href=../authentication-security/ class=md-tabs__link> Authentication and Security </a> </li> <li class=md-tabs__item> <a href=../development/ class=md-tabs__link> Development </a> </li> <li class=md-tabs__item> <a href=../testing/ class=md-tabs__link> Testing </a> </li> <li class=md-tabs__item> <a href=../deploy/ class=md-tabs__link> Deploy </a> </li> <li class=md-tabs__item> <a href=../contributing/ class=md-tabs__link> Contributing </a> </li> <li class=md-tabs__item> <a href=../release-notes/ class=md-tabs__link> Release Notes </a> </li> <li class=md-tabs__item> <a href=../UPDATE_LOG/ class=md-tabs__link> Update Log </a> </li> </ul> </div> </nav> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=.. title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component=logo> <img src=../assets/logo.svg alt=logo> </a> PortalRH Documentation </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../gallery/ class=md-nav__link> <span class=md-ellipsis> Gallery </span> </a> </li> <li class=md-nav__item> <a href=../overview/ class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> </li> <li class=md-nav__item> <a href=../prerequisites/ class=md-nav__link> <span class=md-ellipsis> Prerequisites </span> </a> </li> <li class=md-nav__item> <a href=../installation/ class=md-nav__link> <span class=md-ellipsis> Installation </span> </a> </li> <li class=md-nav__item> <a href=../configuration/ class=md-nav__link> <span class=md-ellipsis> Configuration </span> </a> </li> <li class=md-nav__item> <a href=../guidelines/ class=md-nav__link> <span class=md-ellipsis> Guidelines and Standards </span> </a> </li> <li class=md-nav__item> <a href=../project-structure/ class=md-nav__link> <span class=md-ellipsis> Project Structure </span> </a> </li> <li class=md-nav__item> <a href=../api-endpoints/ class=md-nav__link> <span class=md-ellipsis> API Endpoints </span> </a> </li> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> System Modeling </span> <span class="md-nav__icon md-icon"></span> </label> <a href=./ class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> System Modeling </span> </a> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#data-models-erd class=md-nav__link> <span class=md-ellipsis> 📊 Data Models (ERD) </span> </a> </li> <li class=md-nav__item> <a href=#system-architecture class=md-nav__link> <span class=md-ellipsis> 🏗️ System Architecture </span> </a> </li> <li class=md-nav__item> <a href=#authentication-flow class=md-nav__link> <span class=md-ellipsis> 🔐 Authentication Flow </span> </a> </li> <li class=md-nav__item> <a href=#crud-operations-flow class=md-nav__link> <span class=md-ellipsis> 📝 CRUD Operations Flow </span> </a> <nav class=md-nav aria-label="📝 CRUD Operations Flow"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#employee-management class=md-nav__link> <span class=md-ellipsis> Employee Management </span> </a> </li> <li class=md-nav__item> <a href=#leave-request-flow class=md-nav__link> <span class=md-ellipsis> Leave Request Flow </span> </a> </li> <li class=md-nav__item> <a href=#performance-evaluation-flow class=md-nav__link> <span class=md-ellipsis> Performance Evaluation Flow </span> </a> </li> <li class=md-nav__item> <a href=#termination-flow class=md-nav__link> <span class=md-ellipsis> Termination Flow </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#security-flow class=md-nav__link> <span class=md-ellipsis> 🔒 Security Flow </span> </a> </li> <li class=md-nav__item> <a href=#module-interactions class=md-nav__link> <span class=md-ellipsis> 📊 Module Interactions </span> </a> </li> <li class=md-nav__item> <a href=#data-flow-diagram class=md-nav__link> <span class=md-ellipsis> 📈 Data Flow Diagram </span> </a> </li> <li class=md-nav__item> <a href=#state-machines class=md-nav__link> <span class=md-ellipsis> 🔄 State Machines </span> </a> <nav class=md-nav aria-label="🔄 State Machines"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#employee-status class=md-nav__link> <span class=md-ellipsis> Employee Status </span> </a> </li> <li class=md-nav__item> <a href=#leave-request-status class=md-nav__link> <span class=md-ellipsis> Leave Request Status </span> </a> </li> <li class=md-nav__item> <a href=#evaluation-status class=md-nav__link> <span class=md-ellipsis> Evaluation Status </span> </a> </li> <li class=md-nav__item> <a href=#termination-status class=md-nav__link> <span class=md-ellipsis> Termination Status </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../authentication-security/ class=md-nav__link> <span class=md-ellipsis> Authentication and Security </span> </a> </li> <li class=md-nav__item> <a href=../development/ class=md-nav__link> <span class=md-ellipsis> Development </span> </a> </li> <li class=md-nav__item> <a href=../testing/ class=md-nav__link> <span class=md-ellipsis> Testing </span> </a> </li> <li class=md-nav__item> <a href=../deploy/ class=md-nav__link> <span class=md-ellipsis> Deploy </span> </a> </li> <li class=md-nav__item> <a href=../contributing/ class=md-nav__link> <span class=md-ellipsis> Contributing </span> </a> </li> <li class=md-nav__item> <a href=../release-notes/ class=md-nav__link> <span class=md-ellipsis> Release Notes </span> </a> </li> <li class=md-nav__item> <a href=../UPDATE_LOG/ class=md-nav__link> <span class=md-ellipsis> Update Log </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#data-models-erd class=md-nav__link> <span class=md-ellipsis> 📊 Data Models (ERD) </span> </a> </li> <li class=md-nav__item> <a href=#system-architecture class=md-nav__link> <span class=md-ellipsis> 🏗️ System Architecture </span> </a> </li> <li class=md-nav__item> <a href=#authentication-flow class=md-nav__link> <span class=md-ellipsis> 🔐 Authentication Flow </span> </a> </li> <li class=md-nav__item> <a href=#crud-operations-flow class=md-nav__link> <span class=md-ellipsis> 📝 CRUD Operations Flow </span> </a> <nav class=md-nav aria-label="📝 CRUD Operations Flow"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#employee-management class=md-nav__link> <span class=md-ellipsis> Employee Management </span> </a> </li> <li class=md-nav__item> <a href=#leave-request-flow class=md-nav__link> <span class=md-ellipsis> Leave Request Flow </span> </a> </li> <li class=md-nav__item> <a href=#performance-evaluation-flow class=md-nav__link> <span class=md-ellipsis> Performance Evaluation Flow </span> </a> </li> <li class=md-nav__item> <a href=#termination-flow class=md-nav__link> <span class=md-ellipsis> Termination Flow </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#security-flow class=md-nav__link> <span class=md-ellipsis> 🔒 Security Flow </span> </a> </li> <li class=md-nav__item> <a href=#module-interactions class=md-nav__link> <span class=md-ellipsis> 📊 Module Interactions </span> </a> </li> <li class=md-nav__item> <a href=#data-flow-diagram class=md-nav__link> <span class=md-ellipsis> 📈 Data Flow Diagram </span> </a> </li> <li class=md-nav__item> <a href=#state-machines class=md-nav__link> <span class=md-ellipsis> 🔄 State Machines </span> </a> <nav class=md-nav aria-label="🔄 State Machines"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#employee-status class=md-nav__link> <span class=md-ellipsis> Employee Status </span> </a> </li> <li class=md-nav__item> <a href=#leave-request-status class=md-nav__link> <span class=md-ellipsis> Leave Request Status </span> </a> </li> <li class=md-nav__item> <a href=#evaluation-status class=md-nav__link> <span class=md-ellipsis> Evaluation Status </span> </a> </li> <li class=md-nav__item> <a href=#termination-status class=md-nav__link> <span class=md-ellipsis> Termination Status </span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=system-modeling>System Modeling<a class=headerlink href=#system-modeling title="Permanent link">&para;</a></h1> <p>This document covers the data models, system architecture, and workflow diagrams for PortalRH.</p> <hr> <h2 id=data-models-erd>📊 Data Models (ERD)<a class=headerlink href=#data-models-erd title="Permanent link">&para;</a></h2> <p>```mermaid erDiagram %% Accounts Module USER { int id PK string email UK string role "admin_rh, funcionario" boolean is_active datetime created_at datetime updated_at }</p> <pre><code>%% Employees Module
-PRE_ADMISSION_RH {
-    int id PK
-    string personal_email UK
-    string full_name
-    string position
-    string department
-    text job_description
-    string work_schedule
-    string weekly_workload "20h, 30h, 40h, 44h"
-    string contract_type "clt, temporary, internship, freelancer, pj"
-    decimal salary
-    text benefits
-    date start_date
-    text vacation_policy
-    string direct_manager
-    int created_by FK
-    boolean employee_user_created
-    string temporary_password
-    boolean email_sent
-    int employee_id FK
-    datetime created_at
-    datetime updated_at
-}
 
-EMPLOYEE {
-    int id PK
-    string employee_id UK "EMP-XXXX"
-    int user_id FK
-    string full_name
-    string cpf UK
-    string rg
-    date birth_date
-    string marital_status
-    string phone
-    string email
-    string street_address
-    string address_number
-    string neighborhood
-    string city
-    string state
-    string zip_code
-    string pis_pasep
-    string work_card_number
-    string work_card_series
-    string education_level
-    string bank_name
-    string agency_number
-    string account_number
-    string account_type
-    string department
-    string position
-    date hire_date
-    decimal salary
-    string status "pending, under_review, approved, active, inactive"
-    boolean admission_completed
-    boolean requires_password_change
-    datetime created_at
-    datetime updated_at
-}
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Human Resources Management System documentation">
+      
+      
+        <meta name="author" content="GabrielDLobo">
+      
+      
+      
+        <link rel="prev" href="../api-endpoints/">
+      
+      
+        <link rel="next" href="../authentication-security/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>System Modeling - PortalRH Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.35f28582.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
 
-EMPLOYEE_DOCUMENT {
-    int id PK
-    int employee_id FK
-    string document_type "rg, birth_certificate, work_card, etc."
-    string document_name
-    string file
-    int file_size
-    datetime uploaded_at
-    boolean is_required
-    boolean is_verified
-}
 
-ADMISSION_PROCESS {
-    int id PK
-    int employee_id FK
-    string status "started, documents_uploaded, under_review, approved, completed"
-    datetime started_at
-    datetime completed_at
-    text notes
-    boolean personal_info_completed
-    boolean documents_uploaded
-    boolean hr_review_completed
-}
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
-%% Evaluations Module
-EVALUATION_TEMPLATE {
-    int id PK
-    string nome UK
-    text descricao
-    boolean ativo
-    datetime created_at
-    datetime updated_at
-}
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="navy-blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#system-modeling" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
-EVALUATION_CRITERIA {
-    int id PK
-    int template_id FK
-    string nome
-    text descricao
-    decimal peso
-    int ordem
-    datetime created_at
-}
+  
 
-EVALUATION {
-    int id PK
-    int template_id FK
-    int avaliado_id FK
-    int avaliador_id FK
-    string tipo
-    date periodo_inicio
-    date periodo_fim
-    string status
-    decimal nota_final
-    text comentario_geral
-    text pontos_fortes
-    text pontos_melhoria
-    text metas_objetivos
-    datetime data_limite
-    datetime data_conclusao
-    datetime created_at
-    datetime updated_at
-}
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
-EVALUATION_SCORE {
-    int id PK
-    int avaliacao_id FK
-    int criterio_id FK
-    decimal nota
-    text comentario
-    datetime created_at
-    datetime updated_at
-}
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PortalRH Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              System Modeling
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
 
-EVALUATION_CYCLE {
-    int id PK
-    string nome
-    text descricao
-    date data_inicio
-    date data_fim
-    int template_id FK
-    string status
-    int created_by FK
-    datetime created_at
-    datetime updated_at
-}
 
-EVALUATION_CYCLE_PARTICIPANT {
-    int id PK
-    int cycle_id FK
-    int funcionario_id FK
-    int avaliador_id FK
-    datetime data_limite
-    boolean concluido
-    datetime created_at
-}
 
-%% Leave Requests Module
-LEAVE_TYPE {
-    int id PK
-    string nome UK
-    text descricao
-    int max_dias_ano
-    boolean requer_aprovacao
-    int antecedencia_minima
-    boolean ativo
-    datetime created_at
-    datetime updated_at
-}
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
-LEAVE_REQUEST {
-    int id PK
-    int solicitante_id FK
-    int tipo_id FK
-    date data_inicio
-    date data_fim
-    text motivo
-    text observacoes
-    int dias_gozo
-    boolean tem_abono_pecuniario
-    int dias_abono_pecuniario
-    string prioridade
-    string status
-    int aprovador_id FK
-    datetime data_aprovacao
-    text comentario_aprovacao
-    string anexo
-    datetime created_at
-    datetime updated_at
-}
+    </a>
+    PortalRH Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
 
-LEAVE_BALANCE {
-    int id PK
-    int funcionario_id FK
-    int tipo_id FK
-    int ano
-    int dias_disponiveis
-    int dias_utilizados
-    datetime created_at
-    datetime updated_at
-}
+      </a>
+    </li>
+  
 
-%% Reports Module
-REPORT_CATEGORY {
-    int id PK
-    string name UK
-    text description
-    string icon
-    string color
-    boolean is_active
-    datetime created_at
-    datetime updated_at
-}
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
 
-REPORT_TEMPLATE {
-    uuid id PK
-    string name
-    text description
-    string report_type
-    int category_id FK
-    json query_config
-    json output_formats
-    string default_format
-    json columns_config
-    json chart_config
-    boolean is_public
-    json allowed_roles
-    int cache_duration
-    boolean enable_cache
-    boolean is_active
-    int version
-    datetime created_at
-    datetime updated_at
-}
+      </a>
+    </li>
+  
 
-REPORT_EXECUTION {
-    uuid id PK
-    uuid template_id FK
-    int executed_by FK
-    json parameters
-    string output_format
-    string status
-    json result_data
-    string file_path
-    float execution_time_seconds
-    int rows_processed
-    text error_message
-    datetime started_at
-    datetime completed_at
-    datetime expires_at
-    datetime created_at
-    datetime updated_at
-}
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prerequisites/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prerequisites
+  </span>
+  
 
-REPORT_SCHEDULE {
-    uuid id PK
-    string name
-    uuid template_id FK
-    string frequency
-    string cron_expression
-    string output_format
-    json parameters
-    json email_recipients
-    boolean send_email_on_success
-    boolean send_email_on_failure
-    string status
-    datetime last_execution
-    datetime next_execution
-    int execution_count
-    int success_count
-    int failure_count
-    datetime created_at
-    datetime updated_at
-}
+      </a>
+    </li>
+  
 
-REPORT_BOOKMARK {
-    int id PK
-    int user_id FK
-    uuid template_id FK
-    string name
-    json parameters
-    datetime created_at
-    datetime updated_at
-}
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
 
-%% Staff Module
-STAFF_EMPLOYEE {
-    int id PK
-    int user_id FK
-    string nome
-    string cargo
-    string setor
-    date data_admissao
-    date data_demissao
-    decimal salario
-    string cpf UK
-    string rg
-    string telefone
-    text endereco
-    date data_nascimento
-    string status
-    text observacoes
-    string foto
-    datetime created_at
-    datetime updated_at
-}
+      </a>
+    </li>
+  
 
-DEPARTMENT {
-    int id PK
-    string nome UK
-    text descricao
-    datetime created_at
-    datetime updated_at
-}
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
 
-STAFF_EMPLOYEE_DOCUMENT {
-    int id PK
-    int employee_id FK
-    string tipo
-    string nome
-    string arquivo
-    text descricao
-    int uploaded_by FK
-    datetime created_at
-}
+      </a>
+    </li>
+  
 
-%% Termination Module
-TERMINATION_REASON {
-    int id PK
-    string nome UK
-    string codigo UK
-    text descricao
-    boolean ativo
-    datetime created_at
-    datetime updated_at
-}
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guidelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guidelines and Standards
+  </span>
+  
 
-TERMINATION_REQUEST {
-    int id PK
-    int funcionario_id FK
-    int solicitante_id FK
-    int motivo_id FK
-    date data_ultimo_dia
-    date data_desligamento
-    text justificativa
-    text observacoes_rh
-    string status
-    int aprovador_rh_id FK
-    datetime data_aprovacao_rh
-    text comentario_aprovacao_rh
-    string anexo_documentos
-    datetime created_at
-    datetime updated_at
-}
+      </a>
+    </li>
+  
 
-TERMINATION_DOCUMENT {
-    int id PK
-    int termination_request_id FK
-    string tipo_documento
-    string nome_arquivo
-    string arquivo
-    boolean gerado_automaticamente
-    int gerado_por FK
-    text observacoes
-    datetime created_at
-    datetime updated_at
-}
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-structure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Structure
+  </span>
+  
 
-%% Relationships
-USER ||--o| EMPLOYEE : "has profile (employee_profile)"
-USER ||--o{ EVALUATION : "evaluates/is evaluated"
-USER ||--o{ LEAVE_REQUEST : "requests/approves"
-USER ||--o{ REPORT_EXECUTION : "executes"
-USER ||--o| STAFF_EMPLOYEE : "staff profile"
-USER ||--o{ REPORT_BOOKMARK : "bookmarks"
-USER ||--o{ REPORT_TEMPLATE : "creates/allowed"
-USER ||--o{ REPORT_SCHEDULE : "creates"
-USER ||--o{ TERMINATION_REQUEST : "requests/approves"
-USER ||--o{ PRE_ADMISSION_RH : "creates"
+      </a>
+    </li>
+  
 
-PRE_ADMISSION_RH }o--|| USER : "created by"
-PRE_ADMISSION_RH ||--o| EMPLOYEE : "creates (OneToOne)"
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-endpoints/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API Endpoints
+  </span>
+  
 
-EMPLOYEE ||--o{ EMPLOYEE_DOCUMENT : "has documents"
-EMPLOYEE ||--o| ADMISSION_PROCESS : "has process"
+      </a>
+    </li>
+  
 
-EVALUATION_TEMPLATE ||--o{ EVALUATION_CRITERIA : "contains"
-EVALUATION_TEMPLATE ||--o{ EVALUATION : "used in"
-EVALUATION_TEMPLATE ||--o{ EVALUATION_CYCLE : "used in"
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    System Modeling
+  </span>
+  
 
-EVALUATION ||--o{ EVALUATION_SCORE : "has scores"
-EVALUATION_CRITERIA ||--o{ EVALUATION_SCORE : "has scores"
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    System Modeling
+  </span>
+  
 
-EVALUATION_CYCLE ||--o{ EVALUATION_CYCLE_PARTICIPANT : "has participants"
-USER ||--o{ EVALUATION_CYCLE_PARTICIPANT : "participates"
+      </a>
+      
+        
 
-LEAVE_TYPE ||--o{ LEAVE_REQUEST : "categorizes"
-LEAVE_TYPE ||--o{ LEAVE_BALANCE : "tracks balance"
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-models-erd" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Data Models (ERD)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏗️ System Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 Authentication Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crud-operations-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 CRUD Operations Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 CRUD Operations Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#employee-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Employee Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leave-request-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leave Request Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-evaluation-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Evaluation Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#termination-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Termination Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔒 Security Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-interactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Module Interactions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-flow-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      📈 Data Flow Diagram
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 State Machines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 State Machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#employee-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Employee Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leave-request-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leave Request Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluation Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#termination-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Termination Status
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
 
-USER ||--o{ LEAVE_REQUEST : "requests"
-USER ||--o{ LEAVE_BALANCE : "has balance"
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authentication-security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication and Security
+  </span>
+  
 
-REPORT_CATEGORY ||--o{ REPORT_TEMPLATE : "categorizes"
-REPORT_TEMPLATE ||--o{ REPORT_EXECUTION : "executed as"
-REPORT_TEMPLATE ||--o{ REPORT_SCHEDULE : "scheduled as"
-REPORT_TEMPLATE ||--o{ REPORT_BOOKMARK : "bookmarked as"
+      </a>
+    </li>
+  
 
-DEPARTMENT ||--o{ STAFF_EMPLOYEE : "employs"
-STAFF_EMPLOYEE ||--o{ STAFF_EMPLOYEE_DOCUMENT : "has documents"
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Development
+  </span>
+  
 
-TERMINATION_REASON ||--o{ TERMINATION_REQUEST : "categorizes"
-TERMINATION_REQUEST ||--o{ TERMINATION_DOCUMENT : "has documents"
-USER ||--o{ TERMINATION_REQUEST : "requests/approves"
-</code></pre> <p>```</p> <hr> <h2 id=system-architecture>🏗️ System Architecture<a class=headerlink href=#system-architecture title="Permanent link">&para;</a></h2> <p>```mermaid graph TB subgraph "Client Layer" WEB[Web Browser] MOBILE[Mobile Device] end</p> <pre><code>subgraph "Frontend"
-    REACT[React Application]
-end
+      </a>
+    </li>
+  
 
-subgraph "API Gateway"
-    NGINX[Nginx Reverse Proxy]
-end
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Testing
+  </span>
+  
 
-subgraph "Application Layer"
-    DJANGO[Django Application]
-    GUNICORN[Gunicorn WSGI Server]
+      </a>
+    </li>
+  
 
-    subgraph "Django Apps"
-        ACCOUNTS[Accounts App]
-        EMPLOYEES[Employees App]
-        EVALUATIONS[Evaluations App]
-        LEAVE[Leave Requests App]
-        REPORTS[Reports App]
-        STAFF[Staff App]
-        TERMINATION[Termination App]
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deploy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contribution
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Image Projects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UPDATE_LOG/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Update Log
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-models-erd" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Data Models (ERD)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏗️ System Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 Authentication Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crud-operations-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 CRUD Operations Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 CRUD Operations Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#employee-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Employee Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leave-request-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leave Request Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-evaluation-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Evaluation Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#termination-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Termination Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔒 Security Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-interactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Module Interactions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-flow-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      📈 Data Flow Diagram
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 State Machines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 State Machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#employee-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Employee Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leave-request-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leave Request Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluation Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#termination-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Termination Status
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="system-modeling">System Modeling</h1>
+<p>This document covers the data models, system architecture, and workflow diagrams for PortalRH.</p>
+<hr />
+<h2 id="data-models-erd">📊 Data Models (ERD)</h2>
+<pre class="mermaid"><code>erDiagram
+    %% Accounts Module
+    USER {
+        int id PK
+        string email UK
+        string role "admin_rh, funcionario"
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+
+    %% Employees Module
+    PRE_ADMISSION_RH {
+        int id PK
+        string personal_email UK
+        string full_name
+        string position
+        string department
+        text job_description
+        string work_schedule
+        string weekly_workload "20h, 30h, 40h, 44h"
+        string contract_type "clt, temporary, internship, freelancer, pj"
+        decimal salary
+        text benefits
+        date start_date
+        text vacation_policy
+        string direct_manager
+        int created_by FK
+        boolean employee_user_created
+        string temporary_password
+        boolean email_sent
+        int employee_id FK
+        datetime created_at
+        datetime updated_at
+    }
+
+    EMPLOYEE {
+        int id PK
+        string employee_id UK "EMP-XXXX"
+        int user_id FK
+        string full_name
+        string cpf UK
+        string rg
+        date birth_date
+        string marital_status
+        string phone
+        string email
+        string street_address
+        string address_number
+        string neighborhood
+        string city
+        string state
+        string zip_code
+        string pis_pasep
+        string work_card_number
+        string work_card_series
+        string education_level
+        string bank_name
+        string agency_number
+        string account_number
+        string account_type
+        string department
+        string position
+        date hire_date
+        decimal salary
+        string status "pending, under_review, approved, active, inactive"
+        boolean admission_completed
+        boolean requires_password_change
+        datetime created_at
+        datetime updated_at
+    }
+
+    EMPLOYEE_DOCUMENT {
+        int id PK
+        int employee_id FK
+        string document_type "rg, birth_certificate, work_card, etc."
+        string document_name
+        string file
+        int file_size
+        datetime uploaded_at
+        boolean is_required
+        boolean is_verified
+    }
+
+    ADMISSION_PROCESS {
+        int id PK
+        int employee_id FK
+        string status "started, documents_uploaded, under_review, approved, completed"
+        datetime started_at
+        datetime completed_at
+        text notes
+        boolean personal_info_completed
+        boolean documents_uploaded
+        boolean hr_review_completed
+    }
+
+    %% Evaluations Module
+    EVALUATION_TEMPLATE {
+        int id PK
+        string nome UK
+        text descricao
+        boolean ativo
+        datetime created_at
+        datetime updated_at
+    }
+
+    EVALUATION_CRITERIA {
+        int id PK
+        int template_id FK
+        string nome
+        text descricao
+        decimal peso
+        int ordem
+        datetime created_at
+    }
+
+    EVALUATION {
+        int id PK
+        int template_id FK
+        int avaliado_id FK
+        int avaliador_id FK
+        string tipo
+        date periodo_inicio
+        date periodo_fim
+        string status
+        decimal nota_final
+        text comentario_geral
+        text pontos_fortes
+        text pontos_melhoria
+        text metas_objetivos
+        datetime data_limite
+        datetime data_conclusao
+        datetime created_at
+        datetime updated_at
+    }
+
+    EVALUATION_SCORE {
+        int id PK
+        int avaliacao_id FK
+        int criterio_id FK
+        decimal nota
+        text comentario
+        datetime created_at
+        datetime updated_at
+    }
+
+    EVALUATION_CYCLE {
+        int id PK
+        string nome
+        text descricao
+        date data_inicio
+        date data_fim
+        int template_id FK
+        string status
+        int created_by FK
+        datetime created_at
+        datetime updated_at
+    }
+
+    EVALUATION_CYCLE_PARTICIPANT {
+        int id PK
+        int cycle_id FK
+        int funcionario_id FK
+        int avaliador_id FK
+        datetime data_limite
+        boolean concluido
+        datetime created_at
+    }
+
+    %% Leave Requests Module
+    LEAVE_TYPE {
+        int id PK
+        string nome UK
+        text descricao
+        int max_dias_ano
+        boolean requer_aprovacao
+        int antecedencia_minima
+        boolean ativo
+        datetime created_at
+        datetime updated_at
+    }
+
+    LEAVE_REQUEST {
+        int id PK
+        int solicitante_id FK
+        int tipo_id FK
+        date data_inicio
+        date data_fim
+        text motivo
+        text observacoes
+        int dias_gozo
+        boolean tem_abono_pecuniario
+        int dias_abono_pecuniario
+        string prioridade
+        string status
+        int aprovador_id FK
+        datetime data_aprovacao
+        text comentario_aprovacao
+        string anexo
+        datetime created_at
+        datetime updated_at
+    }
+
+    LEAVE_BALANCE {
+        int id PK
+        int funcionario_id FK
+        int tipo_id FK
+        int ano
+        int dias_disponiveis
+        int dias_utilizados
+        datetime created_at
+        datetime updated_at
+    }
+
+    %% Reports Module
+    REPORT_CATEGORY {
+        int id PK
+        string name UK
+        text description
+        string icon
+        string color
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+
+    REPORT_TEMPLATE {
+        uuid id PK
+        string name
+        text description
+        string report_type
+        int category_id FK
+        json query_config
+        json output_formats
+        string default_format
+        json columns_config
+        json chart_config
+        boolean is_public
+        json allowed_roles
+        int cache_duration
+        boolean enable_cache
+        boolean is_active
+        int version
+        datetime created_at
+        datetime updated_at
+    }
+
+    REPORT_EXECUTION {
+        uuid id PK
+        uuid template_id FK
+        int executed_by FK
+        json parameters
+        string output_format
+        string status
+        json result_data
+        string file_path
+        float execution_time_seconds
+        int rows_processed
+        text error_message
+        datetime started_at
+        datetime completed_at
+        datetime expires_at
+        datetime created_at
+        datetime updated_at
+    }
+
+    REPORT_SCHEDULE {
+        uuid id PK
+        string name
+        uuid template_id FK
+        string frequency
+        string cron_expression
+        string output_format
+        json parameters
+        json email_recipients
+        boolean send_email_on_success
+        boolean send_email_on_failure
+        string status
+        datetime last_execution
+        datetime next_execution
+        int execution_count
+        int success_count
+        int failure_count
+        datetime created_at
+        datetime updated_at
+    }
+
+    REPORT_BOOKMARK {
+        int id PK
+        int user_id FK
+        uuid template_id FK
+        string name
+        json parameters
+        datetime created_at
+        datetime updated_at
+    }
+
+    %% Staff Module
+    STAFF_EMPLOYEE {
+        int id PK
+        int user_id FK
+        string nome
+        string cargo
+        string setor
+        date data_admissao
+        date data_demissao
+        decimal salario
+        string cpf UK
+        string rg
+        string telefone
+        text endereco
+        date data_nascimento
+        string status
+        text observacoes
+        string foto
+        datetime created_at
+        datetime updated_at
+    }
+
+    DEPARTMENT {
+        int id PK
+        string nome UK
+        text descricao
+        datetime created_at
+        datetime updated_at
+    }
+
+    STAFF_EMPLOYEE_DOCUMENT {
+        int id PK
+        int employee_id FK
+        string tipo
+        string nome
+        string arquivo
+        text descricao
+        int uploaded_by FK
+        datetime created_at
+    }
+
+    %% Termination Module
+    TERMINATION_REASON {
+        int id PK
+        string nome UK
+        string codigo UK
+        text descricao
+        boolean ativo
+        datetime created_at
+        datetime updated_at
+    }
+
+    TERMINATION_REQUEST {
+        int id PK
+        int funcionario_id FK
+        int solicitante_id FK
+        int motivo_id FK
+        date data_ultimo_dia
+        date data_desligamento
+        text justificativa
+        text observacoes_rh
+        string status
+        int aprovador_rh_id FK
+        datetime data_aprovacao_rh
+        text comentario_aprovacao_rh
+        string anexo_documentos
+        datetime created_at
+        datetime updated_at
+    }
+
+    TERMINATION_DOCUMENT {
+        int id PK
+        int termination_request_id FK
+        string tipo_documento
+        string nome_arquivo
+        string arquivo
+        boolean gerado_automaticamente
+        int gerado_por FK
+        text observacoes
+        datetime created_at
+        datetime updated_at
+    }
+
+    %% Relationships
+    USER ||--o| EMPLOYEE : "has profile (employee_profile)"
+    USER ||--o{ EVALUATION : "evaluates/is evaluated"
+    USER ||--o{ LEAVE_REQUEST : "requests/approves"
+    USER ||--o{ REPORT_EXECUTION : "executes"
+    USER ||--o| STAFF_EMPLOYEE : "staff profile"
+    USER ||--o{ REPORT_BOOKMARK : "bookmarks"
+    USER ||--o{ REPORT_TEMPLATE : "creates/allowed"
+    USER ||--o{ REPORT_SCHEDULE : "creates"
+    USER ||--o{ TERMINATION_REQUEST : "requests/approves"
+    USER ||--o{ PRE_ADMISSION_RH : "creates"
+
+    PRE_ADMISSION_RH }o--|| USER : "created by"
+    PRE_ADMISSION_RH ||--o| EMPLOYEE : "creates (OneToOne)"
+
+    EMPLOYEE ||--o{ EMPLOYEE_DOCUMENT : "has documents"
+    EMPLOYEE ||--o| ADMISSION_PROCESS : "has process"
+
+    EVALUATION_TEMPLATE ||--o{ EVALUATION_CRITERIA : "contains"
+    EVALUATION_TEMPLATE ||--o{ EVALUATION : "used in"
+    EVALUATION_TEMPLATE ||--o{ EVALUATION_CYCLE : "used in"
+
+    EVALUATION ||--o{ EVALUATION_SCORE : "has scores"
+    EVALUATION_CRITERIA ||--o{ EVALUATION_SCORE : "has scores"
+
+    EVALUATION_CYCLE ||--o{ EVALUATION_CYCLE_PARTICIPANT : "has participants"
+    USER ||--o{ EVALUATION_CYCLE_PARTICIPANT : "participates"
+
+    LEAVE_TYPE ||--o{ LEAVE_REQUEST : "categorizes"
+    LEAVE_TYPE ||--o{ LEAVE_BALANCE : "tracks balance"
+
+    USER ||--o{ LEAVE_REQUEST : "requests"
+    USER ||--o{ LEAVE_BALANCE : "has balance"
+
+    REPORT_CATEGORY ||--o{ REPORT_TEMPLATE : "categorizes"
+    REPORT_TEMPLATE ||--o{ REPORT_EXECUTION : "executed as"
+    REPORT_TEMPLATE ||--o{ REPORT_SCHEDULE : "scheduled as"
+    REPORT_TEMPLATE ||--o{ REPORT_BOOKMARK : "bookmarked as"
+
+    DEPARTMENT ||--o{ STAFF_EMPLOYEE : "employs"
+    STAFF_EMPLOYEE ||--o{ STAFF_EMPLOYEE_DOCUMENT : "has documents"
+
+    TERMINATION_REASON ||--o{ TERMINATION_REQUEST : "categorizes"
+    TERMINATION_REQUEST ||--o{ TERMINATION_DOCUMENT : "has documents"
+    USER ||--o{ TERMINATION_REQUEST : "requests/approves"</code></pre>
+<hr />
+<h2 id="system-architecture">🏗️ System Architecture</h2>
+<pre class="mermaid"><code>graph TB
+    subgraph "Client Layer"
+        WEB[Web Browser]
+        MOBILE[Mobile Device]
     end
-end
 
-subgraph "Data Layer"
-    POSTGRES[(PostgreSQL Database)]
-    CACHE[(Redis Cache)]
-    MEDIA[Media Storage]
-end
+    subgraph "Frontend"
+        REACT[React Application]
+    end
 
-subgraph "External Services"
-    EMAIL[Email Service]
-    AUTH[Authentication Service]
-end
+    subgraph "API Gateway"
+        NGINX[Nginx Reverse Proxy]
+    end
 
-WEB --&gt; NGINX
-MOBILE --&gt; NGINX
-NGINX --&gt; GUNICORN
-GUNICORN --&gt; DJANGO
+    subgraph "Application Layer"
+        DJANGO[Django Application]
+        GUNICORN[Gunicorn WSGI Server]
 
-DJANGO --&gt; ACCOUNTS
-DJANGO --&gt; EMPLOYEES
-DJANGO --&gt; EVALUATIONS
-DJANGO --&gt; LEAVE
-DJANGO --&gt; REPORTS
-DJANGO --&gt; STAFF
-DJANGO --&gt; TERMINATION
+        subgraph "Django Apps"
+            ACCOUNTS[Accounts App]
+            EMPLOYEES[Employees App]
+            EVALUATIONS[Evaluations App]
+            LEAVE[Leave Requests App]
+            REPORTS[Reports App]
+            STAFF[Staff App]
+            TERMINATION[Termination App]
+        end
+    end
 
-ACCOUNTS --&gt; POSTGRES
-EMPLOYEES --&gt; POSTGRES
-EVALUATIONS --&gt; POSTGRES
-LEAVE --&gt; POSTGRES
-REPORTS --&gt; POSTGRES
-STAFF --&gt; POSTGRES
-TERMINATION --&gt; POSTGRES
+    subgraph "Data Layer"
+        POSTGRES[(PostgreSQL Database)]
+        CACHE[(Redis Cache)]
+        MEDIA[Media Storage]
+    end
 
-REPORTS --&gt; CACHE
-DJANGO --&gt; MEDIA
-ACCOUNTS --&gt; EMAIL
-ACCOUNTS --&gt; AUTH
-</code></pre> <p>```</p> <hr> <h2 id=authentication-flow>🔐 Authentication Flow<a class=headerlink href=#authentication-flow title="Permanent link">&para;</a></h2> <p>```mermaid sequenceDiagram participant User participant Frontend participant API participant DB participant JWT</p> <pre><code>User-&gt;&gt;Frontend: Enter credentials
-Frontend-&gt;&gt;API: POST /auth/login/
-API-&gt;&gt;DB: Validate credentials
-DB--&gt;&gt;API: User data
-API-&gt;&gt;JWT: Generate tokens
-JWT--&gt;&gt;API: access + refresh tokens
-API--&gt;&gt;Frontend: Return tokens + user data
-Frontend-&gt;&gt;Frontend: Store tokens
+    subgraph "External Services"
+        EMAIL[Email Service]
+        AUTH[Authentication Service]
+    end
 
-Note over Frontend,JWT: Subsequent Requests
+    WEB --&gt; NGINX
+    MOBILE --&gt; NGINX
+    NGINX --&gt; GUNICORN
+    GUNICORN --&gt; DJANGO
 
-Frontend-&gt;&gt;Frontend: Add Authorization header
-Frontend-&gt;&gt;API: Request with Bearer token
-API-&gt;&gt;JWT: Validate access token
-JWT--&gt;&gt;API: Token valid/invalid
+    DJANGO --&gt; ACCOUNTS
+    DJANGO --&gt; EMPLOYEES
+    DJANGO --&gt; EVALUATIONS
+    DJANGO --&gt; LEAVE
+    DJANGO --&gt; REPORTS
+    DJANGO --&gt; STAFF
+    DJANGO --&gt; TERMINATION
 
-alt Token Valid
-    API-&gt;&gt;DB: Query data
-    DB--&gt;&gt;API: Return data
-    API--&gt;&gt;Frontend: Return response
-else Token Expired
-    Frontend-&gt;&gt;API: POST /auth/refresh/
-    API-&gt;&gt;JWT: Validate refresh token
-    JWT--&gt;&gt;API: Generate new access token
-    API--&gt;&gt;Frontend: New access token
-    Frontend-&gt;&gt;Frontend: Update stored token
-end
+    ACCOUNTS --&gt; POSTGRES
+    EMPLOYEES --&gt; POSTGRES
+    EVALUATIONS --&gt; POSTGRES
+    LEAVE --&gt; POSTGRES
+    REPORTS --&gt; POSTGRES
+    STAFF --&gt; POSTGRES
+    TERMINATION --&gt; POSTGRES
 
-Note over User,DB: First Login Password Change
+    REPORTS --&gt; CACHE
+    DJANGO --&gt; MEDIA
+    ACCOUNTS --&gt; EMAIL
+    ACCOUNTS --&gt; AUTH</code></pre>
+<hr />
+<h2 id="authentication-flow">🔐 Authentication Flow</h2>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant Frontend
+    participant API
+    participant DB
+    participant JWT
 
-alt Requires Password Change
-    API--&gt;&gt;Frontend: requires_password_change: true
-    Frontend-&gt;&gt;User: Prompt password change
-    User-&gt;&gt;Frontend: Enter new password
-    Frontend-&gt;&gt;API: POST /first-login-password-change/
-    API-&gt;&gt;DB: Update password hash
-    DB--&gt;&gt;API: Success
-    API--&gt;&gt;Frontend: Password changed
-end
-</code></pre> <p>```</p> <hr> <h2 id=crud-operations-flow>📝 CRUD Operations Flow<a class=headerlink href=#crud-operations-flow title="Permanent link">&para;</a></h2> <h3 id=employee-management>Employee Management<a class=headerlink href=#employee-management title="Permanent link">&para;</a></h3> <p>```mermaid flowchart TD A[Start] --&gt; B{User Role?} B --&gt;|Admin RH| C[Full Access] B --&gt;|Employee| D[Limited Access]</p> <pre><code>C --&gt; E[Create Employee]
-E --&gt; F[Pre-Admission RH]
-F --&gt; G[Generate Temporary Password]
-G --&gt; H[Send Welcome Email]
-H --&gt; I[Employee Account Created]
+    User-&gt;&gt;Frontend: Enter credentials
+    Frontend-&gt;&gt;API: POST /auth/login/
+    API-&gt;&gt;DB: Validate credentials
+    DB--&gt;&gt;API: User data
+    API-&gt;&gt;JWT: Generate tokens
+    JWT--&gt;&gt;API: access + refresh tokens
+    API--&gt;&gt;Frontend: Return tokens + user data
+    Frontend-&gt;&gt;Frontend: Store tokens
 
-I --&gt; J[Employee Login]
-J --&gt; K{First Login?}
-K --&gt;|Yes| L[Change Password]
-K --&gt;|No| M[Dashboard]
-L --&gt; M
+    Note over Frontend,JWT: Subsequent Requests
 
-M --&gt; N[Complete Personal Info]
-N --&gt; O[Upload Documents]
-O --&gt; P[HR Review]
-P --&gt; Q{Documents Approved?}
-Q --&gt;|Yes| R[Admission Complete]
-Q --&gt;|No| S[Request Corrections]
-S --&gt; N
+    Frontend-&gt;&gt;Frontend: Add Authorization header
+    Frontend-&gt;&gt;API: Request with Bearer token
+    API-&gt;&gt;JWT: Validate access token
+    JWT--&gt;&gt;API: Token valid/invalid
 
-R --&gt; T[Employee Active]
+    alt Token Valid
+        API-&gt;&gt;DB: Query data
+        DB--&gt;&gt;API: Return data
+        API--&gt;&gt;Frontend: Return response
+    else Token Expired
+        Frontend-&gt;&gt;API: POST /auth/refresh/
+        API-&gt;&gt;JWT: Validate refresh token
+        JWT--&gt;&gt;API: Generate new access token
+        API--&gt;&gt;Frontend: New access token
+        Frontend-&gt;&gt;Frontend: Update stored token
+    end
 
-D --&gt; U[View Own Profile]
-U --&gt; V[Update Personal Info]
-V --&gt; W[View Documents]
-W --&gt; X[Upload Missing Documents]
-X --&gt; Y[View Admission Status]
-</code></pre> <p>```</p> <h3 id=leave-request-flow>Leave Request Flow<a class=headerlink href=#leave-request-flow title="Permanent link">&para;</a></h3> <p>```mermaid flowchart TD A[Employee] --&gt; B[Create Leave Request] B --&gt; C{Validate Balance} C --&gt;|Insufficient| D[Reject Automatically] C --&gt;|Sufficient| E[Submit for Approval]</p> <pre><code>E --&gt; F[Manager Notification]
-F --&gt; G{Manager Action}
-G --&gt;|Approve| H[Update Balance]
-G --&gt;|Reject| I[Notify Employee]
-G --&gt;|Pending| J[Reminder After 48h]
+    Note over User,DB: First Login Password Change
 
-H --&gt; K[Update Calendar]
-K --&gt; L[Notify Employee]
-L --&gt; M[Leave Approved]
+    alt Requires Password Change
+        API--&gt;&gt;Frontend: requires_password_change: true
+        Frontend-&gt;&gt;User: Prompt password change
+        User-&gt;&gt;Frontend: Enter new password
+        Frontend-&gt;&gt;API: POST /first-login-password-change/
+        API-&gt;&gt;DB: Update password hash
+        DB--&gt;&gt;API: Success
+        API--&gt;&gt;Frontend: Password changed
+    end</code></pre>
+<hr />
+<h2 id="crud-operations-flow">📝 CRUD Operations Flow</h2>
+<h3 id="employee-management">Employee Management</h3>
+<pre class="mermaid"><code>flowchart TD
+    A[Start] --&gt; B{User Role?}
+    B --&gt;|Admin RH| C[Full Access]
+    B --&gt;|Employee| D[Limited Access]
 
-I --&gt; N[Request Cancelled]
+    C --&gt; E[Create Employee]
+    E --&gt; F[Pre-Admission RH]
+    F --&gt; G[Generate Temporary Password]
+    G --&gt; H[Send Welcome Email]
+    H --&gt; I[Employee Account Created]
 
-M --&gt; O[Take Leave]
-O --&gt; P[Return to Work]
-P --&gt; Q[Close Request]
-</code></pre> <p>```</p> <h3 id=performance-evaluation-flow>Performance Evaluation Flow<a class=headerlink href=#performance-evaluation-flow title="Permanent link">&para;</a></h3> <p>```mermaid flowchart TD A[HR Admin] --&gt; B[Create Evaluation Cycle] B --&gt; C[Define Template] C --&gt; D[Add Criteria] D --&gt; E[Assign Participants]</p> <pre><code>E --&gt; F[Start Cycle]
-F --&gt; G[Notify Evaluators]
+    I --&gt; J[Employee Login]
+    J --&gt; K{First Login?}
+    K --&gt;|Yes| L[Change Password]
+    K --&gt;|No| M[Dashboard]
+    L --&gt; M
 
-G --&gt; H{Evaluator}
-H --&gt; I[Complete Evaluation]
-I --&gt; J[Submit Scores]
-J --&gt; K{All Criteria Done?}
-K --&gt;|No| I
-K --&gt;|Yes| L[Calculate Final Score]
+    M --&gt; N[Complete Personal Info]
+    N --&gt; O[Upload Documents]
+    O --&gt; P[HR Review]
+    P --&gt; Q{Documents Approved?}
+    Q --&gt;|Yes| R[Admission Complete]
+    Q --&gt;|No| S[Request Corrections]
+    S --&gt; N
 
-L --&gt; M{All Evaluations Done?}
-M --&gt;|No| H
-M --&gt;|Yes| N[Complete Cycle]
+    R --&gt; T[Employee Active]
 
-N --&gt; O[Generate Reports]
-O --&gt; P[Notify HR]
-P --&gt; Q[Archive Results]
-</code></pre> <p>```</p> <h3 id=termination-flow>Termination Flow<a class=headerlink href=#termination-flow title="Permanent link">&para;</a></h3> <p>```mermaid flowchart TD A[Manager] --&gt; B[Create Termination Request] B --&gt; C[Select Reason] C --&gt; D[Set Last Day] D --&gt; E[Submit to HR]</p> <pre><code>E --&gt; F[HR Review]
-F --&gt; G{HR Decision}
-G --&gt;|Approve| H[Start Processing]
-G --&gt;|Reject| I[Return to Manager]
-G --&gt;|Request Info| J[Ask for Details]
+    D --&gt; U[View Own Profile]
+    U --&gt; V[Update Personal Info]
+    V --&gt; W[View Documents]
+    W --&gt; X[Upload Missing Documents]
+    X --&gt; Y[View Admission Status]</code></pre>
+<h3 id="leave-request-flow">Leave Request Flow</h3>
+<pre class="mermaid"><code>flowchart TD
+    A[Employee] --&gt; B[Create Leave Request]
+    B --&gt; C{Validate Balance}
+    C --&gt;|Insufficient| D[Reject Automatically]
+    C --&gt;|Sufficient| E[Submit for Approval]
 
-H --&gt; K[Generate Documents]
-K --&gt; L[Exit Interview]
-L --&gt; M[Collect Equipment]
-M --&gt; N[Calculate Rescission]
-N --&gt; O[Schedule Payment]
-O --&gt; P[Complete Termination]
+    E --&gt; F[Manager Notification]
+    F --&gt; G{Manager Action}
+    G --&gt;|Approve| H[Update Balance]
+    G --&gt;|Reject| I[Notify Employee]
+    G --&gt;|Pending| J[Reminder After 48h]
 
-P --&gt; Q[Deactivate Access]
-Q --&gt; R[Update Records]
-R --&gt; S[Archive Process]
-</code></pre> <p>```</p> <hr> <h2 id=security-flow>🔒 Security Flow<a class=headerlink href=#security-flow title="Permanent link">&para;</a></h2> <p>```mermaid flowchart TD A[Request Received] --&gt; B{HTTPS?} B --&gt;|No| C[Redirect to HTTPS] B --&gt;|Yes| D[Validate CORS Origin]</p> <pre><code>D --&gt; E{Origin Allowed?}
-E --&gt;|No| F[403 Forbidden]
-E --&gt;|Yes| G[Validate JWT Token]
+    H --&gt; K[Update Calendar]
+    K --&gt; L[Notify Employee]
+    L --&gt; M[Leave Approved]
 
-G --&gt; H{Token Valid?}
-H --&gt;|No| I[401 Unauthorized]
-H --&gt;|Yes| J[Check Permissions]
+    I --&gt; N[Request Cancelled]
 
-J --&gt; K{Has Permission?}
-K --&gt;|No| L[403 Forbidden]
-K --&gt;|Yes| M[Validate Input]
+    M --&gt; O[Take Leave]
+    O --&gt; P[Return to Work]
+    P --&gt; Q[Close Request]</code></pre>
+<h3 id="performance-evaluation-flow">Performance Evaluation Flow</h3>
+<pre class="mermaid"><code>flowchart TD
+    A[HR Admin] --&gt; B[Create Evaluation Cycle]
+    B --&gt; C[Define Template]
+    C --&gt; D[Add Criteria]
+    D --&gt; E[Assign Participants]
 
-M --&gt; N{Valid Input?}
-N --&gt;|No| O[400 Bad Request]
-N --&gt;|Yes| P[Execute Business Logic]
+    E --&gt; F[Start Cycle]
+    F --&gt; G[Notify Evaluators]
 
-P --&gt; Q{Operation Type?}
-Q --&gt;|Read| R[Return Data]
-Q --&gt;|Write| S[Validate CSRF]
+    G --&gt; H{Evaluator}
+    H --&gt; I[Complete Evaluation]
+    I --&gt; J[Submit Scores]
+    J --&gt; K{All Criteria Done?}
+    K --&gt;|No| I
+    K --&gt;|Yes| L[Calculate Final Score]
 
-S --&gt; T{CSRF Valid?}
-T --&gt;|No| U[403 Forbidden]
-T --&gt;|Yes| V[Execute Write Operation]
+    L --&gt; M{All Evaluations Done?}
+    M --&gt;|No| H
+    M --&gt;|Yes| N[Complete Cycle]
 
-V --&gt; W[Log Operation]
-W --&gt; X[Return Response]
+    N --&gt; O[Generate Reports]
+    O --&gt; P[Notify HR]
+    P --&gt; Q[Archive Results]</code></pre>
+<h3 id="termination-flow">Termination Flow</h3>
+<pre class="mermaid"><code>flowchart TD
+    A[Manager] --&gt; B[Create Termination Request]
+    B --&gt; C[Select Reason]
+    C --&gt; D[Set Last Day]
+    D --&gt; E[Submit to HR]
 
-R --&gt; Y[Sanitize Output]
-Y --&gt; X
+    E --&gt; F[HR Review]
+    F --&gt; G{HR Decision}
+    G --&gt;|Approve| H[Start Processing]
+    G --&gt;|Reject| I[Return to Manager]
+    G --&gt;|Request Info| J[Ask for Details]
 
-style F fill:#ff6b6b
-style I fill:#ff6b6b
-style L fill:#ff6b6b
-style O fill:#ff6b6b
-style U fill:#ff6b6b
-style X fill:#51cf66
-</code></pre> <p>```</p> <hr> <h2 id=module-interactions>📊 Module Interactions<a class=headerlink href=#module-interactions title="Permanent link">&para;</a></h2> <p>```mermaid graph LR subgraph "Core Modules" ACCOUNTS[Accounts] EMPLOYEES[Employees] end</p> <pre><code>subgraph "HR Processes"
-    ADMISSION[Admission]
-    EVALUATIONS[Evaluations]
-    LEAVE[Leave Requests]
-    TERMINATION[Termination]
-end
+    H --&gt; K[Generate Documents]
+    K --&gt; L[Exit Interview]
+    L --&gt; M[Collect Equipment]
+    M --&gt; N[Calculate Rescission]
+    N --&gt; O[Schedule Payment]
+    O --&gt; P[Complete Termination]
 
-subgraph "Support Modules"
-    REPORTS[Reports]
-    STAFF[Staff]
-end
+    P --&gt; Q[Deactivate Access]
+    Q --&gt; R[Update Records]
+    R --&gt; S[Archive Process]</code></pre>
+<hr />
+<h2 id="security-flow">🔒 Security Flow</h2>
+<pre class="mermaid"><code>flowchart TD
+    A[Request Received] --&gt; B{HTTPS?}
+    B --&gt;|No| C[Redirect to HTTPS]
+    B --&gt;|Yes| D[Validate CORS Origin]
 
-ACCOUNTS --&gt; EMPLOYEES
-EMPLOYEES --&gt; ADMISSION
-EMPLOYEES --&gt; EVALUATIONS
-EMPLOYEES --&gt; LEAVE
-EMPLOYEES --&gt; TERMINATION
+    D --&gt; E{Origin Allowed?}
+    E --&gt;|No| F[403 Forbidden]
+    E --&gt;|Yes| G[Validate JWT Token]
 
-ADMISSION --&gt; ACCOUNTS
-EVALUATIONS --&gt; EMPLOYEES
-LEAVE --&gt; EMPLOYEES
-TERMINATION --&gt; EMPLOYEES
-TERMINATION --&gt; ACCOUNTS
+    G --&gt; H{Token Valid?}
+    H --&gt;|No| I[401 Unauthorized]
+    H --&gt;|Yes| J[Check Permissions]
 
-REPORTS --&gt; EMPLOYEES
-REPORTS --&gt; EVALUATIONS
-REPORTS --&gt; LEAVE
-REPORTS --&gt; TERMINATION
-REPORTS --&gt; ADMISSION
+    J --&gt; K{Has Permission?}
+    K --&gt;|No| L[403 Forbidden]
+    K --&gt;|Yes| M[Validate Input]
 
-STAFF --&gt; EMPLOYEES
-STAFF --&gt; ACCOUNTS
-</code></pre> <p>```</p> <hr> <h2 id=data-flow-diagram>📈 Data Flow Diagram<a class=headerlink href=#data-flow-diagram title="Permanent link">&para;</a></h2> <p>```mermaid flowchart LR subgraph "Data Sources" USER[User Input] FILE[File Upload] EXTERNAL[External APIs] end</p> <pre><code>subgraph "Processing"
-    VALIDATE[Validation]
-    PROCESS[Business Logic]
-    TRANSFORM[Data Transformation]
-end
+    M --&gt; N{Valid Input?}
+    N --&gt;|No| O[400 Bad Request]
+    N --&gt;|Yes| P[Execute Business Logic]
 
-subgraph "Storage"
-    DB[(PostgreSQL)]
-    CACHE[(Redis)]
-    MEDIA[File Storage]
-end
+    P --&gt; Q{Operation Type?}
+    Q --&gt;|Read| R[Return Data]
+    Q --&gt;|Write| S[Validate CSRF]
 
-subgraph "Output"
-    API[API Response]
-    REPORT[Generated Report]
-    EMAIL[Email Notification]
-end
+    S --&gt; T{CSRF Valid?}
+    T --&gt;|No| U[403 Forbidden]
+    T --&gt;|Yes| V[Execute Write Operation]
 
-USER --&gt; VALIDATE
-FILE --&gt; VALIDATE
-EXTERNAL --&gt; VALIDATE
+    V --&gt; W[Log Operation]
+    W --&gt; X[Return Response]
 
-VALIDATE --&gt; PROCESS
-PROCESS --&gt; TRANSFORM
+    R --&gt; Y[Sanitize Output]
+    Y --&gt; X
 
-TRANSFORM --&gt; DB
-TRANSFORM --&gt; CACHE
-TRANSFORM --&gt; MEDIA
+    style F fill:#ff6b6b
+    style I fill:#ff6b6b
+    style L fill:#ff6b6b
+    style O fill:#ff6b6b
+    style U fill:#ff6b6b
+    style X fill:#51cf66</code></pre>
+<hr />
+<h2 id="module-interactions">📊 Module Interactions</h2>
+<pre class="mermaid"><code>graph LR
+    subgraph "Core Modules"
+        ACCOUNTS[Accounts]
+        EMPLOYEES[Employees]
+    end
 
-DB --&gt; API
-CACHE --&gt; API
-MEDIA --&gt; API
+    subgraph "HR Processes"
+        ADMISSION[Admission]
+        EVALUATIONS[Evaluations]
+        LEAVE[Leave Requests]
+        TERMINATION[Termination]
+    end
 
-DB --&gt; REPORT
-TRANSFORM --&gt; REPORT
+    subgraph "Support Modules"
+        REPORTS[Reports]
+        STAFF[Staff]
+    end
 
-PROCESS --&gt; EMAIL
-</code></pre> <p>```</p> <hr> <h2 id=state-machines>🔄 State Machines<a class=headerlink href=#state-machines title="Permanent link">&para;</a></h2> <h3 id=employee-status>Employee Status<a class=headerlink href=#employee-status title="Permanent link">&para;</a></h3> <p><code>mermaid stateDiagram-v2 [*] --&gt; Pending Pending --&gt; UnderReview: Submit Documents UnderReview --&gt; Approved: HR Approval UnderReview --&gt; Pending: Request Corrections Approved --&gt; Active: Start Date Reached Active --&gt; Inactive: Termination Active --&gt; OnLeave: Leave Approved OnLeave --&gt; Active: Leave Ended Inactive --&gt; [*]</code></p> <h3 id=leave-request-status>Leave Request Status<a class=headerlink href=#leave-request-status title="Permanent link">&para;</a></h3> <p><code>mermaid stateDiagram-v2 [*] --&gt; Draft Draft --&gt; Pending: Submit Pending --&gt; Approved: Manager Approval Pending --&gt; Rejected: Manager Rejection Approved --&gt; Cancelled: Employee Cancels Approved --&gt; OnLeave: Start Date OnLeave --&gt; Completed: End Date Rejected --&gt; [*] Cancelled --&gt; [*] Completed --&gt; [*]</code></p> <h3 id=evaluation-status>Evaluation Status<a class=headerlink href=#evaluation-status title="Permanent link">&para;</a></h3> <p><code>mermaid stateDiagram-v2 [*] --&gt; Draft Draft --&gt; Pending: Submit Pending --&gt; InProgress: Start Evaluation InProgress --&gt; Completed: Submit Scores Completed --&gt; Approved: HR Approval Completed --&gt; Rejected: HR Rejection Approved --&gt; [*] Rejected --&gt; InProgress: Request Changes</code></p> <h3 id=termination-status>Termination Status<a class=headerlink href=#termination-status title="Permanent link">&para;</a></h3> <p><code>mermaid stateDiagram-v2 [*] --&gt; Draft Draft --&gt; PendingHR: Submit PendingHR --&gt; ApprovedHR: HR Approval PendingHR --&gt; RejectedHR: HR Rejection ApprovedHR --&gt; Processing: Start Processing Processing --&gt; Completed: Complete All Steps Completed --&gt; [*] RejectedHR --&gt; [*]</code></p> <hr> <p><strong>Next:</strong> <a href=../authentication-security/ >Authentication &amp; Security</a></p> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <footer class=md-footer> <nav class="md-footer__inner md-grid" aria-label=Footer> <a href=../api-endpoints/ class="md-footer__link md-footer__link--prev" aria-label="Previous: API Endpoints"> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </div> <div class=md-footer__title> <span class=md-footer__direction> Previous </span> <div class=md-ellipsis> API Endpoints </div> </div> </a> <a href=../authentication-security/ class="md-footer__link md-footer__link--next" aria-label="Next: Authentication and Security"> <div class=md-footer__title> <span class=md-footer__direction> Next </span> <div class=md-ellipsis> Authentication and Security </div> </div> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg> </div> </a> </nav> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "..", "features": ["navigation.instant", "navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../assets/javascripts/bundle.56dfad97.min.js></script> <script src=../javascripts/extra.js></script> </body> </html>
+    ACCOUNTS --&gt; EMPLOYEES
+    EMPLOYEES --&gt; ADMISSION
+    EMPLOYEES --&gt; EVALUATIONS
+    EMPLOYEES --&gt; LEAVE
+    EMPLOYEES --&gt; TERMINATION
+
+    ADMISSION --&gt; ACCOUNTS
+    EVALUATIONS --&gt; EMPLOYEES
+    LEAVE --&gt; EMPLOYEES
+    TERMINATION --&gt; EMPLOYEES
+    TERMINATION --&gt; ACCOUNTS
+
+    REPORTS --&gt; EMPLOYEES
+    REPORTS --&gt; EVALUATIONS
+    REPORTS --&gt; LEAVE
+    REPORTS --&gt; TERMINATION
+    REPORTS --&gt; ADMISSION
+
+    STAFF --&gt; EMPLOYEES
+    STAFF --&gt; ACCOUNTS</code></pre>
+<hr />
+<h2 id="data-flow-diagram">📈 Data Flow Diagram</h2>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Data Sources"
+        USER[User Input]
+        FILE[File Upload]
+        EXTERNAL[External APIs]
+    end
+
+    subgraph "Processing"
+        VALIDATE[Validation]
+        PROCESS[Business Logic]
+        TRANSFORM[Data Transformation]
+    end
+
+    subgraph "Storage"
+        DB[(PostgreSQL)]
+        CACHE[(Redis)]
+        MEDIA[File Storage]
+    end
+
+    subgraph "Output"
+        API[API Response]
+        REPORT[Generated Report]
+        EMAIL[Email Notification]
+    end
+
+    USER --&gt; VALIDATE
+    FILE --&gt; VALIDATE
+    EXTERNAL --&gt; VALIDATE
+
+    VALIDATE --&gt; PROCESS
+    PROCESS --&gt; TRANSFORM
+
+    TRANSFORM --&gt; DB
+    TRANSFORM --&gt; CACHE
+    TRANSFORM --&gt; MEDIA
+
+    DB --&gt; API
+    CACHE --&gt; API
+    MEDIA --&gt; API
+
+    DB --&gt; REPORT
+    TRANSFORM --&gt; REPORT
+
+    PROCESS --&gt; EMAIL</code></pre>
+<hr />
+<h2 id="state-machines">🔄 State Machines</h2>
+<h3 id="employee-status">Employee Status</h3>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Pending
+    Pending --&gt; UnderReview: Submit Documents
+    UnderReview --&gt; Approved: HR Approval
+    UnderReview --&gt; Pending: Request Corrections
+    Approved --&gt; Active: Start Date Reached
+    Active --&gt; Inactive: Termination
+    Active --&gt; OnLeave: Leave Approved
+    OnLeave --&gt; Active: Leave Ended
+    Inactive --&gt; [*]</code></pre>
+<h3 id="leave-request-status">Leave Request Status</h3>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Draft
+    Draft --&gt; Pending: Submit
+    Pending --&gt; Approved: Manager Approval
+    Pending --&gt; Rejected: Manager Rejection
+    Approved --&gt; Cancelled: Employee Cancels
+    Approved --&gt; OnLeave: Start Date
+    OnLeave --&gt; Completed: End Date
+    Rejected --&gt; [*]
+    Cancelled --&gt; [*]
+    Completed --&gt; [*]</code></pre>
+<h3 id="evaluation-status">Evaluation Status</h3>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Draft
+    Draft --&gt; Pending: Submit
+    Pending --&gt; InProgress: Start Evaluation
+    InProgress --&gt; Completed: Submit Scores
+    Completed --&gt; Approved: HR Approval
+    Completed --&gt; Rejected: HR Rejection
+    Approved --&gt; [*]
+    Rejected --&gt; InProgress: Request Changes</code></pre>
+<h3 id="termination-status">Termination Status</h3>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Draft
+    Draft --&gt; PendingHR: Submit
+    PendingHR --&gt; ApprovedHR: HR Approval
+    PendingHR --&gt; RejectedHR: HR Rejection
+    ApprovedHR --&gt; Processing: Start Processing
+    Processing --&gt; Completed: Complete All Steps
+    Completed --&gt; [*]
+    RejectedHR --&gt; [*]</code></pre>
+<hr />
+<p><strong>Next:</strong> <a href="../authentication-security/">Authentication &amp; Security</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+    
+  </body>
+</html>

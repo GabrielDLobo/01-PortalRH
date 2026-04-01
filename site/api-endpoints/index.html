@@ -1,1 +1,2747 @@
-<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Human Resources Management System documentation"><meta name=author content=GabrielDLobo><link href=../project-structure/ rel=prev><link href=../system-modeling/ rel=next><link rel=icon href=../assets/favicon.svg><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.5.34"><title>API Endpoints - PortalRH Documentation</title><link rel=stylesheet href=../assets/stylesheets/main.35f28582.min.css><link rel=stylesheet href=../assets/stylesheets/palette.06af60db.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style><link rel=stylesheet href=../stylesheets/extra.css><script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=teal data-md-color-accent=amber> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#api-endpoints class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=.. title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component=logo> <img src=../assets/logo.svg alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> PortalRH Documentation </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> API Endpoints </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=teal data-md-color-accent=amber aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> </header> <div class=md-container data-md-component=container> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=.. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=../gallery/ class=md-tabs__link> Gallery </a> </li> <li class=md-tabs__item> <a href=../overview/ class=md-tabs__link> Overview </a> </li> <li class=md-tabs__item> <a href=../prerequisites/ class=md-tabs__link> Prerequisites </a> </li> <li class=md-tabs__item> <a href=../installation/ class=md-tabs__link> Installation </a> </li> <li class=md-tabs__item> <a href=../configuration/ class=md-tabs__link> Configuration </a> </li> <li class=md-tabs__item> <a href=../guidelines/ class=md-tabs__link> Guidelines and Standards </a> </li> <li class=md-tabs__item> <a href=../project-structure/ class=md-tabs__link> Project Structure </a> </li> <li class="md-tabs__item md-tabs__item--active"> <a href=./ class=md-tabs__link> API Endpoints </a> </li> <li class=md-tabs__item> <a href=../system-modeling/ class=md-tabs__link> System Modeling </a> </li> <li class=md-tabs__item> <a href=../authentication-security/ class=md-tabs__link> Authentication and Security </a> </li> <li class=md-tabs__item> <a href=../development/ class=md-tabs__link> Development </a> </li> <li class=md-tabs__item> <a href=../testing/ class=md-tabs__link> Testing </a> </li> <li class=md-tabs__item> <a href=../deploy/ class=md-tabs__link> Deploy </a> </li> <li class=md-tabs__item> <a href=../contributing/ class=md-tabs__link> Contributing </a> </li> <li class=md-tabs__item> <a href=../release-notes/ class=md-tabs__link> Release Notes </a> </li> <li class=md-tabs__item> <a href=../UPDATE_LOG/ class=md-tabs__link> Update Log </a> </li> </ul> </div> </nav> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=.. title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component=logo> <img src=../assets/logo.svg alt=logo> </a> PortalRH Documentation </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../gallery/ class=md-nav__link> <span class=md-ellipsis> Gallery </span> </a> </li> <li class=md-nav__item> <a href=../overview/ class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> </li> <li class=md-nav__item> <a href=../prerequisites/ class=md-nav__link> <span class=md-ellipsis> Prerequisites </span> </a> </li> <li class=md-nav__item> <a href=../installation/ class=md-nav__link> <span class=md-ellipsis> Installation </span> </a> </li> <li class=md-nav__item> <a href=../configuration/ class=md-nav__link> <span class=md-ellipsis> Configuration </span> </a> </li> <li class=md-nav__item> <a href=../guidelines/ class=md-nav__link> <span class=md-ellipsis> Guidelines and Standards </span> </a> </li> <li class=md-nav__item> <a href=../project-structure/ class=md-nav__link> <span class=md-ellipsis> Project Structure </span> </a> </li> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> API Endpoints </span> <span class="md-nav__icon md-icon"></span> </label> <a href=./ class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> API Endpoints </span> </a> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#api-information class=md-nav__link> <span class=md-ellipsis> 📡 API Information </span> </a> </li> <li class=md-nav__item> <a href=#authentication-format class=md-nav__link> <span class=md-ellipsis> 🔐 Authentication Format </span> </a> </li> <li class=md-nav__item> <a href=#endpoints-overview class=md-nav__link> <span class=md-ellipsis> 📋 Endpoints Overview </span> </a> </li> <li class=md-nav__item> <a href=#authentication-endpoints class=md-nav__link> <span class=md-ellipsis> 🔑 Authentication Endpoints </span> </a> <nav class=md-nav aria-label="🔑 Authentication Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#login class=md-nav__link> <span class=md-ellipsis> Login </span> </a> </li> <li class=md-nav__item> <a href=#refresh-token class=md-nav__link> <span class=md-ellipsis> Refresh Token </span> </a> </li> <li class=md-nav__item> <a href=#verify-token class=md-nav__link> <span class=md-ellipsis> Verify Token </span> </a> </li> <li class=md-nav__item> <a href=#register-user class=md-nav__link> <span class=md-ellipsis> Register User </span> </a> </li> <li class=md-nav__item> <a href=#first-login-password-change class=md-nav__link> <span class=md-ellipsis> First Login Password Change </span> </a> </li> <li class=md-nav__item> <a href=#check-password-change-required class=md-nav__link> <span class=md-ellipsis> Check Password Change Required </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#user-endpoints class=md-nav__link> <span class=md-ellipsis> 👥 User Endpoints </span> </a> <nav class=md-nav aria-label="👥 User Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-users class=md-nav__link> <span class=md-ellipsis> List Users </span> </a> </li> <li class=md-nav__item> <a href=#get-user-profile class=md-nav__link> <span class=md-ellipsis> Get User Profile </span> </a> </li> <li class=md-nav__item> <a href=#change-password class=md-nav__link> <span class=md-ellipsis> Change Password </span> </a> </li> <li class=md-nav__item> <a href=#get-user-statistics class=md-nav__link> <span class=md-ellipsis> Get User Statistics </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#employee-endpoints class=md-nav__link> <span class=md-ellipsis> 👨‍💼 Employee Endpoints </span> </a> <nav class=md-nav aria-label="👨‍💼 Employee Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-employees class=md-nav__link> <span class=md-ellipsis> List Employees </span> </a> </li> <li class=md-nav__item> <a href=#get-employee-detail class=md-nav__link> <span class=md-ellipsis> Get Employee Detail </span> </a> </li> <li class=md-nav__item> <a href=#create-employee class=md-nav__link> <span class=md-ellipsis> Create Employee </span> </a> </li> <li class=md-nav__item> <a href=#get-my-profile class=md-nav__link> <span class=md-ellipsis> Get My Profile </span> </a> </li> <li class=md-nav__item> <a href=#update-personal-information class=md-nav__link> <span class=md-ellipsis> Update Personal Information </span> </a> </li> <li class=md-nav__item> <a href=#get-admission-status class=md-nav__link> <span class=md-ellipsis> Get Admission Status </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#employee-document-endpoints class=md-nav__link> <span class=md-ellipsis> 📄 Employee Document Endpoints </span> </a> <nav class=md-nav aria-label="📄 Employee Document Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-documents class=md-nav__link> <span class=md-ellipsis> List Documents </span> </a> </li> <li class=md-nav__item> <a href=#upload-document class=md-nav__link> <span class=md-ellipsis> Upload Document </span> </a> </li> <li class=md-nav__item> <a href=#verify-document class=md-nav__link> <span class=md-ellipsis> Verify Document </span> </a> </li> <li class=md-nav__item> <a href=#get-required-documents class=md-nav__link> <span class=md-ellipsis> Get Required Documents </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#evaluation-endpoints class=md-nav__link> <span class=md-ellipsis> 📊 Evaluation Endpoints </span> </a> <nav class=md-nav aria-label="📊 Evaluation Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-templates class=md-nav__link> <span class=md-ellipsis> List Templates </span> </a> </li> <li class=md-nav__item> <a href=#create-evaluation class=md-nav__link> <span class=md-ellipsis> Create Evaluation </span> </a> </li> <li class=md-nav__item> <a href=#submit-evaluation-score class=md-nav__link> <span class=md-ellipsis> Submit Evaluation Score </span> </a> </li> <li class=md-nav__item> <a href=#get-my-evaluations class=md-nav__link> <span class=md-ellipsis> Get My Evaluations </span> </a> </li> <li class=md-nav__item> <a href=#start-evaluation-cycle class=md-nav__link> <span class=md-ellipsis> Start Evaluation Cycle </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#leave-request-endpoints class=md-nav__link> <span class=md-ellipsis> 🏖️ Leave Request Endpoints </span> </a> <nav class=md-nav aria-label="🏖️ Leave Request Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-leave-types class=md-nav__link> <span class=md-ellipsis> List Leave Types </span> </a> </li> <li class=md-nav__item> <a href=#create-leave-request class=md-nav__link> <span class=md-ellipsis> Create Leave Request </span> </a> </li> <li class=md-nav__item> <a href=#approve-leave-request class=md-nav__link> <span class=md-ellipsis> Approve Leave Request </span> </a> </li> <li class=md-nav__item> <a href=#get-my-leave-balances class=md-nav__link> <span class=md-ellipsis> Get My Leave Balances </span> </a> </li> <li class=md-nav__item> <a href=#get-leave-calendar class=md-nav__link> <span class=md-ellipsis> Get Leave Calendar </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#report-endpoints class=md-nav__link> <span class=md-ellipsis> 📈 Report Endpoints </span> </a> <nav class=md-nav aria-label="📈 Report Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-report-templates class=md-nav__link> <span class=md-ellipsis> List Report Templates </span> </a> </li> <li class=md-nav__item> <a href=#execute-report class=md-nav__link> <span class=md-ellipsis> Execute Report </span> </a> </li> <li class=md-nav__item> <a href=#download-report class=md-nav__link> <span class=md-ellipsis> Download Report </span> </a> </li> <li class=md-nav__item> <a href=#create-report-schedule class=md-nav__link> <span class=md-ellipsis> Create Report Schedule </span> </a> </li> <li class=md-nav__item> <a href=#get-dashboard-summary class=md-nav__link> <span class=md-ellipsis> Get Dashboard Summary </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#termination-endpoints class=md-nav__link> <span class=md-ellipsis> 🚪 Termination Endpoints </span> </a> <nav class=md-nav aria-label="🚪 Termination Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-termination-reasons class=md-nav__link> <span class=md-ellipsis> List Termination Reasons </span> </a> </li> <li class=md-nav__item> <a href=#create-termination-request class=md-nav__link> <span class=md-ellipsis> Create Termination Request </span> </a> </li> <li class=md-nav__item> <a href=#approve-termination class=md-nav__link> <span class=md-ellipsis> Approve Termination </span> </a> </li> <li class=md-nav__item> <a href=#start-termination-processing class=md-nav__link> <span class=md-ellipsis> Start Termination Processing </span> </a> </li> <li class=md-nav__item> <a href=#complete-termination class=md-nav__link> <span class=md-ellipsis> Complete Termination </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#error-responses class=md-nav__link> <span class=md-ellipsis> 📊 Error Responses </span> </a> <nav class=md-nav aria-label="📊 Error Responses"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#standard-error-format class=md-nav__link> <span class=md-ellipsis> Standard Error Format </span> </a> </li> <li class=md-nav__item> <a href=#common-error-codes class=md-nav__link> <span class=md-ellipsis> Common Error Codes </span> </a> </li> <li class=md-nav__item> <a href=#example-error-response class=md-nav__link> <span class=md-ellipsis> Example Error Response </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#query-parameters class=md-nav__link> <span class=md-ellipsis> 🔍 Query Parameters </span> </a> <nav class=md-nav aria-label="🔍 Query Parameters"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#common-parameters class=md-nav__link> <span class=md-ellipsis> Common Parameters </span> </a> </li> <li class=md-nav__item> <a href=#ordering-syntax class=md-nav__link> <span class=md-ellipsis> Ordering Syntax </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#pagination class=md-nav__link> <span class=md-ellipsis> 📝 Pagination </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../system-modeling/ class=md-nav__link> <span class=md-ellipsis> System Modeling </span> </a> </li> <li class=md-nav__item> <a href=../authentication-security/ class=md-nav__link> <span class=md-ellipsis> Authentication and Security </span> </a> </li> <li class=md-nav__item> <a href=../development/ class=md-nav__link> <span class=md-ellipsis> Development </span> </a> </li> <li class=md-nav__item> <a href=../testing/ class=md-nav__link> <span class=md-ellipsis> Testing </span> </a> </li> <li class=md-nav__item> <a href=../deploy/ class=md-nav__link> <span class=md-ellipsis> Deploy </span> </a> </li> <li class=md-nav__item> <a href=../contributing/ class=md-nav__link> <span class=md-ellipsis> Contributing </span> </a> </li> <li class=md-nav__item> <a href=../release-notes/ class=md-nav__link> <span class=md-ellipsis> Release Notes </span> </a> </li> <li class=md-nav__item> <a href=../UPDATE_LOG/ class=md-nav__link> <span class=md-ellipsis> Update Log </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#api-information class=md-nav__link> <span class=md-ellipsis> 📡 API Information </span> </a> </li> <li class=md-nav__item> <a href=#authentication-format class=md-nav__link> <span class=md-ellipsis> 🔐 Authentication Format </span> </a> </li> <li class=md-nav__item> <a href=#endpoints-overview class=md-nav__link> <span class=md-ellipsis> 📋 Endpoints Overview </span> </a> </li> <li class=md-nav__item> <a href=#authentication-endpoints class=md-nav__link> <span class=md-ellipsis> 🔑 Authentication Endpoints </span> </a> <nav class=md-nav aria-label="🔑 Authentication Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#login class=md-nav__link> <span class=md-ellipsis> Login </span> </a> </li> <li class=md-nav__item> <a href=#refresh-token class=md-nav__link> <span class=md-ellipsis> Refresh Token </span> </a> </li> <li class=md-nav__item> <a href=#verify-token class=md-nav__link> <span class=md-ellipsis> Verify Token </span> </a> </li> <li class=md-nav__item> <a href=#register-user class=md-nav__link> <span class=md-ellipsis> Register User </span> </a> </li> <li class=md-nav__item> <a href=#first-login-password-change class=md-nav__link> <span class=md-ellipsis> First Login Password Change </span> </a> </li> <li class=md-nav__item> <a href=#check-password-change-required class=md-nav__link> <span class=md-ellipsis> Check Password Change Required </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#user-endpoints class=md-nav__link> <span class=md-ellipsis> 👥 User Endpoints </span> </a> <nav class=md-nav aria-label="👥 User Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-users class=md-nav__link> <span class=md-ellipsis> List Users </span> </a> </li> <li class=md-nav__item> <a href=#get-user-profile class=md-nav__link> <span class=md-ellipsis> Get User Profile </span> </a> </li> <li class=md-nav__item> <a href=#change-password class=md-nav__link> <span class=md-ellipsis> Change Password </span> </a> </li> <li class=md-nav__item> <a href=#get-user-statistics class=md-nav__link> <span class=md-ellipsis> Get User Statistics </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#employee-endpoints class=md-nav__link> <span class=md-ellipsis> 👨‍💼 Employee Endpoints </span> </a> <nav class=md-nav aria-label="👨‍💼 Employee Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-employees class=md-nav__link> <span class=md-ellipsis> List Employees </span> </a> </li> <li class=md-nav__item> <a href=#get-employee-detail class=md-nav__link> <span class=md-ellipsis> Get Employee Detail </span> </a> </li> <li class=md-nav__item> <a href=#create-employee class=md-nav__link> <span class=md-ellipsis> Create Employee </span> </a> </li> <li class=md-nav__item> <a href=#get-my-profile class=md-nav__link> <span class=md-ellipsis> Get My Profile </span> </a> </li> <li class=md-nav__item> <a href=#update-personal-information class=md-nav__link> <span class=md-ellipsis> Update Personal Information </span> </a> </li> <li class=md-nav__item> <a href=#get-admission-status class=md-nav__link> <span class=md-ellipsis> Get Admission Status </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#employee-document-endpoints class=md-nav__link> <span class=md-ellipsis> 📄 Employee Document Endpoints </span> </a> <nav class=md-nav aria-label="📄 Employee Document Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-documents class=md-nav__link> <span class=md-ellipsis> List Documents </span> </a> </li> <li class=md-nav__item> <a href=#upload-document class=md-nav__link> <span class=md-ellipsis> Upload Document </span> </a> </li> <li class=md-nav__item> <a href=#verify-document class=md-nav__link> <span class=md-ellipsis> Verify Document </span> </a> </li> <li class=md-nav__item> <a href=#get-required-documents class=md-nav__link> <span class=md-ellipsis> Get Required Documents </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#evaluation-endpoints class=md-nav__link> <span class=md-ellipsis> 📊 Evaluation Endpoints </span> </a> <nav class=md-nav aria-label="📊 Evaluation Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-templates class=md-nav__link> <span class=md-ellipsis> List Templates </span> </a> </li> <li class=md-nav__item> <a href=#create-evaluation class=md-nav__link> <span class=md-ellipsis> Create Evaluation </span> </a> </li> <li class=md-nav__item> <a href=#submit-evaluation-score class=md-nav__link> <span class=md-ellipsis> Submit Evaluation Score </span> </a> </li> <li class=md-nav__item> <a href=#get-my-evaluations class=md-nav__link> <span class=md-ellipsis> Get My Evaluations </span> </a> </li> <li class=md-nav__item> <a href=#start-evaluation-cycle class=md-nav__link> <span class=md-ellipsis> Start Evaluation Cycle </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#leave-request-endpoints class=md-nav__link> <span class=md-ellipsis> 🏖️ Leave Request Endpoints </span> </a> <nav class=md-nav aria-label="🏖️ Leave Request Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-leave-types class=md-nav__link> <span class=md-ellipsis> List Leave Types </span> </a> </li> <li class=md-nav__item> <a href=#create-leave-request class=md-nav__link> <span class=md-ellipsis> Create Leave Request </span> </a> </li> <li class=md-nav__item> <a href=#approve-leave-request class=md-nav__link> <span class=md-ellipsis> Approve Leave Request </span> </a> </li> <li class=md-nav__item> <a href=#get-my-leave-balances class=md-nav__link> <span class=md-ellipsis> Get My Leave Balances </span> </a> </li> <li class=md-nav__item> <a href=#get-leave-calendar class=md-nav__link> <span class=md-ellipsis> Get Leave Calendar </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#report-endpoints class=md-nav__link> <span class=md-ellipsis> 📈 Report Endpoints </span> </a> <nav class=md-nav aria-label="📈 Report Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-report-templates class=md-nav__link> <span class=md-ellipsis> List Report Templates </span> </a> </li> <li class=md-nav__item> <a href=#execute-report class=md-nav__link> <span class=md-ellipsis> Execute Report </span> </a> </li> <li class=md-nav__item> <a href=#download-report class=md-nav__link> <span class=md-ellipsis> Download Report </span> </a> </li> <li class=md-nav__item> <a href=#create-report-schedule class=md-nav__link> <span class=md-ellipsis> Create Report Schedule </span> </a> </li> <li class=md-nav__item> <a href=#get-dashboard-summary class=md-nav__link> <span class=md-ellipsis> Get Dashboard Summary </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#termination-endpoints class=md-nav__link> <span class=md-ellipsis> 🚪 Termination Endpoints </span> </a> <nav class=md-nav aria-label="🚪 Termination Endpoints"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#list-termination-reasons class=md-nav__link> <span class=md-ellipsis> List Termination Reasons </span> </a> </li> <li class=md-nav__item> <a href=#create-termination-request class=md-nav__link> <span class=md-ellipsis> Create Termination Request </span> </a> </li> <li class=md-nav__item> <a href=#approve-termination class=md-nav__link> <span class=md-ellipsis> Approve Termination </span> </a> </li> <li class=md-nav__item> <a href=#start-termination-processing class=md-nav__link> <span class=md-ellipsis> Start Termination Processing </span> </a> </li> <li class=md-nav__item> <a href=#complete-termination class=md-nav__link> <span class=md-ellipsis> Complete Termination </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#error-responses class=md-nav__link> <span class=md-ellipsis> 📊 Error Responses </span> </a> <nav class=md-nav aria-label="📊 Error Responses"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#standard-error-format class=md-nav__link> <span class=md-ellipsis> Standard Error Format </span> </a> </li> <li class=md-nav__item> <a href=#common-error-codes class=md-nav__link> <span class=md-ellipsis> Common Error Codes </span> </a> </li> <li class=md-nav__item> <a href=#example-error-response class=md-nav__link> <span class=md-ellipsis> Example Error Response </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#query-parameters class=md-nav__link> <span class=md-ellipsis> 🔍 Query Parameters </span> </a> <nav class=md-nav aria-label="🔍 Query Parameters"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#common-parameters class=md-nav__link> <span class=md-ellipsis> Common Parameters </span> </a> </li> <li class=md-nav__item> <a href=#ordering-syntax class=md-nav__link> <span class=md-ellipsis> Ordering Syntax </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#pagination class=md-nav__link> <span class=md-ellipsis> 📝 Pagination </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=api-endpoints>API Endpoints<a class=headerlink href=#api-endpoints title="Permanent link">&para;</a></h1> <p>Complete reference for all PortalRH API endpoints.</p> <hr> <h2 id=api-information>📡 API Information<a class=headerlink href=#api-information title="Permanent link">&para;</a></h2> <ul> <li><strong>Base URL:</strong> <code>/api/v1/</code></li> <li><strong>Authentication:</strong> JWT Bearer Token</li> <li><strong>Content Type:</strong> <code>application/json</code></li> <li><strong>API Documentation:</strong> <code>/api/docs/</code> (Swagger UI)</li> <li><strong>Alternative Docs:</strong> <code>/api/redoc/</code> (ReDoc)</li> <li><strong>Schema:</strong> <code>/api/schema/</code></li> </ul> <hr> <h2 id=authentication-format>🔐 Authentication Format<a class=headerlink href=#authentication-format title="Permanent link">&para;</a></h2> <p>Include JWT token in request headers:</p> <p><code>http Authorization: Bearer &lt;access_token&gt;</code></p> <hr> <h2 id=endpoints-overview>📋 Endpoints Overview<a class=headerlink href=#endpoints-overview title="Permanent link">&para;</a></h2> <table> <thead> <tr> <th>Module</th> <th>Base Path</th> <th>Endpoints</th> </tr> </thead> <tbody> <tr> <td>Authentication</td> <td><code>/accounts/auth/</code></td> <td>login, refresh, verify, register</td> </tr> <tr> <td>Users</td> <td><code>/accounts/users/</code></td> <td>CRUD, profile, password change</td> </tr> <tr> <td>Employees</td> <td><code>/employees/</code></td> <td>CRUD, documents, admission</td> </tr> <tr> <td>Evaluations</td> <td><code>/evaluations/</code></td> <td>templates, evaluations, cycles</td> </tr> <tr> <td>Leave Requests</td> <td><code>/leave-requests/</code></td> <td>types, requests, balances</td> </tr> <tr> <td>Reports</td> <td><code>/reports/</code></td> <td>templates, executions, schedules</td> </tr> <tr> <td>Staff</td> <td><code>/staff/</code></td> <td>departments, employees</td> </tr> <tr> <td>Termination</td> <td><code>/termination/</code></td> <td>reasons, requests, documents</td> </tr> </tbody> </table> <hr> <h2 id=authentication-endpoints>🔑 Authentication Endpoints<a class=headerlink href=#authentication-endpoints title="Permanent link">&para;</a></h2> <h3 id=login>Login<a class=headerlink href=#login title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/accounts/auth/login/</code></p> <p>Authenticate user and receive JWT tokens.</p> <p><strong>Request:</strong> <code>json { "email": "user@example.com", "password": "securepassword" }</code></p> <p><strong>Response (200 OK):</strong> <code>json { "access": "eyJ0eXAiOiJKV1QiLCJhbG...", "refresh": "eyJ0eXAiOiJKV1QiLCJhbG...", "user": { "id": 1, "email": "user@example.com", "first_name": "John", "last_name": "Doe", "role": "admin_rh" }, "requires_password_change": false }</code></p> <hr> <h3 id=refresh-token>Refresh Token<a class=headerlink href=#refresh-token title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/accounts/auth/refresh/</code></p> <p>Get new access token using refresh token.</p> <p><strong>Request:</strong> <code>json { "refresh": "eyJ0eXAiOiJKV1QiLCJhbG..." }</code></p> <p><strong>Response (200 OK):</strong> <code>json { "access": "eyJ0eXAiOiJKV1QiLCJhbG..." }</code></p> <hr> <h3 id=verify-token>Verify Token<a class=headerlink href=#verify-token title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/accounts/auth/verify/</code></p> <p>Verify if access token is valid.</p> <p><strong>Request:</strong> <code>json { "token": "eyJ0eXAiOiJKV1QiLCJhbG..." }</code></p> <p><strong>Response (200 OK):</strong> <code>json {}</code></p> <hr> <h3 id=register-user>Register User<a class=headerlink href=#register-user title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/accounts/auth/register/</code></p> <p>Create new user (Admin RH only).</p> <p><strong>Request:</strong> <code>json { "email": "newuser@example.com", "password": "securepassword", "first_name": "Jane", "last_name": "Doe", "role": "funcionario" }</code></p> <p><strong>Response (201 Created):</strong> <code>json { "id": 5, "email": "newuser@example.com", "first_name": "Jane", "last_name": "Doe", "role": "funcionario", "is_active": true }</code></p> <hr> <h3 id=first-login-password-change>First Login Password Change<a class=headerlink href=#first-login-password-change title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/accounts/auth/first-login-password-change/</code></p> <p>Change password on first login.</p> <p><strong>Request:</strong> <code>json { "old_password": "temporary_password", "new_password": "new_secure_password" }</code></p> <p><strong>Response (200 OK):</strong> <code>json { "message": "Senha alterada com sucesso." }</code></p> <hr> <h3 id=check-password-change-required>Check Password Change Required<a class=headerlink href=#check-password-change-required title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/accounts/auth/check-password-change-required/</code></p> <p>Check if user needs to change password.</p> <p><strong>Response (200 OK):</strong> <code>json { "requires_password_change": true }</code></p> <hr> <h2 id=user-endpoints>👥 User Endpoints<a class=headerlink href=#user-endpoints title="Permanent link">&para;</a></h2> <h3 id=list-users>List Users<a class=headerlink href=#list-users title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/accounts/users/</code></p> <p><strong>Query Parameters:</strong> - <code>search</code> - Search by name or email - <code>role</code> - Filter by role - <code>is_active</code> - Filter by active status - <code>page</code> - Page number</p> <p><strong>Response (200 OK):</strong> <code>json { "count": 50, "next": "http://api/users/?page=2", "previous": null, "results": [ { "id": 1, "email": "admin@portalrh.com", "first_name": "Admin", "last_name": "RH", "role": "admin_rh", "is_active": true } ] }</code></p> <hr> <h3 id=get-user-profile>Get User Profile<a class=headerlink href=#get-user-profile title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/accounts/users/profile/</code></p> <p>Get current authenticated user's profile.</p> <p><strong>Response (200 OK):</strong> <code>json { "id": 1, "email": "user@example.com", "first_name": "John", "last_name": "Doe", "role": "funcionario", "date_joined": "2024-01-15T10:30:00Z" }</code></p> <hr> <h3 id=change-password>Change Password<a class=headerlink href=#change-password title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/accounts/users/change_password/</code></p> <p><strong>Request:</strong> <code>json { "old_password": "current_password", "new_password": "new_password" }</code></p> <p><strong>Response (200 OK):</strong> <code>json { "message": "Senha alterada com sucesso." }</code></p> <hr> <h3 id=get-user-statistics>Get User Statistics<a class=headerlink href=#get-user-statistics title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/accounts/users/stats/</code></p> <p>Get user statistics (Admin RH only).</p> <p><strong>Response (200 OK):</strong> <code>json { "total_users": 150, "active_users": 142, "admin_rh_count": 5, "funcionario_count": 145 }</code></p> <hr> <h2 id=employee-endpoints>👨‍💼 Employee Endpoints<a class=headerlink href=#employee-endpoints title="Permanent link">&para;</a></h2> <h3 id=list-employees>List Employees<a class=headerlink href=#list-employees title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/employees/employees/</code></p> <p><strong>Query Parameters:</strong> - <code>search</code> - Search by name - <code>status</code> - Filter by status - <code>department</code> - Filter by department - <code>page</code> - Page number</p> <p><strong>Response (200 OK):</strong> <code>json { "count": 100, "next": null, "previous": null, "results": [ { "id": 1, "employee_id": "EMP-0001", "full_name": "John Doe", "email": "john@company.com", "department": "Engineering", "position": "Developer", "status": "active", "hire_date": "2024-01-15" } ] }</code></p> <hr> <h3 id=get-employee-detail>Get Employee Detail<a class=headerlink href=#get-employee-detail title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/employees/employees/{id}/</code></p> <p><strong>Response (200 OK):</strong> <code>json { "id": 1, "employee_id": "EMP-0001", "user": 1, "full_name": "John Doe", "cpf": "123.456.789-00", "rg": "12.345.678-9", "birth_date": "1990-05-15", "phone": "(11) 99999-9999", "email": "john@company.com", "street_address": "Rua Principal", "address_number": "123", "neighborhood": "Centro", "city": "São Paulo", "state": "SP", "zip_code": "01000-000", "department": "Engineering", "position": "Developer", "hire_date": "2024-01-15", "salary": "5000.00", "status": "active", "admission_completed": true }</code></p> <hr> <h3 id=create-employee>Create Employee<a class=headerlink href=#create-employee title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/employees/employees/</code></p> <p><strong>Request:</strong> <code>json { "user": 1, "full_name": "Jane Doe", "cpf": "987.654.321-00", "rg": "98.765.432-1", "birth_date": "1992-08-20", "phone": "(11) 98888-8888", "email": "jane@company.com", "street_address": "Rua Secundária", "address_number": "456", "neighborhood": "Jardins", "city": "São Paulo", "state": "SP", "zip_code": "01001-000", "department": "Marketing", "position": "Designer", "hire_date": "2024-02-01", "salary": "4500.00" }</code></p> <p><strong>Response (201 Created):</strong> <code>json { "id": 2, "employee_id": "EMP-0002", "full_name": "Jane Doe", ... }</code></p> <hr> <h3 id=get-my-profile>Get My Profile<a class=headerlink href=#get-my-profile title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/employees/employees/my_profile/</code></p> <p>Get current user's employee profile.</p> <p><strong>Response (200 OK):</strong> <code>json { "id": 1, "employee_id": "EMP-0001", "full_name": "John Doe", ... }</code></p> <hr> <h3 id=update-personal-information>Update Personal Information<a class=headerlink href=#update-personal-information title="Permanent link">&para;</a></h3> <p><strong>PATCH</strong> <code>/api/v1/employees/employees/{id}/update_personal_info/</code></p> <p><strong>Request:</strong> <code>json { "phone": "(11) 97777-7777", "street_address": "Nova Rua", "address_number": "789" }</code></p> <p><strong>Response (200 OK):</strong> <code>json { "message": "Informações atualizadas com sucesso." }</code></p> <hr> <h3 id=get-admission-status>Get Admission Status<a class=headerlink href=#get-admission-status title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/employees/employees/{id}/admission_status/</code></p> <p><strong>Response (200 OK):</strong> <code>json { "employee_id": "EMP-0001", "status": "documents_uploaded", "completion_percentage": 75, "personal_info_completed": true, "documents_uploaded": true, "hr_review_completed": false }</code></p> <hr> <h2 id=employee-document-endpoints>📄 Employee Document Endpoints<a class=headerlink href=#employee-document-endpoints title="Permanent link">&para;</a></h2> <h3 id=list-documents>List Documents<a class=headerlink href=#list-documents title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/</code></p> <p><strong>Response (200 OK):</strong> <code>json { "count": 5, "results": [ { "id": 1, "employee": 1, "document_type": "rg", "document_name": "RG Front", "file": "/media/employees/documents/rg_001.pdf", "file_size": 102400, "uploaded_at": "2024-01-15T10:00:00Z", "is_required": true, "is_verified": false } ] }</code></p> <hr> <h3 id=upload-document>Upload Document<a class=headerlink href=#upload-document title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/</code></p> <p><strong>Content-Type:</strong> <code>multipart/form-data</code></p> <p><strong>Request:</strong> <code>document_type: rg document_name: RG Front file: &lt;file&gt; is_required: true</code></p> <p><strong>Response (201 Created):</strong> <code>json { "id": 1, "document_type": "rg", "file": "/media/employees/documents/rg_001.pdf", ... }</code></p> <hr> <h3 id=verify-document>Verify Document<a class=headerlink href=#verify-document title="Permanent link">&para;</a></h3> <p><strong>PATCH</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/{id}/verify/</code></p> <p><strong>Request:</strong> <code>json { "is_verified": true }</code></p> <p><strong>Response (200 OK):</strong> <code>json { "message": "Documento verificado com sucesso." }</code></p> <hr> <h3 id=get-required-documents>Get Required Documents<a class=headerlink href=#get-required-documents title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/required_documents/</code></p> <p><strong>Response (200 OK):</strong> <code>json { "required_documents": [ {"type": "rg", "name": "RG", "uploaded": true}, {"type": "cpf", "name": "CPF", "uploaded": true}, {"type": "birth_certificate", "name": "Birth Certificate", "uploaded": false}, {"type": "residence_proof", "name": "Residence Proof", "uploaded": false}, {"type": "photo", "name": "Photo", "uploaded": true} ] }</code></p> <hr> <h2 id=evaluation-endpoints>📊 Evaluation Endpoints<a class=headerlink href=#evaluation-endpoints title="Permanent link">&para;</a></h2> <h3 id=list-templates>List Templates<a class=headerlink href=#list-templates title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/evaluations/templates/</code></p> <p><strong>Response (200 OK):</strong> <code>json { "count": 3, "results": [ { "id": 1, "nome": "Annual Performance Review", "descricao": "Annual evaluation template", "ativo": true, "created_at": "2024-01-01T00:00:00Z" } ] }</code></p> <hr> <h3 id=create-evaluation>Create Evaluation<a class=headerlink href=#create-evaluation title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/evaluations/evaluations/</code></p> <p><strong>Request:</strong> <code>json { "template": 1, "avaliado": 5, "avaliador": 1, "tipo": "avaliacao_superior", "periodo_inicio": "2024-01-01", "periodo_fim": "2024-12-31", "status": "pendente" }</code></p> <p><strong>Response (201 Created):</strong> <code>json { "id": 10, "template": 1, "avaliado": 5, "avaliador": 1, "tipo": "avaliacao_superior", "status": "pendente", ... }</code></p> <hr> <h3 id=submit-evaluation-score>Submit Evaluation Score<a class=headerlink href=#submit-evaluation-score title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/evaluations/scores/</code></p> <p><strong>Request:</strong> <code>json { "avaliacao": 10, "criterio": 1, "nota": "8.5", "comentario": "Great performance" }</code></p> <p><strong>Response (201 Created):</strong> <code>json { "id": 50, "avaliacao": 10, "criterio": 1, "nota": "8.50", "comentario": "Great performance" }</code></p> <hr> <h3 id=get-my-evaluations>Get My Evaluations<a class=headerlink href=#get-my-evaluations title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/evaluations/evaluations/my_evaluations/</code></p> <p><strong>Response (200 OK):</strong> <code>json { "count": 5, "results": [ { "id": 10, "template_name": "Annual Performance Review", "tipo": "avaliacao_superior", "status": "concluida", "nota_final": "8.75", "data_conclusao": "2024-12-15T10:00:00Z" } ] }</code></p> <hr> <h3 id=start-evaluation-cycle>Start Evaluation Cycle<a class=headerlink href=#start-evaluation-cycle title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/evaluations/cycles/{id}/start/</code></p> <p><strong>Response (200 OK):</strong> <code>json { "message": "Ciclo iniciado com sucesso.", "status": "ativo" }</code></p> <hr> <h2 id=leave-request-endpoints>🏖️ Leave Request Endpoints<a class=headerlink href=#leave-request-endpoints title="Permanent link">&para;</a></h2> <h3 id=list-leave-types>List Leave Types<a class=headerlink href=#list-leave-types title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/leave-requests/types/</code></p> <p><strong>Response (200 OK):</strong> <code>json { "count": 4, "results": [ { "id": 1, "nome": "Vacation", "descricao": "Annual vacation leave", "max_dias_ano": 30, "requer_aprovacao": true, "ativo": true } ] }</code></p> <hr> <h3 id=create-leave-request>Create Leave Request<a class=headerlink href=#create-leave-request title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/leave-requests/requests/</code></p> <p><strong>Request:</strong> <code>json { "tipo": 1, "data_inicio": "2024-06-01", "data_fim": "2024-06-30", "motivo": "Annual vacation", "observacoes": "Will be traveling", "dias_gozo": 30, "tem_abono_pecuniario": true, "dias_abono_pecuniario": 10 }</code></p> <p><strong>Response (201 Created):</strong> <code>json { "id": 15, "solicitante": 1, "tipo": 1, "data_inicio": "2024-06-01", "data_fim": "2024-06-30", "status": "pendente", "dias_solicitados": 30 }</code></p> <hr> <h3 id=approve-leave-request>Approve Leave Request<a class=headerlink href=#approve-leave-request title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/leave-requests/requests/{id}/approve/</code></p> <p><strong>Request:</strong> <code>json { "status": "aprovada", "comentario_aprovacao": "Approved. Enjoy your vacation!" }</code></p> <p><strong>Response (200 OK):</strong> <code>json { "message": "Solicitação aprovada com sucesso.", "status": "aprovada" }</code></p> <hr> <h3 id=get-my-leave-balances>Get My Leave Balances<a class=headerlink href=#get-my-leave-balances title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/leave-requests/balances/my_balances/</code></p> <p><strong>Response (200 OK):</strong> <code>json { "count": 3, "results": [ { "id": 1, "tipo": "Vacation", "ano": 2024, "dias_disponiveis": 30, "dias_utilizados": 15, "dias_restantes": 15 } ] }</code></p> <hr> <h3 id=get-leave-calendar>Get Leave Calendar<a class=headerlink href=#get-leave-calendar title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/leave-requests/requests/calendar/</code></p> <p><strong>Query Parameters:</strong> - <code>year</code> - Year to display - <code>department</code> - Filter by department</p> <p><strong>Response (200 OK):</strong> <code>json { "events": [ { "employee_name": "John Doe", "start": "2024-06-01", "end": "2024-06-30", "type": "Vacation" } ] }</code></p> <hr> <h2 id=report-endpoints>📈 Report Endpoints<a class=headerlink href=#report-endpoints title="Permanent link">&para;</a></h2> <h3 id=list-report-templates>List Report Templates<a class=headerlink href=#list-report-templates title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/reports/templates/</code></p> <p><strong>Query Parameters:</strong> - <code>category</code> - Filter by category - <code>report_type</code> - Filter by type - <code>is_public</code> - Filter by visibility</p> <p><strong>Response (200 OK):</strong> <code>json { "count": 10, "results": [ { "id": "550e8400-e29b-41d4-a716-446655440000", "name": "Employee Headcount Report", "description": "Current employee count by department", "report_type": "employees", "category": 1, "output_formats": ["pdf", "excel", "csv"], "default_format": "excel", "is_public": true } ] }</code></p> <hr> <h3 id=execute-report>Execute Report<a class=headerlink href=#execute-report title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/reports/templates/{id}/execute/</code></p> <p><strong>Request:</strong> <code>json { "output_format": "excel", "parameters": { "department": "Engineering", "start_date": "2024-01-01", "end_date": "2024-12-31" } }</code></p> <p><strong>Response (202 Accepted):</strong> <code>json { "execution_id": "550e8400-e29b-41d4-a716-446655440001", "status": "pending", "message": "Report execution started" }</code></p> <hr> <h3 id=download-report>Download Report<a class=headerlink href=#download-report title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/reports/executions/{id}/download/</code></p> <p><strong>Response:</strong> File download (binary)</p> <hr> <h3 id=create-report-schedule>Create Report Schedule<a class=headerlink href=#create-report-schedule title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/reports/schedules/</code></p> <p><strong>Request:</strong> <code>json { "name": "Monthly Headcount Report", "template": "550e8400-e29b-41d4-a716-446655440000", "frequency": "monthly", "cron_expression": "0 9 1 * *", "output_format": "excel", "email_recipients": ["hr@company.com"], "send_email_on_success": true }</code></p> <p><strong>Response (201 Created):</strong> <code>json { "id": "550e8400-e29b-41d4-a716-446655440002", "name": "Monthly Headcount Report", "status": "active", "next_execution": "2024-05-01T09:00:00Z" }</code></p> <hr> <h3 id=get-dashboard-summary>Get Dashboard Summary<a class=headerlink href=#get-dashboard-summary title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/reports/dashboard/summary/</code></p> <p><strong>Response (200 OK):</strong> <code>json { "total_employees": 150, "active_leave_requests": 12, "pending_evaluations": 25, "pending_terminations": 3, "recent_hires": 5, "upcoming_birthdays": 8 }</code></p> <hr> <h2 id=termination-endpoints>🚪 Termination Endpoints<a class=headerlink href=#termination-endpoints title="Permanent link">&para;</a></h2> <h3 id=list-termination-reasons>List Termination Reasons<a class=headerlink href=#list-termination-reasons title="Permanent link">&para;</a></h3> <p><strong>GET</strong> <code>/api/v1/termination/reasons/</code></p> <p><strong>Response (200 OK):</strong> <code>json { "count": 5, "results": [ { "id": 1, "nome": "Voluntary Resignation", "codigo": "VR", "descricao": "Employee voluntarily resigns", "ativo": true } ] }</code></p> <hr> <h3 id=create-termination-request>Create Termination Request<a class=headerlink href=#create-termination-request title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/termination/requests/</code></p> <p><strong>Request:</strong> <code>json { "funcionario": 5, "motivo": 1, "data_ultimo_dia": "2024-06-30", "justificativa": "Personal reasons" }</code></p> <p><strong>Response (201 Created):</strong> <code>json { "id": 10, "funcionario": 5, "motivo": 1, "status": "pendente_rh", "data_ultimo_dia": "2024-06-30" }</code></p> <hr> <h3 id=approve-termination>Approve Termination<a class=headerlink href=#approve-termination title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/termination/requests/{id}/approve/</code></p> <p><strong>Request:</strong> <code>json { "comentario_aprovacao_rh": "Approved. Exit interview scheduled." }</code></p> <p><strong>Response (200 OK):</strong> <code>json { "message": "Terminação aprovada com sucesso.", "status": "aprovada_rh" }</code></p> <hr> <h3 id=start-termination-processing>Start Termination Processing<a class=headerlink href=#start-termination-processing title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/termination/requests/{id}/start_processing/</code></p> <p><strong>Response (200 OK):</strong> <code>json { "message": "Processamento de desligamento iniciado.", "status": "processando" }</code></p> <hr> <h3 id=complete-termination>Complete Termination<a class=headerlink href=#complete-termination title="Permanent link">&para;</a></h3> <p><strong>POST</strong> <code>/api/v1/termination/requests/{id}/complete/</code></p> <p><strong>Response (200 OK):</strong> <code>json { "message": "Desligamento concluído com sucesso.", "status": "concluida" }</code></p> <hr> <h2 id=error-responses>📊 Error Responses<a class=headerlink href=#error-responses title="Permanent link">&para;</a></h2> <h3 id=standard-error-format>Standard Error Format<a class=headerlink href=#standard-error-format title="Permanent link">&para;</a></h3> <p><code>json { "error": { "code": "ERROR_CODE", "message": "Human-readable message", "details": { "field_name": ["Error message for field"] } } }</code></p> <h3 id=common-error-codes>Common Error Codes<a class=headerlink href=#common-error-codes title="Permanent link">&para;</a></h3> <table> <thead> <tr> <th>Code</th> <th>HTTP Status</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td><code>VALIDATION_ERROR</code></td> <td>400</td> <td>Invalid input data</td> </tr> <tr> <td><code>AUTHENTICATION_FAILED</code></td> <td>401</td> <td>Invalid credentials</td> </tr> <tr> <td><code>PERMISSION_DENIED</code></td> <td>403</td> <td>Insufficient permissions</td> </tr> <tr> <td><code>NOT_FOUND</code></td> <td>404</td> <td>Resource not found</td> </tr> <tr> <td><code>CONFLICT</code></td> <td>409</td> <td>Resource conflict</td> </tr> <tr> <td><code>SERVER_ERROR</code></td> <td>500</td> <td>Internal server error</td> </tr> </tbody> </table> <h3 id=example-error-response>Example Error Response<a class=headerlink href=#example-error-response title="Permanent link">&para;</a></h3> <p><code>json { "error": { "code": "VALIDATION_ERROR", "message": "Invalid input data", "details": { "email": ["This field is required"], "cpf": ["Invalid CPF format"] } } }</code></p> <hr> <h2 id=query-parameters>🔍 Query Parameters<a class=headerlink href=#query-parameters title="Permanent link">&para;</a></h2> <h3 id=common-parameters>Common Parameters<a class=headerlink href=#common-parameters title="Permanent link">&para;</a></h3> <table> <thead> <tr> <th>Parameter</th> <th>Description</th> <th>Example</th> </tr> </thead> <tbody> <tr> <td><code>search</code></td> <td>Full-text search</td> <td><code>?search=john</code></td> </tr> <tr> <td><code>page</code></td> <td>Page number</td> <td><code>?page=2</code></td> </tr> <tr> <td><code>page_size</code></td> <td>Items per page</td> <td><code>?page_size=20</code></td> </tr> <tr> <td><code>ordering</code></td> <td>Sort field</td> <td><code>?ordering=-created_at</code></td> </tr> <tr> <td><code>status</code></td> <td>Filter by status</td> <td><code>?status=active</code></td> </tr> </tbody> </table> <h3 id=ordering-syntax>Ordering Syntax<a class=headerlink href=#ordering-syntax title="Permanent link">&para;</a></h3> <ul> <li>Ascending: <code>?ordering=name</code></li> <li>Descending: <code>?ordering=-name</code></li> <li>Multiple: <code>?ordering=department,-created_at</code></li> </ul> <hr> <h2 id=pagination>📝 Pagination<a class=headerlink href=#pagination title="Permanent link">&para;</a></h2> <p>All list endpoints support pagination:</p> <p><code>json { "count": 100, "next": "http://api/endpoint/?page=2", "previous": null, "results": [...] }</code></p> <hr> <p><strong>Next:</strong> <a href=../system-modeling/ >System Modeling</a></p> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <footer class=md-footer> <nav class="md-footer__inner md-grid" aria-label=Footer> <a href=../project-structure/ class="md-footer__link md-footer__link--prev" aria-label="Previous: Project Structure"> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </div> <div class=md-footer__title> <span class=md-footer__direction> Previous </span> <div class=md-ellipsis> Project Structure </div> </div> </a> <a href=../system-modeling/ class="md-footer__link md-footer__link--next" aria-label="Next: System Modeling"> <div class=md-footer__title> <span class=md-footer__direction> Next </span> <div class=md-ellipsis> System Modeling </div> </div> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg> </div> </a> </nav> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "..", "features": ["navigation.instant", "navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../assets/javascripts/bundle.56dfad97.min.js></script> <script src=../javascripts/extra.js></script> </body> </html>
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Human Resources Management System documentation">
+      
+      
+        <meta name="author" content="GabrielDLobo">
+      
+      
+      
+        <link rel="prev" href="../project-structure/">
+      
+      
+        <link rel="next" href="../system-modeling/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>API Endpoints - PortalRH Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.35f28582.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="navy-blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-endpoints" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PortalRH Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API Endpoints
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PortalRH Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prerequisites/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prerequisites
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guidelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guidelines and Standards
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-structure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Structure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    API Endpoints
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    API Endpoints
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#api-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      📡 API Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 Authentication Format
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endpoints-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Endpoints Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔑 Authentication Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔑 Authentication Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refresh Token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify Token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Register User
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-login-password-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      First Login Password Change
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-password-change-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check Password Change Required
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      👥 User Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="👥 User Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-user-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get User Profile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change Password
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-user-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get User Statistics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#employee-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      👨‍💼 Employee Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="👨‍💼 Employee Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-employees" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Employees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-employee-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Employee Detail
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-employee" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Employee
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-my-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get My Profile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-personal-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update Personal Information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-admission-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Admission Status
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#employee-document-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      📄 Employee Document Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📄 Employee Document Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Documents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upload Document
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify Document
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-required-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Required Documents
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Evaluation Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Evaluation Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Templates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Evaluation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#submit-evaluation-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      Submit Evaluation Score
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-my-evaluations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get My Evaluations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-evaluation-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start Evaluation Cycle
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leave-request-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏖️ Leave Request Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏖️ Leave Request Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-leave-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Leave Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-leave-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Leave Request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approve-leave-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      Approve Leave Request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-my-leave-balances" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get My Leave Balances
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-leave-calendar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Leave Calendar
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#report-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      📈 Report Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📈 Report Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-report-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Report Templates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execute-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      Execute Report
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download Report
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-report-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Report Schedule
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-dashboard-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Dashboard Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#termination-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚪 Termination Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚪 Termination Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-termination-reasons" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Termination Reasons
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-termination-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Termination Request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approve-termination" class="md-nav__link">
+    <span class="md-ellipsis">
+      Approve Termination
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-termination-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start Termination Processing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-termination" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Termination
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-responses" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Error Responses
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Error Responses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard-error-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standard Error Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-error-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Error Codes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-error-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Error Response
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Query Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Query Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordering-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ordering Syntax
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pagination" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Pagination
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-modeling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Modeling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authentication-security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication and Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Development
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deploy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contribution
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Image Projects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UPDATE_LOG/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Update Log
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#api-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      📡 API Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 Authentication Format
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endpoints-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Endpoints Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔑 Authentication Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔑 Authentication Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refresh Token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify Token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Register User
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-login-password-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      First Login Password Change
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-password-change-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check Password Change Required
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      👥 User Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="👥 User Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-user-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get User Profile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change Password
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-user-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get User Statistics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#employee-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      👨‍💼 Employee Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="👨‍💼 Employee Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-employees" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Employees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-employee-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Employee Detail
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-employee" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Employee
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-my-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get My Profile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-personal-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update Personal Information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-admission-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Admission Status
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#employee-document-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      📄 Employee Document Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📄 Employee Document Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Documents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upload Document
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify Document
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-required-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Required Documents
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Evaluation Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Evaluation Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Templates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Evaluation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#submit-evaluation-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      Submit Evaluation Score
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-my-evaluations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get My Evaluations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-evaluation-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start Evaluation Cycle
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leave-request-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏖️ Leave Request Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏖️ Leave Request Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-leave-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Leave Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-leave-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Leave Request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approve-leave-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      Approve Leave Request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-my-leave-balances" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get My Leave Balances
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-leave-calendar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Leave Calendar
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#report-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      📈 Report Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📈 Report Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-report-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Report Templates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execute-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      Execute Report
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download Report
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-report-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Report Schedule
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-dashboard-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Dashboard Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#termination-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚪 Termination Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚪 Termination Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-termination-reasons" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Termination Reasons
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-termination-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Termination Request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approve-termination" class="md-nav__link">
+    <span class="md-ellipsis">
+      Approve Termination
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-termination-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start Termination Processing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-termination" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Termination
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-responses" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Error Responses
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Error Responses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard-error-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standard Error Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-error-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Error Codes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-error-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Error Response
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Query Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Query Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordering-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ordering Syntax
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pagination" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Pagination
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="api-endpoints">API Endpoints</h1>
+<p>Complete reference for all PortalRH API endpoints.</p>
+<hr />
+<h2 id="api-information">📡 API Information</h2>
+<ul>
+<li><strong>Base URL:</strong> <code>/api/v1/</code></li>
+<li><strong>Authentication:</strong> JWT Bearer Token</li>
+<li><strong>Content Type:</strong> <code>application/json</code></li>
+<li><strong>API Documentation:</strong> <code>/api/docs/</code> (Swagger UI)</li>
+<li><strong>Alternative Docs:</strong> <code>/api/redoc/</code> (ReDoc)</li>
+<li><strong>Schema:</strong> <code>/api/schema/</code></li>
+</ul>
+<hr />
+<h2 id="authentication-format">🔐 Authentication Format</h2>
+<p>Include JWT token in request headers:</p>
+<p><code>http
+Authorization: Bearer &lt;access_token&gt;</code></p>
+<hr />
+<h2 id="endpoints-overview">📋 Endpoints Overview</h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Base Path</th>
+<th>Endpoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authentication</td>
+<td><code>/accounts/auth/</code></td>
+<td>login, refresh, verify, register</td>
+</tr>
+<tr>
+<td>Users</td>
+<td><code>/accounts/users/</code></td>
+<td>CRUD, profile, password change</td>
+</tr>
+<tr>
+<td>Employees</td>
+<td><code>/employees/</code></td>
+<td>CRUD, documents, admission</td>
+</tr>
+<tr>
+<td>Evaluations</td>
+<td><code>/evaluations/</code></td>
+<td>templates, evaluations, cycles</td>
+</tr>
+<tr>
+<td>Leave Requests</td>
+<td><code>/leave-requests/</code></td>
+<td>types, requests, balances</td>
+</tr>
+<tr>
+<td>Reports</td>
+<td><code>/reports/</code></td>
+<td>templates, executions, schedules</td>
+</tr>
+<tr>
+<td>Staff</td>
+<td><code>/staff/</code></td>
+<td>departments, employees</td>
+</tr>
+<tr>
+<td>Termination</td>
+<td><code>/termination/</code></td>
+<td>reasons, requests, documents</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="authentication-endpoints">🔑 Authentication Endpoints</h2>
+<h3 id="login">Login</h3>
+<p><strong>POST</strong> <code>/api/v1/accounts/auth/login/</code></p>
+<p>Authenticate user and receive JWT tokens.</p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "email": "user@example.com",
+  "password": "securepassword"
+}</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "access": "eyJ0eXAiOiJKV1QiLCJhbG...",
+  "refresh": "eyJ0eXAiOiJKV1QiLCJhbG...",
+  "user": {
+    "id": 1,
+    "email": "user@example.com",
+    "first_name": "John",
+    "last_name": "Doe",
+    "role": "admin_rh"
+  },
+  "requires_password_change": false
+}</code></p>
+<hr />
+<h3 id="refresh-token">Refresh Token</h3>
+<p><strong>POST</strong> <code>/api/v1/accounts/auth/refresh/</code></p>
+<p>Get new access token using refresh token.</p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "refresh": "eyJ0eXAiOiJKV1QiLCJhbG..."
+}</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "access": "eyJ0eXAiOiJKV1QiLCJhbG..."
+}</code></p>
+<hr />
+<h3 id="verify-token">Verify Token</h3>
+<p><strong>POST</strong> <code>/api/v1/accounts/auth/verify/</code></p>
+<p>Verify if access token is valid.</p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "token": "eyJ0eXAiOiJKV1QiLCJhbG..."
+}</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{}</code></p>
+<hr />
+<h3 id="register-user">Register User</h3>
+<p><strong>POST</strong> <code>/api/v1/accounts/auth/register/</code></p>
+<p>Create new user (Admin RH only).</p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "email": "newuser@example.com",
+  "password": "securepassword",
+  "first_name": "Jane",
+  "last_name": "Doe",
+  "role": "funcionario"
+}</code></p>
+<p><strong>Response (201 Created):</strong>
+<code>json
+{
+  "id": 5,
+  "email": "newuser@example.com",
+  "first_name": "Jane",
+  "last_name": "Doe",
+  "role": "funcionario",
+  "is_active": true
+}</code></p>
+<hr />
+<h3 id="first-login-password-change">First Login Password Change</h3>
+<p><strong>POST</strong> <code>/api/v1/accounts/auth/first-login-password-change/</code></p>
+<p>Change password on first login.</p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "old_password": "temporary_password",
+  "new_password": "new_secure_password"
+}</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "message": "Senha alterada com sucesso."
+}</code></p>
+<hr />
+<h3 id="check-password-change-required">Check Password Change Required</h3>
+<p><strong>GET</strong> <code>/api/v1/accounts/auth/check-password-change-required/</code></p>
+<p>Check if user needs to change password.</p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "requires_password_change": true
+}</code></p>
+<hr />
+<h2 id="user-endpoints">👥 User Endpoints</h2>
+<h3 id="list-users">List Users</h3>
+<p><strong>GET</strong> <code>/api/v1/accounts/users/</code></p>
+<p><strong>Query Parameters:</strong>
+- <code>search</code> - Search by name or email
+- <code>role</code> - Filter by role
+- <code>is_active</code> - Filter by active status
+- <code>page</code> - Page number</p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "count": 50,
+  "next": "http://api/users/?page=2",
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "email": "admin@portalrh.com",
+      "first_name": "Admin",
+      "last_name": "RH",
+      "role": "admin_rh",
+      "is_active": true
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="get-user-profile">Get User Profile</h3>
+<p><strong>GET</strong> <code>/api/v1/accounts/users/profile/</code></p>
+<p>Get current authenticated user's profile.</p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "id": 1,
+  "email": "user@example.com",
+  "first_name": "John",
+  "last_name": "Doe",
+  "role": "funcionario",
+  "date_joined": "2024-01-15T10:30:00Z"
+}</code></p>
+<hr />
+<h3 id="change-password">Change Password</h3>
+<p><strong>POST</strong> <code>/api/v1/accounts/users/change_password/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "old_password": "current_password",
+  "new_password": "new_password"
+}</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "message": "Senha alterada com sucesso."
+}</code></p>
+<hr />
+<h3 id="get-user-statistics">Get User Statistics</h3>
+<p><strong>GET</strong> <code>/api/v1/accounts/users/stats/</code></p>
+<p>Get user statistics (Admin RH only).</p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "total_users": 150,
+  "active_users": 142,
+  "admin_rh_count": 5,
+  "funcionario_count": 145
+}</code></p>
+<hr />
+<h2 id="employee-endpoints">👨‍💼 Employee Endpoints</h2>
+<h3 id="list-employees">List Employees</h3>
+<p><strong>GET</strong> <code>/api/v1/employees/employees/</code></p>
+<p><strong>Query Parameters:</strong>
+- <code>search</code> - Search by name
+- <code>status</code> - Filter by status
+- <code>department</code> - Filter by department
+- <code>page</code> - Page number</p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "count": 100,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "employee_id": "EMP-0001",
+      "full_name": "John Doe",
+      "email": "john@company.com",
+      "department": "Engineering",
+      "position": "Developer",
+      "status": "active",
+      "hire_date": "2024-01-15"
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="get-employee-detail">Get Employee Detail</h3>
+<p><strong>GET</strong> <code>/api/v1/employees/employees/{id}/</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "id": 1,
+  "employee_id": "EMP-0001",
+  "user": 1,
+  "full_name": "John Doe",
+  "cpf": "123.456.789-00",
+  "rg": "12.345.678-9",
+  "birth_date": "1990-05-15",
+  "phone": "(11) 99999-9999",
+  "email": "john@company.com",
+  "street_address": "Rua Principal",
+  "address_number": "123",
+  "neighborhood": "Centro",
+  "city": "São Paulo",
+  "state": "SP",
+  "zip_code": "01000-000",
+  "department": "Engineering",
+  "position": "Developer",
+  "hire_date": "2024-01-15",
+  "salary": "5000.00",
+  "status": "active",
+  "admission_completed": true
+}</code></p>
+<hr />
+<h3 id="create-employee">Create Employee</h3>
+<p><strong>POST</strong> <code>/api/v1/employees/employees/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "user": 1,
+  "full_name": "Jane Doe",
+  "cpf": "987.654.321-00",
+  "rg": "98.765.432-1",
+  "birth_date": "1992-08-20",
+  "phone": "(11) 98888-8888",
+  "email": "jane@company.com",
+  "street_address": "Rua Secundária",
+  "address_number": "456",
+  "neighborhood": "Jardins",
+  "city": "São Paulo",
+  "state": "SP",
+  "zip_code": "01001-000",
+  "department": "Marketing",
+  "position": "Designer",
+  "hire_date": "2024-02-01",
+  "salary": "4500.00"
+}</code></p>
+<p><strong>Response (201 Created):</strong>
+<code>json
+{
+  "id": 2,
+  "employee_id": "EMP-0002",
+  "full_name": "Jane Doe",
+  ...
+}</code></p>
+<hr />
+<h3 id="get-my-profile">Get My Profile</h3>
+<p><strong>GET</strong> <code>/api/v1/employees/employees/my_profile/</code></p>
+<p>Get current user's employee profile.</p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "id": 1,
+  "employee_id": "EMP-0001",
+  "full_name": "John Doe",
+  ...
+}</code></p>
+<hr />
+<h3 id="update-personal-information">Update Personal Information</h3>
+<p><strong>PATCH</strong> <code>/api/v1/employees/employees/{id}/update_personal_info/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "phone": "(11) 97777-7777",
+  "street_address": "Nova Rua",
+  "address_number": "789"
+}</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "message": "Informações atualizadas com sucesso."
+}</code></p>
+<hr />
+<h3 id="get-admission-status">Get Admission Status</h3>
+<p><strong>GET</strong> <code>/api/v1/employees/employees/{id}/admission_status/</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "employee_id": "EMP-0001",
+  "status": "documents_uploaded",
+  "completion_percentage": 75,
+  "personal_info_completed": true,
+  "documents_uploaded": true,
+  "hr_review_completed": false
+}</code></p>
+<hr />
+<h2 id="employee-document-endpoints">📄 Employee Document Endpoints</h2>
+<h3 id="list-documents">List Documents</h3>
+<p><strong>GET</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "count": 5,
+  "results": [
+    {
+      "id": 1,
+      "employee": 1,
+      "document_type": "rg",
+      "document_name": "RG Front",
+      "file": "/media/employees/documents/rg_001.pdf",
+      "file_size": 102400,
+      "uploaded_at": "2024-01-15T10:00:00Z",
+      "is_required": true,
+      "is_verified": false
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="upload-document">Upload Document</h3>
+<p><strong>POST</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/</code></p>
+<p><strong>Content-Type:</strong> <code>multipart/form-data</code></p>
+<p><strong>Request:</strong>
+<code>document_type: rg
+document_name: RG Front
+file: &lt;file&gt;
+is_required: true</code></p>
+<p><strong>Response (201 Created):</strong>
+<code>json
+{
+  "id": 1,
+  "document_type": "rg",
+  "file": "/media/employees/documents/rg_001.pdf",
+  ...
+}</code></p>
+<hr />
+<h3 id="verify-document">Verify Document</h3>
+<p><strong>PATCH</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/{id}/verify/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "is_verified": true
+}</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "message": "Documento verificado com sucesso."
+}</code></p>
+<hr />
+<h3 id="get-required-documents">Get Required Documents</h3>
+<p><strong>GET</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/required_documents/</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "required_documents": [
+    {"type": "rg", "name": "RG", "uploaded": true},
+    {"type": "cpf", "name": "CPF", "uploaded": true},
+    {"type": "birth_certificate", "name": "Birth Certificate", "uploaded": false},
+    {"type": "residence_proof", "name": "Residence Proof", "uploaded": false},
+    {"type": "photo", "name": "Photo", "uploaded": true}
+  ]
+}</code></p>
+<hr />
+<h2 id="evaluation-endpoints">📊 Evaluation Endpoints</h2>
+<h3 id="list-templates">List Templates</h3>
+<p><strong>GET</strong> <code>/api/v1/evaluations/templates/</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "count": 3,
+  "results": [
+    {
+      "id": 1,
+      "nome": "Annual Performance Review",
+      "descricao": "Annual evaluation template",
+      "ativo": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="create-evaluation">Create Evaluation</h3>
+<p><strong>POST</strong> <code>/api/v1/evaluations/evaluations/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "template": 1,
+  "avaliado": 5,
+  "avaliador": 1,
+  "tipo": "avaliacao_superior",
+  "periodo_inicio": "2024-01-01",
+  "periodo_fim": "2024-12-31",
+  "status": "pendente"
+}</code></p>
+<p><strong>Response (201 Created):</strong>
+<code>json
+{
+  "id": 10,
+  "template": 1,
+  "avaliado": 5,
+  "avaliador": 1,
+  "tipo": "avaliacao_superior",
+  "status": "pendente",
+  ...
+}</code></p>
+<hr />
+<h3 id="submit-evaluation-score">Submit Evaluation Score</h3>
+<p><strong>POST</strong> <code>/api/v1/evaluations/scores/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "avaliacao": 10,
+  "criterio": 1,
+  "nota": "8.5",
+  "comentario": "Great performance"
+}</code></p>
+<p><strong>Response (201 Created):</strong>
+<code>json
+{
+  "id": 50,
+  "avaliacao": 10,
+  "criterio": 1,
+  "nota": "8.50",
+  "comentario": "Great performance"
+}</code></p>
+<hr />
+<h3 id="get-my-evaluations">Get My Evaluations</h3>
+<p><strong>GET</strong> <code>/api/v1/evaluations/evaluations/my_evaluations/</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "count": 5,
+  "results": [
+    {
+      "id": 10,
+      "template_name": "Annual Performance Review",
+      "tipo": "avaliacao_superior",
+      "status": "concluida",
+      "nota_final": "8.75",
+      "data_conclusao": "2024-12-15T10:00:00Z"
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="start-evaluation-cycle">Start Evaluation Cycle</h3>
+<p><strong>POST</strong> <code>/api/v1/evaluations/cycles/{id}/start/</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "message": "Ciclo iniciado com sucesso.",
+  "status": "ativo"
+}</code></p>
+<hr />
+<h2 id="leave-request-endpoints">🏖️ Leave Request Endpoints</h2>
+<h3 id="list-leave-types">List Leave Types</h3>
+<p><strong>GET</strong> <code>/api/v1/leave-requests/types/</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "count": 4,
+  "results": [
+    {
+      "id": 1,
+      "nome": "Vacation",
+      "descricao": "Annual vacation leave",
+      "max_dias_ano": 30,
+      "requer_aprovacao": true,
+      "ativo": true
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="create-leave-request">Create Leave Request</h3>
+<p><strong>POST</strong> <code>/api/v1/leave-requests/requests/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "tipo": 1,
+  "data_inicio": "2024-06-01",
+  "data_fim": "2024-06-30",
+  "motivo": "Annual vacation",
+  "observacoes": "Will be traveling",
+  "dias_gozo": 30,
+  "tem_abono_pecuniario": true,
+  "dias_abono_pecuniario": 10
+}</code></p>
+<p><strong>Response (201 Created):</strong>
+<code>json
+{
+  "id": 15,
+  "solicitante": 1,
+  "tipo": 1,
+  "data_inicio": "2024-06-01",
+  "data_fim": "2024-06-30",
+  "status": "pendente",
+  "dias_solicitados": 30
+}</code></p>
+<hr />
+<h3 id="approve-leave-request">Approve Leave Request</h3>
+<p><strong>POST</strong> <code>/api/v1/leave-requests/requests/{id}/approve/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "status": "aprovada",
+  "comentario_aprovacao": "Approved. Enjoy your vacation!"
+}</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "message": "Solicitação aprovada com sucesso.",
+  "status": "aprovada"
+}</code></p>
+<hr />
+<h3 id="get-my-leave-balances">Get My Leave Balances</h3>
+<p><strong>GET</strong> <code>/api/v1/leave-requests/balances/my_balances/</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "count": 3,
+  "results": [
+    {
+      "id": 1,
+      "tipo": "Vacation",
+      "ano": 2024,
+      "dias_disponiveis": 30,
+      "dias_utilizados": 15,
+      "dias_restantes": 15
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="get-leave-calendar">Get Leave Calendar</h3>
+<p><strong>GET</strong> <code>/api/v1/leave-requests/requests/calendar/</code></p>
+<p><strong>Query Parameters:</strong>
+- <code>year</code> - Year to display
+- <code>department</code> - Filter by department</p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "events": [
+    {
+      "employee_name": "John Doe",
+      "start": "2024-06-01",
+      "end": "2024-06-30",
+      "type": "Vacation"
+    }
+  ]
+}</code></p>
+<hr />
+<h2 id="report-endpoints">📈 Report Endpoints</h2>
+<h3 id="list-report-templates">List Report Templates</h3>
+<p><strong>GET</strong> <code>/api/v1/reports/templates/</code></p>
+<p><strong>Query Parameters:</strong>
+- <code>category</code> - Filter by category
+- <code>report_type</code> - Filter by type
+- <code>is_public</code> - Filter by visibility</p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "count": 10,
+  "results": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440000",
+      "name": "Employee Headcount Report",
+      "description": "Current employee count by department",
+      "report_type": "employees",
+      "category": 1,
+      "output_formats": ["pdf", "excel", "csv"],
+      "default_format": "excel",
+      "is_public": true
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="execute-report">Execute Report</h3>
+<p><strong>POST</strong> <code>/api/v1/reports/templates/{id}/execute/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "output_format": "excel",
+  "parameters": {
+    "department": "Engineering",
+    "start_date": "2024-01-01",
+    "end_date": "2024-12-31"
+  }
+}</code></p>
+<p><strong>Response (202 Accepted):</strong>
+<code>json
+{
+  "execution_id": "550e8400-e29b-41d4-a716-446655440001",
+  "status": "pending",
+  "message": "Report execution started"
+}</code></p>
+<hr />
+<h3 id="download-report">Download Report</h3>
+<p><strong>GET</strong> <code>/api/v1/reports/executions/{id}/download/</code></p>
+<p><strong>Response:</strong> File download (binary)</p>
+<hr />
+<h3 id="create-report-schedule">Create Report Schedule</h3>
+<p><strong>POST</strong> <code>/api/v1/reports/schedules/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "name": "Monthly Headcount Report",
+  "template": "550e8400-e29b-41d4-a716-446655440000",
+  "frequency": "monthly",
+  "cron_expression": "0 9 1 * *",
+  "output_format": "excel",
+  "email_recipients": ["hr@company.com"],
+  "send_email_on_success": true
+}</code></p>
+<p><strong>Response (201 Created):</strong>
+<code>json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440002",
+  "name": "Monthly Headcount Report",
+  "status": "active",
+  "next_execution": "2024-05-01T09:00:00Z"
+}</code></p>
+<hr />
+<h3 id="get-dashboard-summary">Get Dashboard Summary</h3>
+<p><strong>GET</strong> <code>/api/v1/reports/dashboard/summary/</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "total_employees": 150,
+  "active_leave_requests": 12,
+  "pending_evaluations": 25,
+  "pending_terminations": 3,
+  "recent_hires": 5,
+  "upcoming_birthdays": 8
+}</code></p>
+<hr />
+<h2 id="termination-endpoints">🚪 Termination Endpoints</h2>
+<h3 id="list-termination-reasons">List Termination Reasons</h3>
+<p><strong>GET</strong> <code>/api/v1/termination/reasons/</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "count": 5,
+  "results": [
+    {
+      "id": 1,
+      "nome": "Voluntary Resignation",
+      "codigo": "VR",
+      "descricao": "Employee voluntarily resigns",
+      "ativo": true
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="create-termination-request">Create Termination Request</h3>
+<p><strong>POST</strong> <code>/api/v1/termination/requests/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "funcionario": 5,
+  "motivo": 1,
+  "data_ultimo_dia": "2024-06-30",
+  "justificativa": "Personal reasons"
+}</code></p>
+<p><strong>Response (201 Created):</strong>
+<code>json
+{
+  "id": 10,
+  "funcionario": 5,
+  "motivo": 1,
+  "status": "pendente_rh",
+  "data_ultimo_dia": "2024-06-30"
+}</code></p>
+<hr />
+<h3 id="approve-termination">Approve Termination</h3>
+<p><strong>POST</strong> <code>/api/v1/termination/requests/{id}/approve/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "comentario_aprovacao_rh": "Approved. Exit interview scheduled."
+}</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "message": "Terminação aprovada com sucesso.",
+  "status": "aprovada_rh"
+}</code></p>
+<hr />
+<h3 id="start-termination-processing">Start Termination Processing</h3>
+<p><strong>POST</strong> <code>/api/v1/termination/requests/{id}/start_processing/</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "message": "Processamento de desligamento iniciado.",
+  "status": "processando"
+}</code></p>
+<hr />
+<h3 id="complete-termination">Complete Termination</h3>
+<p><strong>POST</strong> <code>/api/v1/termination/requests/{id}/complete/</code></p>
+<p><strong>Response (200 OK):</strong>
+<code>json
+{
+  "message": "Desligamento concluído com sucesso.",
+  "status": "concluida"
+}</code></p>
+<hr />
+<h2 id="error-responses">📊 Error Responses</h2>
+<h3 id="standard-error-format">Standard Error Format</h3>
+<p><code>json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable message",
+    "details": {
+      "field_name": ["Error message for field"]
+    }
+  }
+}</code></p>
+<h3 id="common-error-codes">Common Error Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>HTTP Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>VALIDATION_ERROR</code></td>
+<td>400</td>
+<td>Invalid input data</td>
+</tr>
+<tr>
+<td><code>AUTHENTICATION_FAILED</code></td>
+<td>401</td>
+<td>Invalid credentials</td>
+</tr>
+<tr>
+<td><code>PERMISSION_DENIED</code></td>
+<td>403</td>
+<td>Insufficient permissions</td>
+</tr>
+<tr>
+<td><code>NOT_FOUND</code></td>
+<td>404</td>
+<td>Resource not found</td>
+</tr>
+<tr>
+<td><code>CONFLICT</code></td>
+<td>409</td>
+<td>Resource conflict</td>
+</tr>
+<tr>
+<td><code>SERVER_ERROR</code></td>
+<td>500</td>
+<td>Internal server error</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example-error-response">Example Error Response</h3>
+<p><code>json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid input data",
+    "details": {
+      "email": ["This field is required"],
+      "cpf": ["Invalid CPF format"]
+    }
+  }
+}</code></p>
+<hr />
+<h2 id="query-parameters">🔍 Query Parameters</h2>
+<h3 id="common-parameters">Common Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>search</code></td>
+<td>Full-text search</td>
+<td><code>?search=john</code></td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td>Page number</td>
+<td><code>?page=2</code></td>
+</tr>
+<tr>
+<td><code>page_size</code></td>
+<td>Items per page</td>
+<td><code>?page_size=20</code></td>
+</tr>
+<tr>
+<td><code>ordering</code></td>
+<td>Sort field</td>
+<td><code>?ordering=-created_at</code></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>Filter by status</td>
+<td><code>?status=active</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="ordering-syntax">Ordering Syntax</h3>
+<ul>
+<li>Ascending: <code>?ordering=name</code></li>
+<li>Descending: <code>?ordering=-name</code></li>
+<li>Multiple: <code>?ordering=department,-created_at</code></li>
+</ul>
+<hr />
+<h2 id="pagination">📝 Pagination</h2>
+<p>All list endpoints support pagination:</p>
+<p><code>json
+{
+  "count": 100,
+  "next": "http://api/endpoint/?page=2",
+  "previous": null,
+  "results": [...]
+}</code></p>
+<hr />
+<p><strong>Next:</strong> <a href="../system-modeling/">System Modeling</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+    
+  </body>
+</html>

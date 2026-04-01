@@ -1,29 +1,869 @@
-<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Human Resources Management System documentation"><meta name=author content=GabrielDLobo><link href=gallery/ rel=next><link rel=icon href=assets/favicon.svg><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.5.34"><title>PortalRH Documentation</title><link rel=stylesheet href=assets/stylesheets/main.35f28582.min.css><link rel=stylesheet href=assets/stylesheets/palette.06af60db.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style><link rel=stylesheet href=stylesheets/extra.css><script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=teal data-md-color-accent=amber> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#portalrh-documentation class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=. title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component=logo> <img src=assets/logo.svg alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> PortalRH Documentation </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Home </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=teal data-md-color-accent=amber aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> </header> <div class=md-container data-md-component=container> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class="md-tabs__item md-tabs__item--active"> <a href=. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=gallery/ class=md-tabs__link> Gallery </a> </li> <li class=md-tabs__item> <a href=overview/ class=md-tabs__link> Overview </a> </li> <li class=md-tabs__item> <a href=prerequisites/ class=md-tabs__link> Prerequisites </a> </li> <li class=md-tabs__item> <a href=installation/ class=md-tabs__link> Installation </a> </li> <li class=md-tabs__item> <a href=configuration/ class=md-tabs__link> Configuration </a> </li> <li class=md-tabs__item> <a href=guidelines/ class=md-tabs__link> Guidelines and Standards </a> </li> <li class=md-tabs__item> <a href=project-structure/ class=md-tabs__link> Project Structure </a> </li> <li class=md-tabs__item> <a href=api-endpoints/ class=md-tabs__link> API Endpoints </a> </li> <li class=md-tabs__item> <a href=system-modeling/ class=md-tabs__link> System Modeling </a> </li> <li class=md-tabs__item> <a href=authentication-security/ class=md-tabs__link> Authentication and Security </a> </li> <li class=md-tabs__item> <a href=development/ class=md-tabs__link> Development </a> </li> <li class=md-tabs__item> <a href=testing/ class=md-tabs__link> Testing </a> </li> <li class=md-tabs__item> <a href=deploy/ class=md-tabs__link> Deploy </a> </li> <li class=md-tabs__item> <a href=contributing/ class=md-tabs__link> Contributing </a> </li> <li class=md-tabs__item> <a href=release-notes/ class=md-tabs__link> Release Notes </a> </li> <li class=md-tabs__item> <a href=UPDATE_LOG/ class=md-tabs__link> Update Log </a> </li> </ul> </div> </nav> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=. title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component=logo> <img src=assets/logo.svg alt=logo> </a> PortalRH Documentation </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> Home </span> <span class="md-nav__icon md-icon"></span> </label> <a href=. class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> Home </span> </a> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#documentation-index class=md-nav__link> <span class=md-ellipsis> Documentation Index </span> </a> <nav class=md-nav aria-label="Documentation Index"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#getting-started class=md-nav__link> <span class=md-ellipsis> Getting Started </span> </a> </li> <li class=md-nav__item> <a href=#development class=md-nav__link> <span class=md-ellipsis> Development </span> </a> </li> <li class=md-nav__item> <a href=#technical-documentation class=md-nav__link> <span class=md-ellipsis> Technical Documentation </span> </a> </li> <li class=md-nav__item> <a href=#deployment-and-contribution class=md-nav__link> <span class=md-ellipsis> Deployment and Contribution </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#quick-start class=md-nav__link> <span class=md-ellipsis> Quick Start </span> </a> </li> <li class=md-nav__item> <a href=#docker-quick-start class=md-nav__link> <span class=md-ellipsis> Docker Quick Start </span> </a> </li> <li class=md-nav__item> <a href=#default-access class=md-nav__link> <span class=md-ellipsis> Default Access </span> </a> </li> <li class=md-nav__item> <a href=#what-is-portalrh class=md-nav__link> <span class=md-ellipsis> What is PortalRH? </span> </a> </li> <li class=md-nav__item> <a href=#system-architecture class=md-nav__link> <span class=md-ellipsis> System Architecture </span> </a> </li> <li class=md-nav__item> <a href=#key-features class=md-nav__link> <span class=md-ellipsis> Key Features </span> </a> </li> <li class=md-nav__item> <a href=#tech-stack class=md-nav__link> <span class=md-ellipsis> Tech Stack </span> </a> </li> <li class=md-nav__item> <a href=#support class=md-nav__link> <span class=md-ellipsis> Support </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=gallery/ class=md-nav__link> <span class=md-ellipsis> Gallery </span> </a> </li> <li class=md-nav__item> <a href=overview/ class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> </li> <li class=md-nav__item> <a href=prerequisites/ class=md-nav__link> <span class=md-ellipsis> Prerequisites </span> </a> </li> <li class=md-nav__item> <a href=installation/ class=md-nav__link> <span class=md-ellipsis> Installation </span> </a> </li> <li class=md-nav__item> <a href=configuration/ class=md-nav__link> <span class=md-ellipsis> Configuration </span> </a> </li> <li class=md-nav__item> <a href=guidelines/ class=md-nav__link> <span class=md-ellipsis> Guidelines and Standards </span> </a> </li> <li class=md-nav__item> <a href=project-structure/ class=md-nav__link> <span class=md-ellipsis> Project Structure </span> </a> </li> <li class=md-nav__item> <a href=api-endpoints/ class=md-nav__link> <span class=md-ellipsis> API Endpoints </span> </a> </li> <li class=md-nav__item> <a href=system-modeling/ class=md-nav__link> <span class=md-ellipsis> System Modeling </span> </a> </li> <li class=md-nav__item> <a href=authentication-security/ class=md-nav__link> <span class=md-ellipsis> Authentication and Security </span> </a> </li> <li class=md-nav__item> <a href=development/ class=md-nav__link> <span class=md-ellipsis> Development </span> </a> </li> <li class=md-nav__item> <a href=testing/ class=md-nav__link> <span class=md-ellipsis> Testing </span> </a> </li> <li class=md-nav__item> <a href=deploy/ class=md-nav__link> <span class=md-ellipsis> Deploy </span> </a> </li> <li class=md-nav__item> <a href=contributing/ class=md-nav__link> <span class=md-ellipsis> Contributing </span> </a> </li> <li class=md-nav__item> <a href=release-notes/ class=md-nav__link> <span class=md-ellipsis> Release Notes </span> </a> </li> <li class=md-nav__item> <a href=UPDATE_LOG/ class=md-nav__link> <span class=md-ellipsis> Update Log </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#documentation-index class=md-nav__link> <span class=md-ellipsis> Documentation Index </span> </a> <nav class=md-nav aria-label="Documentation Index"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#getting-started class=md-nav__link> <span class=md-ellipsis> Getting Started </span> </a> </li> <li class=md-nav__item> <a href=#development class=md-nav__link> <span class=md-ellipsis> Development </span> </a> </li> <li class=md-nav__item> <a href=#technical-documentation class=md-nav__link> <span class=md-ellipsis> Technical Documentation </span> </a> </li> <li class=md-nav__item> <a href=#deployment-and-contribution class=md-nav__link> <span class=md-ellipsis> Deployment and Contribution </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#quick-start class=md-nav__link> <span class=md-ellipsis> Quick Start </span> </a> </li> <li class=md-nav__item> <a href=#docker-quick-start class=md-nav__link> <span class=md-ellipsis> Docker Quick Start </span> </a> </li> <li class=md-nav__item> <a href=#default-access class=md-nav__link> <span class=md-ellipsis> Default Access </span> </a> </li> <li class=md-nav__item> <a href=#what-is-portalrh class=md-nav__link> <span class=md-ellipsis> What is PortalRH? </span> </a> </li> <li class=md-nav__item> <a href=#system-architecture class=md-nav__link> <span class=md-ellipsis> System Architecture </span> </a> </li> <li class=md-nav__item> <a href=#key-features class=md-nav__link> <span class=md-ellipsis> Key Features </span> </a> </li> <li class=md-nav__item> <a href=#tech-stack class=md-nav__link> <span class=md-ellipsis> Tech Stack </span> </a> </li> <li class=md-nav__item> <a href=#support class=md-nav__link> <span class=md-ellipsis> Support </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=portalrh-documentation>PortalRH Documentation<a class=headerlink href=#portalrh-documentation title="Permanent link">&para;</a></h1> <p>Welcome to the PortalRH documentation. This guide provides comprehensive information about the project, from installation to deployment.</p> <h2 id=documentation-index>Documentation Index<a class=headerlink href=#documentation-index title="Permanent link">&para;</a></h2> <h3 id=getting-started>Getting Started<a class=headerlink href=#getting-started title="Permanent link">&para;</a></h3> <ul> <li><a href=overview/ >Overview</a> - Project overview and key features</li> <li><a href=prerequisites/ >Prerequisites</a> - Requirements before installation</li> <li><a href=installation/ >Installation</a> - Step-by-step installation guide</li> <li><a href=configuration/ >Configuration</a> - Project configuration and settings</li> </ul> <h3 id=development>Development<a class=headerlink href=#development title="Permanent link">&para;</a></h3> <ul> <li><a href=project-structure/ >Project Structure</a> - Directory and file organization</li> <li><a href=guidelines/ >Guidelines</a> - Coding standards and best practices</li> <li><a href=development/ >Development</a> - Development workflow and tools</li> <li><a href=testing/ >Testing</a> - Testing strategies and commands</li> </ul> <h3 id=technical-documentation>Technical Documentation<a class=headerlink href=#technical-documentation title="Permanent link">&para;</a></h3> <ul> <li><a href=api-endpoints/ >API Endpoints</a> - Complete API reference</li> <li><a href=system-modeling/ >System Modeling</a> - Data models and architecture diagrams</li> <li><a href=authentication-security/ >Authentication and Security</a> - Security implementation</li> </ul> <h3 id=deployment-and-contribution>Deployment and Contribution<a class=headerlink href=#deployment-and-contribution title="Permanent link">&para;</a></h3> <ul> <li><a href=deploy/ >Deploy</a> - Deployment guide</li> <li><a href=contributing/ >Contributing</a> - How to contribute</li> <li><a href=release-notes/ >Release Notes</a> - Version history and changelog</li> <li><a href=UPDATE_LOG/ >Update Log</a> - Incremental update history</li> </ul> <h2 id=quick-start>Quick Start<a class=headerlink href=#quick-start title="Permanent link">&para;</a></h2> <pre><code># Clone the repository
-git clone https://github.com/GabrielDLobo/01-PortalRH.git
-cd 01-PortalRH
 
-# Install backend dependencies
-venv\Scripts\python -m pip install -r requirements.txt
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Human Resources Management System documentation">
+      
+      
+        <meta name="author" content="GabrielDLobo">
+      
+      
+      
+      
+        <link rel="next" href="overview/">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>PortalRH Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.35f28582.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
 
-# Run migrations and start backend
-venv\Scripts\python manage.py migrate
-venv\Scripts\python manage.py runserver
-</code></pre> <h2 id=docker-quick-start>Docker Quick Start<a class=headerlink href=#docker-quick-start title="Permanent link">&para;</a></h2> <pre><code># Start all services
-docker-compose up -d
 
-# Backend
-# http://localhost:8000
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
-# Frontend
-# http://localhost:3000
-</code></pre> <h2 id=default-access>Default Access<a class=headerlink href=#default-access title="Permanent link">&para;</a></h2> <ul> <li>Admin URL: <code>http://localhost:8000/admin/</code></li> <li>API Base: <code>http://localhost:8000/api/v1/</code></li> <li>Frontend (dev): <code>http://localhost:3000/</code></li> </ul> <h2 id=what-is-portalrh>What is PortalRH?<a class=headerlink href=#what-is-portalrh title="Permanent link">&para;</a></h2> <p>PortalRH is a complete Human Resources platform built with Django REST Framework and React + TypeScript. It centralizes HR operations with modules for:</p> <ul> <li>Employee management and document control</li> <li>Leave requests and approvals</li> <li>Performance evaluations</li> <li>Admission and onboarding workflows</li> <li>Termination process management</li> <li>Reports and analytics exports</li> </ul> <h2 id=system-architecture>System Architecture<a class=headerlink href=#system-architecture title="Permanent link">&para;</a></h2> <pre><code>┌─────────────────────────────────────────────────────────────┐
-│                  Frontend (React + TypeScript)             │
-│                        + TailwindCSS                        │
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="navy-blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#portalrh-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PortalRH Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PortalRH Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Documentation Index
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 Documentation Index">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started-primeiros-passos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started / Primeiros Passos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#development-desenvolvimento" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development / Desenvolvimento
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-documentation-documentacao-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Documentation / Documentação Técnica
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-contribution-deploy-e-contribuicao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment &amp; Contribution / Deploy e Contribuição
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Quick Start
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="prerequisites/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prerequisites
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guidelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guidelines and Standards
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="project-structure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Structure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api-endpoints/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API Endpoints
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system-modeling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Modeling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="authentication-security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication and Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Development
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deploy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deploy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contribution
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gallery/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Image Projects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="UPDATE_LOG/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Update Log
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Documentation Index
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 Documentation Index">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started-primeiros-passos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started / Primeiros Passos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#development-desenvolvimento" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development / Desenvolvimento
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-documentation-documentacao-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Documentation / Documentação Técnica
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-contribution-deploy-e-contribuicao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment &amp; Contribution / Deploy e Contribuição
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Quick Start
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="portalrh-documentation">PortalRH - Documentation</h1>
+<p>Welcome to the <strong>PortalRH</strong> documentation. This guide provides comprehensive information about the project,
+from installation to deployment.</p>
+<h2 id="documentation-index">📚 Documentation Index</h2>
+<h3 id="getting-started-primeiros-passos">Getting Started / Primeiros Passos</h3>
+<ul>
+<li><a href="overview/"><strong>Overview / Visão Geral</strong></a> - Project overview and key features</li>
+<li><a href="prerequisites/"><strong>Prerequisites / Pré-requisitos</strong></a> - Requirements before installation</li>
+<li><a href="installation/"><strong>Installation / Instalação</strong></a> - Step-by-step installation guide</li>
+<li><a href="configuration/"><strong>Configuration / Configuração</strong></a> - Project configuration and settings</li>
+</ul>
+<h3 id="development-desenvolvimento">Development / Desenvolvimento</h3>
+<ul>
+<li><a href="project-structure/"><strong>Project Structure / Estrutura do Projeto</strong></a> - Directory and file organization</li>
+<li><a href="guidelines/"><strong>Guidelines / Diretrizes</strong></a> - Coding standards and best practices</li>
+<li><a href="development/"><strong>Development / Desenvolvimento</strong></a> - Development workflow and tools</li>
+<li><a href="testing/"><strong>Testing / Testes</strong></a> - Testing strategies and commands</li>
+</ul>
+<h3 id="technical-documentation-documentacao-tecnica">Technical Documentation / Documentação Técnica</h3>
+<ul>
+<li><a href="api-endpoints/"><strong>API Endpoints</strong></a> - Complete API reference</li>
+<li><a href="system-modeling/"><strong>System Modeling / Modelagem do Sistema</strong></a> - Data models and architecture diagrams</li>
+<li><a href="authentication-security/"><strong>Authentication &amp; Security / Autenticação e Segurança</strong></a> - Security implementation</li>
+</ul>
+<h3 id="deployment-contribution-deploy-e-contribuicao">Deployment &amp; Contribution / Deploy e Contribuição</h3>
+<ul>
+<li><a href="deploy/"><strong>Deploy</strong></a> - Deployment guide</li>
+<li><a href="contributing/"><strong>Contributing / Contribuição</strong></a> - How to contribute</li>
+<li><a href="release-notes/"><strong>Release Notes</strong></a> - Version history and changelog</li>
+<li><a href="UPDATE_LOG/"><strong>Update Log</strong></a> - Incremental update history</li>
+</ul>
+<hr />
+<h2 id="quick-start">🚀 Quick Start</h2>
+<p>```bash</p>
+<h1 id="clone-the-repository">Clone the repository</h1>
+<p>git clone https://github.com/GabrielDLobo/01-PortalRH.git
+cd 01-PortalRH</p>
+<h1 id="install-dependencies">Install dependencies</h1>
+<p>venv\Scripts\python -m pip install -r requirements.txt</p>
+<h1 id="run-migrations">Run migrations</h1>
+<p>venv\Scripts\python manage.py migrate</p>
+<h1 id="create-superuser">Create superuser</h1>
+<p>venv\Scripts\python manage.py createsuperuser</p>
+<h1 id="start-development-server">Start development server</h1>
+<p>venv\Scripts\python manage.py runserver
+```</p>
+<h2 id="docker-quick-start">📦 Docker Quick Start</h2>
+<h1 id="portalrh-documentation_1">PortalRH - Documentation</h1>
+<p>Welcome to the <strong>PortalRH</strong> documentation. This guide provides comprehensive information about the project, from installation to deployment.</p>
+<h2 id="documentation-index_1">📚 Documentation Index</h2>
+<h3 id="getting-started">Getting Started</h3>
+<ul>
+<li><a href="overview/"><strong>Overview</strong></a> - Project overview and key features</li>
+<li><a href="prerequisites/"><strong>Prerequisites</strong></a> - Requirements before installation</li>
+<li><a href="installation/"><strong>Installation</strong></a> - Step-by-step installation guide</li>
+<li><a href="configuration/"><strong>Configuration</strong></a> - Project configuration and settings</li>
+</ul>
+<h3 id="development">Development</h3>
+<ul>
+<li><a href="project-structure/"><strong>Project Structure</strong></a> - Directory and file organization</li>
+<li><a href="guidelines/"><strong>Guidelines</strong></a> - Coding standards and best practices</li>
+<li><a href="development/"><strong>Development</strong></a> - Development workflow and tools</li>
+<li><a href="testing/"><strong>Testing</strong></a> - Testing strategies and commands</li>
+</ul>
+<h3 id="technical-documentation">Technical Documentation</h3>
+<ul>
+<li><a href="api-endpoints/"><strong>API Endpoints</strong></a> - Complete API reference</li>
+<li><a href="system-modeling/"><strong>System Modeling</strong></a> - Data models and architecture diagrams</li>
+<li><a href="authentication-security/"><strong>Authentication &amp; Security</strong></a> - Security implementation</li>
+</ul>
+<h3 id="deployment-contribution">Deployment &amp; Contribution</h3>
+<ul>
+<li><a href="deploy/"><strong>Deploy</strong></a> - Deployment guide</li>
+<li><a href="contributing/"><strong>Contribution</strong></a> - How to contribute</li>
+<li><a href="release-notes/"><strong>Release Notes</strong></a> - Version history and changelog</li>
+<li><a href="UPDATE_LOG/"><strong>Update Log</strong></a> - Documentation update history</li>
+</ul>
+<hr />
+<h2 id="quick-start_1">🚀 Quick Start</h2>
+<p>```bash</p>
+<h1 id="clone-the-repository_1">Clone the repository</h1>
+<p>git clone https://github.com/GabrielDLobo/01-PortalRH.git
+cd 01-PortalRH</p>
+<h1 id="install-dependencies_1">Install dependencies</h1>
+<p>pip install -r requirements.txt</p>
+<h1 id="run-migrations_1">Run migrations</h1>
+<p>python manage.py migrate</p>
+<h1 id="create-superuser_1">Create superuser</h1>
+<p>python manage.py createsuperuser</p>
+<h1 id="start-development-server_1">Start development server</h1>
+<p>python manage.py runserver
+```</p>
+<h2 id="docker-quick-start_1">📦 Docker Quick Start</h2>
+<p>```bash</p>
+<h1 id="start-all-services">Start all services</h1>
+<p>docker-compose up -d</p>
+<h1 id="access-the-application">Access the application</h1>
+<h1 id="backend-httplocalhost8000">Backend: http://localhost:8000</h1>
+<h1 id="frontend-httplocalhost3000">Frontend: http://localhost:3000</h1>
+<p>```</p>
+<h2 id="default-access">🔑 Default Access</h2>
+<ul>
+<li><strong>Admin URL</strong>: <code>http://localhost:8000/admin/</code></li>
+<li><strong>API</strong>: <code>http://localhost:8000/api/v1/</code></li>
+<li><strong>Frontend</strong>: <code>http://localhost:3000/</code></li>
+</ul>
+<hr />
+<h2 id="what-is-portalrh">📖 What is PortalRH?</h2>
+<p>The <strong>PortalRH</strong> is a complete Django-based Human Resources platform to manage employees, leave requests, evaluations, staff, reports, and termination workflows. It features:</p>
+<ul>
+<li>✅ <strong>Employee Management</strong> - Full employee lifecycle and document control</li>
+<li>✅ <strong>Leave Control</strong> - Requests, approvals, balances, and history</li>
+<li>✅ <strong>Performance Evaluation</strong> - Templates, cycles, and feedback tracking</li>
+<li>✅ <strong>Admission &amp; Offboarding</strong> - Structured onboarding and termination flows</li>
+<li>✅ <strong>REST API</strong> - JWT-authenticated API with DRF</li>
+<li>✅ <strong>Dashboard &amp; Reports</strong> - Metrics and exports (PDF/Excel)</li>
+<li>✅ <strong>Role-based Access</strong> - Permission model for HR and staff roles</li>
+<li>✅ <strong>Docker Ready</strong> - Containerized deployment</li>
+</ul>
+<hr />
+<h2 id="system-architecture">🏗️ System Architecture</h2>
+<p><code>┌─────────────────────────────────────────────────────────────┐
+│                      Frontend (React + TS)                 │
+│                         + TailwindCSS                      │
 └─────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                 Django Application (DRF API)                │
+│                    Django Application Layer                │
 │  ┌─────────────┬─────────────┬─────────────┬─────────────┐ │
 │  │ Employees   │ Leave Req.  │ Evaluations │ Accounts    │ │
 │  ├─────────────┼─────────────┼─────────────┼─────────────┤ │
@@ -33,6 +873,155 @@ docker-compose up -d
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                     SQLite / PostgreSQL                     │
+│                     REST API (DRF + JWT)                   │
 └─────────────────────────────────────────────────────────────┘
-</code></pre> <h2 id=key-features>Key Features<a class=headerlink href=#key-features title="Permanent link">&para;</a></h2> <table> <thead> <tr> <th>Feature</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td>Employee Management</td> <td>Complete employee profiles, documents, and organization data</td> </tr> <tr> <td>Leave Management</td> <td>Leave requests, approvals, and balance tracking</td> </tr> <tr> <td>Evaluations</td> <td>Performance reviews, goals, and feedback history</td> </tr> <tr> <td>Admission and Termination</td> <td>Structured lifecycle workflows for hiring and offboarding</td> </tr> <tr> <td>Reporting</td> <td>PDF/Excel exports and management analytics</td> </tr> <tr> <td>Access Control</td> <td>Role-based permissions and JWT-authenticated API</td> </tr> </tbody> </table> <h2 id=tech-stack>Tech Stack<a class=headerlink href=#tech-stack title="Permanent link">&para;</a></h2> <table> <thead> <tr> <th>Layer</th> <th>Technology</th> </tr> </thead> <tbody> <tr> <td>Backend</td> <td>Django 5.2.6, Python 3.12</td> </tr> <tr> <td>API</td> <td>Django REST Framework 3.16.1</td> </tr> <tr> <td>Authentication</td> <td>JWT (SimpleJWT 5.5.1)</td> </tr> <tr> <td>Database</td> <td>SQLite (dev), PostgreSQL (prod)</td> </tr> <tr> <td>Frontend</td> <td>React 19 + TypeScript + TailwindCSS</td> </tr> <tr> <td>Documentation</td> <td>MkDocs + Material for MkDocs</td> </tr> </tbody> </table> <h2 id=support>Support<a class=headerlink href=#support title="Permanent link">&para;</a></h2> <p>For issues, questions, or contributions, please refer to the <a href=contributing/ >Contributing Guide</a>.</p> <p>Version: 1.0.0<br> Last Updated: April 2026<br> License: Private repository for internal use</p> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <footer class=md-footer> <nav class="md-footer__inner md-grid" aria-label=Footer> <a href=gallery/ class="md-footer__link md-footer__link--next" aria-label="Next: Gallery"> <div class=md-footer__title> <span class=md-footer__direction> Next </span> <div class=md-ellipsis> Gallery </div> </div> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg> </div> </a> </nav> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": ".", "features": ["navigation.instant", "navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=assets/javascripts/bundle.56dfad97.min.js></script> <script src=javascripts/extra.js></script> </body> </html>
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    PostgreSQL / SQLite                     │
+└─────────────────────────────────────────────────────────────┘</code></p>
+<hr />
+<h2 id="key-features">📊 Key Features</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Employee Management</strong></td>
+<td>Complete employee records and document tracking</td>
+</tr>
+<tr>
+<td><strong>Leave Management</strong></td>
+<td>Request/approval workflow with leave balances</td>
+</tr>
+<tr>
+<td><strong>Evaluation Cycles</strong></td>
+<td>Structured performance evaluations and scoring</td>
+</tr>
+<tr>
+<td><strong>Reports</strong></td>
+<td>Dynamic reports with export support</td>
+</tr>
+<tr>
+<td><strong>Termination Flow</strong></td>
+<td>End-to-end offboarding workflow</td>
+</tr>
+<tr>
+<td><strong>REST API</strong></td>
+<td>Full API with JWT authentication</td>
+</tr>
+<tr>
+<td><strong>Access Control</strong></td>
+<td>Role-based permissions and secure endpoints</td>
+</tr>
+<tr>
+<td><strong>Docker Support</strong></td>
+<td>Easy deployment with docker-compose</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="tech-stack">🛠️ Tech Stack</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Technology</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Backend</strong></td>
+<td>Django 5.2.6, Python 3.12</td>
+</tr>
+<tr>
+<td><strong>API</strong></td>
+<td>Django REST Framework 3.16.1</td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>JWT (SimpleJWT 5.5.1)</td>
+</tr>
+<tr>
+<td><strong>Database</strong></td>
+<td>PostgreSQL 15 / SQLite</td>
+</tr>
+<tr>
+<td><strong>Frontend</strong></td>
+<td>React 19 + TypeScript + TailwindCSS</td>
+</tr>
+<tr>
+<td><strong>Documentation</strong></td>
+<td>MkDocs + Material Theme</td>
+</tr>
+<tr>
+<td><strong>Deployment</strong></td>
+<td>Docker, docker-compose</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="support">📞 Support</h2>
+<p>For issues, questions, or contributions, please refer to the <a href="contributing/">Contribution Guide</a>.</p>
+<hr />
+<p><strong>Version</strong>: 1.0.0<br />
+<strong>Last Updated</strong>: April 2026<br />
+<strong>License</strong>: Private repository for internal use</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+    
+  </body>
+</html>
