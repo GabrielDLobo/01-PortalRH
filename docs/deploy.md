@@ -7,12 +7,9 @@
 
 ## Docker Compose
 
-```bash
-docker-compose build
+<pre><code>docker-compose build
 docker-compose up -d
-docker-compose logs -f
-```
-
+docker-compose logs -f</code></pre>
 ## Production Essentials
 
 - `DEBUG=False`

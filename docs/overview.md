@@ -23,10 +23,7 @@ Core domains:
 
 ## Architecture Summary
 
-```text
-Frontend (React + TypeScript) -> DRF API (JWT) -> PostgreSQL/SQLite
-```
-
+<pre><code>Frontend (React + TypeScript) -&gt; DRF API (JWT) -&gt; PostgreSQL/SQLite</code></pre>
 ## Project Status
 
 - Version: `1.0.0`

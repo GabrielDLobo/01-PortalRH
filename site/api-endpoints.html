@@ -1814,8 +1814,7 @@
 <hr />
 <h2 id="authentication-format">🔐 Authentication Format</h2>
 <p>Include JWT token in request headers:</p>
-<p><code>http
-Authorization: Bearer &lt;access_token&gt;</code></p>
+<pre><code>Authorization: Bearer &lt;access_token&gt;</code></pre>
 <hr />
 <h2 id="endpoints-overview">📋 Endpoints Overview</h2>
 <table>
@@ -1874,99 +1873,88 @@ Authorization: Bearer &lt;access_token&gt;</code></p>
 <h3 id="login">Login</h3>
 <p><strong>POST</strong> <code>/api/v1/accounts/auth/login/</code></p>
 <p>Authenticate user and receive JWT tokens.</p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "email": "user@example.com",
-  "password": "securepassword"
-}</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "access": "eyJ0eXAiOiJKV1QiLCJhbG...",
-  "refresh": "eyJ0eXAiOiJKV1QiLCJhbG...",
-  "user": {
-    "id": 1,
-    "email": "user@example.com",
-    "first_name": "John",
-    "last_name": "Doe",
-    "role": "admin_rh"
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;email&quot;: &quot;user@example.com&quot;,
+  &quot;password&quot;: &quot;securepassword&quot;
+}</code></pre>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;access&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;,
+  &quot;refresh&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;,
+  &quot;user&quot;: {
+    &quot;id&quot;: 1,
+    &quot;email&quot;: &quot;user@example.com&quot;,
+    &quot;first_name&quot;: &quot;John&quot;,
+    &quot;last_name&quot;: &quot;Doe&quot;,
+    &quot;role&quot;: &quot;admin_rh&quot;
   },
-  "requires_password_change": false
-}</code></p>
+  &quot;requires_password_change&quot;: false
+}</code></pre>
 <hr />
 <h3 id="refresh-token">Refresh Token</h3>
 <p><strong>POST</strong> <code>/api/v1/accounts/auth/refresh/</code></p>
 <p>Get new access token using refresh token.</p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "refresh": "eyJ0eXAiOiJKV1QiLCJhbG..."
-}</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "access": "eyJ0eXAiOiJKV1QiLCJhbG..."
-}</code></p>
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;refresh&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;
+}</code></pre>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;access&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;
+}</code></pre>
 <hr />
 <h3 id="verify-token">Verify Token</h3>
 <p><strong>POST</strong> <code>/api/v1/accounts/auth/verify/</code></p>
 <p>Verify if access token is valid.</p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "token": "eyJ0eXAiOiJKV1QiLCJhbG..."
-}</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{}</code></p>
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;token&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;
+}</code></pre>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{}</code></pre>
 <hr />
 <h3 id="register-user">Register User</h3>
 <p><strong>POST</strong> <code>/api/v1/accounts/auth/register/</code></p>
 <p>Create new user (Admin RH only).</p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "email": "newuser@example.com",
-  "password": "securepassword",
-  "first_name": "Jane",
-  "last_name": "Doe",
-  "role": "funcionario"
-}</code></p>
-<p><strong>Response (201 Created):</strong>
-<code>json
-{
-  "id": 5,
-  "email": "newuser@example.com",
-  "first_name": "Jane",
-  "last_name": "Doe",
-  "role": "funcionario",
-  "is_active": true
-}</code></p>
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;email&quot;: &quot;newuser@example.com&quot;,
+  &quot;password&quot;: &quot;securepassword&quot;,
+  &quot;first_name&quot;: &quot;Jane&quot;,
+  &quot;last_name&quot;: &quot;Doe&quot;,
+  &quot;role&quot;: &quot;funcionario&quot;
+}</code></pre>
+<p><strong>Response (201 Created):</strong></p>
+<pre><code>{
+  &quot;id&quot;: 5,
+  &quot;email&quot;: &quot;newuser@example.com&quot;,
+  &quot;first_name&quot;: &quot;Jane&quot;,
+  &quot;last_name&quot;: &quot;Doe&quot;,
+  &quot;role&quot;: &quot;funcionario&quot;,
+  &quot;is_active&quot;: true
+}</code></pre>
 <hr />
 <h3 id="first-login-password-change">First Login Password Change</h3>
 <p><strong>POST</strong> <code>/api/v1/accounts/auth/first-login-password-change/</code></p>
 <p>Change password on first login.</p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "old_password": "temporary_password",
-  "new_password": "new_secure_password"
-}</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "message": "Senha alterada com sucesso."
-}</code></p>
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;old_password&quot;: &quot;temporary_password&quot;,
+  &quot;new_password&quot;: &quot;new_secure_password&quot;
+}</code></pre>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;message&quot;: &quot;Senha alterada com sucesso.&quot;
+}</code></pre>
 <hr />
 <h3 id="check-password-change-required">Check Password Change Required</h3>
 <p><strong>GET</strong> <code>/api/v1/accounts/auth/check-password-change-required/</code></p>
 <p>Check if user needs to change password.</p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "requires_password_change": true
-}</code></p>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;requires_password_change&quot;: true
+}</code></pre>
 <hr />
 <h2 id="user-endpoints">👥 User Endpoints</h2>
 <h3 id="list-users">List Users</h3>
@@ -1976,63 +1964,58 @@ Authorization: Bearer &lt;access_token&gt;</code></p>
 - <code>role</code> - Filter by role
 - <code>is_active</code> - Filter by active status
 - <code>page</code> - Page number</p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "count": 50,
-  "next": "http://api/users/?page=2",
-  "previous": null,
-  "results": [
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;count&quot;: 50,
+  &quot;next&quot;: &quot;http://api/users/?page=2&quot;,
+  &quot;previous&quot;: null,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "email": "admin@portalrh.com",
-      "first_name": "Admin",
-      "last_name": "RH",
-      "role": "admin_rh",
-      "is_active": true
+      &quot;id&quot;: 1,
+      &quot;email&quot;: &quot;admin@portalrh.com&quot;,
+      &quot;first_name&quot;: &quot;Admin&quot;,
+      &quot;last_name&quot;: &quot;RH&quot;,
+      &quot;role&quot;: &quot;admin_rh&quot;,
+      &quot;is_active&quot;: true
     }
   ]
-}</code></p>
+}</code></pre>
 <hr />
 <h3 id="get-user-profile">Get User Profile</h3>
 <p><strong>GET</strong> <code>/api/v1/accounts/users/profile/</code></p>
 <p>Get current authenticated user's profile.</p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "id": 1,
-  "email": "user@example.com",
-  "first_name": "John",
-  "last_name": "Doe",
-  "role": "funcionario",
-  "date_joined": "2024-01-15T10:30:00Z"
-}</code></p>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;id&quot;: 1,
+  &quot;email&quot;: &quot;user@example.com&quot;,
+  &quot;first_name&quot;: &quot;John&quot;,
+  &quot;last_name&quot;: &quot;Doe&quot;,
+  &quot;role&quot;: &quot;funcionario&quot;,
+  &quot;date_joined&quot;: &quot;2024-01-15T10:30:00Z&quot;
+}</code></pre>
 <hr />
 <h3 id="change-password">Change Password</h3>
 <p><strong>POST</strong> <code>/api/v1/accounts/users/change_password/</code></p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "old_password": "current_password",
-  "new_password": "new_password"
-}</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "message": "Senha alterada com sucesso."
-}</code></p>
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;old_password&quot;: &quot;current_password&quot;,
+  &quot;new_password&quot;: &quot;new_password&quot;
+}</code></pre>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;message&quot;: &quot;Senha alterada com sucesso.&quot;
+}</code></pre>
 <hr />
 <h3 id="get-user-statistics">Get User Statistics</h3>
 <p><strong>GET</strong> <code>/api/v1/accounts/users/stats/</code></p>
 <p>Get user statistics (Admin RH only).</p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "total_users": 150,
-  "active_users": 142,
-  "admin_rh_count": 5,
-  "funcionario_count": 145
-}</code></p>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;total_users&quot;: 150,
+  &quot;active_users&quot;: 142,
+  &quot;admin_rh_count&quot;: 5,
+  &quot;funcionario_count&quot;: 145
+}</code></pre>
 <hr />
 <h2 id="employee-endpoints">👨‍💼 Employee Endpoints</h2>
 <h3 id="list-employees">List Employees</h3>
@@ -2042,377 +2025,350 @@ Authorization: Bearer &lt;access_token&gt;</code></p>
 - <code>status</code> - Filter by status
 - <code>department</code> - Filter by department
 - <code>page</code> - Page number</p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "count": 100,
-  "next": null,
-  "previous": null,
-  "results": [
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;count&quot;: 100,
+  &quot;next&quot;: null,
+  &quot;previous&quot;: null,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "employee_id": "EMP-0001",
-      "full_name": "John Doe",
-      "email": "john@company.com",
-      "department": "Engineering",
-      "position": "Developer",
-      "status": "active",
-      "hire_date": "2024-01-15"
+      &quot;id&quot;: 1,
+      &quot;employee_id&quot;: &quot;EMP-0001&quot;,
+      &quot;full_name&quot;: &quot;John Doe&quot;,
+      &quot;email&quot;: &quot;john@company.com&quot;,
+      &quot;department&quot;: &quot;Engineering&quot;,
+      &quot;position&quot;: &quot;Developer&quot;,
+      &quot;status&quot;: &quot;active&quot;,
+      &quot;hire_date&quot;: &quot;2024-01-15&quot;
     }
   ]
-}</code></p>
+}</code></pre>
 <hr />
 <h3 id="get-employee-detail">Get Employee Detail</h3>
 <p><strong>GET</strong> <code>/api/v1/employees/employees/{id}/</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "id": 1,
-  "employee_id": "EMP-0001",
-  "user": 1,
-  "full_name": "John Doe",
-  "cpf": "123.456.789-00",
-  "rg": "12.345.678-9",
-  "birth_date": "1990-05-15",
-  "phone": "(11) 99999-9999",
-  "email": "john@company.com",
-  "street_address": "Rua Principal",
-  "address_number": "123",
-  "neighborhood": "Centro",
-  "city": "São Paulo",
-  "state": "SP",
-  "zip_code": "01000-000",
-  "department": "Engineering",
-  "position": "Developer",
-  "hire_date": "2024-01-15",
-  "salary": "5000.00",
-  "status": "active",
-  "admission_completed": true
-}</code></p>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;id&quot;: 1,
+  &quot;employee_id&quot;: &quot;EMP-0001&quot;,
+  &quot;user&quot;: 1,
+  &quot;full_name&quot;: &quot;John Doe&quot;,
+  &quot;cpf&quot;: &quot;123.456.789-00&quot;,
+  &quot;rg&quot;: &quot;12.345.678-9&quot;,
+  &quot;birth_date&quot;: &quot;1990-05-15&quot;,
+  &quot;phone&quot;: &quot;(11) 99999-9999&quot;,
+  &quot;email&quot;: &quot;john@company.com&quot;,
+  &quot;street_address&quot;: &quot;Rua Principal&quot;,
+  &quot;address_number&quot;: &quot;123&quot;,
+  &quot;neighborhood&quot;: &quot;Centro&quot;,
+  &quot;city&quot;: &quot;S&#227;o Paulo&quot;,
+  &quot;state&quot;: &quot;SP&quot;,
+  &quot;zip_code&quot;: &quot;01000-000&quot;,
+  &quot;department&quot;: &quot;Engineering&quot;,
+  &quot;position&quot;: &quot;Developer&quot;,
+  &quot;hire_date&quot;: &quot;2024-01-15&quot;,
+  &quot;salary&quot;: &quot;5000.00&quot;,
+  &quot;status&quot;: &quot;active&quot;,
+  &quot;admission_completed&quot;: true
+}</code></pre>
 <hr />
 <h3 id="create-employee">Create Employee</h3>
 <p><strong>POST</strong> <code>/api/v1/employees/employees/</code></p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "user": 1,
-  "full_name": "Jane Doe",
-  "cpf": "987.654.321-00",
-  "rg": "98.765.432-1",
-  "birth_date": "1992-08-20",
-  "phone": "(11) 98888-8888",
-  "email": "jane@company.com",
-  "street_address": "Rua Secundária",
-  "address_number": "456",
-  "neighborhood": "Jardins",
-  "city": "São Paulo",
-  "state": "SP",
-  "zip_code": "01001-000",
-  "department": "Marketing",
-  "position": "Designer",
-  "hire_date": "2024-02-01",
-  "salary": "4500.00"
-}</code></p>
-<p><strong>Response (201 Created):</strong>
-<code>json
-{
-  "id": 2,
-  "employee_id": "EMP-0002",
-  "full_name": "Jane Doe",
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;user&quot;: 1,
+  &quot;full_name&quot;: &quot;Jane Doe&quot;,
+  &quot;cpf&quot;: &quot;987.654.321-00&quot;,
+  &quot;rg&quot;: &quot;98.765.432-1&quot;,
+  &quot;birth_date&quot;: &quot;1992-08-20&quot;,
+  &quot;phone&quot;: &quot;(11) 98888-8888&quot;,
+  &quot;email&quot;: &quot;jane@company.com&quot;,
+  &quot;street_address&quot;: &quot;Rua Secund&#225;ria&quot;,
+  &quot;address_number&quot;: &quot;456&quot;,
+  &quot;neighborhood&quot;: &quot;Jardins&quot;,
+  &quot;city&quot;: &quot;S&#227;o Paulo&quot;,
+  &quot;state&quot;: &quot;SP&quot;,
+  &quot;zip_code&quot;: &quot;01001-000&quot;,
+  &quot;department&quot;: &quot;Marketing&quot;,
+  &quot;position&quot;: &quot;Designer&quot;,
+  &quot;hire_date&quot;: &quot;2024-02-01&quot;,
+  &quot;salary&quot;: &quot;4500.00&quot;
+}</code></pre>
+<p><strong>Response (201 Created):</strong></p>
+<pre><code>{
+  &quot;id&quot;: 2,
+  &quot;employee_id&quot;: &quot;EMP-0002&quot;,
+  &quot;full_name&quot;: &quot;Jane Doe&quot;,
   ...
-}</code></p>
+}</code></pre>
 <hr />
 <h3 id="get-my-profile">Get My Profile</h3>
 <p><strong>GET</strong> <code>/api/v1/employees/employees/my_profile/</code></p>
 <p>Get current user's employee profile.</p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "id": 1,
-  "employee_id": "EMP-0001",
-  "full_name": "John Doe",
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;id&quot;: 1,
+  &quot;employee_id&quot;: &quot;EMP-0001&quot;,
+  &quot;full_name&quot;: &quot;John Doe&quot;,
   ...
-}</code></p>
+}</code></pre>
 <hr />
 <h3 id="update-personal-information">Update Personal Information</h3>
 <p><strong>PATCH</strong> <code>/api/v1/employees/employees/{id}/update_personal_info/</code></p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "phone": "(11) 97777-7777",
-  "street_address": "Nova Rua",
-  "address_number": "789"
-}</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "message": "Informações atualizadas com sucesso."
-}</code></p>
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;phone&quot;: &quot;(11) 97777-7777&quot;,
+  &quot;street_address&quot;: &quot;Nova Rua&quot;,
+  &quot;address_number&quot;: &quot;789&quot;
+}</code></pre>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;message&quot;: &quot;Informa&#231;&#245;es atualizadas com sucesso.&quot;
+}</code></pre>
 <hr />
 <h3 id="get-admission-status">Get Admission Status</h3>
 <p><strong>GET</strong> <code>/api/v1/employees/employees/{id}/admission_status/</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "employee_id": "EMP-0001",
-  "status": "documents_uploaded",
-  "completion_percentage": 75,
-  "personal_info_completed": true,
-  "documents_uploaded": true,
-  "hr_review_completed": false
-}</code></p>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;employee_id&quot;: &quot;EMP-0001&quot;,
+  &quot;status&quot;: &quot;documents_uploaded&quot;,
+  &quot;completion_percentage&quot;: 75,
+  &quot;personal_info_completed&quot;: true,
+  &quot;documents_uploaded&quot;: true,
+  &quot;hr_review_completed&quot;: false
+}</code></pre>
 <hr />
 <h2 id="employee-document-endpoints">📄 Employee Document Endpoints</h2>
 <h3 id="list-documents">List Documents</h3>
 <p><strong>GET</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "count": 5,
-  "results": [
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;count&quot;: 5,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "employee": 1,
-      "document_type": "rg",
-      "document_name": "RG Front",
-      "file": "/media/employees/documents/rg_001.pdf",
-      "file_size": 102400,
-      "uploaded_at": "2024-01-15T10:00:00Z",
-      "is_required": true,
-      "is_verified": false
+      &quot;id&quot;: 1,
+      &quot;employee&quot;: 1,
+      &quot;document_type&quot;: &quot;rg&quot;,
+      &quot;document_name&quot;: &quot;RG Front&quot;,
+      &quot;file&quot;: &quot;/media/employees/documents/rg_001.pdf&quot;,
+      &quot;file_size&quot;: 102400,
+      &quot;uploaded_at&quot;: &quot;2024-01-15T10:00:00Z&quot;,
+      &quot;is_required&quot;: true,
+      &quot;is_verified&quot;: false
     }
   ]
-}</code></p>
+}</code></pre>
 <hr />
 <h3 id="upload-document">Upload Document</h3>
 <p><strong>POST</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/</code></p>
 <p><strong>Content-Type:</strong> <code>multipart/form-data</code></p>
-<p><strong>Request:</strong>
-<code>document_type: rg
+<p><strong>Request:</strong></p>
+<pre><code>document_type: rg
 document_name: RG Front
 file: &lt;file&gt;
-is_required: true</code></p>
-<p><strong>Response (201 Created):</strong>
-<code>json
-{
-  "id": 1,
-  "document_type": "rg",
-  "file": "/media/employees/documents/rg_001.pdf",
+is_required: true</code></pre>
+<p><strong>Response (201 Created):</strong></p>
+<pre><code>{
+  &quot;id&quot;: 1,
+  &quot;document_type&quot;: &quot;rg&quot;,
+  &quot;file&quot;: &quot;/media/employees/documents/rg_001.pdf&quot;,
   ...
-}</code></p>
+}</code></pre>
 <hr />
 <h3 id="verify-document">Verify Document</h3>
 <p><strong>PATCH</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/{id}/verify/</code></p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "is_verified": true
-}</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "message": "Documento verificado com sucesso."
-}</code></p>
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;is_verified&quot;: true
+}</code></pre>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;message&quot;: &quot;Documento verificado com sucesso.&quot;
+}</code></pre>
 <hr />
 <h3 id="get-required-documents">Get Required Documents</h3>
 <p><strong>GET</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/required_documents/</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "required_documents": [
-    {"type": "rg", "name": "RG", "uploaded": true},
-    {"type": "cpf", "name": "CPF", "uploaded": true},
-    {"type": "birth_certificate", "name": "Birth Certificate", "uploaded": false},
-    {"type": "residence_proof", "name": "Residence Proof", "uploaded": false},
-    {"type": "photo", "name": "Photo", "uploaded": true}
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;required_documents&quot;: [
+    {&quot;type&quot;: &quot;rg&quot;, &quot;name&quot;: &quot;RG&quot;, &quot;uploaded&quot;: true},
+    {&quot;type&quot;: &quot;cpf&quot;, &quot;name&quot;: &quot;CPF&quot;, &quot;uploaded&quot;: true},
+    {&quot;type&quot;: &quot;birth_certificate&quot;, &quot;name&quot;: &quot;Birth Certificate&quot;, &quot;uploaded&quot;: false},
+    {&quot;type&quot;: &quot;residence_proof&quot;, &quot;name&quot;: &quot;Residence Proof&quot;, &quot;uploaded&quot;: false},
+    {&quot;type&quot;: &quot;photo&quot;, &quot;name&quot;: &quot;Photo&quot;, &quot;uploaded&quot;: true}
   ]
-}</code></p>
+}</code></pre>
 <hr />
 <h2 id="evaluation-endpoints">📊 Evaluation Endpoints</h2>
 <h3 id="list-templates">List Templates</h3>
 <p><strong>GET</strong> <code>/api/v1/evaluations/templates/</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "count": 3,
-  "results": [
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;count&quot;: 3,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "nome": "Annual Performance Review",
-      "descricao": "Annual evaluation template",
-      "ativo": true,
-      "created_at": "2024-01-01T00:00:00Z"
+      &quot;id&quot;: 1,
+      &quot;nome&quot;: &quot;Annual Performance Review&quot;,
+      &quot;descricao&quot;: &quot;Annual evaluation template&quot;,
+      &quot;ativo&quot;: true,
+      &quot;created_at&quot;: &quot;2024-01-01T00:00:00Z&quot;
     }
   ]
-}</code></p>
+}</code></pre>
 <hr />
 <h3 id="create-evaluation">Create Evaluation</h3>
 <p><strong>POST</strong> <code>/api/v1/evaluations/evaluations/</code></p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "template": 1,
-  "avaliado": 5,
-  "avaliador": 1,
-  "tipo": "avaliacao_superior",
-  "periodo_inicio": "2024-01-01",
-  "periodo_fim": "2024-12-31",
-  "status": "pendente"
-}</code></p>
-<p><strong>Response (201 Created):</strong>
-<code>json
-{
-  "id": 10,
-  "template": 1,
-  "avaliado": 5,
-  "avaliador": 1,
-  "tipo": "avaliacao_superior",
-  "status": "pendente",
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;template&quot;: 1,
+  &quot;avaliado&quot;: 5,
+  &quot;avaliador&quot;: 1,
+  &quot;tipo&quot;: &quot;avaliacao_superior&quot;,
+  &quot;periodo_inicio&quot;: &quot;2024-01-01&quot;,
+  &quot;periodo_fim&quot;: &quot;2024-12-31&quot;,
+  &quot;status&quot;: &quot;pendente&quot;
+}</code></pre>
+<p><strong>Response (201 Created):</strong></p>
+<pre><code>{
+  &quot;id&quot;: 10,
+  &quot;template&quot;: 1,
+  &quot;avaliado&quot;: 5,
+  &quot;avaliador&quot;: 1,
+  &quot;tipo&quot;: &quot;avaliacao_superior&quot;,
+  &quot;status&quot;: &quot;pendente&quot;,
   ...
-}</code></p>
+}</code></pre>
 <hr />
 <h3 id="submit-evaluation-score">Submit Evaluation Score</h3>
 <p><strong>POST</strong> <code>/api/v1/evaluations/scores/</code></p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "avaliacao": 10,
-  "criterio": 1,
-  "nota": "8.5",
-  "comentario": "Great performance"
-}</code></p>
-<p><strong>Response (201 Created):</strong>
-<code>json
-{
-  "id": 50,
-  "avaliacao": 10,
-  "criterio": 1,
-  "nota": "8.50",
-  "comentario": "Great performance"
-}</code></p>
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;avaliacao&quot;: 10,
+  &quot;criterio&quot;: 1,
+  &quot;nota&quot;: &quot;8.5&quot;,
+  &quot;comentario&quot;: &quot;Great performance&quot;
+}</code></pre>
+<p><strong>Response (201 Created):</strong></p>
+<pre><code>{
+  &quot;id&quot;: 50,
+  &quot;avaliacao&quot;: 10,
+  &quot;criterio&quot;: 1,
+  &quot;nota&quot;: &quot;8.50&quot;,
+  &quot;comentario&quot;: &quot;Great performance&quot;
+}</code></pre>
 <hr />
 <h3 id="get-my-evaluations">Get My Evaluations</h3>
 <p><strong>GET</strong> <code>/api/v1/evaluations/evaluations/my_evaluations/</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "count": 5,
-  "results": [
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;count&quot;: 5,
+  &quot;results&quot;: [
     {
-      "id": 10,
-      "template_name": "Annual Performance Review",
-      "tipo": "avaliacao_superior",
-      "status": "concluida",
-      "nota_final": "8.75",
-      "data_conclusao": "2024-12-15T10:00:00Z"
+      &quot;id&quot;: 10,
+      &quot;template_name&quot;: &quot;Annual Performance Review&quot;,
+      &quot;tipo&quot;: &quot;avaliacao_superior&quot;,
+      &quot;status&quot;: &quot;concluida&quot;,
+      &quot;nota_final&quot;: &quot;8.75&quot;,
+      &quot;data_conclusao&quot;: &quot;2024-12-15T10:00:00Z&quot;
     }
   ]
-}</code></p>
+}</code></pre>
 <hr />
 <h3 id="start-evaluation-cycle">Start Evaluation Cycle</h3>
 <p><strong>POST</strong> <code>/api/v1/evaluations/cycles/{id}/start/</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "message": "Ciclo iniciado com sucesso.",
-  "status": "ativo"
-}</code></p>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;message&quot;: &quot;Ciclo iniciado com sucesso.&quot;,
+  &quot;status&quot;: &quot;ativo&quot;
+}</code></pre>
 <hr />
 <h2 id="leave-request-endpoints">🏖️ Leave Request Endpoints</h2>
 <h3 id="list-leave-types">List Leave Types</h3>
 <p><strong>GET</strong> <code>/api/v1/leave-requests/types/</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "count": 4,
-  "results": [
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;count&quot;: 4,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "nome": "Vacation",
-      "descricao": "Annual vacation leave",
-      "max_dias_ano": 30,
-      "requer_aprovacao": true,
-      "ativo": true
+      &quot;id&quot;: 1,
+      &quot;nome&quot;: &quot;Vacation&quot;,
+      &quot;descricao&quot;: &quot;Annual vacation leave&quot;,
+      &quot;max_dias_ano&quot;: 30,
+      &quot;requer_aprovacao&quot;: true,
+      &quot;ativo&quot;: true
     }
   ]
-}</code></p>
+}</code></pre>
 <hr />
 <h3 id="create-leave-request">Create Leave Request</h3>
 <p><strong>POST</strong> <code>/api/v1/leave-requests/requests/</code></p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "tipo": 1,
-  "data_inicio": "2024-06-01",
-  "data_fim": "2024-06-30",
-  "motivo": "Annual vacation",
-  "observacoes": "Will be traveling",
-  "dias_gozo": 30,
-  "tem_abono_pecuniario": true,
-  "dias_abono_pecuniario": 10
-}</code></p>
-<p><strong>Response (201 Created):</strong>
-<code>json
-{
-  "id": 15,
-  "solicitante": 1,
-  "tipo": 1,
-  "data_inicio": "2024-06-01",
-  "data_fim": "2024-06-30",
-  "status": "pendente",
-  "dias_solicitados": 30
-}</code></p>
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;tipo&quot;: 1,
+  &quot;data_inicio&quot;: &quot;2024-06-01&quot;,
+  &quot;data_fim&quot;: &quot;2024-06-30&quot;,
+  &quot;motivo&quot;: &quot;Annual vacation&quot;,
+  &quot;observacoes&quot;: &quot;Will be traveling&quot;,
+  &quot;dias_gozo&quot;: 30,
+  &quot;tem_abono_pecuniario&quot;: true,
+  &quot;dias_abono_pecuniario&quot;: 10
+}</code></pre>
+<p><strong>Response (201 Created):</strong></p>
+<pre><code>{
+  &quot;id&quot;: 15,
+  &quot;solicitante&quot;: 1,
+  &quot;tipo&quot;: 1,
+  &quot;data_inicio&quot;: &quot;2024-06-01&quot;,
+  &quot;data_fim&quot;: &quot;2024-06-30&quot;,
+  &quot;status&quot;: &quot;pendente&quot;,
+  &quot;dias_solicitados&quot;: 30
+}</code></pre>
 <hr />
 <h3 id="approve-leave-request">Approve Leave Request</h3>
 <p><strong>POST</strong> <code>/api/v1/leave-requests/requests/{id}/approve/</code></p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "status": "aprovada",
-  "comentario_aprovacao": "Approved. Enjoy your vacation!"
-}</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "message": "Solicitação aprovada com sucesso.",
-  "status": "aprovada"
-}</code></p>
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;status&quot;: &quot;aprovada&quot;,
+  &quot;comentario_aprovacao&quot;: &quot;Approved. Enjoy your vacation!&quot;
+}</code></pre>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;message&quot;: &quot;Solicita&#231;&#227;o aprovada com sucesso.&quot;,
+  &quot;status&quot;: &quot;aprovada&quot;
+}</code></pre>
 <hr />
 <h3 id="get-my-leave-balances">Get My Leave Balances</h3>
 <p><strong>GET</strong> <code>/api/v1/leave-requests/balances/my_balances/</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "count": 3,
-  "results": [
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;count&quot;: 3,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "tipo": "Vacation",
-      "ano": 2024,
-      "dias_disponiveis": 30,
-      "dias_utilizados": 15,
-      "dias_restantes": 15
+      &quot;id&quot;: 1,
+      &quot;tipo&quot;: &quot;Vacation&quot;,
+      &quot;ano&quot;: 2024,
+      &quot;dias_disponiveis&quot;: 30,
+      &quot;dias_utilizados&quot;: 15,
+      &quot;dias_restantes&quot;: 15
     }
   ]
-}</code></p>
+}</code></pre>
 <hr />
 <h3 id="get-leave-calendar">Get Leave Calendar</h3>
 <p><strong>GET</strong> <code>/api/v1/leave-requests/requests/calendar/</code></p>
 <p><strong>Query Parameters:</strong>
 - <code>year</code> - Year to display
 - <code>department</code> - Filter by department</p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "events": [
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;events&quot;: [
     {
-      "employee_name": "John Doe",
-      "start": "2024-06-01",
-      "end": "2024-06-30",
-      "type": "Vacation"
+      &quot;employee_name&quot;: &quot;John Doe&quot;,
+      &quot;start&quot;: &quot;2024-06-01&quot;,
+      &quot;end&quot;: &quot;2024-06-30&quot;,
+      &quot;type&quot;: &quot;Vacation&quot;
     }
   ]
-}</code></p>
+}</code></pre>
 <hr />
 <h2 id="report-endpoints">📈 Report Endpoints</h2>
 <h3 id="list-report-templates">List Report Templates</h3>
@@ -2421,43 +2377,40 @@ is_required: true</code></p>
 - <code>category</code> - Filter by category
 - <code>report_type</code> - Filter by type
 - <code>is_public</code> - Filter by visibility</p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "count": 10,
-  "results": [
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;count&quot;: 10,
+  &quot;results&quot;: [
     {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "name": "Employee Headcount Report",
-      "description": "Current employee count by department",
-      "report_type": "employees",
-      "category": 1,
-      "output_formats": ["pdf", "excel", "csv"],
-      "default_format": "excel",
-      "is_public": true
+      &quot;id&quot;: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+      &quot;name&quot;: &quot;Employee Headcount Report&quot;,
+      &quot;description&quot;: &quot;Current employee count by department&quot;,
+      &quot;report_type&quot;: &quot;employees&quot;,
+      &quot;category&quot;: 1,
+      &quot;output_formats&quot;: [&quot;pdf&quot;, &quot;excel&quot;, &quot;csv&quot;],
+      &quot;default_format&quot;: &quot;excel&quot;,
+      &quot;is_public&quot;: true
     }
   ]
-}</code></p>
+}</code></pre>
 <hr />
 <h3 id="execute-report">Execute Report</h3>
 <p><strong>POST</strong> <code>/api/v1/reports/templates/{id}/execute/</code></p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "output_format": "excel",
-  "parameters": {
-    "department": "Engineering",
-    "start_date": "2024-01-01",
-    "end_date": "2024-12-31"
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;output_format&quot;: &quot;excel&quot;,
+  &quot;parameters&quot;: {
+    &quot;department&quot;: &quot;Engineering&quot;,
+    &quot;start_date&quot;: &quot;2024-01-01&quot;,
+    &quot;end_date&quot;: &quot;2024-12-31&quot;
   }
-}</code></p>
-<p><strong>Response (202 Accepted):</strong>
-<code>json
-{
-  "execution_id": "550e8400-e29b-41d4-a716-446655440001",
-  "status": "pending",
-  "message": "Report execution started"
-}</code></p>
+}</code></pre>
+<p><strong>Response (202 Accepted):</strong></p>
+<pre><code>{
+  &quot;execution_id&quot;: &quot;550e8400-e29b-41d4-a716-446655440001&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;message&quot;: &quot;Report execution started&quot;
+}</code></pre>
 <hr />
 <h3 id="download-report">Download Report</h3>
 <p><strong>GET</strong> <code>/api/v1/reports/executions/{id}/download/</code></p>
@@ -2465,121 +2418,110 @@ is_required: true</code></p>
 <hr />
 <h3 id="create-report-schedule">Create Report Schedule</h3>
 <p><strong>POST</strong> <code>/api/v1/reports/schedules/</code></p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "name": "Monthly Headcount Report",
-  "template": "550e8400-e29b-41d4-a716-446655440000",
-  "frequency": "monthly",
-  "cron_expression": "0 9 1 * *",
-  "output_format": "excel",
-  "email_recipients": ["hr@company.com"],
-  "send_email_on_success": true
-}</code></p>
-<p><strong>Response (201 Created):</strong>
-<code>json
-{
-  "id": "550e8400-e29b-41d4-a716-446655440002",
-  "name": "Monthly Headcount Report",
-  "status": "active",
-  "next_execution": "2024-05-01T09:00:00Z"
-}</code></p>
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;name&quot;: &quot;Monthly Headcount Report&quot;,
+  &quot;template&quot;: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+  &quot;frequency&quot;: &quot;monthly&quot;,
+  &quot;cron_expression&quot;: &quot;0 9 1 * *&quot;,
+  &quot;output_format&quot;: &quot;excel&quot;,
+  &quot;email_recipients&quot;: [&quot;hr@company.com&quot;],
+  &quot;send_email_on_success&quot;: true
+}</code></pre>
+<p><strong>Response (201 Created):</strong></p>
+<pre><code>{
+  &quot;id&quot;: &quot;550e8400-e29b-41d4-a716-446655440002&quot;,
+  &quot;name&quot;: &quot;Monthly Headcount Report&quot;,
+  &quot;status&quot;: &quot;active&quot;,
+  &quot;next_execution&quot;: &quot;2024-05-01T09:00:00Z&quot;
+}</code></pre>
 <hr />
 <h3 id="get-dashboard-summary">Get Dashboard Summary</h3>
 <p><strong>GET</strong> <code>/api/v1/reports/dashboard/summary/</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "total_employees": 150,
-  "active_leave_requests": 12,
-  "pending_evaluations": 25,
-  "pending_terminations": 3,
-  "recent_hires": 5,
-  "upcoming_birthdays": 8
-}</code></p>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;total_employees&quot;: 150,
+  &quot;active_leave_requests&quot;: 12,
+  &quot;pending_evaluations&quot;: 25,
+  &quot;pending_terminations&quot;: 3,
+  &quot;recent_hires&quot;: 5,
+  &quot;upcoming_birthdays&quot;: 8
+}</code></pre>
 <hr />
 <h2 id="termination-endpoints">🚪 Termination Endpoints</h2>
 <h3 id="list-termination-reasons">List Termination Reasons</h3>
 <p><strong>GET</strong> <code>/api/v1/termination/reasons/</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "count": 5,
-  "results": [
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;count&quot;: 5,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "nome": "Voluntary Resignation",
-      "codigo": "VR",
-      "descricao": "Employee voluntarily resigns",
-      "ativo": true
+      &quot;id&quot;: 1,
+      &quot;nome&quot;: &quot;Voluntary Resignation&quot;,
+      &quot;codigo&quot;: &quot;VR&quot;,
+      &quot;descricao&quot;: &quot;Employee voluntarily resigns&quot;,
+      &quot;ativo&quot;: true
     }
   ]
-}</code></p>
+}</code></pre>
 <hr />
 <h3 id="create-termination-request">Create Termination Request</h3>
 <p><strong>POST</strong> <code>/api/v1/termination/requests/</code></p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "funcionario": 5,
-  "motivo": 1,
-  "data_ultimo_dia": "2024-06-30",
-  "justificativa": "Personal reasons"
-}</code></p>
-<p><strong>Response (201 Created):</strong>
-<code>json
-{
-  "id": 10,
-  "funcionario": 5,
-  "motivo": 1,
-  "status": "pendente_rh",
-  "data_ultimo_dia": "2024-06-30"
-}</code></p>
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;funcionario&quot;: 5,
+  &quot;motivo&quot;: 1,
+  &quot;data_ultimo_dia&quot;: &quot;2024-06-30&quot;,
+  &quot;justificativa&quot;: &quot;Personal reasons&quot;
+}</code></pre>
+<p><strong>Response (201 Created):</strong></p>
+<pre><code>{
+  &quot;id&quot;: 10,
+  &quot;funcionario&quot;: 5,
+  &quot;motivo&quot;: 1,
+  &quot;status&quot;: &quot;pendente_rh&quot;,
+  &quot;data_ultimo_dia&quot;: &quot;2024-06-30&quot;
+}</code></pre>
 <hr />
 <h3 id="approve-termination">Approve Termination</h3>
 <p><strong>POST</strong> <code>/api/v1/termination/requests/{id}/approve/</code></p>
-<p><strong>Request:</strong>
-<code>json
-{
-  "comentario_aprovacao_rh": "Approved. Exit interview scheduled."
-}</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "message": "Terminação aprovada com sucesso.",
-  "status": "aprovada_rh"
-}</code></p>
+<p><strong>Request:</strong></p>
+<pre><code>{
+  &quot;comentario_aprovacao_rh&quot;: &quot;Approved. Exit interview scheduled.&quot;
+}</code></pre>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;message&quot;: &quot;Termina&#231;&#227;o aprovada com sucesso.&quot;,
+  &quot;status&quot;: &quot;aprovada_rh&quot;
+}</code></pre>
 <hr />
 <h3 id="start-termination-processing">Start Termination Processing</h3>
 <p><strong>POST</strong> <code>/api/v1/termination/requests/{id}/start_processing/</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "message": "Processamento de desligamento iniciado.",
-  "status": "processando"
-}</code></p>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;message&quot;: &quot;Processamento de desligamento iniciado.&quot;,
+  &quot;status&quot;: &quot;processando&quot;
+}</code></pre>
 <hr />
 <h3 id="complete-termination">Complete Termination</h3>
 <p><strong>POST</strong> <code>/api/v1/termination/requests/{id}/complete/</code></p>
-<p><strong>Response (200 OK):</strong>
-<code>json
-{
-  "message": "Desligamento concluído com sucesso.",
-  "status": "concluida"
-}</code></p>
+<p><strong>Response (200 OK):</strong></p>
+<pre><code>{
+  &quot;message&quot;: &quot;Desligamento conclu&#237;do com sucesso.&quot;,
+  &quot;status&quot;: &quot;concluida&quot;
+}</code></pre>
 <hr />
 <h2 id="error-responses">📊 Error Responses</h2>
 <h3 id="standard-error-format">Standard Error Format</h3>
-<p><code>json
-{
-  "error": {
-    "code": "ERROR_CODE",
-    "message": "Human-readable message",
-    "details": {
-      "field_name": ["Error message for field"]
+<pre><code>{
+  &quot;error&quot;: {
+    &quot;code&quot;: &quot;ERROR_CODE&quot;,
+    &quot;message&quot;: &quot;Human-readable message&quot;,
+    &quot;details&quot;: {
+      &quot;field_name&quot;: [&quot;Error message for field&quot;]
     }
   }
-}</code></p>
+}</code></pre>
 <h3 id="common-error-codes">Common Error Codes</h3>
 <table>
 <thead>
@@ -2623,17 +2565,16 @@ is_required: true</code></p>
 </tbody>
 </table>
 <h3 id="example-error-response">Example Error Response</h3>
-<p><code>json
-{
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "Invalid input data",
-    "details": {
-      "email": ["This field is required"],
-      "cpf": ["Invalid CPF format"]
+<pre><code>{
+  &quot;error&quot;: {
+    &quot;code&quot;: &quot;VALIDATION_ERROR&quot;,
+    &quot;message&quot;: &quot;Invalid input data&quot;,
+    &quot;details&quot;: {
+      &quot;email&quot;: [&quot;This field is required&quot;],
+      &quot;cpf&quot;: [&quot;Invalid CPF format&quot;]
     }
   }
-}</code></p>
+}</code></pre>
 <hr />
 <h2 id="query-parameters">🔍 Query Parameters</h2>
 <h3 id="common-parameters">Common Parameters</h3>
@@ -2682,13 +2623,12 @@ is_required: true</code></p>
 <hr />
 <h2 id="pagination">📝 Pagination</h2>
 <p>All list endpoints support pagination:</p>
-<p><code>json
-{
-  "count": 100,
-  "next": "http://api/endpoint/?page=2",
-  "previous": null,
-  "results": [...]
-}</code></p>
+<pre><code>{
+  &quot;count&quot;: 100,
+  &quot;next&quot;: &quot;http://api/endpoint/?page=2&quot;,
+  &quot;previous&quot;: null,
+  &quot;results&quot;: [...]
+}</code></pre>
 <hr />
 <p><strong>Next:</strong> <a href="system-modeling.html">System Modeling</a></p>
 

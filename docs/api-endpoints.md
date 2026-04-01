@@ -19,10 +19,7 @@ Complete reference for all PortalRH API endpoints.
 
 Include JWT token in request headers:
 
-```http
-Authorization: Bearer <access_token>
-```
-
+<pre><code>Authorization: Bearer &lt;access_token&gt;</code></pre>
 ---
 
 ## 📋 Endpoints Overview
@@ -49,29 +46,23 @@ Authorization: Bearer <access_token>
 Authenticate user and receive JWT tokens.
 
 **Request:**
-```json
-{
-  "email": "user@example.com",
-  "password": "securepassword"
-}
-```
-
+<pre><code>{
+  &quot;email&quot;: &quot;user@example.com&quot;,
+  &quot;password&quot;: &quot;securepassword&quot;
+}</code></pre>
 **Response (200 OK):**
-```json
-{
-  "access": "eyJ0eXAiOiJKV1QiLCJhbG...",
-  "refresh": "eyJ0eXAiOiJKV1QiLCJhbG...",
-  "user": {
-    "id": 1,
-    "email": "user@example.com",
-    "first_name": "John",
-    "last_name": "Doe",
-    "role": "admin_rh"
+<pre><code>{
+  &quot;access&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;,
+  &quot;refresh&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;,
+  &quot;user&quot;: {
+    &quot;id&quot;: 1,
+    &quot;email&quot;: &quot;user@example.com&quot;,
+    &quot;first_name&quot;: &quot;John&quot;,
+    &quot;last_name&quot;: &quot;Doe&quot;,
+    &quot;role&quot;: &quot;admin_rh&quot;
   },
-  "requires_password_change": false
-}
-```
-
+  &quot;requires_password_change&quot;: false
+}</code></pre>
 ---
 
 ### Refresh Token
@@ -81,19 +72,13 @@ Authenticate user and receive JWT tokens.
 Get new access token using refresh token.
 
 **Request:**
-```json
-{
-  "refresh": "eyJ0eXAiOiJKV1QiLCJhbG..."
-}
-```
-
+<pre><code>{
+  &quot;refresh&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;
+}</code></pre>
 **Response (200 OK):**
-```json
-{
-  "access": "eyJ0eXAiOiJKV1QiLCJhbG..."
-}
-```
-
+<pre><code>{
+  &quot;access&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;
+}</code></pre>
 ---
 
 ### Verify Token
@@ -103,17 +88,11 @@ Get new access token using refresh token.
 Verify if access token is valid.
 
 **Request:**
-```json
-{
-  "token": "eyJ0eXAiOiJKV1QiLCJhbG..."
-}
-```
-
+<pre><code>{
+  &quot;token&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;
+}</code></pre>
 **Response (200 OK):**
-```json
-{}
-```
-
+<pre><code>{}</code></pre>
 ---
 
 ### Register User
@@ -123,28 +102,22 @@ Verify if access token is valid.
 Create new user (Admin RH only).
 
 **Request:**
-```json
-{
-  "email": "newuser@example.com",
-  "password": "securepassword",
-  "first_name": "Jane",
-  "last_name": "Doe",
-  "role": "funcionario"
-}
-```
-
+<pre><code>{
+  &quot;email&quot;: &quot;newuser@example.com&quot;,
+  &quot;password&quot;: &quot;securepassword&quot;,
+  &quot;first_name&quot;: &quot;Jane&quot;,
+  &quot;last_name&quot;: &quot;Doe&quot;,
+  &quot;role&quot;: &quot;funcionario&quot;
+}</code></pre>
 **Response (201 Created):**
-```json
-{
-  "id": 5,
-  "email": "newuser@example.com",
-  "first_name": "Jane",
-  "last_name": "Doe",
-  "role": "funcionario",
-  "is_active": true
-}
-```
-
+<pre><code>{
+  &quot;id&quot;: 5,
+  &quot;email&quot;: &quot;newuser@example.com&quot;,
+  &quot;first_name&quot;: &quot;Jane&quot;,
+  &quot;last_name&quot;: &quot;Doe&quot;,
+  &quot;role&quot;: &quot;funcionario&quot;,
+  &quot;is_active&quot;: true
+}</code></pre>
 ---
 
 ### First Login Password Change
@@ -154,20 +127,14 @@ Create new user (Admin RH only).
 Change password on first login.
 
 **Request:**
-```json
-{
-  "old_password": "temporary_password",
-  "new_password": "new_secure_password"
-}
-```
-
+<pre><code>{
+  &quot;old_password&quot;: &quot;temporary_password&quot;,
+  &quot;new_password&quot;: &quot;new_secure_password&quot;
+}</code></pre>
 **Response (200 OK):**
-```json
-{
-  "message": "Senha alterada com sucesso."
-}
-```
-
+<pre><code>{
+  &quot;message&quot;: &quot;Senha alterada com sucesso.&quot;
+}</code></pre>
 ---
 
 ### Check Password Change Required
@@ -177,12 +144,9 @@ Change password on first login.
 Check if user needs to change password.
 
 **Response (200 OK):**
-```json
-{
-  "requires_password_change": true
-}
-```
-
+<pre><code>{
+  &quot;requires_password_change&quot;: true
+}</code></pre>
 ---
 
 ## 👥 User Endpoints
@@ -198,24 +162,21 @@ Check if user needs to change password.
 - `page` - Page number
 
 **Response (200 OK):**
-```json
-{
-  "count": 50,
-  "next": "http://api/users/?page=2",
-  "previous": null,
-  "results": [
+<pre><code>{
+  &quot;count&quot;: 50,
+  &quot;next&quot;: &quot;http://api/users/?page=2&quot;,
+  &quot;previous&quot;: null,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "email": "admin@portalrh.com",
-      "first_name": "Admin",
-      "last_name": "RH",
-      "role": "admin_rh",
-      "is_active": true
+      &quot;id&quot;: 1,
+      &quot;email&quot;: &quot;admin@portalrh.com&quot;,
+      &quot;first_name&quot;: &quot;Admin&quot;,
+      &quot;last_name&quot;: &quot;RH&quot;,
+      &quot;role&quot;: &quot;admin_rh&quot;,
+      &quot;is_active&quot;: true
     }
   ]
-}
-```
-
+}</code></pre>
 ---
 
 ### Get User Profile
@@ -225,17 +186,14 @@ Check if user needs to change password.
 Get current authenticated user's profile.
 
 **Response (200 OK):**
-```json
-{
-  "id": 1,
-  "email": "user@example.com",
-  "first_name": "John",
-  "last_name": "Doe",
-  "role": "funcionario",
-  "date_joined": "2024-01-15T10:30:00Z"
-}
-```
-
+<pre><code>{
+  &quot;id&quot;: 1,
+  &quot;email&quot;: &quot;user@example.com&quot;,
+  &quot;first_name&quot;: &quot;John&quot;,
+  &quot;last_name&quot;: &quot;Doe&quot;,
+  &quot;role&quot;: &quot;funcionario&quot;,
+  &quot;date_joined&quot;: &quot;2024-01-15T10:30:00Z&quot;
+}</code></pre>
 ---
 
 ### Change Password
@@ -243,20 +201,14 @@ Get current authenticated user's profile.
 **POST** `/api/v1/accounts/users/change_password/`
 
 **Request:**
-```json
-{
-  "old_password": "current_password",
-  "new_password": "new_password"
-}
-```
-
+<pre><code>{
+  &quot;old_password&quot;: &quot;current_password&quot;,
+  &quot;new_password&quot;: &quot;new_password&quot;
+}</code></pre>
 **Response (200 OK):**
-```json
-{
-  "message": "Senha alterada com sucesso."
-}
-```
-
+<pre><code>{
+  &quot;message&quot;: &quot;Senha alterada com sucesso.&quot;
+}</code></pre>
 ---
 
 ### Get User Statistics
@@ -266,15 +218,12 @@ Get current authenticated user's profile.
 Get user statistics (Admin RH only).
 
 **Response (200 OK):**
-```json
-{
-  "total_users": 150,
-  "active_users": 142,
-  "admin_rh_count": 5,
-  "funcionario_count": 145
-}
-```
-
+<pre><code>{
+  &quot;total_users&quot;: 150,
+  &quot;active_users&quot;: 142,
+  &quot;admin_rh_count&quot;: 5,
+  &quot;funcionario_count&quot;: 145
+}</code></pre>
 ---
 
 ## 👨‍💼 Employee Endpoints
@@ -290,26 +239,23 @@ Get user statistics (Admin RH only).
 - `page` - Page number
 
 **Response (200 OK):**
-```json
-{
-  "count": 100,
-  "next": null,
-  "previous": null,
-  "results": [
+<pre><code>{
+  &quot;count&quot;: 100,
+  &quot;next&quot;: null,
+  &quot;previous&quot;: null,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "employee_id": "EMP-0001",
-      "full_name": "John Doe",
-      "email": "john@company.com",
-      "department": "Engineering",
-      "position": "Developer",
-      "status": "active",
-      "hire_date": "2024-01-15"
+      &quot;id&quot;: 1,
+      &quot;employee_id&quot;: &quot;EMP-0001&quot;,
+      &quot;full_name&quot;: &quot;John Doe&quot;,
+      &quot;email&quot;: &quot;john@company.com&quot;,
+      &quot;department&quot;: &quot;Engineering&quot;,
+      &quot;position&quot;: &quot;Developer&quot;,
+      &quot;status&quot;: &quot;active&quot;,
+      &quot;hire_date&quot;: &quot;2024-01-15&quot;
     }
   ]
-}
-```
-
+}</code></pre>
 ---
 
 ### Get Employee Detail
@@ -317,32 +263,29 @@ Get user statistics (Admin RH only).
 **GET** `/api/v1/employees/employees/{id}/`
 
 **Response (200 OK):**
-```json
-{
-  "id": 1,
-  "employee_id": "EMP-0001",
-  "user": 1,
-  "full_name": "John Doe",
-  "cpf": "123.456.789-00",
-  "rg": "12.345.678-9",
-  "birth_date": "1990-05-15",
-  "phone": "(11) 99999-9999",
-  "email": "john@company.com",
-  "street_address": "Rua Principal",
-  "address_number": "123",
-  "neighborhood": "Centro",
-  "city": "São Paulo",
-  "state": "SP",
-  "zip_code": "01000-000",
-  "department": "Engineering",
-  "position": "Developer",
-  "hire_date": "2024-01-15",
-  "salary": "5000.00",
-  "status": "active",
-  "admission_completed": true
-}
-```
-
+<pre><code>{
+  &quot;id&quot;: 1,
+  &quot;employee_id&quot;: &quot;EMP-0001&quot;,
+  &quot;user&quot;: 1,
+  &quot;full_name&quot;: &quot;John Doe&quot;,
+  &quot;cpf&quot;: &quot;123.456.789-00&quot;,
+  &quot;rg&quot;: &quot;12.345.678-9&quot;,
+  &quot;birth_date&quot;: &quot;1990-05-15&quot;,
+  &quot;phone&quot;: &quot;(11) 99999-9999&quot;,
+  &quot;email&quot;: &quot;john@company.com&quot;,
+  &quot;street_address&quot;: &quot;Rua Principal&quot;,
+  &quot;address_number&quot;: &quot;123&quot;,
+  &quot;neighborhood&quot;: &quot;Centro&quot;,
+  &quot;city&quot;: &quot;S&#227;o Paulo&quot;,
+  &quot;state&quot;: &quot;SP&quot;,
+  &quot;zip_code&quot;: &quot;01000-000&quot;,
+  &quot;department&quot;: &quot;Engineering&quot;,
+  &quot;position&quot;: &quot;Developer&quot;,
+  &quot;hire_date&quot;: &quot;2024-01-15&quot;,
+  &quot;salary&quot;: &quot;5000.00&quot;,
+  &quot;status&quot;: &quot;active&quot;,
+  &quot;admission_completed&quot;: true
+}</code></pre>
 ---
 
 ### Create Employee
@@ -350,38 +293,32 @@ Get user statistics (Admin RH only).
 **POST** `/api/v1/employees/employees/`
 
 **Request:**
-```json
-{
-  "user": 1,
-  "full_name": "Jane Doe",
-  "cpf": "987.654.321-00",
-  "rg": "98.765.432-1",
-  "birth_date": "1992-08-20",
-  "phone": "(11) 98888-8888",
-  "email": "jane@company.com",
-  "street_address": "Rua Secundária",
-  "address_number": "456",
-  "neighborhood": "Jardins",
-  "city": "São Paulo",
-  "state": "SP",
-  "zip_code": "01001-000",
-  "department": "Marketing",
-  "position": "Designer",
-  "hire_date": "2024-02-01",
-  "salary": "4500.00"
-}
-```
-
+<pre><code>{
+  &quot;user&quot;: 1,
+  &quot;full_name&quot;: &quot;Jane Doe&quot;,
+  &quot;cpf&quot;: &quot;987.654.321-00&quot;,
+  &quot;rg&quot;: &quot;98.765.432-1&quot;,
+  &quot;birth_date&quot;: &quot;1992-08-20&quot;,
+  &quot;phone&quot;: &quot;(11) 98888-8888&quot;,
+  &quot;email&quot;: &quot;jane@company.com&quot;,
+  &quot;street_address&quot;: &quot;Rua Secund&#225;ria&quot;,
+  &quot;address_number&quot;: &quot;456&quot;,
+  &quot;neighborhood&quot;: &quot;Jardins&quot;,
+  &quot;city&quot;: &quot;S&#227;o Paulo&quot;,
+  &quot;state&quot;: &quot;SP&quot;,
+  &quot;zip_code&quot;: &quot;01001-000&quot;,
+  &quot;department&quot;: &quot;Marketing&quot;,
+  &quot;position&quot;: &quot;Designer&quot;,
+  &quot;hire_date&quot;: &quot;2024-02-01&quot;,
+  &quot;salary&quot;: &quot;4500.00&quot;
+}</code></pre>
 **Response (201 Created):**
-```json
-{
-  "id": 2,
-  "employee_id": "EMP-0002",
-  "full_name": "Jane Doe",
+<pre><code>{
+  &quot;id&quot;: 2,
+  &quot;employee_id&quot;: &quot;EMP-0002&quot;,
+  &quot;full_name&quot;: &quot;Jane Doe&quot;,
   ...
-}
-```
-
+}</code></pre>
 ---
 
 ### Get My Profile
@@ -391,15 +328,12 @@ Get user statistics (Admin RH only).
 Get current user's employee profile.
 
 **Response (200 OK):**
-```json
-{
-  "id": 1,
-  "employee_id": "EMP-0001",
-  "full_name": "John Doe",
+<pre><code>{
+  &quot;id&quot;: 1,
+  &quot;employee_id&quot;: &quot;EMP-0001&quot;,
+  &quot;full_name&quot;: &quot;John Doe&quot;,
   ...
-}
-```
-
+}</code></pre>
 ---
 
 ### Update Personal Information
@@ -407,21 +341,15 @@ Get current user's employee profile.
 **PATCH** `/api/v1/employees/employees/{id}/update_personal_info/`
 
 **Request:**
-```json
-{
-  "phone": "(11) 97777-7777",
-  "street_address": "Nova Rua",
-  "address_number": "789"
-}
-```
-
+<pre><code>{
+  &quot;phone&quot;: &quot;(11) 97777-7777&quot;,
+  &quot;street_address&quot;: &quot;Nova Rua&quot;,
+  &quot;address_number&quot;: &quot;789&quot;
+}</code></pre>
 **Response (200 OK):**
-```json
-{
-  "message": "Informações atualizadas com sucesso."
-}
-```
-
+<pre><code>{
+  &quot;message&quot;: &quot;Informa&#231;&#245;es atualizadas com sucesso.&quot;
+}</code></pre>
 ---
 
 ### Get Admission Status
@@ -429,17 +357,14 @@ Get current user's employee profile.
 **GET** `/api/v1/employees/employees/{id}/admission_status/`
 
 **Response (200 OK):**
-```json
-{
-  "employee_id": "EMP-0001",
-  "status": "documents_uploaded",
-  "completion_percentage": 75,
-  "personal_info_completed": true,
-  "documents_uploaded": true,
-  "hr_review_completed": false
-}
-```
-
+<pre><code>{
+  &quot;employee_id&quot;: &quot;EMP-0001&quot;,
+  &quot;status&quot;: &quot;documents_uploaded&quot;,
+  &quot;completion_percentage&quot;: 75,
+  &quot;personal_info_completed&quot;: true,
+  &quot;documents_uploaded&quot;: true,
+  &quot;hr_review_completed&quot;: false
+}</code></pre>
 ---
 
 ## 📄 Employee Document Endpoints
@@ -449,25 +374,22 @@ Get current user's employee profile.
 **GET** `/api/v1/employees/employees/{employee_pk}/documents/`
 
 **Response (200 OK):**
-```json
-{
-  "count": 5,
-  "results": [
+<pre><code>{
+  &quot;count&quot;: 5,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "employee": 1,
-      "document_type": "rg",
-      "document_name": "RG Front",
-      "file": "/media/employees/documents/rg_001.pdf",
-      "file_size": 102400,
-      "uploaded_at": "2024-01-15T10:00:00Z",
-      "is_required": true,
-      "is_verified": false
+      &quot;id&quot;: 1,
+      &quot;employee&quot;: 1,
+      &quot;document_type&quot;: &quot;rg&quot;,
+      &quot;document_name&quot;: &quot;RG Front&quot;,
+      &quot;file&quot;: &quot;/media/employees/documents/rg_001.pdf&quot;,
+      &quot;file_size&quot;: 102400,
+      &quot;uploaded_at&quot;: &quot;2024-01-15T10:00:00Z&quot;,
+      &quot;is_required&quot;: true,
+      &quot;is_verified&quot;: false
     }
   ]
-}
-```
-
+}</code></pre>
 ---
 
 ### Upload Document
@@ -477,23 +399,17 @@ Get current user's employee profile.
 **Content-Type:** `multipart/form-data`
 
 **Request:**
-```
-document_type: rg
+<pre><code>document_type: rg
 document_name: RG Front
-file: <file>
-is_required: true
-```
-
+file: &lt;file&gt;
+is_required: true</code></pre>
 **Response (201 Created):**
-```json
-{
-  "id": 1,
-  "document_type": "rg",
-  "file": "/media/employees/documents/rg_001.pdf",
+<pre><code>{
+  &quot;id&quot;: 1,
+  &quot;document_type&quot;: &quot;rg&quot;,
+  &quot;file&quot;: &quot;/media/employees/documents/rg_001.pdf&quot;,
   ...
-}
-```
-
+}</code></pre>
 ---
 
 ### Verify Document
@@ -501,19 +417,13 @@ is_required: true
 **PATCH** `/api/v1/employees/employees/{employee_pk}/documents/{id}/verify/`
 
 **Request:**
-```json
-{
-  "is_verified": true
-}
-```
-
+<pre><code>{
+  &quot;is_verified&quot;: true
+}</code></pre>
 **Response (200 OK):**
-```json
-{
-  "message": "Documento verificado com sucesso."
-}
-```
-
+<pre><code>{
+  &quot;message&quot;: &quot;Documento verificado com sucesso.&quot;
+}</code></pre>
 ---
 
 ### Get Required Documents
@@ -521,18 +431,15 @@ is_required: true
 **GET** `/api/v1/employees/employees/{employee_pk}/documents/required_documents/`
 
 **Response (200 OK):**
-```json
-{
-  "required_documents": [
-    {"type": "rg", "name": "RG", "uploaded": true},
-    {"type": "cpf", "name": "CPF", "uploaded": true},
-    {"type": "birth_certificate", "name": "Birth Certificate", "uploaded": false},
-    {"type": "residence_proof", "name": "Residence Proof", "uploaded": false},
-    {"type": "photo", "name": "Photo", "uploaded": true}
+<pre><code>{
+  &quot;required_documents&quot;: [
+    {&quot;type&quot;: &quot;rg&quot;, &quot;name&quot;: &quot;RG&quot;, &quot;uploaded&quot;: true},
+    {&quot;type&quot;: &quot;cpf&quot;, &quot;name&quot;: &quot;CPF&quot;, &quot;uploaded&quot;: true},
+    {&quot;type&quot;: &quot;birth_certificate&quot;, &quot;name&quot;: &quot;Birth Certificate&quot;, &quot;uploaded&quot;: false},
+    {&quot;type&quot;: &quot;residence_proof&quot;, &quot;name&quot;: &quot;Residence Proof&quot;, &quot;uploaded&quot;: false},
+    {&quot;type&quot;: &quot;photo&quot;, &quot;name&quot;: &quot;Photo&quot;, &quot;uploaded&quot;: true}
   ]
-}
-```
-
+}</code></pre>
 ---
 
 ## 📊 Evaluation Endpoints
@@ -542,21 +449,18 @@ is_required: true
 **GET** `/api/v1/evaluations/templates/`
 
 **Response (200 OK):**
-```json
-{
-  "count": 3,
-  "results": [
+<pre><code>{
+  &quot;count&quot;: 3,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "nome": "Annual Performance Review",
-      "descricao": "Annual evaluation template",
-      "ativo": true,
-      "created_at": "2024-01-01T00:00:00Z"
+      &quot;id&quot;: 1,
+      &quot;nome&quot;: &quot;Annual Performance Review&quot;,
+      &quot;descricao&quot;: &quot;Annual evaluation template&quot;,
+      &quot;ativo&quot;: true,
+      &quot;created_at&quot;: &quot;2024-01-01T00:00:00Z&quot;
     }
   ]
-}
-```
-
+}</code></pre>
 ---
 
 ### Create Evaluation
@@ -564,31 +468,25 @@ is_required: true
 **POST** `/api/v1/evaluations/evaluations/`
 
 **Request:**
-```json
-{
-  "template": 1,
-  "avaliado": 5,
-  "avaliador": 1,
-  "tipo": "avaliacao_superior",
-  "periodo_inicio": "2024-01-01",
-  "periodo_fim": "2024-12-31",
-  "status": "pendente"
-}
-```
-
+<pre><code>{
+  &quot;template&quot;: 1,
+  &quot;avaliado&quot;: 5,
+  &quot;avaliador&quot;: 1,
+  &quot;tipo&quot;: &quot;avaliacao_superior&quot;,
+  &quot;periodo_inicio&quot;: &quot;2024-01-01&quot;,
+  &quot;periodo_fim&quot;: &quot;2024-12-31&quot;,
+  &quot;status&quot;: &quot;pendente&quot;
+}</code></pre>
 **Response (201 Created):**
-```json
-{
-  "id": 10,
-  "template": 1,
-  "avaliado": 5,
-  "avaliador": 1,
-  "tipo": "avaliacao_superior",
-  "status": "pendente",
+<pre><code>{
+  &quot;id&quot;: 10,
+  &quot;template&quot;: 1,
+  &quot;avaliado&quot;: 5,
+  &quot;avaliador&quot;: 1,
+  &quot;tipo&quot;: &quot;avaliacao_superior&quot;,
+  &quot;status&quot;: &quot;pendente&quot;,
   ...
-}
-```
-
+}</code></pre>
 ---
 
 ### Submit Evaluation Score
@@ -596,26 +494,20 @@ is_required: true
 **POST** `/api/v1/evaluations/scores/`
 
 **Request:**
-```json
-{
-  "avaliacao": 10,
-  "criterio": 1,
-  "nota": "8.5",
-  "comentario": "Great performance"
-}
-```
-
+<pre><code>{
+  &quot;avaliacao&quot;: 10,
+  &quot;criterio&quot;: 1,
+  &quot;nota&quot;: &quot;8.5&quot;,
+  &quot;comentario&quot;: &quot;Great performance&quot;
+}</code></pre>
 **Response (201 Created):**
-```json
-{
-  "id": 50,
-  "avaliacao": 10,
-  "criterio": 1,
-  "nota": "8.50",
-  "comentario": "Great performance"
-}
-```
-
+<pre><code>{
+  &quot;id&quot;: 50,
+  &quot;avaliacao&quot;: 10,
+  &quot;criterio&quot;: 1,
+  &quot;nota&quot;: &quot;8.50&quot;,
+  &quot;comentario&quot;: &quot;Great performance&quot;
+}</code></pre>
 ---
 
 ### Get My Evaluations
@@ -623,22 +515,19 @@ is_required: true
 **GET** `/api/v1/evaluations/evaluations/my_evaluations/`
 
 **Response (200 OK):**
-```json
-{
-  "count": 5,
-  "results": [
+<pre><code>{
+  &quot;count&quot;: 5,
+  &quot;results&quot;: [
     {
-      "id": 10,
-      "template_name": "Annual Performance Review",
-      "tipo": "avaliacao_superior",
-      "status": "concluida",
-      "nota_final": "8.75",
-      "data_conclusao": "2024-12-15T10:00:00Z"
+      &quot;id&quot;: 10,
+      &quot;template_name&quot;: &quot;Annual Performance Review&quot;,
+      &quot;tipo&quot;: &quot;avaliacao_superior&quot;,
+      &quot;status&quot;: &quot;concluida&quot;,
+      &quot;nota_final&quot;: &quot;8.75&quot;,
+      &quot;data_conclusao&quot;: &quot;2024-12-15T10:00:00Z&quot;
     }
   ]
-}
-```
-
+}</code></pre>
 ---
 
 ### Start Evaluation Cycle
@@ -646,13 +535,10 @@ is_required: true
 **POST** `/api/v1/evaluations/cycles/{id}/start/`
 
 **Response (200 OK):**
-```json
-{
-  "message": "Ciclo iniciado com sucesso.",
-  "status": "ativo"
-}
-```
-
+<pre><code>{
+  &quot;message&quot;: &quot;Ciclo iniciado com sucesso.&quot;,
+  &quot;status&quot;: &quot;ativo&quot;
+}</code></pre>
 ---
 
 ## 🏖️ Leave Request Endpoints
@@ -662,22 +548,19 @@ is_required: true
 **GET** `/api/v1/leave-requests/types/`
 
 **Response (200 OK):**
-```json
-{
-  "count": 4,
-  "results": [
+<pre><code>{
+  &quot;count&quot;: 4,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "nome": "Vacation",
-      "descricao": "Annual vacation leave",
-      "max_dias_ano": 30,
-      "requer_aprovacao": true,
-      "ativo": true
+      &quot;id&quot;: 1,
+      &quot;nome&quot;: &quot;Vacation&quot;,
+      &quot;descricao&quot;: &quot;Annual vacation leave&quot;,
+      &quot;max_dias_ano&quot;: 30,
+      &quot;requer_aprovacao&quot;: true,
+      &quot;ativo&quot;: true
     }
   ]
-}
-```
-
+}</code></pre>
 ---
 
 ### Create Leave Request
@@ -685,32 +568,26 @@ is_required: true
 **POST** `/api/v1/leave-requests/requests/`
 
 **Request:**
-```json
-{
-  "tipo": 1,
-  "data_inicio": "2024-06-01",
-  "data_fim": "2024-06-30",
-  "motivo": "Annual vacation",
-  "observacoes": "Will be traveling",
-  "dias_gozo": 30,
-  "tem_abono_pecuniario": true,
-  "dias_abono_pecuniario": 10
-}
-```
-
+<pre><code>{
+  &quot;tipo&quot;: 1,
+  &quot;data_inicio&quot;: &quot;2024-06-01&quot;,
+  &quot;data_fim&quot;: &quot;2024-06-30&quot;,
+  &quot;motivo&quot;: &quot;Annual vacation&quot;,
+  &quot;observacoes&quot;: &quot;Will be traveling&quot;,
+  &quot;dias_gozo&quot;: 30,
+  &quot;tem_abono_pecuniario&quot;: true,
+  &quot;dias_abono_pecuniario&quot;: 10
+}</code></pre>
 **Response (201 Created):**
-```json
-{
-  "id": 15,
-  "solicitante": 1,
-  "tipo": 1,
-  "data_inicio": "2024-06-01",
-  "data_fim": "2024-06-30",
-  "status": "pendente",
-  "dias_solicitados": 30
-}
-```
-
+<pre><code>{
+  &quot;id&quot;: 15,
+  &quot;solicitante&quot;: 1,
+  &quot;tipo&quot;: 1,
+  &quot;data_inicio&quot;: &quot;2024-06-01&quot;,
+  &quot;data_fim&quot;: &quot;2024-06-30&quot;,
+  &quot;status&quot;: &quot;pendente&quot;,
+  &quot;dias_solicitados&quot;: 30
+}</code></pre>
 ---
 
 ### Approve Leave Request
@@ -718,21 +595,15 @@ is_required: true
 **POST** `/api/v1/leave-requests/requests/{id}/approve/`
 
 **Request:**
-```json
-{
-  "status": "aprovada",
-  "comentario_aprovacao": "Approved. Enjoy your vacation!"
-}
-```
-
+<pre><code>{
+  &quot;status&quot;: &quot;aprovada&quot;,
+  &quot;comentario_aprovacao&quot;: &quot;Approved. Enjoy your vacation!&quot;
+}</code></pre>
 **Response (200 OK):**
-```json
-{
-  "message": "Solicitação aprovada com sucesso.",
-  "status": "aprovada"
-}
-```
-
+<pre><code>{
+  &quot;message&quot;: &quot;Solicita&#231;&#227;o aprovada com sucesso.&quot;,
+  &quot;status&quot;: &quot;aprovada&quot;
+}</code></pre>
 ---
 
 ### Get My Leave Balances
@@ -740,22 +611,19 @@ is_required: true
 **GET** `/api/v1/leave-requests/balances/my_balances/`
 
 **Response (200 OK):**
-```json
-{
-  "count": 3,
-  "results": [
+<pre><code>{
+  &quot;count&quot;: 3,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "tipo": "Vacation",
-      "ano": 2024,
-      "dias_disponiveis": 30,
-      "dias_utilizados": 15,
-      "dias_restantes": 15
+      &quot;id&quot;: 1,
+      &quot;tipo&quot;: &quot;Vacation&quot;,
+      &quot;ano&quot;: 2024,
+      &quot;dias_disponiveis&quot;: 30,
+      &quot;dias_utilizados&quot;: 15,
+      &quot;dias_restantes&quot;: 15
     }
   ]
-}
-```
-
+}</code></pre>
 ---
 
 ### Get Leave Calendar
@@ -767,19 +635,16 @@ is_required: true
 - `department` - Filter by department
 
 **Response (200 OK):**
-```json
-{
-  "events": [
+<pre><code>{
+  &quot;events&quot;: [
     {
-      "employee_name": "John Doe",
-      "start": "2024-06-01",
-      "end": "2024-06-30",
-      "type": "Vacation"
+      &quot;employee_name&quot;: &quot;John Doe&quot;,
+      &quot;start&quot;: &quot;2024-06-01&quot;,
+      &quot;end&quot;: &quot;2024-06-30&quot;,
+      &quot;type&quot;: &quot;Vacation&quot;
     }
   ]
-}
-```
-
+}</code></pre>
 ---
 
 ## 📈 Report Endpoints
@@ -794,24 +659,21 @@ is_required: true
 - `is_public` - Filter by visibility
 
 **Response (200 OK):**
-```json
-{
-  "count": 10,
-  "results": [
+<pre><code>{
+  &quot;count&quot;: 10,
+  &quot;results&quot;: [
     {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "name": "Employee Headcount Report",
-      "description": "Current employee count by department",
-      "report_type": "employees",
-      "category": 1,
-      "output_formats": ["pdf", "excel", "csv"],
-      "default_format": "excel",
-      "is_public": true
+      &quot;id&quot;: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+      &quot;name&quot;: &quot;Employee Headcount Report&quot;,
+      &quot;description&quot;: &quot;Current employee count by department&quot;,
+      &quot;report_type&quot;: &quot;employees&quot;,
+      &quot;category&quot;: 1,
+      &quot;output_formats&quot;: [&quot;pdf&quot;, &quot;excel&quot;, &quot;csv&quot;],
+      &quot;default_format&quot;: &quot;excel&quot;,
+      &quot;is_public&quot;: true
     }
   ]
-}
-```
-
+}</code></pre>
 ---
 
 ### Execute Report
@@ -819,26 +681,20 @@ is_required: true
 **POST** `/api/v1/reports/templates/{id}/execute/`
 
 **Request:**
-```json
-{
-  "output_format": "excel",
-  "parameters": {
-    "department": "Engineering",
-    "start_date": "2024-01-01",
-    "end_date": "2024-12-31"
+<pre><code>{
+  &quot;output_format&quot;: &quot;excel&quot;,
+  &quot;parameters&quot;: {
+    &quot;department&quot;: &quot;Engineering&quot;,
+    &quot;start_date&quot;: &quot;2024-01-01&quot;,
+    &quot;end_date&quot;: &quot;2024-12-31&quot;
   }
-}
-```
-
+}</code></pre>
 **Response (202 Accepted):**
-```json
-{
-  "execution_id": "550e8400-e29b-41d4-a716-446655440001",
-  "status": "pending",
-  "message": "Report execution started"
-}
-```
-
+<pre><code>{
+  &quot;execution_id&quot;: &quot;550e8400-e29b-41d4-a716-446655440001&quot;,
+  &quot;status&quot;: &quot;pending&quot;,
+  &quot;message&quot;: &quot;Report execution started&quot;
+}</code></pre>
 ---
 
 ### Download Report
@@ -854,28 +710,22 @@ is_required: true
 **POST** `/api/v1/reports/schedules/`
 
 **Request:**
-```json
-{
-  "name": "Monthly Headcount Report",
-  "template": "550e8400-e29b-41d4-a716-446655440000",
-  "frequency": "monthly",
-  "cron_expression": "0 9 1 * *",
-  "output_format": "excel",
-  "email_recipients": ["hr@company.com"],
-  "send_email_on_success": true
-}
-```
-
+<pre><code>{
+  &quot;name&quot;: &quot;Monthly Headcount Report&quot;,
+  &quot;template&quot;: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+  &quot;frequency&quot;: &quot;monthly&quot;,
+  &quot;cron_expression&quot;: &quot;0 9 1 * *&quot;,
+  &quot;output_format&quot;: &quot;excel&quot;,
+  &quot;email_recipients&quot;: [&quot;hr@company.com&quot;],
+  &quot;send_email_on_success&quot;: true
+}</code></pre>
 **Response (201 Created):**
-```json
-{
-  "id": "550e8400-e29b-41d4-a716-446655440002",
-  "name": "Monthly Headcount Report",
-  "status": "active",
-  "next_execution": "2024-05-01T09:00:00Z"
-}
-```
-
+<pre><code>{
+  &quot;id&quot;: &quot;550e8400-e29b-41d4-a716-446655440002&quot;,
+  &quot;name&quot;: &quot;Monthly Headcount Report&quot;,
+  &quot;status&quot;: &quot;active&quot;,
+  &quot;next_execution&quot;: &quot;2024-05-01T09:00:00Z&quot;
+}</code></pre>
 ---
 
 ### Get Dashboard Summary
@@ -883,17 +733,14 @@ is_required: true
 **GET** `/api/v1/reports/dashboard/summary/`
 
 **Response (200 OK):**
-```json
-{
-  "total_employees": 150,
-  "active_leave_requests": 12,
-  "pending_evaluations": 25,
-  "pending_terminations": 3,
-  "recent_hires": 5,
-  "upcoming_birthdays": 8
-}
-```
-
+<pre><code>{
+  &quot;total_employees&quot;: 150,
+  &quot;active_leave_requests&quot;: 12,
+  &quot;pending_evaluations&quot;: 25,
+  &quot;pending_terminations&quot;: 3,
+  &quot;recent_hires&quot;: 5,
+  &quot;upcoming_birthdays&quot;: 8
+}</code></pre>
 ---
 
 ## 🚪 Termination Endpoints
@@ -903,21 +750,18 @@ is_required: true
 **GET** `/api/v1/termination/reasons/`
 
 **Response (200 OK):**
-```json
-{
-  "count": 5,
-  "results": [
+<pre><code>{
+  &quot;count&quot;: 5,
+  &quot;results&quot;: [
     {
-      "id": 1,
-      "nome": "Voluntary Resignation",
-      "codigo": "VR",
-      "descricao": "Employee voluntarily resigns",
-      "ativo": true
+      &quot;id&quot;: 1,
+      &quot;nome&quot;: &quot;Voluntary Resignation&quot;,
+      &quot;codigo&quot;: &quot;VR&quot;,
+      &quot;descricao&quot;: &quot;Employee voluntarily resigns&quot;,
+      &quot;ativo&quot;: true
     }
   ]
-}
-```
-
+}</code></pre>
 ---
 
 ### Create Termination Request
@@ -925,26 +769,20 @@ is_required: true
 **POST** `/api/v1/termination/requests/`
 
 **Request:**
-```json
-{
-  "funcionario": 5,
-  "motivo": 1,
-  "data_ultimo_dia": "2024-06-30",
-  "justificativa": "Personal reasons"
-}
-```
-
+<pre><code>{
+  &quot;funcionario&quot;: 5,
+  &quot;motivo&quot;: 1,
+  &quot;data_ultimo_dia&quot;: &quot;2024-06-30&quot;,
+  &quot;justificativa&quot;: &quot;Personal reasons&quot;
+}</code></pre>
 **Response (201 Created):**
-```json
-{
-  "id": 10,
-  "funcionario": 5,
-  "motivo": 1,
-  "status": "pendente_rh",
-  "data_ultimo_dia": "2024-06-30"
-}
-```
-
+<pre><code>{
+  &quot;id&quot;: 10,
+  &quot;funcionario&quot;: 5,
+  &quot;motivo&quot;: 1,
+  &quot;status&quot;: &quot;pendente_rh&quot;,
+  &quot;data_ultimo_dia&quot;: &quot;2024-06-30&quot;
+}</code></pre>
 ---
 
 ### Approve Termination
@@ -952,20 +790,14 @@ is_required: true
 **POST** `/api/v1/termination/requests/{id}/approve/`
 
 **Request:**
-```json
-{
-  "comentario_aprovacao_rh": "Approved. Exit interview scheduled."
-}
-```
-
+<pre><code>{
+  &quot;comentario_aprovacao_rh&quot;: &quot;Approved. Exit interview scheduled.&quot;
+}</code></pre>
 **Response (200 OK):**
-```json
-{
-  "message": "Terminação aprovada com sucesso.",
-  "status": "aprovada_rh"
-}
-```
-
+<pre><code>{
+  &quot;message&quot;: &quot;Termina&#231;&#227;o aprovada com sucesso.&quot;,
+  &quot;status&quot;: &quot;aprovada_rh&quot;
+}</code></pre>
 ---
 
 ### Start Termination Processing
@@ -973,13 +805,10 @@ is_required: true
 **POST** `/api/v1/termination/requests/{id}/start_processing/`
 
 **Response (200 OK):**
-```json
-{
-  "message": "Processamento de desligamento iniciado.",
-  "status": "processando"
-}
-```
-
+<pre><code>{
+  &quot;message&quot;: &quot;Processamento de desligamento iniciado.&quot;,
+  &quot;status&quot;: &quot;processando&quot;
+}</code></pre>
 ---
 
 ### Complete Termination
@@ -987,31 +816,25 @@ is_required: true
 **POST** `/api/v1/termination/requests/{id}/complete/`
 
 **Response (200 OK):**
-```json
-{
-  "message": "Desligamento concluído com sucesso.",
-  "status": "concluida"
-}
-```
-
+<pre><code>{
+  &quot;message&quot;: &quot;Desligamento conclu&#237;do com sucesso.&quot;,
+  &quot;status&quot;: &quot;concluida&quot;
+}</code></pre>
 ---
 
 ## 📊 Error Responses
 
 ### Standard Error Format
 
-```json
-{
-  "error": {
-    "code": "ERROR_CODE",
-    "message": "Human-readable message",
-    "details": {
-      "field_name": ["Error message for field"]
+<pre><code>{
+  &quot;error&quot;: {
+    &quot;code&quot;: &quot;ERROR_CODE&quot;,
+    &quot;message&quot;: &quot;Human-readable message&quot;,
+    &quot;details&quot;: {
+      &quot;field_name&quot;: [&quot;Error message for field&quot;]
     }
   }
-}
-```
-
+}</code></pre>
 ### Common Error Codes
 
 | Code | HTTP Status | Description |
@@ -1025,19 +848,16 @@ is_required: true
 
 ### Example Error Response
 
-```json
-{
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "Invalid input data",
-    "details": {
-      "email": ["This field is required"],
-      "cpf": ["Invalid CPF format"]
+<pre><code>{
+  &quot;error&quot;: {
+    &quot;code&quot;: &quot;VALIDATION_ERROR&quot;,
+    &quot;message&quot;: &quot;Invalid input data&quot;,
+    &quot;details&quot;: {
+      &quot;email&quot;: [&quot;This field is required&quot;],
+      &quot;cpf&quot;: [&quot;Invalid CPF format&quot;]
     }
   }
-}
-```
-
+}</code></pre>
 ---
 
 ## 🔍 Query Parameters
@@ -1064,15 +884,12 @@ is_required: true
 
 All list endpoints support pagination:
 
-```json
-{
-  "count": 100,
-  "next": "http://api/endpoint/?page=2",
-  "previous": null,
-  "results": [...]
-}
-```
-
+<pre><code>{
+  &quot;count&quot;: 100,
+  &quot;next&quot;: &quot;http://api/endpoint/?page=2&quot;,
+  &quot;previous&quot;: null,
+  &quot;results&quot;: [...]
+}</code></pre>
 ---
 
 **Next:** [System Modeling](system-modeling.md)

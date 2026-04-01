@@ -20,13 +20,8 @@
 
 Install Python packages from:
 
-```bash
-pip install -r requirements.txt
-```
-
+<pre><code>pip install -r requirements.txt</code></pre>
 ## Frontend Dependencies
 
-```bash
-cd frontend
-npm install
-```
+<pre><code>cd frontend
+npm install</code></pre>

@@ -16,10 +16,7 @@
 
 ## Commit Pattern
 
-```text
-type(scope): short description
-```
-
+<pre><code>type(scope): short description</code></pre>
 Examples:
 - `feat(employees): add admission status endpoint`
 - `fix(auth): validate refresh token rotation`

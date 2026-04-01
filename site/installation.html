@@ -745,35 +745,28 @@
 
 <h1 id="installation">Installation</h1>
 <h2 id="1-clone-repository">1. Clone Repository</h2>
-<p><code>bash
-git clone https://github.com/GabrielDLobo/01-PortalRH.git
-cd 01-PortalRH</code></p>
+<pre><code>git clone https://github.com/GabrielDLobo/01-PortalRH.git
+cd 01-PortalRH</code></pre>
 <h2 id="2-create-virtual-environment">2. Create Virtual Environment</h2>
-<p><code>bash
-python -m venv venv
-venv\Scripts\activate</code></p>
+<pre><code>python -m venv venv
+venv\Scripts\activate</code></pre>
 <h2 id="3-install-dependencies">3. Install Dependencies</h2>
-<p><code>bash
-pip install -r requirements.txt</code></p>
+<pre><code>pip install -r requirements.txt</code></pre>
 <h2 id="4-configure-environment">4. Configure Environment</h2>
 <p>Create <code>.env</code> in project root:</p>
-<p><code>env
-SECRET_KEY=change-me
+<pre><code>SECRET_KEY=change-me
 DEBUG=True
 ALLOWED_HOSTS=localhost,127.0.0.1
-DATABASE_URL=sqlite:///db.sqlite3</code></p>
+DATABASE_URL=sqlite:///db.sqlite3</code></pre>
 <h2 id="5-prepare-database">5. Prepare Database</h2>
-<p><code>bash
-python manage.py migrate
-python manage.py createsuperuser</code></p>
+<pre><code>python manage.py migrate
+python manage.py createsuperuser</code></pre>
 <h2 id="6-start-backend">6. Start Backend</h2>
-<p><code>bash
-python manage.py runserver</code></p>
+<pre><code>python manage.py runserver</code></pre>
 <h2 id="7-start-frontend">7. Start Frontend</h2>
-<p><code>bash
-cd frontend
+<pre><code>cd frontend
 npm install
-npm run dev</code></p>
+npm run dev</code></pre>
 
 
 
