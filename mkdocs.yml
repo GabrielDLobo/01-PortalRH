@@ -1,40 +1,157 @@
-site_name: Inventory Management System
-site_description: A Django-based Inventory Management System (SGE - Sistema de Gestão de Estoque) that allows you to manage products, suppliers, and stock movements (inflows/outflows), providing a dashboard with metrics and charts. It also includes an optional AI insights module to generate short daily inventory/sales recommendations based on system data.
+site_name: PortalRH Documentation
+site_description: Complete documentation for PortalRH - Human Resources Management System built with Django REST Framework and React + TypeScript
 site_author: GabrielDLobo
-use_directory_urls: false
+site_url: https://github.com/GabrielDLobo/01-PortalRH
+copyright: Copyright &copy; 2026 GabrielDLobo
 
+use_directory_urls: true
 docs_dir: docs
 
-theme: 
+theme:
   name: material
   palette:
-    primary: navy blue
+    # Palette toggle for light mode
+    - scheme: default
+      primary: green
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: green
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  
   font:
     text: Roboto
+    code: Roboto Mono
+  
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+    - content.code.select
+    - content.action.edit
+    - content.action.view
 
-nav:
-  - Home: index.md
-  - Overview: overview.md
-  - Prerequisites: prerequisites.md
-  - Installation: installation.md
-  - Configuration: configuration.md
-  - Guidelines and Standards: guidelines.md
-  - Project Structure: project-structure.md
-  - API Endpoints: api-endpoints.md
-  - System Modeling: system-modeling.md
-  - Authentication and Security: authentication-security.md
-  - Development: development.md
-  - Testing: testing.md
-  - Deploy: deploy.md
-  - Contribution: contribution.md
-  - Image Projects: image-projects.md
-  - Release Notes: release-notes.md
+  icon:
+    repo: fontawesome/brands/github
+    logo: fontawesome/solid/users
 
-plugins:
-  - search
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/GabrielDLobo/01-PortalRH
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/gabrieldlobo
+  
+  version:
+    provider: mike
 
 markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: GabrielDLobo
+      repo: 01-PortalRH
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      auto_append:
+        - includes/mkdocs.md
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+      lang: en
+  - mermaid2
+  - minify:
+      minify_html: true
+
+nav:
+  - Home:
+    - index.md
+    - Overview: overview.md
+    - Quick Start: quick-start.md
+  
+  - Getting Started:
+    - Prerequisites: prerequisites.md
+    - Installation: installation.md
+    - Configuration: configuration.md
+  
+  - Development:
+    - Guidelines & Standards: guidelines.md
+    - Project Structure: structure.md
+    - Development Guide: development.md
+    - Testing: testing.md
+  
+  - API Reference:
+    - API Endpoints: api-endpoints.md
+    - Authentication: authentication.md
+  
+  - Architecture:
+    - System Modeling: system-modeling.md
+  
+  - Deployment:
+    - Deployment Guide: deployment.md
+  
+  - Community:
+    - Contributing: contributing.md
+    - Release Notes: release-notes.md
+
+extra_css:
+  - stylesheets/extra.css
+
+repo_url: https://github.com/GabrielDLobo/01-PortalRH
+repo_name: GabrielDLobo/01-PortalRH
+edit_uri: edit/master/docs/

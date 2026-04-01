@@ -1,36 +1,38 @@
 # Installation Guide
 
-This guide provides step-by-step instructions for installing the Inventory Management System using different methods.
-
-## Table of Contents
-
-1. [Clone Repository](#1-clone-repository)
-2. [Method 1: Standard Installation](#method-1-standard-installation)
-3. [Method 2: Docker Installation](#method-2-docker-installation)
-4. [Post-Installation](#post-installation)
-5. [Verification](#verification)
+This guide provides step-by-step instructions for installing PortalRH on your local development environment.
 
 ---
 
-## 1. Clone Repository
+## 📋 Overview
+
+The installation process involves:
+
+1. Cloning the repository
+2. Setting up the backend (Django)
+3. Setting up the frontend (React)
+4. Configuring the database
+5. Running initial migrations
+6. Starting the development servers
+
+---
+
+## 🔧 Step 1: Clone the Repository
+
+Clone the PortalRH repository to your local machine:
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd 02-Inventory-Management-System
+git clone https://github.com/GabrielDLobo/01-PortalRH.git
+cd 01-PortalRH
 ```
 
 ---
 
-## Method 1: Standard Installation
+## 🐍 Step 2: Backend Setup
 
-### Step 1: Create Virtual Environment
+### 2.1 Create Virtual Environment
 
-**Linux/macOS:**
-```bash
-python -m venv venv
-source venv/bin/activate
-```
+Create a Python virtual environment in the project root:
 
 **Windows:**
 ```bash
@@ -38,322 +40,319 @@ python -m venv venv
 venv\Scripts\activate
 ```
 
-You should see `(venv)` prefix in your terminal.
+**Linux/macOS:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
 
-### Step 2: Install Dependencies
+You should see `(venv)` in your terminal prompt.
+
+### 2.2 Install Python Dependencies
+
+Install all required Python packages:
 
 ```bash
-# Upgrade pip
-pip install --upgrade pip
-
-# Install all requirements
 pip install -r requirements.txt
 ```
 
-**Dependencies include:**
-- Django 5.0.1
-- djangorestframework 3.15.1
-- djangorestframework-simplejwt 5.3.1
-- psycopg2-binary 2.9.10
-- openai 1.38.0
-- httpx 0.28.1
-- pydantic 2.10.6
-- django-widget-tweaks 1.5.0
+This installs:
+- Django 5.2.6
+- Django REST Framework 3.16.1
+- SimpleJWT for authentication
+- PostgreSQL adapter
+- MkDocs for documentation
+- And other dependencies
 
-### Step 3: Database Setup
+### 2.3 Verify Installation
 
-#### Option A: SQLite (Development)
+```bash
+python -m django --version
+```
 
-No additional setup required. SQLite is configured by default for development.
+Should output: `5.2.6` or similar.
 
-#### Option B: PostgreSQL (Production)
+---
 
-1. **Install PostgreSQL** (if not already installed)
+## 📦 Step 3: Frontend Setup
 
-2. **Create Database:**
+### 3.1 Navigate to Frontend Directory
+
+```bash
+cd frontend
+```
+
+### 3.2 Install Node Dependencies
+
+```bash
+npm install
+```
+
+This installs all React dependencies including:
+- React 19
+- TypeScript
+- TailwindCSS
+- React Router
+- Axios
+- And other frontend packages
+
+### 3.3 Verify Installation
+
+```bash
+npm list react
+```
+
+Should show React 19.x.x.
+
+### 3.4 Return to Project Root
+
+```bash
+cd ..
+```
+
+---
+
+## 🗄️ Step 4: Database Setup
+
+### Option A: SQLite (Development - Default)
+
+No additional setup required. SQLite is configured by default in `app/settings.py`.
+
+### Option B: PostgreSQL (Production)
+
+#### 4.1 Create Database and User
+
 ```bash
 # Access PostgreSQL
-sudo -u postgres psql
+psql -U postgres
 
 # Create database and user
-CREATE DATABASE sge;
-CREATE USER postgres WITH PASSWORD 'postgres';
-GRANT ALL PRIVILEGES ON DATABASE sge TO postgres;
+CREATE DATABASE portalrh;
+CREATE USER portalrh_user WITH PASSWORD 'your_secure_password';
+GRANT ALL PRIVILEGES ON DATABASE portalrh TO portalrh_user;
 \q
 ```
 
-3. **Update Settings:**
-   
-   Edit `app/settings.py` or create `.env` file:
+#### 4.2 Update Environment Variables
 
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sge',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+Create a `.env` file (see [Configuration](configuration.md)):
+
+```env
+DATABASE_URL=postgres://portalrh_user:your_secure_password@localhost:5432/portalrh
 ```
 
-### Step 4: Run Migrations
+---
+
+## ⚙️ Step 5: Environment Configuration
+
+### 5.1 Create .env File
+
+Copy the example environment file:
 
 ```bash
-# Apply all migrations
+cp .env.example .env
+```
+
+### 5.2 Edit .env File
+
+Open `.env` and configure for development:
+
+```env
+# Django Settings
+SECRET_KEY=django-insecure-your-development-secret-key
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+
+# Database (SQLite for development)
+DATABASE_URL=sqlite:///db.sqlite3
+
+# CORS
+CORS_ALLOWED_ORIGINS=http://localhost:3000
+
+# Frontend
+REACT_APP_API_URL=http://localhost:8000/api/v1
+```
+
+---
+
+## 🔄 Step 6: Run Migrations
+
+Apply database migrations:
+
+```bash
 python manage.py migrate
+```
 
-# Create superuser
+This creates all necessary database tables.
+
+### Create Superuser
+
+Create an admin user for accessing the Django admin interface:
+
+```bash
 python manage.py createsuperuser
-
-# Follow prompts to create admin account
-# Username: admin
-# Email: admin@example.com
-# Password: (choose a strong password)
 ```
 
-### Step 5: Start Development Server
+Follow the prompts:
+- Email address
+- Username
+- Password
+
+---
+
+## 🚀 Step 7: Start Development Servers
+
+### 7.1 Start Backend Server
+
+In your first terminal (with virtual environment activated):
 
 ```bash
-# Run the server
 python manage.py runserver
-
-# Access the application
-# http://127.0.0.1:8000
 ```
 
-**Server should output:**
+The backend will be available at: http://127.0.0.1:8000/
+
+### 7.2 Start Frontend Server
+
+Open a **new terminal** and navigate to the frontend directory:
+
+```bash
+cd frontend
+npm run dev
 ```
-Starting development server at http://127.0.0.1:8000/
-Quit the server with CTRL-BREAK.
+
+The frontend will be available at: http://localhost:3000/
+
+---
+
+## ✅ Step 8: Verify Installation
+
+### Backend Verification
+
+Visit the following URLs:
+
+- **API Root:** http://127.0.0.1:8000/api/v1/
+- **Swagger Docs:** http://127.0.0.1:8000/api/docs/
+- **ReDoc:** http://127.0.0.1:8000/api/redoc/
+- **Django Admin:** http://127.0.0.1:8000/admin/
+
+### Frontend Verification
+
+Visit: http://localhost:3000/
+
+You should see the PortalRH login page.
+
+---
+
+## 🐳 Alternative: Docker Installation
+
+For containerized setup using Docker Compose:
+
+### Start All Services
+
+```bash
+docker compose up -d
+```
+
+This starts:
+- PostgreSQL database
+- Django backend
+- React frontend
+- Nginx reverse proxy
+
+### View Logs
+
+```bash
+docker compose logs -f
+```
+
+### Stop Services
+
+```bash
+docker compose down
 ```
 
 ---
 
-## Method 2: Docker Installation
-
-### Step 1: Verify Docker Installation
-
-```bash
-docker --version
-docker-compose --version
-```
-
-### Step 2: Build and Run Containers
-
-```bash
-# Build and start all services
-docker-compose up -d --build
-
-# View running containers
-docker-compose ps
-```
-
-### Step 3: Run Migrations
-
-```bash
-# Execute migrations inside container
-docker-compose exec sge_web python manage.py migrate
-
-# Create superuser
-docker-compose exec sge_web python manage.py createsuperuser
-```
-
-### Step 4: Access the Application
+## 📁 Project Structure After Installation
 
 ```
-Web Interface: http://localhost:8000
-Admin Panel: http://localhost:8000/admin
-API: http://localhost:8000/api/v1/
-```
-
-### Docker Commands Reference
-
-```bash
-# View logs
-docker-compose logs -f sge_web
-docker-compose logs -f sge_db
-
-# Stop all services
-docker-compose down
-
-# Restart services
-docker-compose restart
-
-# Rebuild containers
-docker-compose up -d --build
-
-# Access container shell
-docker-compose exec sge_web bash
-
-# Remove all containers and volumes
-docker-compose down -v
+01-PortalRH/
+├── venv/                    # Python virtual environment
+├── frontend/
+│   └── node_modules/        # Node dependencies
+├── .env                     # Environment configuration
+├── db.sqlite3              # SQLite database (if used)
+├── manage.py               # Django management script
+└── requirements.txt        # Python dependencies
 ```
 
 ---
 
-## Post-Installation
+## ⚠️ Troubleshooting
 
-### 1. Configure OpenAI (Optional)
+### Port Already in Use
 
-Edit `ai/agent.py` or set environment variable:
+If port 8000 or 3000 is in use:
 
+**Backend:**
 ```bash
-export OPENAI_API_KEY='your-api-key-here'
-```
-
-Or create `.env` file in project root:
-
-```bash
-OPENAI_API_KEY=your-api-key-here
-```
-
-### 2. Configure Webhooks (Optional)
-
-Edit `services/notify.py` to configure webhook URL:
-
-```python
-WEBHOOK_URL = 'http://localhost:8001/api/V1/webhooks/order/'
-```
-
-### 3. Create Initial Data
-
-Access Django admin to create initial data:
-
-```
-1. Login at http://localhost:8000/admin/
-2. Create Brands
-3. Create Categories
-4. Create Suppliers
-5. Create Products
-```
-
-### 4. Configure Static Files (Production)
-
-```bash
-# Collect static files
-python manage.py collectstatic
-```
-
----
-
-## Verification
-
-### 1. Check Application Health
-
-```bash
-# Access home page
-curl http://localhost:8000/home/
-
-# Access API
-curl http://localhost:8000/api/v1/
-
-# Check admin
-curl http://localhost:8000/admin/
-```
-
-### 2. Test Database Connection
-
-```bash
-# Django shell
-python manage.py shell
-
-# Test database
->>> from products.models import Product
->>> Product.objects.count()
-0
->>> exit()
-```
-
-### 3. Verify All Services
-
-| Service | URL | Status |
-|---------|-----|--------|
-| Web App | http://localhost:8000 | ✅ |
-| Admin | http://localhost:8000/admin | ✅ |
-| API | http://localhost:8000/api/v1 | ✅ |
-| Dashboard | http://localhost:8000/home | ✅ |
-
----
-
-## Troubleshooting
-
-### Issue: Port Already in Use
-
-```bash
-# Find process using port 8000
-# Linux/macOS
-lsof -i :8000
-
-# Windows
-netstat -ano | findstr :8000
-
-# Run on different port
 python manage.py runserver 8001
 ```
 
-### Issue: Database Connection Error
+**Frontend:**
+Edit `frontend/package.json` and change the dev script port.
+
+### Migration Errors
+
+If you encounter migration errors:
 
 ```bash
-# Check PostgreSQL is running
-# Linux
-sudo systemctl status postgresql
+# Delete migration files (except __init__.py)
+# Delete database
+rm db.sqlite3  # or drop PostgreSQL database
 
-# Windows
-# Check Services -> PostgreSQL
-
-# Verify credentials in settings.py
-```
-
-### Issue: Migration Errors
-
-```bash
-# Reset migrations (development only)
-python manage.py migrate --run-syncdb
-
-# Or delete database and migrate again
-rm db.sqlite3
+# Recreate migrations
+python manage.py makemigrations
 python manage.py migrate
 ```
 
-### Issue: Permission Denied (Linux/macOS)
+### npm Install Fails
+
+Clear npm cache:
 
 ```bash
-# Install with --user flag
-pip install --user -r requirements.txt
-
-# Or fix virtualenv permissions
-chmod -R 755 venv/
+npm cache clean --force
+rm -rf node_modules package-lock.json
+npm install
 ```
 
-### Issue: Docker Container Won't Start
+### Python Package Installation Fails
+
+Upgrade pip and setuptools:
 
 ```bash
-# Check Docker daemon
-docker ps
-
-# View container logs
-docker-compose logs sge_web
-
-# Rebuild containers
-docker-compose down
-docker-compose up -d --build
+pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
 ```
 
 ---
 
-## Next Steps
+## 📚 Next Steps
 
 After successful installation:
 
-1. ✅ [Configuration](configuration.md) - Configure project settings
-2. ✅ [Project Structure](project-structure.md) - Understand the codebase
-3. ✅ [Development](development.md) - Start developing
+1. Review [Configuration Guide](configuration.md) for detailed settings
+2. Check [Development Guide](development.md) for workflow
+3. Explore [API Endpoints](api-endpoints.md) for integration
 
 ---
 
-**Installation Complete!** 🎉
+## 🆘 Getting Help
 
-You can now access the application at `http://localhost:8000` and login with your superuser credentials.
+If installation fails:
+
+1. Check error messages carefully
+2. Verify all [prerequisites](prerequisites.md) are installed
+3. Review GitHub Issues
+4. Check Django and React documentation

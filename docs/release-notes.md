@@ -1,376 +1,426 @@
 # Release Notes
 
-Version history and changelog for the Inventory Management System.
-
-## Table of Contents
-
-1. [Version 1.0.0](#version-100-march-2026)
-2. [Release Process](#release-process)
-3. [Versioning Policy](#versioning-policy)
-4. [Upgrade Guide](#upgrade-guide)
+This document contains release notes and changelog for PortalRH.
 
 ---
 
-## Version 1.0.0 - March 2026
+## 📋 Table of Contents
 
-**Release Date:** March 26, 2026
-
-**Type:** Initial Release
-
-### 🎉 Features
-
-#### Core Functionality
-- **Product Management** - Complete CRUD operations for products
-  - Track cost price, selling price, and quantity
-  - Associate products with brands and categories
-  - Serial number tracking (optional)
-  - Profit margin calculation
-
-- **Stock Control** - Inflow and Outflow management
-  - Record product entries from suppliers
-  - Track product sales/outputs
-  - Automatic quantity updates via signals
-  - Stock history tracking
-
-- **Supplier Management** - Manage supplier information
-  - Create and maintain supplier records
-  - Link suppliers to product inflows
-  - Track supplier relationships
-
-- **Brand Management** - Organize products by brand
-  - Create and manage brands
-  - Associate products with brands
-  - Brand-based filtering
-
-- **Category Management** - Categorize products
-  - Create and manage categories
-  - Hierarchical organization
-  - Category-based filtering
-
-#### Dashboard & Analytics
-- **Real-time Metrics**
-  - Total products count
-  - Total inventory value
-  - Total profit potential
-  - Sales metrics
-
-- **Charts & Visualizations**
-  - Daily sales chart (last 7 days)
-  - Products by category (doughnut chart)
-  - Products by brand (doughnut chart)
-  - Sales trend analysis
-
-- **AI Insights**
-  - OpenAI GPT-3.5-turbo integration
-  - Automated stock analysis
-  - Replenishment recommendations
-  - Sales trend insights
-
-#### API
-- **RESTful API** - Full API coverage
-  - JWT authentication
-  - CRUD endpoints for all models
-  - Filtering, searching, ordering
-  - Pagination support
-  - Permission-based access
-
-- **Authentication Endpoints**
-  - Token obtain
-  - Token refresh
-  - Token verify
-
-#### User Interface
-- **Modern Design**
-  - Dark theme with purple/blue gradients
-  - Responsive design (mobile-first)
-  - TailwindCSS styling
-  - Interactive charts with Chart.js
-
-- **Components**
-  - Reusable header component
-  - Dynamic sidebar navigation
-  - Pagination component
-  - Metric cards
-  - AI insights display
-
-#### Security
-- **Authentication**
-  - Django session auth for web
-  - JWT for API
-  - Password validation
-  - LoginRequiredMixin on all views
-
-- **Authorization**
-  - Permission-based access control
-  - Model-level permissions
-  - Group-based permissions
-
-- **Security Features**
-  - CSRF protection
-  - XSS prevention
-  - SQL injection prevention
-  - Security headers
-
-#### Integrations
-- **Webhooks** - External system integration
-  - Outflow event notifications
-  - Configurable webhook URLs
-  - HTTPX client for reliability
-
-- **OpenAI** - AI-powered insights
-  - Configurable API key
-  - Custom prompts
-  - Result storage
-
-#### Developer Experience
-- **Docker Support**
-  - Docker Compose configuration
-  - PostgreSQL container
-  - Web application container
-  - Easy setup and deployment
-
-- **Documentation**
-  - Comprehensive docs folder
-  - API documentation
-  - Installation guide
-  - Development guide
-  - Deployment guide
-
-- **Testing Infrastructure**
-  - pytest configuration
-  - Test fixtures
-  - Example test cases
-  - Coverage reporting
-
-### 📦 Technical Stack
-
-| Component | Technology | Version |
-|-----------|------------|---------|
-| **Backend** | Django | 5.0.1 |
-| **API** | Django REST Framework | 3.15.1 |
-| **Auth** | SimpleJWT | 5.3.1 |
-| **Database** | PostgreSQL / SQLite | 15+ |
-| **Frontend** | Django Templates | - |
-| **Styling** | TailwindCSS | CDN |
-| **Charts** | Chart.js | Latest |
-| **AI** | OpenAI API | 1.38.0 |
-| **HTTP Client** | HTTPX | 0.28.1 |
-| **Validation** | Pydantic | 2.10.6 |
-
-### 📋 Database Schema
-
-**Models:**
-- `Brand` - Product brands
-- `Category` - Product categories
-- `Supplier` - Product suppliers
-- `Product` - Inventory items
-- `Inflow` - Stock entries
-- `Outflow` - Stock exits
-- `AIResult` - AI insights
-
-### 🔧 Configuration
-
-**Key Settings:**
-- `DEBUG = False` (production default)
-- `LANGUAGE_CODE = 'pt-BR'`
-- `TIME_ZONE = 'UTC'`
-- JWT Access Token: 1 day
-- JWT Refresh Token: 7 days
-
-### 📝 Documentation
-
-All documentation available in `/docs`:
-- `index.md` - Documentation home
-- `overview.md` - Project overview
-- `prerequisites.md` - Requirements
-- `installation.md` - Installation guide
-- `configuration.md` - Configuration
-- `guidelines.md` - Coding standards
-- `project-structure.md` - File organization
-- `api-endpoints.md` - API reference
-- `system-modeling.md` - Architecture diagrams
-- `authentication-security.md` - Security docs
-- `development.md` - Development guide
-- `testing.md` - Testing guide
-- `deploy.md` - Deployment guide
-- `contribution.md` - Contribution guide
-- `release-notes.md` - This file
-
-### 🐛 Known Issues
-
-None at initial release.
-
-### ⚠️ Breaking Changes
-
-None - Initial release.
-
-### 🙏 Contributors
-
-- Initial development team
+- [Version 1.0.0](#version-100---2026-04-01)
+- [Version 0.9.0](#version-090---2026-03-01)
+- [Version 0.8.0](#version-080---2026-02-01)
+- [Version 0.7.0](#version-070---2026-01-01)
+- [Version 0.6.0](#version-060---2025-12-01)
 
 ---
 
-## Release Process
+## Version 1.0.0 - 2026-04-01
 
-### Pre-Release Checklist
+### 🎉 Major Release
 
-- [ ] All tests pass
-- [ ] Code review completed
-- [ ] Documentation updated
-- [ ] Changelog updated
-- [ ] Version number updated
-- [ ] Migration files created
-- [ ] Static files collected
-- [ ] Security audit completed
-- [ ] Performance tested
-- [ ] Backup strategy verified
+The first stable release of PortalRH - Human Resources Management System.
 
-### Release Steps
+### ✨ New Features
 
-1. **Update Version**
-   ```bash
-   # Update version in relevant files
-   git tag -a v1.0.0 -m "Version 1.0.0"
-   git push origin v1.0.0
-   ```
+#### Employee Management
+- Complete employee profile management
+- Document upload and verification workflow
+- Pre-admission RH process
+- Automatic user creation with temporary passwords
+- Employee ID auto-generation
+- Admission process tracking
 
-2. **Create Release on GitHub**
-   - Go to Releases
-   - Create new release
-   - Add release notes
-   - Upload artifacts
+#### Leave Management
+- Multiple leave types (vacation, sick, personal)
+- Leave request submission and approval workflow
+- Leave balance tracking by type and year
+- Vacation-specific features (abono pecuniário)
+- Priority-based request handling
+- Email notifications for approvals
 
-3. **Deploy**
-   - Deploy to staging
-   - Run smoke tests
-   - Deploy to production
-   - Monitor for issues
+#### Performance Evaluations
+- Customizable evaluation templates
+- Multiple evaluation types (self, manager, 360°)
+- Weighted criteria scoring
+- Evaluation cycles management
+- Goal tracking and development plans
+- Final score calculation
+
+#### Termination Management
+- Termination request workflow
+- HR approval process
+- Multiple termination reasons
+- Document generation
+- Exit interview tracking
+- Process completion workflow
+
+#### Reports & Analytics
+- Employee data reports
+- Leave analytics
+- Termination reports
+- Performance summaries
+- Multiple export formats (PDF, Excel, CSV)
+- Scheduled report generation
+- Report bookmarks
+
+#### Authentication & Security
+- JWT-based authentication
+- Role-based access control (Admin RH / Funcionário)
+- Token refresh mechanism
+- Password hashing with PBKDF2
+- CORS protection
+- Input validation
+
+### 🔧 Technical Features
+
+#### Backend
+- Django 5.2.6
+- Django REST Framework 3.16.1
+- SimpleJWT authentication
+- PostgreSQL/SQLite support
+- Django Filters for advanced queries
+- OpenAPI schema generation
+
+#### Frontend
+- React 19
+- TypeScript
+- TailwindCSS
+- React Router
+- Axios for API calls
+- Responsive design
+
+#### DevOps
+- Docker support
+- Docker Compose configuration
+- Nginx reverse proxy
+- Gunicorn application server
+- CI/CD ready
+
+### 📦 Database Models
+
+**Accounts:**
+- User (custom model with roles)
+
+**Employees:**
+- Employee
+- PreAdmissionRH
+- EmployeeDocument
+- AdmissionProcess
+
+**Leave Requests:**
+- LeaveType
+- LeaveRequest
+- LeaveBalance
+
+**Evaluations:**
+- EvaluationTemplate
+- EvaluationCriteria
+- Evaluation
+- EvaluationScore
+- EvaluationCycle
+- EvaluationCycleParticipant
+
+**Termination:**
+- TerminationReason
+- TerminationRequest
+- TerminationDocument
+
+**Staff:**
+- Employee
+- Department
+
+**Reports:**
+- ReportCategory
+- ReportTemplate
+- ReportExecution
+- ReportSchedule
+- ReportBookmark
+
+### 🔗 API Endpoints
+
+**Authentication:**
+- POST `/api/v1/accounts/login/`
+- POST `/api/v1/accounts/token/refresh/`
+- GET/PUT `/api/v1/accounts/profile/`
+
+**Employees:**
+- CRUD `/api/v1/employees/`
+- Documents `/api/v1/employees/{id}/documents/`
+- Pre-admission `/api/v1/employees/pre-admission/`
+- Admission `/api/v1/employees/admission/`
+
+**Leave Requests:**
+- CRUD `/api/v1/leave-requests/`
+- Types `/api/v1/leave-requests/types/`
+- Balances `/api/v1/leave-requests/balances/`
+- Approve/Reject/Cancel actions
+
+**Evaluations:**
+- CRUD `/api/v1/evaluations/`
+- Templates `/api/v1/evaluations/templates/`
+- Scores `/api/v1/evaluations/{id}/scores/`
+- Cycles `/api/v1/evaluations/cycles/`
+
+**Termination:**
+- CRUD `/api/v1/termination/`
+- Reasons `/api/v1/termination/reasons/`
+- Approve/Reject/Complete actions
+
+**Staff:**
+- CRUD `/api/v1/staff/`
+- Departments `/api/v1/staff/departments/`
+
+**Reports:**
+- Templates `/api/v1/reports/templates/`
+- Execute `/api/v1/reports/templates/{id}/execute/`
+- Schedules `/api/v1/reports/schedules/`
+- Bookmarks `/api/v1/reports/bookmarks/`
+
+### 🐛 Bug Fixes
+
+- Fixed leave balance calculation for edge cases
+- Corrected employee ID generation sequence
+- Fixed pagination in list views
+- Resolved CORS issues in development
+- Fixed date formatting in reports
+
+### ⚡ Performance Improvements
+
+- Added select_related/prefetch_related optimizations
+- Implemented database indexing
+- Added caching for frequently accessed data
+- Optimized bundle size for frontend
+- Implemented lazy loading for components
+
+### 🔒 Security
+
+- Implemented JWT authentication
+- Added role-based permissions
+- Configured CORS properly
+- Added input validation on all endpoints
+- Implemented CSRF protection
+- Added security headers
+
+### 📚 Documentation
+
+- Complete API documentation
+- System architecture diagrams
+- ERD diagrams
+- Authentication flow diagrams
+- CRUD workflow diagrams
+- Development guide
+- Deployment guide
+- Contributing guide
+
+### 🧪 Testing
+
+- Model unit tests
+- Serializer tests
+- API integration tests
+- Frontend component tests
+- E2E test examples
 
 ---
 
-## Versioning Policy
+## Version 0.9.0 - 2026-03-01
 
-We follow [Semantic Versioning](https://semver.org/):
+### 🎯 Release Candidate
 
+Final testing before stable release.
+
+### ✨ New Features
+
+- Complete reports module
+- Scheduled report generation
+- Report bookmarks
+- Email notifications
+- Document export (PDF, Excel)
+
+### 🔧 Changes
+
+- Updated to Django 5.2.6
+- Updated to React 19
+- Improved error handling
+- Better validation messages
+
+### 🐛 Bug Fixes
+
+- Fixed timezone issues
+- Corrected report generation errors
+- Fixed file upload validation
+
+---
+
+## Version 0.8.0 - 2026-02-01
+
+### 🎯 Beta Release
+
+Core features complete, testing phase.
+
+### ✨ New Features
+
+- Termination management module
+- Evaluation cycles
+- 360° feedback support
+- Advanced filtering
+
+### 🔧 Changes
+
+- Improved API structure
+- Better error responses
+- Enhanced security
+
+### 🐛 Bug Fixes
+
+- Fixed authentication edge cases
+- Corrected permission issues
+- Fixed date calculations
+
+---
+
+## Version 0.7.0 - 2026-01-01
+
+### 🎯 Alpha Release
+
+Initial feature set available.
+
+### ✨ New Features
+
+- Employee management
+- Leave requests
+- Basic evaluations
+- User authentication
+
+### 🔧 Changes
+
+- Initial project structure
+- Basic API endpoints
+- Frontend foundation
+
+---
+
+## Version 0.6.0 - 2025-12-01
+
+### 🎯 Pre-Alpha
+
+Initial development.
+
+### ✨ New Features
+
+- Project setup
+- Database models
+- Basic authentication
+
+---
+
+## 📊 Version History Summary
+
+| Version | Date | Status | Key Features |
+|---------|------|--------|--------------|
+| 1.0.0 | 2026-04-01 | Stable | Complete HRMS |
+| 0.9.0 | 2026-03-01 | RC | Reports module |
+| 0.8.0 | 2026-02-01 | Beta | Termination, evaluations |
+| 0.7.0 | 2026-01-01 | Alpha | Core features |
+| 0.6.0 | 2025-12-01 | Pre-Alpha | Initial setup |
+
+---
+
+## 🔄 Upgrade Guide
+
+### From 0.9.0 to 1.0.0
+
+```bash
+# Backup database
+python manage.py dumpdata > backup.json
+
+# Update code
+git pull origin main
+
+# Install new dependencies
+pip install -r requirements.txt
+
+# Run migrations
+python manage.py migrate
+
+# Collect static files
+python manage.py collectstatic --noinput
+
+# Restart services
+sudo systemctl restart portalrh
+sudo systemctl restart nginx
 ```
-MAJOR.MINOR.PATCH
+
+### From 0.8.0 to 0.9.0
+
+```bash
+# Update code
+git pull origin develop
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run migrations
+python manage.py migrate
+
+# Restart services
 ```
 
-- **MAJOR** - Incompatible API changes
-- **MINOR** - New functionality (backward compatible)
-- **PATCH** - Bug fixes (backward compatible)
+---
 
-### Version Numbers
+## 📅 Release Schedule
 
-| Component | Location |
-|-----------|----------|
-| **Git Tags** | `v1.0.0` |
-| **Documentation** | This file |
-| **Package** | (if published) |
+| Version | Planned Date | Focus |
+|---------|--------------|-------|
+| 1.1.0 | 2026-05-01 | Performance improvements |
+| 1.2.0 | 2026-06-01 | Mobile app support |
+| 2.0.0 | 2026-09-01 | Multi-tenant support |
 
 ---
 
-## Upgrade Guide
+## 🐛 Known Issues
 
-### From Previous Versions
+### Version 1.0.0
 
-This is the initial release (v1.0.0). No upgrade path needed.
-
-### Future Upgrades
-
-When upgrading from v1.x.x to v2.x.x:
-
-1. **Backup Database**
-   ```bash
-   pg_dump -U user sge > backup.sql
-   ```
-
-2. **Update Code**
-   ```bash
-   git pull origin main
-   ```
-
-3. **Install Dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Run Migrations**
-   ```bash
-   python manage.py migrate
-   ```
-
-5. **Collect Static**
-   ```bash
-   python manage.py collectstatic --noinput
-   ```
-
-6. **Restart Services**
-   ```bash
-   # Docker
-   docker-compose restart
-   
-   # Traditional
-   sudo systemctl restart sge
-   sudo systemctl restart nginx
-   ```
-
-7. **Verify**
-   - Test all major features
-   - Check logs for errors
-   - Monitor performance
+- [ ] Large file uploads may timeout (investigating)
+- [ ] Some reports may be slow with large datasets (optimization planned for 1.1.0)
+- [ ] Email notifications may be delayed in high-load scenarios
 
 ---
 
-## Roadmap
-
-### Planned for v1.1.0
-
-- [ ] Multi-warehouse support
-- [ ] Barcode/QR code scanning
-- [ ] Export to Excel/PDF
-- [ ] Email notifications
-- [ ] Advanced reporting
-
-### Planned for v1.2.0
-
-- [ ] Mobile application
-- [ ] Real-time notifications
-- [ ] Advanced AI predictions
-- [ ] Multi-currency support
-- [ ] API rate limiting
-
-### Under Consideration
-
-- [ ] GraphQL API
-- [ ] WebSocket support
-- [ ] Multi-tenancy
-- [ ] Audit logging
-- [ ] Advanced analytics
-
----
-
-## Support
+## 📞 Support
 
 ### Getting Help
 
-- **Documentation**: `/docs` folder
-- **Issues**: GitHub Issues
-- **Discussions**: GitHub Discussions
-- **Security**: Contact maintainers directly
+- **Documentation:** https://github.com/GabrielDLobo/01-PortalRH/tree/master/docs
+- **Issues:** https://github.com/GabrielDLobo/01-PortalRH/issues
+- **API Docs:** `/api/docs/` or `/api/redoc/`
 
 ### Reporting Issues
 
-When reporting issues with this release:
+When reporting issues, please include:
 
-1. Include version number
-2. Describe the problem
-3. Provide steps to reproduce
-4. Include relevant logs
-5. Add screenshots if applicable
+- Version number
+- Steps to reproduce
+- Expected behavior
+- Actual behavior
+- Environment details
+- Screenshots if applicable
 
 ---
 
-**Last Updated:** March 26, 2026  
-**Current Version:** 1.0.0  
-**Status:** Stable
+## 🙏 Acknowledgments
+
+Thank you to all contributors who made this release possible!
+
+---
+
+## 📚 Related Documentation
+
+- [Installation Guide](installation.md)
+- [API Endpoints](api-endpoints.md)
+- [Deployment Guide](deployment.md)
+- [Contributing Guide](contributing.md)
+
+---
+
+**Last Updated:** April 1, 2026

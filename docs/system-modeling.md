@@ -1,582 +1,692 @@
 # System Modeling
 
-This document provides comprehensive system modeling diagrams including ERD, architecture, and flow diagrams.
-
-## Table of Contents
-
-- [System Modeling](#system-modeling)
-  - [Table of Contents](#table-of-contents)
-  - [Entity Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
-    - [Relationship Details](#relationship-details)
-    - [Constraints](#constraints)
-  - [System Architecture](#system-architecture)
-    - [Architecture Layers](#architecture-layers)
-  - [Authentication Flow](#authentication-flow)
-    - [Authentication Components](#authentication-components)
-  - [CRUD Operations Flow](#crud-operations-flow)
-    - [CRUD Permissions Matrix](#crud-permissions-matrix)
-  - [Security Flow](#security-flow)
-    - [Security Layers](#security-layers)
-  - [Stock Movement Flow](#stock-movement-flow)
-    - [Stock Movement Rules](#stock-movement-rules)
-  - [Data Flow Diagram](#data-flow-diagram)
-  - [Sequence Diagram: Complete Order Flow](#sequence-diagram-complete-order-flow)
+This document provides comprehensive system modeling including data models, architecture diagrams, and workflow visualizations.
 
 ---
 
-## Entity Relationship Diagram (ERD)
+## 📊 Entity Relationship Diagram (ERD)
 
 ```mermaid
 erDiagram
-    BRAND ||--o{ PRODUCT : "has"
-    CATEGORY ||--o{ PRODUCT : "categorizes"
-    SUPPLIER ||--o{ INFLOW : "supplies"
-    PRODUCT ||--o{ INFLOW : "receives"
-    PRODUCT ||--o{ OUTFLOW : "ships"
+    ACCOUNTS_USER ||--o| EMPLOYEES_EMPLOYEE : has_profile
+    ACCOUNTS_USER ||--o| LEAVE_REQUESTS_LEAVE_REQUEST : submits
+    ACCOUNTS_USER ||--o| EVALUATIONS_EVALUATION : evaluates
+    ACCOUNTS_USER ||--o| TERMINATION_TERMINATION_REQUEST : requests
+    ACCOUNTS_USER ||--o| REPORTS_REPORT_EXECUTION : executes
     
-    BRAND {
-        int id PK
-        string name
-        text description
-        datetime created_at
-        datetime updated_at
-    }
+    EMPLOYEES_EMPLOYEE ||--o| EMPLOYEES_EMPLOYEE_DOCUMENT : has_documents
+    EMPLOYEES_EMPLOYEE ||--o| EMPLOYEES_ADMISSION_PROCESS : has_process
+    EMPLOYEES_EMPLOYEE ||--o| STAFF_EMPLOYEE : works_as
     
-    CATEGORY {
-        int id PK
-        string name
-        text description
-        datetime created_at
-        datetime updated_at
-    }
+    LEAVE_REQUESTS_LEAVE_TYPE ||--o| LEAVE_REQUESTS_LEAVE_REQUEST : defines
+    LEAVE_REQUESTS_LEAVE_REQUEST ||--o| LEAVE_REQUESTS_LEAVE_BALANCE : affects
     
-    SUPPLIER {
-        int id PK
-        string name
-        text description
-        datetime created_at
-        datetime updated_at
-    }
+    EVALUATIONS_EVALUATION_TEMPLATE ||--o| EVALUATIONS_EVALUATION_CRITERIA : contains
+    EVALUATIONS_EVALUATION_TEMPLATE ||--o| EVALUATIONS_EVALUATION : used_in
+    EVALUATIONS_EVALUATION ||--o| EVALUATIONS_EVALUATION_SCORE : contains
+    EVALUATIONS_EVALUATION_CYCLE ||--o| EVALUATIONS_CYCLE_PARTICIPANT : includes
     
-    PRODUCT {
-        int id PK
-        string title
-        int category_id FK
-        int brand_id FK
-        text description
-        decimal cost_price
-        decimal selling_price
-        int quantity
-        string serie_number
-        datetime created_at
-        datetime updated_at
-    }
+    TERMINATION_TERMINATION_REASON ||--o| TERMINATION_TERMINATION_REQUEST : defines
+    TERMINATION_TERMINATION_REQUEST ||--o| TERMINATION_TERMINATION_DOCUMENT : generates
     
-    INFLOW {
-        int id PK
-        int supplier_id FK
-        int product_id FK
-        int quantity
-        text description
-        datetime created_at
-        datetime updated_at
-    }
+    REPORTS_REPORT_TEMPLATE ||--o| REPORTS_REPORT_EXECUTION : executed_as
+    REPORTS_REPORT_TEMPLATE ||--o| REPORTS_REPORT_SCHEDULE : scheduled_as
+    REPORTS_REPORT_CATEGORY ||--o| REPORTS_REPORT_TEMPLATE : categorizes
     
-    OUTFLOW {
-        int id PK
-        int product_id FK
-        int quantity
-        text description
-        datetime created_at
-        datetime updated_at
-    }
-    
-    AIRESULT {
-        int id PK
-        text result
-        datetime created_at
-    }
+    STAFF_DEPARTMENT ||--o{ STAFF_EMPLOYEE : contains
 ```
-
-### Relationship Details
-
-| Relationship | Type | Description |
-|--------------|------|-------------|
-| Brand → Product | 1:N | One brand can have many products |
-| Category → Product | 1:N | One category can have many products |
-| Supplier → Inflow | 1:N | One supplier can have many inflows |
-| Product → Inflow | 1:N | One product can have many inflows |
-| Product → Outflow | 1:N | One product can have many outflows |
-
-### Constraints
-
-- **PROTECT** on all foreign keys: Prevents deletion of referenced records
-- **NOT NULL** on required fields: title, name, quantity, prices
-- **UNIQUE** on serie_number (when provided)
 
 ---
 
-## System Architecture
+## 🏗️ System Architecture
 
 ```mermaid
 graph TB
     subgraph Client Layer
         Browser[Web Browser]
-        Mobile[Mobile App]
-        ThirdParty[Third-Party Systems]
+        Mobile[Mobile Device]
     end
     
-    subgraph Presentation Layer
-        DjangoTemplates[Django Templates<br/>HTML/CSS/JS]
-        Dashboard[Dashboard UI]
-        Admin[Django Admin]
+    subgraph Frontend Layer
+        React[React 19 + TypeScript]
+        Tailwind[TailwindCSS]
+        Router[React Router]
     end
     
-    subgraph API Layer
-        APIGateway[API Gateway<br/>/api/v1/]
-        Auth[Authentication<br/>JWT]
-        BrandsAPI[Brands API]
-        CategoriesAPI[Categories API]
-        SuppliersAPI[Suppliers API]
-        ProductsAPI[Products API]
-        InflowsAPI[Inflows API]
-        OutflowsAPI[Outflows API]
+    subgraph API Gateway
+        Nginx[Nginx Reverse Proxy]
     end
     
-    subgraph Application Layer
-        BusinessLogic[Business Logic Layer]
-        Signals[Django Signals]
-        Validators[Data Validators]
-        Permissions[Permission System]
-    end
-    
-    subgraph Integration Layer
-        OpenAI[OpenAI Service<br/>GPT-3.5-turbo]
-        Webhooks[Webhook Service<br/>External APIs]
+    subgraph Backend Layer
+        Django[Django 5.2]
+        DRF[Django REST Framework]
+        JWT[SimpleJWT Auth]
+        Filters[Django Filters]
     end
     
     subgraph Data Layer
-        PostgreSQL[(PostgreSQL<br/>Database)]
-        Sessions[Session Store]
-        Cache[Cache Layer]
+        PostgreSQL[(PostgreSQL Database)]
+        SQLite[(SQLite Dev)]
+        Media[File Storage]
     end
     
-    Browser --> DjangoTemplates
-    Mobile --> APIGateway
-    ThirdParty --> APIGateway
-    
-    DjangoTemplates --> Dashboard
-    DjangoTemplates --> Admin
-    
-    APIGateway --> Auth
-    APIGateway --> BrandsAPI
-    APIGateway --> CategoriesAPI
-    APIGateway --> SuppliersAPI
-    APIGateway --> ProductsAPI
-    APIGateway --> InflowsAPI
-    APIGateway --> OutflowsAPI
-    
-    BrandsAPI --> BusinessLogic
-    CategoriesAPI --> BusinessLogic
-    SuppliersAPI --> BusinessLogic
-    ProductsAPI --> BusinessLogic
-    InflowsAPI --> BusinessLogic
-    OutflowsAPI --> BusinessLogic
-    
-    BusinessLogic --> Signals
-    BusinessLogic --> Validators
-    BusinessLogic --> Permissions
-    
-    BusinessLogic --> OpenAI
-    BusinessLogic --> Webhooks
-    
-    BusinessLogic --> PostgreSQL
-    BusinessLogic --> Sessions
-    BusinessLogic --> Cache
-    
-    style PostgreSQL fill:#336791,color:#fff
-    style OpenAI fill:#10a37f,color:#fff
-    style APIGateway fill:#0073b1,color:#fff
+    Browser --> React
+    Mobile --> React
+    React --> Nginx
+    Nginx --> Django
+    Django --> DRF
+    DRF --> JWT
+    DRF --> Filters
+    DRF --> PostgreSQL
+    DRF --> SQLite
+    DRF --> Media
 ```
-
-### Architecture Layers
-
-| Layer | Components | Responsibility |
-|-------|------------|----------------|
-| **Client** | Browser, Mobile, Third-party | User interaction |
-| **Presentation** | Templates, Dashboard, Admin | UI rendering |
-| **API** | REST endpoints, JWT auth | External access |
-| **Application** | Business logic, Signals | Core functionality |
-| **Integration** | OpenAI, Webhooks | External services |
-| **Data** | PostgreSQL, Cache | Data persistence |
 
 ---
 
-## Authentication Flow
+## 🔐 Authentication Flow
 
 ```mermaid
 sequenceDiagram
     participant User
     participant Frontend
-    participant API
-    participant JWT
+    participant Backend
     participant Database
-    
-    Note over User,Database: Login Flow
     
     User->>Frontend: Enter credentials
-    Frontend->>API: POST /login/ (username, password)
-    API->>Database: Validate credentials
-    Database-->>API: User data
-    API->>JWT: Generate tokens
-    JWT-->>API: access_token, refresh_token
-    API-->>Frontend: Return tokens + user data
+    Frontend->>Backend: POST /api/v1/accounts/login/
+    Backend->>Database: Validate credentials
+    Database-->>Backend: User data
+    Backend->>Backend: Generate JWT tokens
+    Backend-->>Frontend: Access + Refresh tokens
+    Frontend->>Frontend: Store tokens
     Frontend-->>User: Redirect to dashboard
     
-    Note over User,Database: API Request Flow
+    User->>Frontend: Request protected resource
+    Frontend->>Backend: GET /api/v1/employees/
+    Backend->>Backend: Validate JWT token
+    Backend->>Database: Query data
+    Database-->>Backend: Results
+    Backend-->>Frontend: Data response
+    Frontend-->>User: Display data
     
-    User->>Frontend: Navigate to products
-    Frontend->>API: GET /api/v1/products/
-    Note right of Frontend: Authorization: Bearer {token}
-    API->>JWT: Verify token
-    JWT-->>API: Token valid
-    API->>Database: Query products
-    Database-->>API: Products data
-    API-->>Frontend: Return products
-    Frontend-->>User: Display products
-    
-    Note over User,Database: Token Refresh Flow
-    
-    User->>Frontend: Continue using app
-    Frontend->>API: Request with expired token
-    API->>JWT: Verify token
-    JWT-->>API: Token expired
-    API-->>Frontend: 401 Unauthorized
-    Frontend->>API: POST /token/refresh/
-    Note right of Frontend: refresh_token
-    API->>JWT: Validate refresh token
-    JWT-->>API: Generate new access token
-    API-->>Frontend: New access_token
-    Frontend->>API: Retry request
-    API-->>Frontend: Return data
-    Frontend-->>User: Display content
-    
-    Note over User,Database: Logout Flow
-    
-    User->>Frontend: Click logout
-    Frontend->>API: POST /logout/
-    API->>JWT: Blacklist token (optional)
-    API-->>Frontend: Logout successful
-    Frontend-->>User: Redirect to login
+    Note over Frontend,Backend: Token expires after 15 minutes
+    Frontend->>Backend: POST /api/v1/accounts/token/refresh/
+    Backend->>Backend: Validate refresh token
+    Backend-->>Frontend: New access token
 ```
-
-### Authentication Components
-
-| Component | Purpose |
-|-----------|---------|
-| **JWT Access Token** | Short-lived token (1 day) for API access |
-| **JWT Refresh Token** | Long-lived token (7 days) for renewal |
-| **Session Auth** | Django session for web interface |
-| **Permission System** | Model-level permissions |
 
 ---
 
-## CRUD Operations Flow
+## 📝 CRUD Operations Flow
 
-```mermaid
-graph TD
-    subgraph Create Operations
-        StartCreate[Start Create] --> ValidateCreate[Validate Data]
-        ValidateCreate --> CheckPermissions[Check Create Permission]
-        CheckPermissions --> SaveData[Save to Database]
-        SaveData --> TriggerSignals[Trigger Signals]
-        TriggerSignals --> ReturnCreate[Return Created Object]
-    end
-    
-    subgraph Read Operations
-        StartRead[Start Read] --> CheckReadPerms[Check View Permission]
-        CheckReadPerms --> QueryData[Query Database]
-        QueryData --> ApplyFilters[Apply Filters/Sorting]
-        ApplyFilters --> Paginate[Paginate Results]
-        Paginate --> ReturnRead[Return Data]
-    end
-    
-    subgraph Update Operations
-        StartUpdate[Start Update] --> ValidateUpdate[Validate Data]
-        ValidateUpdate --> CheckUpdatePerms[Check Change Permission]
-        CheckUpdatePerms --> GetObject[Get Object]
-        GetObject --> UpdateFields[Update Fields]
-        UpdateFields --> SaveUpdate[Save Changes]
-        SaveUpdate --> ReturnUpdate[Return Updated Object]
-    end
-    
-    subgraph Delete Operations
-        StartDelete[Start Delete] --> CheckDeletePerms[Check Delete Permission]
-        CheckDeletePerms --> CheckRelations[Check Related Objects]
-        CheckRelations -->|Has Relations| BlockDelete[Block - PROTECT]
-        CheckRelations -->|No Relations| DeleteObject[Delete Object]
-        DeleteObject --> ReturnDelete[Return 204 No Content]
-    end
-    
-    style StartCreate fill:#4CAF50,color:#fff
-    style StartRead fill:#2196F3,color:#fff
-    style StartUpdate fill:#FF9800,color:#fff
-    style StartDelete fill:#f44336,color:#fff
-    style BlockDelete fill:#f44336,color:#fff
-```
-
-### CRUD Permissions Matrix
-
-| Operation | Permission Required | View |
-|-----------|---------------------|------|
-| **Create** | `add_<model>` | Admin, Managers |
-| **Read** | `view_<model>` | All authenticated users |
-| **Update** | `change_<model>` | Admin, Managers |
-| **Delete** | `delete_<model>` | Admin only |
-
----
-
-## Security Flow
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant Middleware
-    participant Auth
-    participant Permissions
-    participant View
-    participant Database
-    
-    Note over User,Database: Request Security Flow
-    
-    User->>Middleware: HTTP Request
-    Middleware->>Middleware: CSRF Check
-    Middleware-->>User: 403 if CSRF fails
-    
-    Middleware->>Auth: Check Authentication
-    Auth->>Auth: Validate JWT/Session
-    Auth-->>User: 401 if not authenticated
-    
-    Auth->>Permissions: Check Permissions
-    Permissions->>Database: Get user permissions
-    Database-->>Permissions: User groups & permissions
-    Permissions-->>User: 403 if not authorized
-    
-    Permissions->>View: Process Request
-    View->>View: Input Validation
-    View-->>User: 400 if validation fails
-    
-    View->>Database: Execute Query
-    Database-->>View: Return Data
-    
-    View->>View: Sanitize Output
-    View-->>Middleware: Response
-    Middleware-->>User: Secure Response
-    
-    Note over User,Database: Security Layers
-    
-    Note right of Middleware: 1. CSRF Protection
-    Note right of Auth: 2. Authentication
-    Note right of Permissions: 3. Authorization
-    Note right of View: 4. Input Validation
-    Note right of Database: 5. SQL Injection Prevention
-```
-
-### Security Layers
-
-| Layer | Protection | Implementation |
-|-------|------------|----------------|
-| **CSRF** | Cross-site request forgery | Django CSRF middleware |
-| **Authentication** | Unauthorized access | JWT + Session auth |
-| **Authorization** | Permission-based access | Django permissions |
-| **Input Validation** | Malicious input | Forms + Serializers |
-| **SQL Injection** | Database attacks | Django ORM |
-| **XSS** | Script injection | Template auto-escaping |
-
----
-
-## Stock Movement Flow
-
-```mermaid
-stateDiagram-v2
-    [*] --> ProductCreated: Create Product
-    ProductCreated --> LowStock: quantity < threshold
-    ProductCreated --> NormalStock: quantity >= threshold
-    
-    state Inflow Process {
-        [*] --> CreateInflow: User creates inflow
-        CreateInflow --> ValidateInflow: Validate data
-        ValidateInflow --> SaveInflow: Save to database
-        SaveInflow --> UpdateQuantity: Signal triggers
-        UpdateQuantity --> [*]: Product.quantity += inflow.quantity
-    }
-    
-    state Outflow Process {
-        [*] --> CreateOutflow: User creates outflow
-        CreateOutflow --> ValidateOutflow: Validate data
-        ValidateOutflow --> CheckStock: Check available quantity
-        CheckStock --> InsufficientStock: quantity < required
-        CheckStock --> SufficientStock: quantity >= required
-        
-        InsufficientStock --> ErrorReturn: Return error
-        SufficientStock --> SaveOutflow: Save to database
-        SaveOutflow --> DecreaseQuantity: Signal triggers
-        DecreaseQuantity --> TriggerWebhook: Send webhook
-        TriggerWebhook --> CheckLowStock: Check if low stock
-        CheckLowStock --> LowStockAlert: Send alert if low
-        CheckLowStock --> [*]: Normal
-        LowStockAlert --> [*]
-    }
-    
-    ProductCreated --> Inflow Process
-    ProductCreated --> Outflow Process
-    
-    LowStock --> CreateInflow: Auto-suggest restock
-    NormalStock --> Outflow Process
-    
-    style Inflow Process fill:#4CAF50,color:#fff
-    style Outflow Process fill:#FF9800,color:#fff
-    style InsufficientStock fill:#f44336,color:#fff
-    style LowStock fill:#ffeb3b,color:#000
-```
-
-### Stock Movement Rules
-
-| Movement | Effect | Trigger |
-|----------|--------|---------|
-| **Inflow Create** | quantity += inflow.quantity | post_save signal |
-| **Outflow Create** | quantity -= outflow.quantity | post_save signal |
-| **Outflow Check** | Validate quantity >= 0 | pre_save validation |
-| **Low Stock Alert** | Notify if quantity < threshold | post_save signal |
-
----
-
-## Data Flow Diagram
+### Employee Management CRUD
 
 ```mermaid
 graph LR
-    subgraph External Entities
-        Supplier[Supplier]
-        Customer[Customer]
-        Admin[Administrator]
-        AI[OpenAI API]
+    subgraph Create
+        A1[HR Admin] --> A2[Fill Employee Form]
+        A2 --> A3[POST /api/v1/employees/]
+        A3 --> A4[Validate Data]
+        A4 --> A5[Save to Database]
+        A5 --> A6[Return Employee]
     end
     
-    subgraph Input Processes
-        P1[Register Products]
-        P2[Record Inflows]
-        P3[Record Outflows]
-        P4[Generate Reports]
+    subgraph Read
+        B1[User] --> B2[GET /api/v1/employees/]
+        B2 --> B3[Apply Filters]
+        B3 --> B4[Query Database]
+        B4 --> B5[Serialize Data]
+        B5 --> B6[Return List]
     end
     
-    subgraph Data Stores
-        D1[(Products DB)]
-        D2[(Inflows DB)]
-        D3[(Outflows DB)]
-        D4[(Analytics DB)]
+    subgraph Update
+        C1[HR Admin] --> C2[Edit Employee Data]
+        C2 --> C3[PUT /api/v1/employees/{id}/]
+        C3 --> C4[Validate Changes]
+        C4 --> C5[Update Database]
+        C5 --> C6[Return Updated]
     end
     
-    subgraph Output Processes
-        O1[Dashboard]
-        O2[Reports]
-        O3[Alerts]
-        O4[Webhooks]
+    subgraph Delete
+        D1[HR Admin] --> D2[Confirm Delete]
+        D2 --> D3[DELETE /api/v1/employees/{id}/]
+        D3 --> D4[Soft Delete]
+        D4 --> D5[Return 204]
     end
-    
-    Supplier --> P2
-    Admin --> P1
-    Admin --> P2
-    Admin --> P3
-    Customer --> P3
-    
-    P1 --> D1
-    P2 --> D1
-    P2 --> D2
-    P3 --> D1
-    P3 --> D3
-    
-    D1 --> P4
-    D2 --> P4
-    D3 --> P4
-    
-    P4 --> D4
-    D4 --> O1
-    D4 --> O2
-    
-    D1 --> O3
-    D3 --> O4
-    P4 --> AI
-    AI --> O1
-    
-    style D1 fill:#336791,color:#fff
-    style D2 fill:#336791,color:#fff
-    style D3 fill:#336791,color:#fff
-    style D4 fill:#336791,color:#fff
 ```
 
----
-
-## Sequence Diagram: Complete Order Flow
+### Leave Request Workflow
 
 ```mermaid
-sequenceDiagram
-    participant A as Admin
-    participant S as System
-    participant P as Product
-    participant I as Inflow
-    participant O as Outflow
-    participant W as Webhook
-    participant AI as AI Service
+stateDiagram-v2
+    [*] --> Draft: Employee creates
+    Draft --> Pending: Submit request
+    Pending --> Approved: Manager approves
+    Pending --> Rejected: Manager rejects
+    Approved --> Cancelled: Employee cancels
+    Rejected --> Draft: Employee edits
+    Approved --> Taken: Leave period starts
+    Taken --> Completed: Leave ends
+    Completed --> [*]
+    Cancelled --> [*]
+    Rejected --> [*]
     
-    Note over A,AI: Product Lifecycle
+    note right of Pending
+        Requires approval
+        if days > limit
+    end note
     
-    A->>S: Create Brand/Category/Supplier
-    S-->>A: Confirm creation
+    note right of Approved
+        Balance deducted
+        Email notification
+    end note
+```
+
+### Evaluation Process Flow
+
+```mermaid
+flowchart TD
+    A[Create Evaluation Cycle] --> B[Assign Participants]
+    B --> C[Send Notifications]
+    C --> D[Self-Evaluation]
+    D --> E[Manager Evaluation]
+    E --> F[360° Feedback]
+    F --> G[Calculate Scores]
+    G --> H[Generate Report]
+    H --> I[Review Meeting]
+    I --> J[Set Goals]
+    J --> K[Complete Cycle]
     
-    A->>S: Create Product
-    S->>P: Save product (qty=0)
-    S-->>A: Product created
+    style A fill:#e1f5fe
+    style K fill:#c8e6c9
+```
+
+### Termination Process Flow
+
+```mermaid
+flowchart LR
+    A[Manager Request] --> B[HR Review]
+    B --> C{Decision}
+    C -->|Approve| D[Process Documentation]
+    C -->|Reject| E[Return to Manager]
+    D --> F[Generate Documents]
+    F --> G[Final Calculations]
+    G --> H[Exit Interview]
+    H --> I[Complete Termination]
+    I --> J[Update Records]
     
-    A->>S: Create Inflow (qty=100)
-    S->>I: Save inflow record
-    I->>P: Update quantity (0+100=100)
-    S-->>A: Inflow recorded
-    
-    Note over A,AI: Sales Process
-    
-    A->>S: Create Outflow (qty=20)
-    S->>O: Validate stock (100 >= 20)
-    O->>P: Update quantity (100-20=80)
-    O->>W: Send webhook event
-    W-->>O: Webhook acknowledged
-    
-    S->>P: Check stock level
-    P-->>S: Stock OK (80 > threshold)
-    S-->>A: Outflow recorded
-    
-    Note over A,AI: Low Stock Scenario
-    
-    A->>S: Create Outflow (qty=70)
-    S->>O: Validate stock (80 >= 70)
-    O->>P: Update quantity (80-70=10)
-    O->>W: Send webhook event
-    
-    S->>P: Check stock level
-    P-->>S: LOW STOCK (10 < threshold)
-    S->>AI: Request analysis
-    AI-->>S: Generate insights
-    S->>A: Send low stock alert
-    S-->>A: Suggest restock
-    
-    style P fill:#4CAF50,color:#fff
-    style I fill:#2196F3,color:#fff
-    style O fill:#FF9800,color:#fff
-    style W fill:#9C27B0,color:#fff
-    style AI fill:#10a37f,color:#fff
+    style C fill:#fff3e0
+    style I fill:#ffcdd2
 ```
 
 ---
 
-**Next Steps**: 
-- [Authentication & Security](authentication-security.md) - Detailed security documentation
-- [Development](development.md) - Development workflow
+## 🔒 Security Architecture
+
+```mermaid
+flowchart TB
+    subgraph Security Layers
+        A[Request] --> B[CORS Check]
+        B --> C[CSRF Protection]
+        C --> D[JWT Validation]
+        D --> E[Permission Check]
+        E --> F[Data Validation]
+        F --> G[Execute Action]
+    end
+    
+    subgraph Data Protection
+        H[Sensitive Data] --> I[Encryption at Rest]
+        J[Data in Transit] --> K[HTTPS/TLS]
+        L[Passwords] --> M[PBKDF2 Hashing]
+    end
+    
+    subgraph Audit
+        N[All Actions] --> O[Activity Logs]
+        O --> P[Security Events]
+        P --> Q[Alert System]
+    end
+    
+    G --> H
+    G --> J
+    G --> L
+    G --> N
+```
+
+---
+
+## 📦 Component Architecture
+
+### Backend Component Diagram
+
+```mermaid
+graph TB
+    subgraph Core
+        Settings[Django Settings]
+        URLs[URL Routing]
+        Middleware[Middleware Layer]
+    end
+    
+    subgraph Apps
+        Accounts[Accounts App]
+        Employees[Employees App]
+        Leave[Leave Requests App]
+        Evaluations[Evaluations App]
+        Termination[Termination App]
+        Staff[Staff App]
+        Reports[Reports App]
+    end
+    
+    subgraph Shared
+        Models[Shared Models]
+        Serializers[API Serializers]
+        Permissions[Permission Classes]
+        Utils[Utilities]
+    end
+    
+    Settings --> URLs
+    URLs --> Middleware
+    Middleware --> Accounts
+    Middleware --> Employees
+    Middleware --> Leave
+    Middleware --> Evaluations
+    Middleware --> Termination
+    Middleware --> Staff
+    Middleware --> Reports
+    
+    Accounts --> Shared
+    Employees --> Shared
+    Leave --> Shared
+    Evaluations --> Shared
+    Termination --> Shared
+    Staff --> Shared
+    Reports --> Shared
+```
+
+### Frontend Component Hierarchy
+
+```mermaid
+graph TD
+    A[App] --> B[AuthProvider]
+    A --> C[Layout]
+    
+    B --> D[Login Page]
+    B --> E[Dashboard Page]
+    
+    C --> F[Header]
+    C --> G[Sidebar]
+    C --> H[Main Content]
+    
+    H --> I[Employee List]
+    H --> J[Leave Request Form]
+    H --> K[Evaluation Cards]
+    H --> L[Reports Dashboard]
+    
+    I --> M[Employee Card]
+    I --> N[Pagination]
+    I --> O[Search Filter]
+    
+    J --> P[Date Picker]
+    J --> Q[Leave Type Select]
+    J --> R[Submit Button]
+    
+    style A fill:#e3f2fd
+    style C fill:#f3e5f5
+```
+
+---
+
+## 🔄 State Management
+
+### Frontend State Flow
+
+```mermaid
+stateDiagram-v2
+    [*] --> Loading: App starts
+    Loading --> Unauthenticated: No token
+    Loading --> Authenticated: Valid token
+    Unauthenticated --> Authenticated: Login success
+    Authenticated --> Unauthenticated: Logout
+    Authenticated --> TokenExpired: Token expires
+    TokenExpired --> Authenticated: Refresh success
+    TokenExpired --> Unauthenticated: Refresh failed
+    
+    state Authenticated {
+        [*] --> Idle
+        Idle --> Fetching: API call
+        Fetching --> Idle: Response received
+        Idle --> Error: API error
+        Error --> Idle: Retry
+    }
+```
+
+---
+
+## 📊 Database Schema Details
+
+### User & Authentication
+
+```mermaid
+classDiagram
+    class User {
+        +int id
+        +string email
+        +string username
+        +string role
+        +boolean is_active
+        +datetime created_at
+        +datetime updated_at
+        +has_perm_for_employee()
+        +is_admin_rh
+        +is_funcionario
+    }
+    
+    class Employee {
+        +int id
+        +string employee_id
+        +User user
+        +string full_name
+        +string cpf
+        +string position
+        +string department
+        +date hire_date
+        +decimal salary
+        +string status
+        +get_employee_id()
+        +get_full_name()
+    }
+    
+    User "1" -- "1" Employee : has_profile
+```
+
+### Leave Management
+
+```mermaid
+classDiagram
+    class LeaveType {
+        +int id
+        +string nome
+        +string descricao
+        +int max_dias_ano
+        +boolean requer_aprovacao
+        +int antecedencia_minima
+    }
+    
+    class LeaveRequest {
+        +int id
+        +User solicitante
+        +LeaveType tipo
+        +date data_inicio
+        +date data_fim
+        +string motivo
+        +string status
+        +int dias_gozo
+        +boolean tem_abono_pecuniario
+        +approve()
+        +reject()
+        +cancel()
+        +dias_solicitados
+    }
+    
+    class LeaveBalance {
+        +int id
+        +User funcionario
+        +LeaveType tipo
+        +int ano
+        +int dias_disponiveis
+        +int dias_utilizados
+        +dias_restantes
+        +can_request_days()
+        +use_days()
+    }
+    
+    LeaveType "1" -- "*" LeaveRequest : defines
+    LeaveType "1" -- "*" LeaveBalance : tracks
+    LeaveRequest "*" -- "1" LeaveBalance : affects
+```
+
+### Evaluations
+
+```mermaid
+classDiagram
+    class EvaluationTemplate {
+        +int id
+        +string nome
+        +string descricao
+        +boolean ativo
+    }
+    
+    class EvaluationCriteria {
+        +int id
+        +EvaluationTemplate template
+        +string nome
+        +string descricao
+        +decimal peso
+        +int ordem
+    }
+    
+    class Evaluation {
+        +int id
+        +EvaluationTemplate template
+        +User avaliado
+        +User avaliador
+        +string tipo
+        +date periodo_inicio
+        +date periodo_fim
+        +string status
+        +decimal nota_final
+        +calculate_final_score()
+        +finalize_evaluation()
+    }
+    
+    class EvaluationScore {
+        +int id
+        +Evaluation avaliacao
+        +EvaluationCriteria criterio
+        +decimal nota
+        +string comentario
+        +weighted_score
+    }
+    
+    EvaluationTemplate "1" -- "*" EvaluationCriteria : contains
+    EvaluationTemplate "1" -- "*" Evaluation : used_in
+    Evaluation "1" -- "*" EvaluationScore : contains
+    EvaluationCriteria "1" -- "*" EvaluationScore : scored_in
+```
+
+---
+
+## 🌐 Deployment Architecture
+
+```mermaid
+graph TB
+    subgraph Production
+        LB[Load Balancer]
+        
+        subgraph App Servers
+            App1[Django + Gunicorn]
+            App2[Django + Gunicorn]
+        end
+        
+        subgraph Frontend Servers
+            FE1[Nginx + React]
+            FE2[Nginx + React]
+        end
+        
+        subgraph Database
+            Primary[(PostgreSQL Primary)]
+            Replica[(PostgreSQL Replica)]
+        end
+        
+        subgraph Storage
+            S3[Object Storage]
+            CDN[CDN]
+        end
+    end
+    
+    Users[Users] --> LB
+    LB --> App1
+    LB --> App2
+    LB --> FE1
+    LB --> FE2
+    
+    App1 --> Primary
+    App2 --> Primary
+    Primary --> Replica
+    
+    App1 --> S3
+    App2 --> S3
+    S3 --> CDN
+    CDN --> FE1
+    CDN --> FE2
+```
+
+---
+
+## 📈 Performance Architecture
+
+```mermaid
+flowchart LR
+    subgraph Caching Layer
+        A[Redis Cache]
+    end
+    
+    subgraph Query Optimization
+        B[select_related]
+        C[prefetch_related]
+        D[only/defer]
+    end
+    
+    subgraph Database
+        E[(PostgreSQL)]
+        F[Indexing]
+        G[Query Cache]
+    end
+    
+    subgraph Frontend
+        H[Lazy Loading]
+        I[Code Splitting]
+        J[Virtual Scrolling]
+    end
+    
+    Request --> A
+    A --> B
+    A --> C
+    A --> D
+    B --> E
+    C --> E
+    D --> E
+    E --> F
+    E --> G
+    Response --> H
+    Response --> I
+    Response --> J
+```
+
+---
+
+## 🔄 Integration Points
+
+```mermaid
+flowchart TB
+    subgraph PortalRH
+        Core[Core System]
+    end
+    
+    subgraph External Services
+        Email[Email Service]
+        Storage[File Storage]
+        Auth[Authentication]
+    end
+    
+    subgraph Future Integrations
+        Payroll[Payroll System]
+        ATS[ATS System]
+        SSO[SSO Provider]
+    end
+    
+    Core --> Email
+    Core --> Storage
+    Core --> Auth
+    
+    Core -.-> Payroll
+    Core -.-> ATS
+    Core -.-> SSO
+```
+
+---
+
+## 📱 User Interface Flow
+
+```mermaid
+flowchart LR
+    A[Login] --> B[Dashboard]
+    B --> C[Employees]
+    B --> D[Leave Requests]
+    B --> E[Evaluations]
+    B --> F[Reports]
+    B --> G[Settings]
+    
+    C --> C1[List]
+    C --> C2[Detail]
+    C --> C3[Create/Edit]
+    
+    D --> D1[My Requests]
+    D --> D2[Pending Approval]
+    D --> D3[History]
+    
+    E --> E1[My Evaluations]
+    E --> E2[Given Evaluations]
+    E --> E3[Cycles]
+    
+    F --> F1[Generate]
+    F --> F2[Templates]
+    F --> F3[Scheduled]
+```
+
+---
+
+## 📚 Related Documentation
+
+- [API Endpoints](api-endpoints.md) - API reference
+- [Authentication](authentication.md) - Security details
+- [Development Guide](development.md) - Implementation guide
+
+---
+
+## 🎯 Key Design Decisions
+
+### Database Design
+
+- **Custom User Model:** Extended AbstractUser for role-based access
+- **One-to-One Relationships:** Employee profiles linked to users
+- **Soft Deletes:** Preserve historical data
+- **Audit Fields:** created_at, updated_at on all models
+
+### API Design
+
+- **RESTful:** Resource-based endpoints
+- **Versioning:** URL-based versioning (/api/v1/)
+- **Pagination:** Standard pagination for lists
+- **Filtering:** Django Filters for complex queries
+
+### Security Design
+
+- **JWT Authentication:** Stateless token-based auth
+- **Role-Based Access:** Two-tier role system
+- **Input Validation:** Serializer validation
+- **CORS:** Strict origin policy
+
+---
+
+## 🆘 Diagram Legend
+
+| Symbol | Meaning |
+|--------|---------|
+| `||--o{` | One-to-many relationship |
+| `||--||` | One-to-one relationship |
+| `o{--o{` | Many-to-many relationship |
+| `-->` | Data flow direction |
+| `-.->` | Optional/future integration |
+| `[]` | Component/Service |
+| `[()]` | Database |
