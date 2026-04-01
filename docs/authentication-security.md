@@ -25,9 +25,7 @@ PortalRH uses JWT authentication with access and refresh tokens.
 
 ## Recommended Production Settings
 
-```python
-DEBUG = False
+<pre><code>DEBUG = False
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-```
+CSRF_COOKIE_SECURE = True</code></pre>

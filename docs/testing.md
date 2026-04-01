@@ -8,19 +8,13 @@
 
 ## Run Tests
 
-```bash
-python manage.py test
+<pre><code>python manage.py test
 pytest
-pytest --cov=.
-```
-
+pytest --cov=.</code></pre>
 ## Run Specific Module
 
-```bash
-pytest employees/
-pytest reports/
-```
-
+<pre><code>pytest employees/
+pytest reports/</code></pre>
 ## Quality Checklist
 
 - Critical paths covered

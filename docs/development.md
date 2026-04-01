@@ -10,21 +10,13 @@
 
 ## Useful Commands
 
-```bash
-python manage.py runserver
+<pre><code>python manage.py runserver
 python manage.py test
-venv\Scripts\python -m mkdocs serve -a 127.0.0.1:8011
-```
-
+venv\Scripts\python -m mkdocs serve -a 127.0.0.1:8011</code></pre>
 ## Frontend Development
 
-```bash
-cd frontend
-npm run dev
-```
-
+<pre><code>cd frontend
+npm run dev</code></pre>
 ## Documentation Development
 
-```bash
-venv\Scripts\python -m mkdocs build
-```
+<pre><code>venv\Scripts\python -m mkdocs build</code></pre>

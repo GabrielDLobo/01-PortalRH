@@ -432,32 +432,31 @@ erDiagram
     TERMINATION_REASON ||--o{ TERMINATION_REQUEST : "categorizes"
     TERMINATION_REQUEST ||--o{ TERMINATION_DOCUMENT : "has documents"
     USER ||--o{ TERMINATION_REQUEST : "requests/approves"
-```
-
+<pre><code>
 ---
 
-## 🏗️ System Architecture
+## &#127959;️ System Architecture
 
 ```mermaid
 graph TB
-    subgraph "Client Layer"
+    subgraph &quot;Client Layer&quot;
         WEB[Web Browser]
         MOBILE[Mobile Device]
     end
 
-    subgraph "Frontend"
+    subgraph &quot;Frontend&quot;
         REACT[React Application]
     end
 
-    subgraph "API Gateway"
+    subgraph &quot;API Gateway&quot;
         NGINX[Nginx Reverse Proxy]
     end
 
-    subgraph "Application Layer"
+    subgraph &quot;Application Layer&quot;
         DJANGO[Django Application]
         GUNICORN[Gunicorn WSGI Server]
         
-        subgraph "Django Apps"
+        subgraph &quot;Django Apps&quot;
             ACCOUNTS[Accounts App]
             EMPLOYEES[Employees App]
             EVALUATIONS[Evaluations App]
@@ -468,44 +467,42 @@ graph TB
         end
     end
 
-    subgraph "Data Layer"
+    subgraph &quot;Data Layer&quot;
         POSTGRES[(PostgreSQL Database)]
         CACHE[(Redis Cache)]
         MEDIA[Media Storage]
     end
 
-    subgraph "External Services"
+    subgraph &quot;External Services&quot;
         EMAIL[Email Service]
         AUTH[Authentication Service]
     end
 
-    WEB --> NGINX
-    MOBILE --> NGINX
-    NGINX --> GUNICORN
-    GUNICORN --> DJANGO
+    WEB --&gt; NGINX
+    MOBILE --&gt; NGINX
+    NGINX --&gt; GUNICORN
+    GUNICORN --&gt; DJANGO
     
-    DJANGO --> ACCOUNTS
-    DJANGO --> EMPLOYEES
-    DJANGO --> EVALUATIONS
-    DJANGO --> LEAVE
-    DJANGO --> REPORTS
-    DJANGO --> STAFF
-    DJANGO --> TERMINATION
+    DJANGO --&gt; ACCOUNTS
+    DJANGO --&gt; EMPLOYEES
+    DJANGO --&gt; EVALUATIONS
+    DJANGO --&gt; LEAVE
+    DJANGO --&gt; REPORTS
+    DJANGO --&gt; STAFF
+    DJANGO --&gt; TERMINATION
     
-    ACCOUNTS --> POSTGRES
-    EMPLOYEES --> POSTGRES
-    EVALUATIONS --> POSTGRES
-    LEAVE --> POSTGRES
-    REPORTS --> POSTGRES
-    STAFF --> POSTGRES
-    TERMINATION --> POSTGRES
+    ACCOUNTS --&gt; POSTGRES
+    EMPLOYEES --&gt; POSTGRES
+    EVALUATIONS --&gt; POSTGRES
+    LEAVE --&gt; POSTGRES
+    REPORTS --&gt; POSTGRES
+    STAFF --&gt; POSTGRES
+    TERMINATION --&gt; POSTGRES
     
-    REPORTS --> CACHE
-    DJANGO --> MEDIA
-    ACCOUNTS --> EMAIL
-    ACCOUNTS --> AUTH
-```
-
+    REPORTS --&gt; CACHE
+    DJANGO --&gt; MEDIA
+    ACCOUNTS --&gt; EMAIL
+    ACCOUNTS --&gt; AUTH</code></pre>
 ---
 
 ## 🔐 Authentication Flow
@@ -557,49 +554,46 @@ sequenceDiagram
         DB-->>API: Success
         API-->>Frontend: Password changed
     end
-```
-
+<pre><code>
 ---
 
-## 📝 CRUD Operations Flow
+## &#128221; CRUD Operations Flow
 
 ### Employee Management
 
 ```mermaid
 flowchart TD
-    A[Start] --> B{User Role?}
-    B -->|Admin RH| C[Full Access]
-    B -->|Employee| D[Limited Access]
+    A[Start] --&gt; B{User Role?}
+    B --&gt;|Admin RH| C[Full Access]
+    B --&gt;|Employee| D[Limited Access]
     
-    C --> E[Create Employee]
-    E --> F[Pre-Admission RH]
-    F --> G[Generate Temporary Password]
-    G --> H[Send Welcome Email]
-    H --> I[Employee Account Created]
+    C --&gt; E[Create Employee]
+    E --&gt; F[Pre-Admission RH]
+    F --&gt; G[Generate Temporary Password]
+    G --&gt; H[Send Welcome Email]
+    H --&gt; I[Employee Account Created]
     
-    I --> J[Employee Login]
-    J --> K{First Login?}
-    K -->|Yes| L[Change Password]
-    K -->|No| M[Dashboard]
-    L --> M
+    I --&gt; J[Employee Login]
+    J --&gt; K{First Login?}
+    K --&gt;|Yes| L[Change Password]
+    K --&gt;|No| M[Dashboard]
+    L --&gt; M
     
-    M --> N[Complete Personal Info]
-    N --> O[Upload Documents]
-    O --> P[HR Review]
-    P --> Q{Documents Approved?}
-    Q -->|Yes| R[Admission Complete]
-    Q -->|No| S[Request Corrections]
-    S --> N
+    M --&gt; N[Complete Personal Info]
+    N --&gt; O[Upload Documents]
+    O --&gt; P[HR Review]
+    P --&gt; Q{Documents Approved?}
+    Q --&gt;|Yes| R[Admission Complete]
+    Q --&gt;|No| S[Request Corrections]
+    S --&gt; N
     
-    R --> T[Employee Active]
+    R --&gt; T[Employee Active]
     
-    D --> U[View Own Profile]
-    U --> V[Update Personal Info]
-    V --> W[View Documents]
-    W --> X[Upload Missing Documents]
-    X --> Y[View Admission Status]
-```
-
+    D --&gt; U[View Own Profile]
+    U --&gt; V[Update Personal Info]
+    V --&gt; W[View Documents]
+    W --&gt; X[Upload Missing Documents]
+    X --&gt; Y[View Admission Status]</code></pre>
 ### Leave Request Flow
 
 ```mermaid
@@ -624,36 +618,33 @@ flowchart TD
     M --> O[Take Leave]
     O --> P[Return to Work]
     P --> Q[Close Request]
-```
-
+<pre><code>
 ### Performance Evaluation Flow
 
 ```mermaid
 flowchart TD
-    A[HR Admin] --> B[Create Evaluation Cycle]
-    B --> C[Define Template]
-    C --> D[Add Criteria]
-    D --> E[Assign Participants]
+    A[HR Admin] --&gt; B[Create Evaluation Cycle]
+    B --&gt; C[Define Template]
+    C --&gt; D[Add Criteria]
+    D --&gt; E[Assign Participants]
     
-    E --> F[Start Cycle]
-    F --> G[Notify Evaluators]
+    E --&gt; F[Start Cycle]
+    F --&gt; G[Notify Evaluators]
     
-    G --> H{Evaluator}
-    H --> I[Complete Evaluation]
-    I --> J[Submit Scores]
-    J --> K{All Criteria Done?}
-    K -->|No| I
-    K -->|Yes| L[Calculate Final Score]
+    G --&gt; H{Evaluator}
+    H --&gt; I[Complete Evaluation]
+    I --&gt; J[Submit Scores]
+    J --&gt; K{All Criteria Done?}
+    K --&gt;|No| I
+    K --&gt;|Yes| L[Calculate Final Score]
     
-    L --> M{All Evaluations Done?}
-    M -->|No| H
-    M -->|Yes| N[Complete Cycle]
+    L --&gt; M{All Evaluations Done?}
+    M --&gt;|No| H
+    M --&gt;|Yes| N[Complete Cycle]
     
-    N --> O[Generate Reports]
-    O --> P[Notify HR]
-    P --> Q[Archive Results]
-```
-
+    N --&gt; O[Generate Reports]
+    O --&gt; P[Notify HR]
+    P --&gt; Q[Archive Results]</code></pre>
 ### Termination Flow
 
 ```mermaid
@@ -679,56 +670,53 @@ flowchart TD
     P --> Q[Deactivate Access]
     Q --> R[Update Records]
     R --> S[Archive Process]
-```
-
+<pre><code>
 ---
 
-## 🔒 Security Flow
+## &#128274; Security Flow
 
 ```mermaid
 flowchart TD
-    A[Request Received] --> B{HTTPS?}
-    B -->|No| C[Redirect to HTTPS]
-    B -->|Yes| D[Validate CORS Origin]
+    A[Request Received] --&gt; B{HTTPS?}
+    B --&gt;|No| C[Redirect to HTTPS]
+    B --&gt;|Yes| D[Validate CORS Origin]
     
-    D --> E{Origin Allowed?}
-    E -->|No| F[403 Forbidden]
-    E -->|Yes| G[Validate JWT Token]
+    D --&gt; E{Origin Allowed?}
+    E --&gt;|No| F[403 Forbidden]
+    E --&gt;|Yes| G[Validate JWT Token]
     
-    G --> H{Token Valid?}
-    H -->|No| I[401 Unauthorized]
-    H -->|Yes| J[Check Permissions]
+    G --&gt; H{Token Valid?}
+    H --&gt;|No| I[401 Unauthorized]
+    H --&gt;|Yes| J[Check Permissions]
     
-    J --> K{Has Permission?}
-    K -->|No| L[403 Forbidden]
-    K -->|Yes| M[Validate Input]
+    J --&gt; K{Has Permission?}
+    K --&gt;|No| L[403 Forbidden]
+    K --&gt;|Yes| M[Validate Input]
     
-    M --> N{Valid Input?}
-    N -->|No| O[400 Bad Request]
-    N -->|Yes| P[Execute Business Logic]
+    M --&gt; N{Valid Input?}
+    N --&gt;|No| O[400 Bad Request]
+    N --&gt;|Yes| P[Execute Business Logic]
     
-    P --> Q{Operation Type?}
-    Q -->|Read| R[Return Data]
-    Q -->|Write| S[Validate CSRF]
+    P --&gt; Q{Operation Type?}
+    Q --&gt;|Read| R[Return Data]
+    Q --&gt;|Write| S[Validate CSRF]
     
-    S --> T{CSRF Valid?}
-    T -->|No| U[403 Forbidden]
-    T -->|Yes| V[Execute Write Operation]
+    S --&gt; T{CSRF Valid?}
+    T --&gt;|No| U[403 Forbidden]
+    T --&gt;|Yes| V[Execute Write Operation]
     
-    V --> W[Log Operation]
-    W --> X[Return Response]
+    V --&gt; W[Log Operation]
+    W --&gt; X[Return Response]
     
-    R --> Y[Sanitize Output]
-    Y --> X
+    R --&gt; Y[Sanitize Output]
+    Y --&gt; X
     
     style F fill:#ff6b6b
     style I fill:#ff6b6b
     style L fill:#ff6b6b
     style O fill:#ff6b6b
     style U fill:#ff6b6b
-    style X fill:#51cf66
-```
-
+    style X fill:#51cf66</code></pre>
 ---
 
 ## 📊 Module Interactions
@@ -772,59 +760,56 @@ graph LR
     
     STAFF --> EMPLOYEES
     STAFF --> ACCOUNTS
-```
-
+<pre><code>
 ---
 
-## 📈 Data Flow Diagram
+## &#128200; Data Flow Diagram
 
 ```mermaid
 flowchart LR
-    subgraph "Data Sources"
+    subgraph &quot;Data Sources&quot;
         USER[User Input]
         FILE[File Upload]
         EXTERNAL[External APIs]
     end
     
-    subgraph "Processing"
+    subgraph &quot;Processing&quot;
         VALIDATE[Validation]
         PROCESS[Business Logic]
         TRANSFORM[Data Transformation]
     end
     
-    subgraph "Storage"
+    subgraph &quot;Storage&quot;
         DB[(PostgreSQL)]
         CACHE[(Redis)]
         MEDIA[File Storage]
     end
     
-    subgraph "Output"
+    subgraph &quot;Output&quot;
         API[API Response]
         REPORT[Generated Report]
         EMAIL[Email Notification]
     end
     
-    USER --> VALIDATE
-    FILE --> VALIDATE
-    EXTERNAL --> VALIDATE
+    USER --&gt; VALIDATE
+    FILE --&gt; VALIDATE
+    EXTERNAL --&gt; VALIDATE
     
-    VALIDATE --> PROCESS
-    PROCESS --> TRANSFORM
+    VALIDATE --&gt; PROCESS
+    PROCESS --&gt; TRANSFORM
     
-    TRANSFORM --> DB
-    TRANSFORM --> CACHE
-    TRANSFORM --> MEDIA
+    TRANSFORM --&gt; DB
+    TRANSFORM --&gt; CACHE
+    TRANSFORM --&gt; MEDIA
     
-    DB --> API
-    CACHE --> API
-    MEDIA --> API
+    DB --&gt; API
+    CACHE --&gt; API
+    MEDIA --&gt; API
     
-    DB --> REPORT
-    TRANSFORM --> REPORT
+    DB --&gt; REPORT
+    TRANSFORM --&gt; REPORT
     
-    PROCESS --> EMAIL
-```
-
+    PROCESS --&gt; EMAIL</code></pre>
 ---
 
 ## 🔄 State Machines
@@ -842,24 +827,21 @@ stateDiagram-v2
     Active --> OnLeave: Leave Approved
     OnLeave --> Active: Leave Ended
     Inactive --> [*]
-```
-
+<pre><code>
 ### Leave Request Status
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Draft
-    Draft --> Pending: Submit
-    Pending --> Approved: Manager Approval
-    Pending --> Rejected: Manager Rejection
-    Approved --> Cancelled: Employee Cancels
-    Approved --> OnLeave: Start Date
-    OnLeave --> Completed: End Date
-    Rejected --> [*]
-    Cancelled --> [*]
-    Completed --> [*]
-```
-
+    [*] --&gt; Draft
+    Draft --&gt; Pending: Submit
+    Pending --&gt; Approved: Manager Approval
+    Pending --&gt; Rejected: Manager Rejection
+    Approved --&gt; Cancelled: Employee Cancels
+    Approved --&gt; OnLeave: Start Date
+    OnLeave --&gt; Completed: End Date
+    Rejected --&gt; [*]
+    Cancelled --&gt; [*]
+    Completed --&gt; [*]</code></pre>
 ### Evaluation Status
 
 ```mermaid
@@ -872,22 +854,19 @@ stateDiagram-v2
     Completed --> Rejected: HR Rejection
     Approved --> [*]
     Rejected --> InProgress: Request Changes
-```
-
+<pre><code>
 ### Termination Status
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Draft
-    Draft --> PendingHR: Submit
-    PendingHR --> ApprovedHR: HR Approval
-    PendingHR --> RejectedHR: HR Rejection
-    ApprovedHR --> Processing: Start Processing
-    Processing --> Completed: Complete All Steps
-    Completed --> [*]
-    RejectedHR --> [*]
-```
-
+    [*] --&gt; Draft
+    Draft --&gt; PendingHR: Submit
+    PendingHR --&gt; ApprovedHR: HR Approval
+    PendingHR --&gt; RejectedHR: HR Rejection
+    ApprovedHR --&gt; Processing: Start Processing
+    Processing --&gt; Completed: Complete All Steps
+    Completed --&gt; [*]
+    RejectedHR --&gt; [*]</code></pre>
 ---
 
 **Next:** [Authentication & Security](authentication-security.md)

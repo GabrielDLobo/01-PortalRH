@@ -14,13 +14,10 @@
 
 ## Git Workflow
 
-```bash
-git checkout -b feature/short-description
+<pre><code>git checkout -b feature/short-description
 git add .
-git commit -m "feat(module): concise message"
-git push origin feature/short-description
-```
-
+git commit -m &quot;feat(module): concise message&quot;
+git push origin feature/short-description</code></pre>
 ## Pull Request Checklist
 
 - Tests updated
