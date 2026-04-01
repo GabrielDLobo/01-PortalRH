@@ -1,398 +1,306 @@
 # Project Structure
 
-This document describes the directory structure and file organization of the PortalRH project.
+This document provides a comprehensive overview of the PortalRH directory structure and file organization.
+
+## Table of Contents
+
+1. [Root Structure](#root-structure)
+2. [Application Structure](#application-structure)
+3. [Core Modules](#core-modules)
+4. [Configuration Files](#configuration-files)
+5. [File Descriptions](#file-descriptions)
 
 ---
 
-## 📁 Root Directory Structure
+## Root Structure
 
-```
-PortalRH/
-├── .env.example              # Environment variables template
-├── .gitignore                # Git ignore rules
-├── manage.py                 # Django management script
-├── nginx.conf                # Nginx configuration
-├── README.md                 # Project readme
-├── requirements.txt          # Python dependencies
-├── docs/                     # Documentation (this folder)
-├── accounts/                 # User authentication & authorization
-├── app/                      # Core Django settings & configuration
-├── employees/                # Employee management module
-├── evaluations/              # Performance evaluations module
-├── frontend/                 # React frontend application
-├── leave_requests/           # Leave management module
-├── logs/                     # Application logs
-├── media/                    # User-uploaded files
-├── reports/                  # Reporting module
-├── staff/                    # Internal staff management
-└── termination/              # Employee termination module
+```text
+01-PortalRH/
+├── .gitignore
+├── db.sqlite3
+├── docker-compose.yml
+├── manage.py
+├── mkdocs.yml
+├── nginx.conf
+├── pyproject.toml
+├── README.md
+├── requirements.txt
+│
+├── docs/                      # Documentation source
+├── site/                      # Generated static docs
+├── app/                       # Django project settings
+├── accounts/                  # Authentication and users
+├── employees/                 # Employee management
+├── evaluations/               # Performance evaluations
+├── leave_requests/            # Leave request workflows
+├── reports/                   # Reporting and analytics
+├── staff/                     # Staff/department management
+├── termination/               # Offboarding workflows
+├── frontend/                  # React + TypeScript frontend
+├── media/                     # Uploaded files
+└── logs/                      # Application logs
 ```
 
 ---
 
-## 📂 Core Directories
+## Application Structure
 
-### `/app` - Core Configuration
+### `/app/` - Main Django Configuration
 
-Main Django application configuration directory.
-
-```
+```text
 app/
 ├── __init__.py
-├── asgi.py                   # ASGI configuration
-├── permissions.py            # Custom permission classes
-├── serializers.py            # Global serializers
-├── settings.py               # Django settings
-├── urls.py                   # Root URL configuration
-└── wsgi.py                   # WSGI configuration
+├── asgi.py
+├── permissions.py
+├── settings.py
+├── urls.py
+└── wsgi.py
 ```
 
-**Key Files:**
-- `settings.py` - All Django settings (database, middleware, installed apps, etc.)
-- `urls.py` - Main URL router, includes all app URLs
-- `permissions.py` - Custom DRF permission classes
+Key files:
+- `settings.py` - global Django settings
+- `urls.py` - root router and app includes
+- `permissions.py` - custom DRF permission classes
 
 ---
 
-### `/accounts` - Authentication Module
+### `/accounts/` - Authentication Module
 
-User management, authentication, and authorization.
-
-```
+```text
 accounts/
-├── __init__.py
-├── admin.py                  # Django admin configuration
-├── apps.py                   # App configuration
-├── models.py                 # User model
-├── serializers.py            # User serializers
-├── urls.py                   # Account URLs
-├── views.py                  # Authentication views
-└── tests/
-    ├── __init__.py
-    ├── test_models.py
-    ├── test_serializers.py
-    └── test_views.py
+├── admin.py
+├── apps.py
+├── models.py
+├── serializers.py
+├── tests.py
+├── urls.py
+└── views.py
 ```
 
-**Models:**
-- `User` - Custom user model extending AbstractUser
+Purpose:
+- JWT login/refresh/verify
+- user registration/profile flows
+- role-aware access boundaries
 
 ---
 
-### `/employees` - Employee Management
+### `/employees/` - Employee Management
 
-Employee profiles, documents, and admission processes.
-
-```
+```text
 employees/
-├── __init__.py
 ├── admin.py
 ├── apps.py
-├── models.py                 # Employee, EmployeeDocument, AdmissionProcess, PreAdmissionRH
+├── models.py
 ├── serializers.py
+├── services.py
+├── tests.py
 ├── urls.py
-├── views.py
-└── tests/
+└── views.py
 ```
 
-**Models:**
-- `Employee` - Employee profile with personal and professional data
-- `EmployeeDocument` - Employee documents (RG, CPF, etc.)
-- `AdmissionProcess` - Admission workflow tracking
-- `PreAdmissionRH` - Pre-admission data entry
+Main entities:
+- Employee
+- EmployeeDocument
+- Admission process related records
 
 ---
 
-### `/evaluations` - Performance Evaluations
+### `/evaluations/` - Evaluation Module
 
-Performance review templates, cycles, and scoring.
-
-```
+```text
 evaluations/
-├── __init__.py
 ├── admin.py
 ├── apps.py
-├── models.py                 # EvaluationTemplate, Evaluation, EvaluationScore, etc.
+├── models.py
 ├── serializers.py
+├── tests.py
 ├── urls.py
-├── views.py
-└── tests/
+└── views.py
 ```
 
-**Models:**
-- `EvaluationTemplate` - Template for evaluations
-- `EvaluationCriteria` - Criteria within templates
-- `Evaluation` - Individual evaluation instance
-- `EvaluationScore` - Scores for each criterion
-- `EvaluationCycle` - Evaluation campaign cycles
-- `EvaluationCycleParticipant` - Cycle participants
+Main entities:
+- EvaluationTemplate
+- EvaluationCriteria
+- Evaluation
+- EvaluationScore
+- EvaluationCycle
 
 ---
 
-### `/leave_requests` - Leave Management
+### `/leave_requests/` - Leave Module
 
-Leave types, requests, and balance tracking.
-
-```
+```text
 leave_requests/
-├── __init__.py
 ├── admin.py
 ├── apps.py
-├── models.py                 # LeaveType, LeaveRequest, LeaveBalance
+├── models.py
 ├── serializers.py
+├── tests.py
 ├── urls.py
-├── views.py
-└── tests/
+└── views.py
 ```
 
-**Models:**
-- `LeaveType` - Types of leave (vacation, sick, personal)
-- `LeaveRequest` - Leave request instances
-- `LeaveBalance` - Annual leave balance per employee
+Main entities:
+- LeaveType
+- LeaveRequest
+- LeaveBalance
 
 ---
 
-### `/reports` - Reporting System
+### `/reports/` - Reports Module
 
-Dynamic report generation and dashboards.
-
-```
+```text
 reports/
-├── __init__.py
 ├── admin.py
 ├── apps.py
-├── models.py                 # ReportTemplate, ReportExecution, ReportSchedule, etc.
+├── models.py
 ├── serializers.py
+├── services.py
+├── tests.py
 ├── urls.py
-├── views.py
-├── services.py               # Report generation logic
-└── tests/
+└── views.py
 ```
 
-**Models:**
-- `ReportCategory` - Report categories
-- `ReportTemplate` - Report templates with JSON configuration
-- `ReportExecution` - Report execution history
-- `ReportSchedule` - Scheduled reports
-- `ReportBookmark` - User-saved report configurations
+Main entities:
+- ReportCategory
+- ReportTemplate
+- ReportExecution
+- ReportSchedule
+- ReportBookmark
 
 ---
 
-### `/staff` - Internal Staff Management
+### `/staff/` - Staff Module
 
-Department and staff member management.
-
-```
+```text
 staff/
-├── __init__.py
 ├── admin.py
 ├── apps.py
-├── models.py                 # Employee (staff), Department, EmployeeDocument
+├── models.py
 ├── serializers.py
+├── tests.py
 ├── urls.py
-├── views.py
-└── tests/
+└── views.py
 ```
 
-**Models:**
-- `Employee` - Staff employee profile
-- `Department` - Company departments
-- `EmployeeDocument` - Staff documents
+Main entities:
+- Department
+- Staff employee profiles
 
 ---
 
-### `/termination` - Termination Management
+### `/termination/` - Offboarding Module
 
-Employee termination workflows.
-
-```
+```text
 termination/
-├── __init__.py
 ├── admin.py
 ├── apps.py
-├── models.py                 # TerminationRequest, TerminationReason, TerminationDocument
+├── models.py
 ├── serializers.py
+├── tests.py
 ├── urls.py
-├── views.py
-└── tests/
+└── views.py
 ```
 
-**Models:**
-- `TerminationReason` - Reasons for termination
-- `TerminationRequest` - Termination request instances
-- `TerminationDocument` - Termination-related documents
+Main entities:
+- TerminationReason
+- TerminationRequest
+- TerminationDocument
 
 ---
 
-### `/frontend` - React Application
+### `/frontend/` - Frontend Application
 
-Frontend user interface.
-
-```
+```text
 frontend/
 ├── package.json
+├── tsconfig.json
+├── tailwind.config.js
 ├── src/
-│   ├── App.jsx
-│   ├── main.jsx
-│   ├── components/
+│   ├── App.tsx
+│   ├── index.css
 │   ├── pages/
+│   ├── components/
 │   ├── services/
-│   ├── hooks/
-│   └── utils/
+│   ├── contexts/
+│   ├── utils/
+│   └── types/
 └── public/
 ```
 
 ---
 
-## 📄 Key Configuration Files
+## Core Modules
+
+| Module | Responsibility |
+|---|---|
+| accounts | Authentication, users, authorization |
+| employees | Employee records and admission lifecycle |
+| evaluations | Evaluation templates, cycles and scoring |
+| leave_requests | Leave request process and balances |
+| reports | Reporting templates, execution and export |
+| staff | Departments and internal staff management |
+| termination | Termination flow and documentation |
+
+---
+
+## Configuration Files
 
 ### `manage.py`
-Django's command-line utility for administrative tasks.
+Entry point for Django administrative commands.
+
+### `docker-compose.yml`
+Container orchestration for local/prod-like environments.
+
+### `mkdocs.yml`
+Documentation navigation, theme, markdown extensions.
 
 ### `requirements.txt`
-All Python dependencies with pinned versions.
+Python dependency list.
 
-### `.env.example`
-Template for environment variables (copy to `.env`).
-
-### `.gitignore`
-Files and directories to ignore in Git.
-
-### `nginx.conf`
-Nginx reverse proxy configuration for production.
+### `pyproject.toml`
+Tooling and project metadata.
 
 ---
 
-## 🗂️ File Naming Conventions
+## File Descriptions
 
-| Type | Convention | Example |
-|------|------------|---------|
-| Models | `snake_case.py` | `employee_profile.py` |
-| Views | `snake_case.py` | `employee_views.py` |
-| Serializers | `snake_case.py` | `employee_serializers.py` |
-| Tests | `test_snake_case.py` | `test_employee.py` |
-| Templates | `snake_case.html` | `employee_list.html` |
-| Static files | `kebab-case.css/js` | `employee-list.css` |
+### Root Files
 
----
+| File | Purpose |
+|---|---|
+| README.md | Project overview and startup instructions |
+| manage.py | Django command-line utility |
+| docker-compose.yml | Service orchestration |
+| mkdocs.yml | Documentation configuration |
+| requirements.txt | Backend dependencies |
 
-## 📊 Module Dependencies
+### Common App Files
 
-```
-┌──────────────────────────────────────────────────────────┐
-│                      accounts                             │
-│                   (User Model)                            │
-└──────────────────────────────────────────────────────────┘
-         │              │              │
-         ▼              ▼              ▼
-┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-│  employees  │ │ evaluations │ │leave_requests│
-└─────────────┘ └─────────────┘ └─────────────┘
-         │              │              │
-         └──────────────┼──────────────┘
-                        ▼
-                 ┌─────────────┐
-                 │   reports   │
-                 └─────────────┘
-```
+| File | Purpose |
+|---|---|
+| models.py | Data schema definitions |
+| serializers.py | API payload validation/representation |
+| views.py | Request handlers |
+| urls.py | Module routing |
+| services.py | Business logic (where used) |
+| tests.py | Automated tests |
 
 ---
 
-## 🔍 Important Directories
+## URL Structure
 
-### `/media/`
-User-uploaded files (documents, photos).
-
-Structure:
-```
-media/
-├── employees/
-│   ├── documents/
-│   └── photos/
-├── terminations/
-│   └── documents/
-└── evaluations/
-    └── attachments/
-```
-
-### `/logs/`
-Application logs.
-
-```
-logs/
-├── django.log
-├── requests.log
-└── errors.log
-```
-
-### `/static/`
-Static assets (CSS, JS, images).
-
-```
-static/
-├── css/
-├── js/
-├── images/
-└── admin/
-```
-
----
-
-## 📦 Database Structure
-
-Each app has its own models that map to database tables:
-
-| App | Tables |
-|-----|--------|
-| `accounts` | `accounts_user` |
-| `employees` | `employees_employee`, `employees_employeedocument`, `employees_admissionprocess`, `employees_preadmissionrh` |
-| `evaluations` | `evaluations_evaluationtemplate`, `evaluations_evaluationcriteria`, `evaluations_evaluation`, `evaluations_evaluationscore`, `evaluations_evaluationcycle`, `evaluations_evaluationcycleparticipant` |
-| `leave_requests` | `leave_requests_leavetype`, `leave_requests_leaverequest`, `leave_requests_leavebalance` |
-| `reports` | `reports_reportcategory`, `reports_reporttemplate`, `reports_reportexecution`, `reports_reportschedule`, `reports_reportbookmark` |
-| `staff` | `staff_employee`, `staff_department`, `staff_employeedocument` |
-| `termination` | `termination_terminationreason`, `termination_terminationrequest`, `termination_terminationdocument` |
-
----
-
-## 🔗 URL Structure
-
-```
+```text
 /api/v1/
 ├── accounts/
-│   ├── auth/login/
-│   ├── auth/refresh/
-│   ├── users/
-│   └── users/profile/
 ├── employees/
-│   ├── employees/
-│   ├── documents/
-│   ├── admission-processes/
-│   └── pre-admissions/
 ├── evaluations/
-│   ├── templates/
-│   ├── evaluations/
-│   ├── scores/
-│   └── cycles/
 ├── leave-requests/
-│   ├── types/
-│   ├── requests/
-│   └── balances/
 ├── reports/
-│   ├── categories/
-│   ├── templates/
-│   ├── executions/
-│   ├── schedules/
-│   └── bookmarks/
 ├── staff/
-│   ├── departments/
-│   ├── employees/
-│   └── documents/
 └── termination/
-    ├── reasons/
-    ├── requests/
-    └── documents/
 ```
 
 ---
 
-**Next:** [API Endpoints](api-endpoints.md)
+Next: [API Endpoints](api-endpoints.md)
