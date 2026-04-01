@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Human Resources Management System documentation">
+        <meta name="description" content="A Django-based Inventory Management System (SGE - Sistema de Gestão de Estoque) that allows you to manage products, suppliers, and stock movements (inflows/outflows), providing a dashboard with metrics and charts. It also includes an optional AI insights module to generate short daily inventory/sales recommendations based on system data.">
       
       
         <meta name="author" content="GabrielDLobo">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Installation - PortalRH Documentation</title>
+        <title>Installation - Inventory Management System</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installation" class="md-skip">
+        <a href="#installation-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="index.html" title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-header__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +104,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            PortalRH Documentation
+            Inventory Management System
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -185,13 +185,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="index.html" title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-nav__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    PortalRH Documentation
+    Inventory Management System
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -309,63 +309,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#1-clone-repository" class="md-nav__link">
     <span class="md-ellipsis">
       1. Clone Repository
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-create-virtual-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Create Virtual Environment
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-install-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Install Dependencies
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-configure-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. Configure Environment
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-prepare-database" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Prepare Database
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-start-backend" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Start Backend
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-start-frontend" class="md-nav__link">
-    <span class="md-ellipsis">
-      7. Start Frontend
     </span>
   </a>
   
@@ -566,7 +521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="contributing.html" class="md-nav__link">
+      <a href="contribution.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -586,7 +541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gallery.html" class="md-nav__link">
+      <a href="image-projects.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -611,26 +566,6 @@
   
   <span class="md-ellipsis">
     Release Notes
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="UPDATE_LOG.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Update Log
   </span>
   
 
@@ -666,63 +601,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#1-clone-repository" class="md-nav__link">
     <span class="md-ellipsis">
       1. Clone Repository
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-create-virtual-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Create Virtual Environment
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-install-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Install Dependencies
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-configure-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. Configure Environment
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-prepare-database" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Prepare Database
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-start-backend" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Start Backend
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-start-frontend" class="md-nav__link">
-    <span class="md-ellipsis">
-      7. Start Frontend
     </span>
   </a>
   
@@ -743,30 +633,289 @@
                   
 
 
-<h1 id="installation">Installation</h1>
+<h1 id="installation-guide">Installation Guide</h1>
+<p>This guide provides step-by-step instructions for installing the Inventory Management System using different methods.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#1-clone-repository">Clone Repository</a></li>
+<li><a href="#method-1-standard-installation">Method 1: Standard Installation</a></li>
+<li><a href="#method-2-docker-installation">Method 2: Docker Installation</a></li>
+<li><a href="#post-installation">Post-Installation</a></li>
+<li><a href="#verification">Verification</a></li>
+</ol>
+<hr />
 <h2 id="1-clone-repository">1. Clone Repository</h2>
-<pre><code>git clone https://github.com/GabrielDLobo/01-PortalRH.git
-cd 01-PortalRH</code></pre>
-<h2 id="2-create-virtual-environment">2. Create Virtual Environment</h2>
-<pre><code>python -m venv venv
-venv\Scripts\activate</code></pre>
-<h2 id="3-install-dependencies">3. Install Dependencies</h2>
-<pre><code>pip install -r requirements.txt</code></pre>
-<h2 id="4-configure-environment">4. Configure Environment</h2>
-<p>Create <code>.env</code> in project root:</p>
-<pre><code>SECRET_KEY=change-me
-DEBUG=True
-ALLOWED_HOSTS=localhost,127.0.0.1
-DATABASE_URL=sqlite:///db.sqlite3</code></pre>
-<h2 id="5-prepare-database">5. Prepare Database</h2>
-<pre><code>python manage.py migrate
-python manage.py createsuperuser</code></pre>
-<h2 id="6-start-backend">6. Start Backend</h2>
-<pre><code>python manage.py runserver</code></pre>
-<h2 id="7-start-frontend">7. Start Frontend</h2>
-<pre><code>cd frontend
-npm install
-npm run dev</code></pre>
+<p>```bash</p>
+<h1 id="clone-the-repository">Clone the repository</h1>
+<p>git clone <repository-url>
+cd 02-Inventory-Management-System
+```</p>
+<hr />
+<h2 id="method-1-standard-installation">Method 1: Standard Installation</h2>
+<h3 id="step-1-create-virtual-environment">Step 1: Create Virtual Environment</h3>
+<p><strong>Linux/macOS:</strong>
+<code>bash
+python -m venv venv
+source venv/bin/activate</code></p>
+<p><strong>Windows:</strong>
+<code>bash
+python -m venv venv
+venv\Scripts\activate</code></p>
+<p>You should see <code>(venv)</code> prefix in your terminal.</p>
+<h3 id="step-2-install-dependencies">Step 2: Install Dependencies</h3>
+<p>```bash</p>
+<h1 id="upgrade-pip">Upgrade pip</h1>
+<p>pip install --upgrade pip</p>
+<h1 id="install-all-requirements">Install all requirements</h1>
+<p>pip install -r requirements.txt
+```</p>
+<p><strong>Dependencies include:</strong>
+- Django 5.0.1
+- djangorestframework 3.15.1
+- djangorestframework-simplejwt 5.3.1
+- psycopg2-binary 2.9.10
+- openai 1.38.0
+- httpx 0.28.1
+- pydantic 2.10.6
+- django-widget-tweaks 1.5.0</p>
+<h3 id="step-3-database-setup">Step 3: Database Setup</h3>
+<h4 id="option-a-sqlite-development">Option A: SQLite (Development)</h4>
+<p>No additional setup required. SQLite is configured by default for development.</p>
+<h4 id="option-b-postgresql-production">Option B: PostgreSQL (Production)</h4>
+<ol>
+<li>
+<p><strong>Install PostgreSQL</strong> (if not already installed)</p>
+</li>
+<li>
+<p><strong>Create Database:</strong>
+```bash</p>
+</li>
+</ol>
+<h1 id="access-postgresql">Access PostgreSQL</h1>
+<p>sudo -u postgres psql</p>
+<h1 id="create-database-and-user">Create database and user</h1>
+<p>CREATE DATABASE sge;
+CREATE USER postgres WITH PASSWORD 'postgres';
+GRANT ALL PRIVILEGES ON DATABASE sge TO postgres;
+\q
+```</p>
+<ol>
+<li><strong>Update Settings:</strong></li>
+</ol>
+<p>Edit <code>app/settings.py</code> or create <code>.env</code> file:</p>
+<p><code>python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sge',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}</code></p>
+<h3 id="step-4-run-migrations">Step 4: Run Migrations</h3>
+<p>```bash</p>
+<h1 id="apply-all-migrations">Apply all migrations</h1>
+<p>python manage.py migrate</p>
+<h1 id="create-superuser">Create superuser</h1>
+<p>python manage.py createsuperuser</p>
+<h1 id="follow-prompts-to-create-admin-account">Follow prompts to create admin account</h1>
+<h1 id="username-admin">Username: admin</h1>
+<h1 id="email-adminexamplecom">Email: admin@example.com</h1>
+<h1 id="password-choose-a-strong-password">Password: (choose a strong password)</h1>
+<p>```</p>
+<h3 id="step-5-start-development-server">Step 5: Start Development Server</h3>
+<p>```bash</p>
+<h1 id="run-the-server">Run the server</h1>
+<p>python manage.py runserver</p>
+<h1 id="access-the-application">Access the application</h1>
+<h1 id="http1270018000">http://127.0.0.1:8000</h1>
+<p>```</p>
+<p><strong>Server should output:</strong>
+<code>Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.</code></p>
+<hr />
+<h2 id="method-2-docker-installation">Method 2: Docker Installation</h2>
+<h3 id="step-1-verify-docker-installation">Step 1: Verify Docker Installation</h3>
+<p><code>bash
+docker --version
+docker-compose --version</code></p>
+<h3 id="step-2-build-and-run-containers">Step 2: Build and Run Containers</h3>
+<p>```bash</p>
+<h1 id="build-and-start-all-services">Build and start all services</h1>
+<p>docker-compose up -d --build</p>
+<h1 id="view-running-containers">View running containers</h1>
+<p>docker-compose ps
+```</p>
+<h3 id="step-3-run-migrations">Step 3: Run Migrations</h3>
+<p>```bash</p>
+<h1 id="execute-migrations-inside-container">Execute migrations inside container</h1>
+<p>docker-compose exec sge_web python manage.py migrate</p>
+<h1 id="create-superuser_1">Create superuser</h1>
+<p>docker-compose exec sge_web python manage.py createsuperuser
+```</p>
+<h3 id="step-4-access-the-application">Step 4: Access the Application</h3>
+<p><code>Web Interface: http://localhost:8000
+Admin Panel: http://localhost:8000/admin
+API: http://localhost:8000/api/v1/</code></p>
+<h3 id="docker-commands-reference">Docker Commands Reference</h3>
+<p>```bash</p>
+<h1 id="view-logs">View logs</h1>
+<p>docker-compose logs -f sge_web
+docker-compose logs -f sge_db</p>
+<h1 id="stop-all-services">Stop all services</h1>
+<p>docker-compose down</p>
+<h1 id="restart-services">Restart services</h1>
+<p>docker-compose restart</p>
+<h1 id="rebuild-containers">Rebuild containers</h1>
+<p>docker-compose up -d --build</p>
+<h1 id="access-container-shell">Access container shell</h1>
+<p>docker-compose exec sge_web bash</p>
+<h1 id="remove-all-containers-and-volumes">Remove all containers and volumes</h1>
+<p>docker-compose down -v
+```</p>
+<hr />
+<h2 id="post-installation">Post-Installation</h2>
+<h3 id="1-configure-openai-optional">1. Configure OpenAI (Optional)</h3>
+<p>Edit <code>ai/agent.py</code> or set environment variable:</p>
+<p><code>bash
+export OPENAI_API_KEY='your-api-key-here'</code></p>
+<p>Or create <code>.env</code> file in project root:</p>
+<p><code>bash
+OPENAI_API_KEY=your-api-key-here</code></p>
+<h3 id="2-configure-webhooks-optional">2. Configure Webhooks (Optional)</h3>
+<p>Edit <code>services/notify.py</code> to configure webhook URL:</p>
+<p><code>python
+WEBHOOK_URL = 'http://localhost:8001/api/V1/webhooks/order/'</code></p>
+<h3 id="3-create-initial-data">3. Create Initial Data</h3>
+<p>Access Django admin to create initial data:</p>
+<p><code>1. Login at http://localhost:8000/admin/
+2. Create Brands
+3. Create Categories
+4. Create Suppliers
+5. Create Products</code></p>
+<h3 id="4-configure-static-files-production">4. Configure Static Files (Production)</h3>
+<p>```bash</p>
+<h1 id="collect-static-files">Collect static files</h1>
+<p>python manage.py collectstatic
+```</p>
+<hr />
+<h2 id="verification">Verification</h2>
+<h3 id="1-check-application-health">1. Check Application Health</h3>
+<p>```bash</p>
+<h1 id="access-home-page">Access home page</h1>
+<p>curl http://localhost:8000/home/</p>
+<h1 id="access-api">Access API</h1>
+<p>curl http://localhost:8000/api/v1/</p>
+<h1 id="check-admin">Check admin</h1>
+<p>curl http://localhost:8000/admin/
+```</p>
+<h3 id="2-test-database-connection">2. Test Database Connection</h3>
+<p>```bash</p>
+<h1 id="django-shell">Django shell</h1>
+<p>python manage.py shell</p>
+<h1 id="test-database">Test database</h1>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>from products.models import Product
+Product.objects.count()
+0
+exit()
+```</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="3-verify-all-services">3. Verify All Services</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>URL</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Web App</td>
+<td>http://localhost:8000</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Admin</td>
+<td>http://localhost:8000/admin</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>API</td>
+<td>http://localhost:8000/api/v1</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Dashboard</td>
+<td>http://localhost:8000/home</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="issue-port-already-in-use">Issue: Port Already in Use</h3>
+<p>```bash</p>
+<h1 id="find-process-using-port-8000">Find process using port 8000</h1>
+<h1 id="linuxmacos">Linux/macOS</h1>
+<p>lsof -i :8000</p>
+<h1 id="windows">Windows</h1>
+<p>netstat -ano | findstr :8000</p>
+<h1 id="run-on-different-port">Run on different port</h1>
+<p>python manage.py runserver 8001
+```</p>
+<h3 id="issue-database-connection-error">Issue: Database Connection Error</h3>
+<p>```bash</p>
+<h1 id="check-postgresql-is-running">Check PostgreSQL is running</h1>
+<h1 id="linux">Linux</h1>
+<p>sudo systemctl status postgresql</p>
+<h1 id="windows_1">Windows</h1>
+<h1 id="check-services-postgresql">Check Services -&gt; PostgreSQL</h1>
+<h1 id="verify-credentials-in-settingspy">Verify credentials in settings.py</h1>
+<p>```</p>
+<h3 id="issue-migration-errors">Issue: Migration Errors</h3>
+<p>```bash</p>
+<h1 id="reset-migrations-development-only">Reset migrations (development only)</h1>
+<p>python manage.py migrate --run-syncdb</p>
+<h1 id="or-delete-database-and-migrate-again">Or delete database and migrate again</h1>
+<p>rm db.sqlite3
+python manage.py migrate
+```</p>
+<h3 id="issue-permission-denied-linuxmacos">Issue: Permission Denied (Linux/macOS)</h3>
+<p>```bash</p>
+<h1 id="install-with-user-flag">Install with --user flag</h1>
+<p>pip install --user -r requirements.txt</p>
+<h1 id="or-fix-virtualenv-permissions">Or fix virtualenv permissions</h1>
+<p>chmod -R 755 venv/
+```</p>
+<h3 id="issue-docker-container-wont-start">Issue: Docker Container Won't Start</h3>
+<p>```bash</p>
+<h1 id="check-docker-daemon">Check Docker daemon</h1>
+<p>docker ps</p>
+<h1 id="view-container-logs">View container logs</h1>
+<p>docker-compose logs sge_web</p>
+<h1 id="rebuild-containers_1">Rebuild containers</h1>
+<p>docker-compose down
+docker-compose up -d --build
+```</p>
+<hr />
+<h2 id="next-steps">Next Steps</h2>
+<p>After successful installation:</p>
+<ol>
+<li>✅ <a href="configuration.html">Configuration</a> - Configure project settings</li>
+<li>✅ <a href="project-structure.html">Project Structure</a> - Understand the codebase</li>
+<li>✅ <a href="development.html">Development</a> - Start developing</li>
+</ol>
+<hr />
+<p><strong>Installation Complete!</strong> 🎉</p>
+<p>You can now access the application at <code>http://localhost:8000</code> and login with your superuser credentials.</p>
 
 
 

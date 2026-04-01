@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Human Resources Management System documentation">
+        <meta name="description" content="A Django-based Inventory Management System (SGE - Sistema de Gestão de Estoque) that allows you to manage products, suppliers, and stock movements (inflows/outflows), providing a dashboard with metrics and charts. It also includes an optional AI insights module to generate short daily inventory/sales recommendations based on system data.">
       
       
         <meta name="author" content="GabrielDLobo">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Overview - PortalRH Documentation</title>
+        <title>Overview - Inventory Management System</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#overview" class="md-skip">
+        <a href="#project-overview" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="index.html" title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-header__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +104,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            PortalRH Documentation
+            Inventory Management System
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -185,13 +185,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="index.html" title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-nav__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    PortalRH Documentation
+    Inventory Management System
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -269,36 +269,276 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#about-portalrh" class="md-nav__link">
+  <a href="#introduction" class="md-nav__link">
     <span class="md-ellipsis">
-      About PortalRH
+      Introduction
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#main-capabilities" class="md-nav__link">
+  <a href="#purpose" class="md-nav__link">
     <span class="md-ellipsis">
-      Main Capabilities
+      Purpose
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#architecture-summary" class="md-nav__link">
+  <a href="#key-features" class="md-nav__link">
     <span class="md-ellipsis">
-      Architecture Summary
+      Key Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#product-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Product Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stock-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Stock Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supplier-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏢 Supplier Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brands-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏷️ Brands &amp; Categories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Dashboard &amp; Analytics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      🤖 AI Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 Authentication &amp; Authorization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 External Integrations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#web-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Web Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Interface
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Capabilities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Capabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multi-user-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-User Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-time-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-Time Updates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-integrity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Integrity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scalability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scalability
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#business-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      Business Value
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-status" class="md-nav__link">
+  <a href="#target-audience" class="md-nav__link">
     <span class="md-ellipsis">
-      Project Status
+      Target Audience
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#retail-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      Retail Store
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warehouse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-commerce" class="md-nav__link">
+    <span class="md-ellipsis">
+      E-commerce
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Distribution
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technology-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technology Highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Roadmap
     </span>
   </a>
   
@@ -539,7 +779,7 @@
   
   
     <li class="md-nav__item">
-      <a href="contributing.html" class="md-nav__link">
+      <a href="contribution.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -559,7 +799,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gallery.html" class="md-nav__link">
+      <a href="image-projects.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -584,26 +824,6 @@
   
   <span class="md-ellipsis">
     Release Notes
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="UPDATE_LOG.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Update Log
   </span>
   
 
@@ -639,36 +859,276 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#about-portalrh" class="md-nav__link">
+  <a href="#introduction" class="md-nav__link">
     <span class="md-ellipsis">
-      About PortalRH
+      Introduction
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#main-capabilities" class="md-nav__link">
+  <a href="#purpose" class="md-nav__link">
     <span class="md-ellipsis">
-      Main Capabilities
+      Purpose
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#architecture-summary" class="md-nav__link">
+  <a href="#key-features" class="md-nav__link">
     <span class="md-ellipsis">
-      Architecture Summary
+      Key Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#product-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Product Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stock-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Stock Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supplier-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏢 Supplier Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brands-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏷️ Brands &amp; Categories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Dashboard &amp; Analytics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      🤖 AI Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 Authentication &amp; Authorization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 External Integrations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#web-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Web Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Interface
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Capabilities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Capabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multi-user-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-User Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-time-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-Time Updates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-integrity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Integrity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scalability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scalability
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#business-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      Business Value
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-status" class="md-nav__link">
+  <a href="#target-audience" class="md-nav__link">
     <span class="md-ellipsis">
-      Project Status
+      Target Audience
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#retail-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      Retail Store
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warehouse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-commerce" class="md-nav__link">
+    <span class="md-ellipsis">
+      E-commerce
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Distribution
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technology-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technology Highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Roadmap
     </span>
   </a>
   
@@ -689,55 +1149,193 @@
                   
 
 
-<h1 id="overview">Overview</h1>
-<h2 id="about-portalrh">About PortalRH</h2>
-<p>PortalRH is a Human Resources Management System built with <strong>Django REST Framework</strong> and <strong>React + TypeScript</strong>.</p>
-<p>Core domains:
-- Employee lifecycle
-- Leave management
-- Performance evaluations
-- Admission and termination workflows
-- Reports and analytics</p>
-<h2 id="main-capabilities">Main Capabilities</h2>
+<h1 id="project-overview">Project Overview</h1>
+<h2 id="introduction">Introduction</h2>
+<p>The <strong>Inventory Management System (SGE - Sistema de Gestão de Estoque)</strong> is a comprehensive web application built with Django for managing inventory, products, suppliers, brands, and categories. It provides both a user-friendly web interface and a RESTful API for programmatic access.</p>
+<h2 id="purpose">Purpose</h2>
+<p>SGE was designed to help businesses of all sizes efficiently manage their inventory operations, including:</p>
+<ul>
+<li><strong>Stock Tracking</strong> - Real-time monitoring of product quantities</li>
+<li><strong>Purchase Management</strong> - Record and track product inflows from suppliers</li>
+<li><strong>Sales Management</strong> - Track product outflows and sales</li>
+<li><strong>Financial Control</strong> - Monitor cost prices, selling prices, and profit margins</li>
+<li><strong>Analytics</strong> - Visual dashboards with key performance indicators</li>
+<li><strong>AI-Powered Insights</strong> - Automated recommendations for stock replenishment</li>
+</ul>
+<h2 id="key-features">Key Features</h2>
+<h3 id="product-management">📦 Product Management</h3>
+<ul>
+<li>Complete CRUD operations for products</li>
+<li>Track cost price, selling price, and quantity</li>
+<li>Associate products with brands and categories</li>
+<li>Serial number tracking (optional)</li>
+</ul>
+<h3 id="stock-control">🔄 Stock Control</h3>
+<ul>
+<li><strong>Inflows</strong> - Register product entries from suppliers</li>
+<li><strong>Outflows</strong> - Register product sales/outputs</li>
+<li>Automatic quantity updates on stock movements</li>
+<li>Stock history tracking</li>
+</ul>
+<h3 id="supplier-management">🏢 Supplier Management</h3>
+<ul>
+<li>Maintain supplier information</li>
+<li>Link suppliers to product inflows</li>
+<li>Track supplier relationships</li>
+</ul>
+<h3 id="brands-categories">🏷️ Brands &amp; Categories</h3>
+<ul>
+<li>Organize products by brand</li>
+<li>Categorize products for better organization</li>
+<li>Hierarchical product organization</li>
+</ul>
+<h3 id="dashboard-analytics">📊 Dashboard &amp; Analytics</h3>
+<ul>
+<li>Real-time metrics and KPIs</li>
+<li>Sales charts (daily, weekly)</li>
+<li>Product distribution by category and brand</li>
+<li>Profit calculations</li>
+<li>Total inventory value</li>
+</ul>
+<h3 id="ai-integration">🤖 AI Integration</h3>
+<ul>
+<li>OpenAI GPT-3.5-turbo integration</li>
+<li>Automated stock analysis</li>
+<li>Replenishment recommendations</li>
+<li>Sales trend insights</li>
+</ul>
+<h3 id="authentication-authorization">🔐 Authentication &amp; Authorization</h3>
+<ul>
+<li>Django authentication for web interface</li>
+<li>JWT authentication for API</li>
+<li>Role-based access control</li>
+<li>Granular permissions per model</li>
+</ul>
+<h3 id="external-integrations">🔗 External Integrations</h3>
+<ul>
+<li>Webhook support for outflow events</li>
+<li>RESTful API for third-party integration</li>
+<li>HTTPX client for external services</li>
+</ul>
+<h2 id="user-interface">User Interface</h2>
+<h3 id="web-interface">Web Interface</h3>
+<ul>
+<li><strong>Django Templates</strong> - Server-side rendered pages</li>
+<li><strong>TailwindCSS</strong> - Modern, responsive design</li>
+<li><strong>Chart.js</strong> - Interactive charts and graphs</li>
+<li><strong>Dark Theme</strong> - Professional purple/blue gradient design</li>
+<li><strong>Responsive</strong> - Mobile-first design</li>
+</ul>
+<h3 id="api-interface">API Interface</h3>
+<ul>
+<li><strong>RESTful Design</strong> - Standard HTTP methods</li>
+<li><strong>JSON Format</strong> - Easy integration</li>
+<li><strong>JWT Authentication</strong> - Secure token-based auth</li>
+<li><strong>Pagination</strong> - Efficient data retrieval</li>
+<li><strong>Filtering</strong> - Advanced query capabilities</li>
+</ul>
+<h2 id="system-capabilities">System Capabilities</h2>
+<h3 id="multi-user-support">Multi-User Support</h3>
+<ul>
+<li>User authentication and session management</li>
+<li>Permission-based access control</li>
+<li>Admin interface for user management</li>
+</ul>
+<h3 id="real-time-updates">Real-Time Updates</h3>
+<ul>
+<li>Automatic stock quantity updates</li>
+<li>Signal-based event handling</li>
+<li>Real-time dashboard metrics</li>
+</ul>
+<h3 id="data-integrity">Data Integrity</h3>
+<ul>
+<li>Foreign key constraints (PROTECT)</li>
+<li>Transaction safety</li>
+<li>Data validation at model level</li>
+</ul>
+<h3 id="scalability">Scalability</h3>
+<ul>
+<li>PostgreSQL support for production</li>
+<li>Docker containerization</li>
+<li>Horizontal scaling ready</li>
+</ul>
+<h2 id="business-value">Business Value</h2>
 <table>
 <thead>
 <tr>
-<th>Module</th>
-<th>Highlights</th>
+<th>Benefit</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Employees</td>
-<td>Profiles, documents, admission progress</td>
+<td><strong>Efficiency</strong></td>
+<td>Automate manual inventory tracking</td>
 </tr>
 <tr>
-<td>Leave Requests</td>
-<td>Request, approval, balances, priorities</td>
+<td><strong>Accuracy</strong></td>
+<td>Reduce human errors in stock counting</td>
 </tr>
 <tr>
-<td>Evaluations</td>
-<td>Templates, criteria, cycles, scores</td>
+<td><strong>Visibility</strong></td>
+<td>Real-time insights into inventory status</td>
 </tr>
 <tr>
-<td>Reports</td>
-<td>Dynamic templates, exports, scheduling</td>
+<td><strong>Control</strong></td>
+<td>Track all stock movements</td>
 </tr>
 <tr>
-<td>Termination</td>
-<td>Reasons, approval flow, supporting documents</td>
+<td><strong>Profitability</strong></td>
+<td>Monitor margins and optimize pricing</td>
+</tr>
+<tr>
+<td><strong>Integration</strong></td>
+<td>Connect with external systems via API</td>
 </tr>
 </tbody>
 </table>
-<h2 id="architecture-summary">Architecture Summary</h2>
-<pre><code>Frontend (React + TypeScript) -&gt; DRF API (JWT) -&gt; PostgreSQL/SQLite</code></pre>
-<h2 id="project-status">Project Status</h2>
+<h2 id="target-audience">Target Audience</h2>
 <ul>
-<li>Version: <code>1.0.0</code></li>
-<li>API style: REST</li>
-<li>Auth: JWT Bearer token</li>
-<li>Docs: MkDocs Material</li>
+<li>Small to medium businesses</li>
+<li>Retail stores</li>
+<li>Warehouses</li>
+<li>Distribution centers</li>
+<li>E-commerce operations</li>
+<li>Manufacturing facilities</li>
 </ul>
+<h2 id="use-cases">Use Cases</h2>
+<h3 id="retail-store">Retail Store</h3>
+<p>Track products, manage supplier relationships, monitor sales, and get AI recommendations for restocking.</p>
+<h3 id="warehouse">Warehouse</h3>
+<p>Manage large inventories, track inflows/outflows, and maintain accurate stock levels.</p>
+<h3 id="e-commerce">E-commerce</h3>
+<p>Integrate via API with online stores, automate stock updates, and track sales across channels.</p>
+<h3 id="distribution">Distribution</h3>
+<p>Manage multiple suppliers, track product movements, and analyze sales patterns.</p>
+<h2 id="technology-highlights">Technology Highlights</h2>
+<ul>
+<li><strong>Modern Stack</strong> - Django 5.0.1, Python 3.11</li>
+<li><strong>REST API</strong> - Full-featured API with DRF</li>
+<li><strong>Security</strong> - JWT tokens, permission-based access</li>
+<li><strong>AI-Powered</strong> - OpenAI integration for insights</li>
+<li><strong>Containerized</strong> - Docker-ready for easy deployment</li>
+<li><strong>Responsive</strong> - Works on desktop, tablet, and mobile</li>
+</ul>
+<h2 id="future-roadmap">Future Roadmap</h2>
+<ul>
+<li>[ ] Multi-warehouse support</li>
+<li>[ ] Barcode/QR code scanning</li>
+<li>[ ] Advanced reporting</li>
+<li>[ ] Mobile application</li>
+<li>[ ] Email notifications</li>
+<li>[ ] Export to Excel/PDF</li>
+<li>[ ] Multi-currency support</li>
+<li>[ ] Advanced AI predictions</li>
+</ul>
+<hr />
+<p><strong>Next Steps</strong>: 
+- <a href="prerequisites.html">Prerequisites</a> - Check system requirements
+- <a href="installation.html">Installation</a> - Install and set up the project</p>
 
 
 

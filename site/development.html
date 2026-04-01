@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Human Resources Management System documentation">
+        <meta name="description" content="A Django-based Inventory Management System (SGE - Sistema de Gestão de Estoque) that allows you to manage products, suppliers, and stock movements (inflows/outflows), providing a dashboard with metrics and charts. It also includes an optional AI insights module to generate short daily inventory/sales recommendations based on system data.">
       
       
         <meta name="author" content="GabrielDLobo">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Development - PortalRH Documentation</title>
+        <title>Development - Inventory Management System</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#development" class="md-skip">
+        <a href="#development-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="index.html" title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-header__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +104,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            PortalRH Documentation
+            Inventory Management System
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -185,13 +185,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="index.html" title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-nav__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    PortalRH Documentation
+    Inventory Management System
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -449,38 +449,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#local-workflow" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
-      Local Workflow
+      Table of Contents
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#useful-commands" class="md-nav__link">
+  <a href="#development-environment-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      Useful Commands
+      Development Environment Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development Environment Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#frontend-development" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#clone-and-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      Frontend Development
+      Clone and Setup
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#documentation-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      Documentation Development
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -539,7 +545,7 @@
   
   
     <li class="md-nav__item">
-      <a href="contributing.html" class="md-nav__link">
+      <a href="contribution.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -559,7 +565,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gallery.html" class="md-nav__link">
+      <a href="image-projects.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -584,26 +590,6 @@
   
   <span class="md-ellipsis">
     Release Notes
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="UPDATE_LOG.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Update Log
   </span>
   
 
@@ -639,38 +625,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#local-workflow" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
-      Local Workflow
+      Table of Contents
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#useful-commands" class="md-nav__link">
+  <a href="#development-environment-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      Useful Commands
+      Development Environment Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development Environment Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#frontend-development" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#clone-and-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      Frontend Development
+      Clone and Setup
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#documentation-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      Documentation Development
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -689,24 +681,672 @@
                   
 
 
-<h1 id="development">Development</h1>
-<h2 id="local-workflow">Local Workflow</h2>
+<h1 id="development-guide">Development Guide</h1>
+<p>This guide covers the development workflow, tools, and best practices for contributing to the Inventory Management System.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
 <ol>
-<li>Pull latest <code>master</code></li>
-<li>Create feature branch</li>
-<li>Implement changes with tests</li>
-<li>Run backend and frontend locally</li>
-<li>Open PR with clear scope</li>
+<li><a href="#development-environment-setup">Development Environment Setup</a></li>
+<li><a href="#running-the-project">Running the Project</a></li>
+<li><a href="#code-style--linting">Code Style &amp; Linting</a></li>
+<li><a href="#database-management">Database Management</a></li>
+<li><a href="#working-with-models">Working with Models</a></li>
+<li><a href="#creating-views">Creating Views</a></li>
+<li><a href="#api-development">API Development</a></li>
+<li><a href="#template-development">Template Development</a></li>
+<li><a href="#debugging">Debugging</a></li>
+<li><a href="#common-tasks">Common Tasks</a></li>
 </ol>
-<h2 id="useful-commands">Useful Commands</h2>
-<pre><code>python manage.py runserver
+<hr />
+<h2 id="development-environment-setup">Development Environment Setup</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Ensure you have the following installed:
+- Python 3.11+
+- Git
+- PostgreSQL (for production-like development)
+- Docker (optional, for containerized development)</p>
+<h3 id="clone-and-setup">Clone and Setup</h3>
+<p>```bash</p>
+<h1 id="clone-repository">Clone repository</h1>
+<p>git clone <repository-url>
+cd 02-Inventory-Management-System</p>
+<h1 id="create-virtual-environment">Create virtual environment</h1>
+<p>python -m venv venv</p>
+<h1 id="activate-virtual-environment">Activate virtual environment</h1>
+<h1 id="linuxmacos">Linux/macOS</h1>
+<p>source venv/bin/activate</p>
+<h1 id="windows">Windows</h1>
+<p>venv\Scripts\activate</p>
+<h1 id="install-dependencies">Install dependencies</h1>
+<p>pip install -r requirements.txt
+pip install -r requirements_dev.txt
+```</p>
+<h3 id="development-tools">Development Tools</h3>
+<p>```bash</p>
+<h1 id="install-development-tools">Install development tools</h1>
+<p>pip install black isort flake8 pytest pytest-django django-debug-toolbar</p>
+<h1 id="optional-but-recommended">Optional but recommended</h1>
+<p>pip install ipython django-extensions
+```</p>
+<hr />
+<h2 id="running-the-project">Running the Project</h2>
+<h3 id="development-server">Development Server</h3>
+<p>```bash</p>
+<h1 id="run-migrations">Run migrations</h1>
+<p>python manage.py migrate</p>
+<h1 id="create-superuser">Create superuser</h1>
+<p>python manage.py createsuperuser</p>
+<h1 id="start-development-server">Start development server</h1>
+<p>python manage.py runserver</p>
+<h1 id="access-at-http1270018000">Access at http://127.0.0.1:8000</h1>
+<p>```</p>
+<h3 id="run-with-debug-toolbar">Run with Debug Toolbar</h3>
+<p>```python</p>
+<h1 id="appsettingspy">app/settings.py</h1>
+<p>INSTALLED_APPS += ['debug_toolbar']
+MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']</p>
+<p>INTERNAL_IPS = ['127.0.0.1']
+```</p>
+<h3 id="docker-development">Docker Development</h3>
+<p>```bash</p>
+<h1 id="build-and-run">Build and run</h1>
+<p>docker-compose up -d --build</p>
+<h1 id="view-logs">View logs</h1>
+<p>docker-compose logs -f sge_web</p>
+<h1 id="run-commands-in-container">Run commands in container</h1>
+<p>docker-compose exec sge_web python manage.py migrate
+docker-compose exec sge_web python manage.py runserver
+```</p>
+<hr />
+<h2 id="code-style-linting">Code Style &amp; Linting</h2>
+<h3 id="configuration-files">Configuration Files</h3>
+<p><strong>pyproject.toml:</strong>
+```toml
+[tool.black]
+line-length = 100
+target-version = ['py311']
+include = '.pyi?$'
+exclude = '''
+/(
+    .git
+    | venv
+  | .eggs
+  | .tox
+  | migrations
+)/
+'''</p>
+<p>[tool.isort]
+profile = "black"
+line_length = 100
+skip = ["migrations", "venv"]
+multi_line_output = 3
+include_trailing_comma = true
+```</p>
+<p><strong>setup.cfg:</strong>
+<code>ini
+[flake8]
+max-line-length = 100
+exclude = .git,__pycache__,migrations,venv
+ignore = E203,W503</code></p>
+<h3 id="running-linters">Running Linters</h3>
+<p>```bash</p>
+<h1 id="format-code">Format code</h1>
+<p>black .
+isort .</p>
+<h1 id="check-code-quality">Check code quality</h1>
+<p>flake8</p>
+<h1 id="check-types-if-using-mypy">Check types (if using mypy)</h1>
+<p>mypy .
+```</p>
+<h3 id="pre-commit-hooks">Pre-commit Hooks</h3>
+<p>```bash</p>
+<h1 id="install-pre-commit">Install pre-commit</h1>
+<p>pip install pre-commit</p>
+<h1 id="create-pre-commit-configyaml">Create .pre-commit-config.yaml</h1>
+<p>cat &gt; .pre-commit-config.yaml &lt;&lt; EOF
+repos:
+  - repo: https://github.com/psf/black
+    rev: 24.1.0
+    hooks:
+      - id: black
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+EOF</p>
+<h1 id="install-hooks">Install hooks</h1>
+<p>pre-commit install
+```</p>
+<hr />
+<h2 id="database-management">Database Management</h2>
+<h3 id="migrations">Migrations</h3>
+<p>```bash</p>
+<h1 id="create-migrations-after-model-changes">Create migrations after model changes</h1>
+<p>python manage.py makemigrations</p>
+<h1 id="show-sql-that-will-be-run">Show SQL that will be run</h1>
+<p>python manage.py sqlmigrate products 0001</p>
+<h1 id="apply-migrations">Apply migrations</h1>
+<p>python manage.py migrate</p>
+<h1 id="check-for-unapplied-migrations">Check for unapplied migrations</h1>
+<p>python manage.py showmigrations</p>
+<h1 id="reset-migrations-development-only">Reset migrations (development only!)</h1>
+<p>python manage.py migrate products zero
+python manage.py migrate
+```</p>
+<h3 id="database-shell">Database Shell</h3>
+<p>```bash</p>
+<h1 id="access-database-shell">Access database shell</h1>
+<p>python manage.py dbshell</p>
+<h1 id="postgresql-commands">PostgreSQL commands</h1>
+<p>\dt           # List tables
+\d products_product  # Describe table
+SELECT * FROM products_product;
+```</p>
+<h3 id="load-test-data">Load Test Data</h3>
+<p>```bash</p>
+<h1 id="create-fixtures">Create fixtures</h1>
+<p>python manage.py dumpdata products --indent 2 &gt; products_fixture.json</p>
+<h1 id="load-fixtures">Load fixtures</h1>
+<p>python manage.py loaddata products_fixture.json
+```</p>
+<h3 id="database-commands">Database Commands</h3>
+<p>```bash</p>
+<h1 id="create-database-dump">Create database dump</h1>
+<p>pg_dump -U postgres sge &gt; backup.sql</p>
+<h1 id="restore-database">Restore database</h1>
+<p>psql -U postgres sge &lt; backup.sql
+```</p>
+<hr />
+<h2 id="working-with-models">Working with Models</h2>
+<h3 id="creating-models">Creating Models</h3>
+<p>```python</p>
+<h1 id="productsmodelspy">products/models.py</h1>
+<p>from django.db import models
+from categories.models import Category
+from brands.models import Brand</p>
+<p>class Product(models.Model):
+    """Product model for inventory items."""</p>
+<pre><code>title = models.CharField(max_length=500)
+category = models.ForeignKey(
+    Category,
+    on_delete=models.PROTECT,
+    related_name='products'
+)
+brand = models.ForeignKey(
+    Brand,
+    on_delete=models.PROTECT,
+    related_name='products'
+)
+description = models.TextField(blank=True, null=True)
+cost_price = models.DecimalField(
+    max_digits=20,
+    decimal_places=2,
+    validators=[MinValueValidator(0)]
+)
+selling_price = models.DecimalField(
+    max_digits=20,
+    decimal_places=2,
+    validators=[MinValueValidator(0)]
+)
+quantity = models.PositiveIntegerField(default=0)
+created_at = models.DateTimeField(auto_now_add=True)
+updated_at = models.DateTimeField(auto_now=True)
+
+class Meta:
+    ordering = ['title']
+    indexes = [
+        models.Index(fields=['title']),
+        models.Index(fields=['category', 'brand']),
+    ]
+
+def __str__(self):
+    return self.title
+
+@property
+def profit_margin(self):
+    """Calculate profit margin percentage."""
+    if self.cost_price:
+        return ((self.selling_price - self.cost_price) / self.cost_price) * 100
+    return 0
+
+def clean(self):
+    """Validate model data."""
+    if self.selling_price &lt; self.cost_price:
+        raise ValidationError('Selling price cannot be less than cost price')
+</code></pre>
+<p>```</p>
+<h3 id="model-methods">Model Methods</h3>
+<p>```python
+class Product(models.Model):
+    # ... fields ...</p>
+<pre><code>def is_low_stock(self, threshold=10):
+    """Check if product is low on stock."""
+    return self.quantity &lt; threshold
+
+def calculate_total_value(self):
+    """Calculate total inventory value."""
+    return self.cost_price * self.quantity
+
+def get_absolute_url(self):
+    """Return URL for product detail."""
+    return reverse('products:product_detail', kwargs={'pk': self.pk})
+</code></pre>
+<p>```</p>
+<h3 id="model-queries">Model Queries</h3>
+<p>```python</p>
+<h1 id="basic-queries">Basic queries</h1>
+<p>Product.objects.all()
+Product.objects.filter(category__name='Electronics')
+Product.objects.exclude(quantity=0)</p>
+<h1 id="select-related-optimize-queries">Select related (optimize queries)</h1>
+<p>Product.objects.select_related('category', 'brand').all()</p>
+<h1 id="prefetch-related-for-reverse-fk">Prefetch related (for reverse FK)</h1>
+<p>Category.objects.prefetch_related('products').all()</p>
+<h1 id="aggregation">Aggregation</h1>
+<p>from django.db.models import Sum, Avg, Count</p>
+<p>Product.objects.aggregate(
+    total_value=Sum('cost_price' * 'quantity'),
+    avg_price=Avg('selling_price'),
+    total_products=Count('id')
+)</p>
+<h1 id="annotate">Annotate</h1>
+<p>from django.db.models import F, ExpressionWrapper, DecimalField</p>
+<p>Product.objects.annotate(
+    profit=F('selling_price') - F('cost_price'),
+    profit_percent=ExpressionWrapper(
+        (F('selling_price') - F('cost_price')) / F('cost_price') * 100,
+        output_field=DecimalField()
+    )
+)
+```</p>
+<hr />
+<h2 id="creating-views">Creating Views</h2>
+<h3 id="class-based-views">Class-Based Views</h3>
+<p>```python</p>
+<h1 id="productsviewspy">products/views.py</h1>
+<p>from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Product
+from .forms import ProductForm</p>
+<p>class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """List all products."""
+    model = Product
+    template_name = 'products/product_list.html'
+    permission_required = 'products.view_product'
+    paginate_by = 20
+    ordering = ['title']</p>
+<pre><code>def get_queryset(self):
+    queryset = Product.objects.select_related('category', 'brand')
+
+    # Filter by search
+    search = self.request.GET.get('search')
+    if search:
+        queryset = queryset.filter(title__icontains=search)
+
+    # Filter by category
+    category = self.request.GET.get('category')
+    if category:
+        queryset = queryset.filter(category_id=category)
+
+    return queryset
+
+def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['categories'] = Category.objects.all()
+    return context
+</code></pre>
+<p>class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    """Product detail view."""
+    model = Product
+    template_name = 'products/product_detail.html'
+    permission_required = 'products.view_product'
+    context_object_name = 'product'</p>
+<p>class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    """Create new product."""
+    model = Product
+    form_class = ProductForm
+    template_name = 'products/product_form.html'
+    permission_required = 'products.add_product'
+    success_url = reverse_lazy('products:product_list')</p>
+<pre><code>def form_valid(self, form):
+    messages.success(self.request, 'Product created successfully!')
+    return super().form_valid(form)
+</code></pre>
+<p>class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    """Update product."""
+    model = Product
+    form_class = ProductForm
+    template_name = 'products/product_form.html'
+    permission_required = 'products.change_product'
+    success_url = reverse_lazy('products:product_list')</p>
+<pre><code>def form_valid(self, form):
+    messages.success(self.request, 'Product updated successfully!')
+    return super().form_valid(form)
+</code></pre>
+<p>class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    """Delete product."""
+    model = Product
+    template_name = 'products/product_confirm_delete.html'
+    permission_required = 'products.delete_product'
+    success_url = reverse_lazy('products:product_list')</p>
+<pre><code>def delete(self, request, *args, **kwargs):
+    messages.success(request, 'Product deleted successfully!')
+    return super().delete(request, *args, **kwargs)
+</code></pre>
+<p>```</p>
+<h3 id="function-based-views">Function-Based Views</h3>
+<p>```python
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib import messages
+from .models import Product
+from .forms import ProductForm</p>
+<p>@login_required
+@permission_required('products.view_product')
+def product_list(request):
+    """List all products."""
+    products = Product.objects.select_related('category', 'brand').all()</p>
+<pre><code># Search
+search = request.GET.get('search')
+if search:
+    products = products.filter(title__icontains=search)
+
+# Pagination
+paginator = Paginator(products, 20)
+page = request.GET.get('page')
+products = paginator.get_page(page)
+
+return render(request, 'products/product_list.html', {
+    'products': products,
+    'categories': Category.objects.all()
+})
+</code></pre>
+<p>```</p>
+<hr />
+<h2 id="api-development">API Development</h2>
+<h3 id="serializers">Serializers</h3>
+<p>```python</p>
+<h1 id="productsserializerspy">products/serializers.py</h1>
+<p>from rest_framework import serializers
+from .models import Product, Category, Brand</p>
+<p>class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'name', 'description']</p>
+<p>class BrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Brand
+        fields = ['id', 'name', 'description']</p>
+<p>class ProductSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(read_only=True)
+    brand = BrandSerializer(read_only=True)
+    category_id = serializers.IntegerField(write_only=True)
+    brand_id = serializers.IntegerField(write_only=True)</p>
+<pre><code>class Meta:
+    model = Product
+    fields = [
+        'id', 'title', 'category', 'brand',
+        'category_id', 'brand_id',
+        'description', 'cost_price', 'selling_price',
+        'quantity', 'serie_number', 'created_at', 'updated_at'
+    ]
+    read_only_fields = ['created_at', 'updated_at']
+
+def validate(self, data):
+    if data['selling_price'] &lt; data['cost_price']:
+        raise serializers.ValidationError({
+            'selling_price': 'Cannot be less than cost price'
+        })
+    return data
+</code></pre>
+<p>```</p>
+<h3 id="viewsets">ViewSets</h3>
+<p>```python</p>
+<h1 id="productsviewspy-api">products/views.py (API)</h1>
+<p>from rest_framework import viewsets, permissions, filters
+from django_filters.rest_framework import DjangoFilterBackend
+from .models import Product
+from .serializers import ProductSerializer</p>
+<p>class ProductViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for products.</p>
+<pre><code>list: Return all products
+create: Create a new product
+retrieve: Return a specific product
+update: Update a product
+destroy: Delete a product
+"""
+queryset = Product.objects.select_related('category', 'brand').all()
+serializer_class = ProductSerializer
+permission_classes = [permissions.IsAuthenticated, permissions.DjangoModelPermissions]
+filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+filterset_fields = ['category', 'brand']
+search_fields = ['title', 'description']
+ordering_fields = ['title', 'cost_price', 'selling_price', 'quantity', 'created_at']
+</code></pre>
+<p>```</p>
+<h3 id="url-routing">URL Routing</h3>
+<p>```python</p>
+<h1 id="productsurlspy">products/urls.py</h1>
+<p>from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from . import views</p>
+<p>app_name = 'products'</p>
+<h1 id="web-urls">Web URLs</h1>
+<p>urlpatterns = [
+    path('list/', views.ProductListView.as_view(), name='product_list'),
+    path('create/', views.ProductCreateView.as_view(), name='product_create'),
+    path('<int:pk>/detail/', views.ProductDetailView.as_view(), name='product_detail'),
+    path('<int:pk>/update/', views.ProductUpdateView.as_view(), name='product_update'),
+    path('<int:pk>/delete/', views.ProductDeleteView.as_view(), name='product_delete'),
+]</p>
+<h1 id="api-urls">API URLs</h1>
+<p>router = DefaultRouter()
+router.register(r'products', views.ProductViewSet, basename='product-api')</p>
+<p>urlpatterns += [
+    path('api/', include(router.urls)),
+]
+```</p>
+<hr />
+<h2 id="template-development">Template Development</h2>
+<h3 id="base-template-structure">Base Template Structure</h3>
+<p>```html</p>
+<!-- templates/base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SGE{% endblock %}</title>
+
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-900 text-white">
+    {% include 'components/_sidebar.html' %}
+
+    <div class="ml-64">
+        {% include 'components/_header.html' %}
+
+        <main class="p-6">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} mb-4">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </main>
+
+        {% include 'components/_footer.html' %}
+    </div>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
+<p>```</p>
+<h3 id="component-template">Component Template</h3>
+<p>```html</p>
+<!-- templates/components/_sidebar.html -->
+
+<aside class="fixed left-0 top-0 h-screen w-64 bg-gray-800">
+    <div class="p-4">
+        <h1 class="text-2xl font-bold text-purple-400">SGE</h1>
+    </div>
+
+    <nav class="mt-4">
+        <a href="{% url 'home' %}" class="block px-4 py-2 hover:bg-gray-700">
+            Dashboard
+        </a>
+
+        {% if perms.products.view_product %}
+        <a href="{% url 'products:product_list' %}" class="block px-4 py-2 hover:bg-gray-700">
+            Products
+        </a>
+        {% endif %}
+
+        {% if perms.brands.view_brand %}
+        <a href="{% url 'brands:brand_list' %}" class="block px-4 py-2 hover:bg-gray-700">
+            Brands
+        </a>
+        {% endif %}
+
+        <!-- More navigation items -->
+    </nav>
+</aside>
+<p>```</p>
+<h3 id="form-template">Form Template</h3>
+<p>```html</p>
+<!-- templates/products/product_form.html -->
+
+<p>{% extends 'base.html' %}</p>
+<p>{% block content %}</p>
+<div class="bg-gray-800 rounded-lg p-6">
+    <h2 class="text-2xl font-bold mb-4">
+        {% if object %}Edit Product{% else %}Create Product{% endif %}
+    </h2>
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div>
+            <label class="block text-sm font-medium mb-1">
+                {{ field.label }}
+            </label>
+            {{ field }}
+            {% if field.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ field.errors.0 }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="flex gap-2">
+            <button type="submit" class="btn btn-primary">
+                Save
+            </button>
+            <a href="{% url 'products:product_list' %}" class="btn btn-secondary">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+<p>{% endblock %}
+```</p>
+<hr />
+<h2 id="debugging">Debugging</h2>
+<h3 id="django-debug-toolbar">Django Debug Toolbar</h3>
+<p><code>bash
+pip install django-debug-toolbar</code></p>
+<p>```python</p>
+<h1 id="appsettingspy_1">app/settings.py</h1>
+<p>INSTALLED_APPS += ['debug_toolbar']
+MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']</p>
+<p>INTERNAL_IPS = ['127.0.0.1']</p>
+<p>DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
+}
+```</p>
+<h3 id="python-debugger">Python Debugger</h3>
+<p>```python
+import pdb</p>
+<p>def my_function():
+    pdb.set_trace()  # Breakpoint
+    # Debug commands:
+    # n (next)
+    # s (step)
+    # c (continue)
+    # q (quit)
+    # p variable (print)
+```</p>
+<h3 id="logging">Logging</h3>
+<p>```python
+import logging</p>
+<p>logger = logging.getLogger(<strong>name</strong>)</p>
+<p>def my_view(request):
+    logger.debug('Debug message')
+    logger.info('Info message')
+    logger.warning('Warning message')
+    logger.error('Error message')
+    logger.critical('Critical message')
+```</p>
+<hr />
+<h2 id="common-tasks">Common Tasks</h2>
+<h3 id="create-new-app">Create New App</h3>
+<p><code>bash
+python manage.py startapp new_module</code></p>
+<h3 id="create-superuser_1">Create Superuser</h3>
+<p><code>bash
+python manage.py createsuperuser</code></p>
+<h3 id="collect-static-files">Collect Static Files</h3>
+<p><code>bash
+python manage.py collectstatic</code></p>
+<h3 id="run-tests">Run Tests</h3>
+<p><code>bash
 python manage.py test
-venv\Scripts\python -m mkdocs serve -a 127.0.0.1:8011</code></pre>
-<h2 id="frontend-development">Frontend Development</h2>
-<pre><code>cd frontend
-npm run dev</code></pre>
-<h2 id="documentation-development">Documentation Development</h2>
-<pre><code>venv\Scripts\python -m mkdocs build</code></pre>
+python manage.py test products
+python manage.py test products.test_models</code></p>
+<h3 id="shell-plus-with-django-extensions">Shell Plus (with django-extensions)</h3>
+<p>```bash
+pip install django-extensions</p>
+<h1 id="add-to-installed_apps">Add to INSTALLED_APPS</h1>
+<p>'django_extensions',</p>
+<h1 id="run">Run</h1>
+<p>python manage.py shell_plus</p>
+<h1 id="all-models-are-auto-imported">All models are auto-imported</h1>
+<p>```</p>
+<h3 id="exportimport-data">Export/Import Data</h3>
+<p>```bash</p>
+<h1 id="export">Export</h1>
+<p>python manage.py dumpdata products --indent 2 &gt; products.json</p>
+<h1 id="import">Import</h1>
+<p>python manage.py loaddata products.json
+```</p>
+<h3 id="check-code-quality_1">Check Code Quality</h3>
+<p>```bash</p>
+<h1 id="run-all-checks">Run all checks</h1>
+<p>python manage.py check</p>
+<h1 id="run-linters">Run linters</h1>
+<p>flake8 .
+black --check .
+isort --check-only .
+```</p>
+<hr />
+<p><strong>Next Steps</strong>: 
+- <a href="testing.html">Testing</a> - Testing strategies
+- <a href="deploy.html">Deploy</a> - Deployment guide</p>
 
 
 

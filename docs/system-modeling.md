@@ -1,872 +1,582 @@
 # System Modeling
 
-This document covers the data models, system architecture, and workflow diagrams for PortalRH.
+This document provides comprehensive system modeling diagrams including ERD, architecture, and flow diagrams.
+
+## Table of Contents
+
+- [System Modeling](#system-modeling)
+  - [Table of Contents](#table-of-contents)
+  - [Entity Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
+    - [Relationship Details](#relationship-details)
+    - [Constraints](#constraints)
+  - [System Architecture](#system-architecture)
+    - [Architecture Layers](#architecture-layers)
+  - [Authentication Flow](#authentication-flow)
+    - [Authentication Components](#authentication-components)
+  - [CRUD Operations Flow](#crud-operations-flow)
+    - [CRUD Permissions Matrix](#crud-permissions-matrix)
+  - [Security Flow](#security-flow)
+    - [Security Layers](#security-layers)
+  - [Stock Movement Flow](#stock-movement-flow)
+    - [Stock Movement Rules](#stock-movement-rules)
+  - [Data Flow Diagram](#data-flow-diagram)
+  - [Sequence Diagram: Complete Order Flow](#sequence-diagram-complete-order-flow)
 
 ---
 
-## 📊 Data Models (ERD)
+## Entity Relationship Diagram (ERD)
 
 ```mermaid
 erDiagram
-    %% Accounts Module
-    USER {
+    BRAND ||--o{ PRODUCT : "has"
+    CATEGORY ||--o{ PRODUCT : "categorizes"
+    SUPPLIER ||--o{ INFLOW : "supplies"
+    PRODUCT ||--o{ INFLOW : "receives"
+    PRODUCT ||--o{ OUTFLOW : "ships"
+    
+    BRAND {
         int id PK
-        string email UK
-        string role "admin_rh, funcionario"
-        boolean is_active
-        datetime created_at
-        datetime updated_at
-    }
-
-    %% Employees Module
-    PRE_ADMISSION_RH {
-        int id PK
-        string personal_email UK
-        string full_name
-        string position
-        string department
-        text job_description
-        string work_schedule
-        string weekly_workload "20h, 30h, 40h, 44h"
-        string contract_type "clt, temporary, internship, freelancer, pj"
-        decimal salary
-        text benefits
-        date start_date
-        text vacation_policy
-        string direct_manager
-        int created_by FK
-        boolean employee_user_created
-        string temporary_password
-        boolean email_sent
-        int employee_id FK
-        datetime created_at
-        datetime updated_at
-    }
-
-    EMPLOYEE {
-        int id PK
-        string employee_id UK "EMP-XXXX"
-        int user_id FK
-        string full_name
-        string cpf UK
-        string rg
-        date birth_date
-        string marital_status
-        string phone
-        string email
-        string street_address
-        string address_number
-        string neighborhood
-        string city
-        string state
-        string zip_code
-        string pis_pasep
-        string work_card_number
-        string work_card_series
-        string education_level
-        string bank_name
-        string agency_number
-        string account_number
-        string account_type
-        string department
-        string position
-        date hire_date
-        decimal salary
-        string status "pending, under_review, approved, active, inactive"
-        boolean admission_completed
-        boolean requires_password_change
-        datetime created_at
-        datetime updated_at
-    }
-
-    EMPLOYEE_DOCUMENT {
-        int id PK
-        int employee_id FK
-        string document_type "rg, birth_certificate, work_card, etc."
-        string document_name
-        string file
-        int file_size
-        datetime uploaded_at
-        boolean is_required
-        boolean is_verified
-    }
-
-    ADMISSION_PROCESS {
-        int id PK
-        int employee_id FK
-        string status "started, documents_uploaded, under_review, approved, completed"
-        datetime started_at
-        datetime completed_at
-        text notes
-        boolean personal_info_completed
-        boolean documents_uploaded
-        boolean hr_review_completed
-    }
-
-    %% Evaluations Module
-    EVALUATION_TEMPLATE {
-        int id PK
-        string nome UK
-        text descricao
-        boolean ativo
-        datetime created_at
-        datetime updated_at
-    }
-
-    EVALUATION_CRITERIA {
-        int id PK
-        int template_id FK
-        string nome
-        text descricao
-        decimal peso
-        int ordem
-        datetime created_at
-    }
-
-    EVALUATION {
-        int id PK
-        int template_id FK
-        int avaliado_id FK
-        int avaliador_id FK
-        string tipo
-        date periodo_inicio
-        date periodo_fim
-        string status
-        decimal nota_final
-        text comentario_geral
-        text pontos_fortes
-        text pontos_melhoria
-        text metas_objetivos
-        datetime data_limite
-        datetime data_conclusao
-        datetime created_at
-        datetime updated_at
-    }
-
-    EVALUATION_SCORE {
-        int id PK
-        int avaliacao_id FK
-        int criterio_id FK
-        decimal nota
-        text comentario
-        datetime created_at
-        datetime updated_at
-    }
-
-    EVALUATION_CYCLE {
-        int id PK
-        string nome
-        text descricao
-        date data_inicio
-        date data_fim
-        int template_id FK
-        string status
-        int created_by FK
-        datetime created_at
-        datetime updated_at
-    }
-
-    EVALUATION_CYCLE_PARTICIPANT {
-        int id PK
-        int cycle_id FK
-        int funcionario_id FK
-        int avaliador_id FK
-        datetime data_limite
-        boolean concluido
-        datetime created_at
-    }
-
-    %% Leave Requests Module
-    LEAVE_TYPE {
-        int id PK
-        string nome UK
-        text descricao
-        int max_dias_ano
-        boolean requer_aprovacao
-        int antecedencia_minima
-        boolean ativo
-        datetime created_at
-        datetime updated_at
-    }
-
-    LEAVE_REQUEST {
-        int id PK
-        int solicitante_id FK
-        int tipo_id FK
-        date data_inicio
-        date data_fim
-        text motivo
-        text observacoes
-        int dias_gozo
-        boolean tem_abono_pecuniario
-        int dias_abono_pecuniario
-        string prioridade
-        string status
-        int aprovador_id FK
-        datetime data_aprovacao
-        text comentario_aprovacao
-        string anexo
-        datetime created_at
-        datetime updated_at
-    }
-
-    LEAVE_BALANCE {
-        int id PK
-        int funcionario_id FK
-        int tipo_id FK
-        int ano
-        int dias_disponiveis
-        int dias_utilizados
-        datetime created_at
-        datetime updated_at
-    }
-
-    %% Reports Module
-    REPORT_CATEGORY {
-        int id PK
-        string name UK
-        text description
-        string icon
-        string color
-        boolean is_active
-        datetime created_at
-        datetime updated_at
-    }
-
-    REPORT_TEMPLATE {
-        uuid id PK
         string name
         text description
-        string report_type
+        datetime created_at
+        datetime updated_at
+    }
+    
+    CATEGORY {
+        int id PK
+        string name
+        text description
+        datetime created_at
+        datetime updated_at
+    }
+    
+    SUPPLIER {
+        int id PK
+        string name
+        text description
+        datetime created_at
+        datetime updated_at
+    }
+    
+    PRODUCT {
+        int id PK
+        string title
         int category_id FK
-        json query_config
-        json output_formats
-        string default_format
-        json columns_config
-        json chart_config
-        boolean is_public
-        json allowed_roles
-        int cache_duration
-        boolean enable_cache
-        boolean is_active
-        int version
+        int brand_id FK
+        text description
+        decimal cost_price
+        decimal selling_price
+        int quantity
+        string serie_number
         datetime created_at
         datetime updated_at
     }
-
-    REPORT_EXECUTION {
-        uuid id PK
-        uuid template_id FK
-        int executed_by FK
-        json parameters
-        string output_format
-        string status
-        json result_data
-        string file_path
-        float execution_time_seconds
-        int rows_processed
-        text error_message
-        datetime started_at
-        datetime completed_at
-        datetime expires_at
-        datetime created_at
-        datetime updated_at
-    }
-
-    REPORT_SCHEDULE {
-        uuid id PK
-        string name
-        uuid template_id FK
-        string frequency
-        string cron_expression
-        string output_format
-        json parameters
-        json email_recipients
-        boolean send_email_on_success
-        boolean send_email_on_failure
-        string status
-        datetime last_execution
-        datetime next_execution
-        int execution_count
-        int success_count
-        int failure_count
-        datetime created_at
-        datetime updated_at
-    }
-
-    REPORT_BOOKMARK {
+    
+    INFLOW {
         int id PK
-        int user_id FK
-        uuid template_id FK
-        string name
-        json parameters
+        int supplier_id FK
+        int product_id FK
+        int quantity
+        text description
         datetime created_at
         datetime updated_at
     }
-
-    %% Staff Module
-    STAFF_EMPLOYEE {
+    
+    OUTFLOW {
         int id PK
-        int user_id FK
-        string nome
-        string cargo
-        string setor
-        date data_admissao
-        date data_demissao
-        decimal salario
-        string cpf UK
-        string rg
-        string telefone
-        text endereco
-        date data_nascimento
-        string status
-        text observacoes
-        string foto
+        int product_id FK
+        int quantity
+        text description
         datetime created_at
         datetime updated_at
     }
-
-    DEPARTMENT {
+    
+    AIRESULT {
         int id PK
-        string nome UK
-        text descricao
-        datetime created_at
-        datetime updated_at
-    }
-
-    STAFF_EMPLOYEE_DOCUMENT {
-        int id PK
-        int employee_id FK
-        string tipo
-        string nome
-        string arquivo
-        text descricao
-        int uploaded_by FK
+        text result
         datetime created_at
     }
+```
 
-    %% Termination Module
-    TERMINATION_REASON {
-        int id PK
-        string nome UK
-        string codigo UK
-        text descricao
-        boolean ativo
-        datetime created_at
-        datetime updated_at
-    }
+### Relationship Details
 
-    TERMINATION_REQUEST {
-        int id PK
-        int funcionario_id FK
-        int solicitante_id FK
-        int motivo_id FK
-        date data_ultimo_dia
-        date data_desligamento
-        text justificativa
-        text observacoes_rh
-        string status
-        int aprovador_rh_id FK
-        datetime data_aprovacao_rh
-        text comentario_aprovacao_rh
-        string anexo_documentos
-        datetime created_at
-        datetime updated_at
-    }
+| Relationship | Type | Description |
+|--------------|------|-------------|
+| Brand → Product | 1:N | One brand can have many products |
+| Category → Product | 1:N | One category can have many products |
+| Supplier → Inflow | 1:N | One supplier can have many inflows |
+| Product → Inflow | 1:N | One product can have many inflows |
+| Product → Outflow | 1:N | One product can have many outflows |
 
-    TERMINATION_DOCUMENT {
-        int id PK
-        int termination_request_id FK
-        string tipo_documento
-        string nome_arquivo
-        string arquivo
-        boolean gerado_automaticamente
-        int gerado_por FK
-        text observacoes
-        datetime created_at
-        datetime updated_at
-    }
+### Constraints
 
-    %% Relationships
-    USER ||--o| EMPLOYEE : "has profile (employee_profile)"
-    USER ||--o{ EVALUATION : "evaluates/is evaluated"
-    USER ||--o{ LEAVE_REQUEST : "requests/approves"
-    USER ||--o{ REPORT_EXECUTION : "executes"
-    USER ||--o| STAFF_EMPLOYEE : "staff profile"
-    USER ||--o{ REPORT_BOOKMARK : "bookmarks"
-    USER ||--o{ REPORT_TEMPLATE : "creates/allowed"
-    USER ||--o{ REPORT_SCHEDULE : "creates"
-    USER ||--o{ TERMINATION_REQUEST : "requests/approves"
-    USER ||--o{ PRE_ADMISSION_RH : "creates"
+- **PROTECT** on all foreign keys: Prevents deletion of referenced records
+- **NOT NULL** on required fields: title, name, quantity, prices
+- **UNIQUE** on serie_number (when provided)
 
-    PRE_ADMISSION_RH }o--|| USER : "created by"
-    PRE_ADMISSION_RH ||--o| EMPLOYEE : "creates (OneToOne)"
-    
-    EMPLOYEE ||--o{ EMPLOYEE_DOCUMENT : "has documents"
-    EMPLOYEE ||--o| ADMISSION_PROCESS : "has process"
-    
-    EVALUATION_TEMPLATE ||--o{ EVALUATION_CRITERIA : "contains"
-    EVALUATION_TEMPLATE ||--o{ EVALUATION : "used in"
-    EVALUATION_TEMPLATE ||--o{ EVALUATION_CYCLE : "used in"
-    
-    EVALUATION ||--o{ EVALUATION_SCORE : "has scores"
-    EVALUATION_CRITERIA ||--o{ EVALUATION_SCORE : "has scores"
-    
-    EVALUATION_CYCLE ||--o{ EVALUATION_CYCLE_PARTICIPANT : "has participants"
-    USER ||--o{ EVALUATION_CYCLE_PARTICIPANT : "participates"
-    
-    LEAVE_TYPE ||--o{ LEAVE_REQUEST : "categorizes"
-    LEAVE_TYPE ||--o{ LEAVE_BALANCE : "tracks balance"
-    
-    USER ||--o{ LEAVE_REQUEST : "requests"
-    USER ||--o{ LEAVE_BALANCE : "has balance"
-    
-    REPORT_CATEGORY ||--o{ REPORT_TEMPLATE : "categorizes"
-    REPORT_TEMPLATE ||--o{ REPORT_EXECUTION : "executed as"
-    REPORT_TEMPLATE ||--o{ REPORT_SCHEDULE : "scheduled as"
-    REPORT_TEMPLATE ||--o{ REPORT_BOOKMARK : "bookmarked as"
-    
-    DEPARTMENT ||--o{ STAFF_EMPLOYEE : "employs"
-    STAFF_EMPLOYEE ||--o{ STAFF_EMPLOYEE_DOCUMENT : "has documents"
-    
-    TERMINATION_REASON ||--o{ TERMINATION_REQUEST : "categorizes"
-    TERMINATION_REQUEST ||--o{ TERMINATION_DOCUMENT : "has documents"
-    USER ||--o{ TERMINATION_REQUEST : "requests/approves"
-<pre><code>
 ---
 
-## &#127959;️ System Architecture
+## System Architecture
 
 ```mermaid
 graph TB
-    subgraph &quot;Client Layer&quot;
-        WEB[Web Browser]
-        MOBILE[Mobile Device]
+    subgraph Client Layer
+        Browser[Web Browser]
+        Mobile[Mobile App]
+        ThirdParty[Third-Party Systems]
     end
-
-    subgraph &quot;Frontend&quot;
-        REACT[React Application]
-    end
-
-    subgraph &quot;API Gateway&quot;
-        NGINX[Nginx Reverse Proxy]
-    end
-
-    subgraph &quot;Application Layer&quot;
-        DJANGO[Django Application]
-        GUNICORN[Gunicorn WSGI Server]
-        
-        subgraph &quot;Django Apps&quot;
-            ACCOUNTS[Accounts App]
-            EMPLOYEES[Employees App]
-            EVALUATIONS[Evaluations App]
-            LEAVE[Leave Requests App]
-            REPORTS[Reports App]
-            STAFF[Staff App]
-            TERMINATION[Termination App]
-        end
-    end
-
-    subgraph &quot;Data Layer&quot;
-        POSTGRES[(PostgreSQL Database)]
-        CACHE[(Redis Cache)]
-        MEDIA[Media Storage]
-    end
-
-    subgraph &quot;External Services&quot;
-        EMAIL[Email Service]
-        AUTH[Authentication Service]
-    end
-
-    WEB --&gt; NGINX
-    MOBILE --&gt; NGINX
-    NGINX --&gt; GUNICORN
-    GUNICORN --&gt; DJANGO
     
-    DJANGO --&gt; ACCOUNTS
-    DJANGO --&gt; EMPLOYEES
-    DJANGO --&gt; EVALUATIONS
-    DJANGO --&gt; LEAVE
-    DJANGO --&gt; REPORTS
-    DJANGO --&gt; STAFF
-    DJANGO --&gt; TERMINATION
+    subgraph Presentation Layer
+        DjangoTemplates[Django Templates<br/>HTML/CSS/JS]
+        Dashboard[Dashboard UI]
+        Admin[Django Admin]
+    end
     
-    ACCOUNTS --&gt; POSTGRES
-    EMPLOYEES --&gt; POSTGRES
-    EVALUATIONS --&gt; POSTGRES
-    LEAVE --&gt; POSTGRES
-    REPORTS --&gt; POSTGRES
-    STAFF --&gt; POSTGRES
-    TERMINATION --&gt; POSTGRES
+    subgraph API Layer
+        APIGateway[API Gateway<br/>/api/v1/]
+        Auth[Authentication<br/>JWT]
+        BrandsAPI[Brands API]
+        CategoriesAPI[Categories API]
+        SuppliersAPI[Suppliers API]
+        ProductsAPI[Products API]
+        InflowsAPI[Inflows API]
+        OutflowsAPI[Outflows API]
+    end
     
-    REPORTS --&gt; CACHE
-    DJANGO --&gt; MEDIA
-    ACCOUNTS --&gt; EMAIL
-    ACCOUNTS --&gt; AUTH</code></pre>
+    subgraph Application Layer
+        BusinessLogic[Business Logic Layer]
+        Signals[Django Signals]
+        Validators[Data Validators]
+        Permissions[Permission System]
+    end
+    
+    subgraph Integration Layer
+        OpenAI[OpenAI Service<br/>GPT-3.5-turbo]
+        Webhooks[Webhook Service<br/>External APIs]
+    end
+    
+    subgraph Data Layer
+        PostgreSQL[(PostgreSQL<br/>Database)]
+        Sessions[Session Store]
+        Cache[Cache Layer]
+    end
+    
+    Browser --> DjangoTemplates
+    Mobile --> APIGateway
+    ThirdParty --> APIGateway
+    
+    DjangoTemplates --> Dashboard
+    DjangoTemplates --> Admin
+    
+    APIGateway --> Auth
+    APIGateway --> BrandsAPI
+    APIGateway --> CategoriesAPI
+    APIGateway --> SuppliersAPI
+    APIGateway --> ProductsAPI
+    APIGateway --> InflowsAPI
+    APIGateway --> OutflowsAPI
+    
+    BrandsAPI --> BusinessLogic
+    CategoriesAPI --> BusinessLogic
+    SuppliersAPI --> BusinessLogic
+    ProductsAPI --> BusinessLogic
+    InflowsAPI --> BusinessLogic
+    OutflowsAPI --> BusinessLogic
+    
+    BusinessLogic --> Signals
+    BusinessLogic --> Validators
+    BusinessLogic --> Permissions
+    
+    BusinessLogic --> OpenAI
+    BusinessLogic --> Webhooks
+    
+    BusinessLogic --> PostgreSQL
+    BusinessLogic --> Sessions
+    BusinessLogic --> Cache
+    
+    style PostgreSQL fill:#336791,color:#fff
+    style OpenAI fill:#10a37f,color:#fff
+    style APIGateway fill:#0073b1,color:#fff
+```
+
+### Architecture Layers
+
+| Layer | Components | Responsibility |
+|-------|------------|----------------|
+| **Client** | Browser, Mobile, Third-party | User interaction |
+| **Presentation** | Templates, Dashboard, Admin | UI rendering |
+| **API** | REST endpoints, JWT auth | External access |
+| **Application** | Business logic, Signals | Core functionality |
+| **Integration** | OpenAI, Webhooks | External services |
+| **Data** | PostgreSQL, Cache | Data persistence |
+
 ---
 
-## 🔐 Authentication Flow
+## Authentication Flow
 
 ```mermaid
 sequenceDiagram
     participant User
     participant Frontend
     participant API
-    participant DB
     participant JWT
-
+    participant Database
+    
+    Note over User,Database: Login Flow
+    
     User->>Frontend: Enter credentials
-    Frontend->>API: POST /auth/login/
-    API->>DB: Validate credentials
-    DB-->>API: User data
+    Frontend->>API: POST /login/ (username, password)
+    API->>Database: Validate credentials
+    Database-->>API: User data
     API->>JWT: Generate tokens
-    JWT-->>API: access + refresh tokens
+    JWT-->>API: access_token, refresh_token
     API-->>Frontend: Return tokens + user data
-    Frontend->>Frontend: Store tokens
+    Frontend-->>User: Redirect to dashboard
     
-    Note over Frontend,JWT: Subsequent Requests
+    Note over User,Database: API Request Flow
     
-    Frontend->>Frontend: Add Authorization header
-    Frontend->>API: Request with Bearer token
-    API->>JWT: Validate access token
-    JWT-->>API: Token valid/invalid
+    User->>Frontend: Navigate to products
+    Frontend->>API: GET /api/v1/products/
+    Note right of Frontend: Authorization: Bearer {token}
+    API->>JWT: Verify token
+    JWT-->>API: Token valid
+    API->>Database: Query products
+    Database-->>API: Products data
+    API-->>Frontend: Return products
+    Frontend-->>User: Display products
     
-    alt Token Valid
-        API->>DB: Query data
-        DB-->>API: Return data
-        API-->>Frontend: Return response
-    else Token Expired
-        Frontend->>API: POST /auth/refresh/
-        API->>JWT: Validate refresh token
-        JWT-->>API: Generate new access token
-        API-->>Frontend: New access token
-        Frontend->>Frontend: Update stored token
+    Note over User,Database: Token Refresh Flow
+    
+    User->>Frontend: Continue using app
+    Frontend->>API: Request with expired token
+    API->>JWT: Verify token
+    JWT-->>API: Token expired
+    API-->>Frontend: 401 Unauthorized
+    Frontend->>API: POST /token/refresh/
+    Note right of Frontend: refresh_token
+    API->>JWT: Validate refresh token
+    JWT-->>API: Generate new access token
+    API-->>Frontend: New access_token
+    Frontend->>API: Retry request
+    API-->>Frontend: Return data
+    Frontend-->>User: Display content
+    
+    Note over User,Database: Logout Flow
+    
+    User->>Frontend: Click logout
+    Frontend->>API: POST /logout/
+    API->>JWT: Blacklist token (optional)
+    API-->>Frontend: Logout successful
+    Frontend-->>User: Redirect to login
+```
+
+### Authentication Components
+
+| Component | Purpose |
+|-----------|---------|
+| **JWT Access Token** | Short-lived token (1 day) for API access |
+| **JWT Refresh Token** | Long-lived token (7 days) for renewal |
+| **Session Auth** | Django session for web interface |
+| **Permission System** | Model-level permissions |
+
+---
+
+## CRUD Operations Flow
+
+```mermaid
+graph TD
+    subgraph Create Operations
+        StartCreate[Start Create] --> ValidateCreate[Validate Data]
+        ValidateCreate --> CheckPermissions[Check Create Permission]
+        CheckPermissions --> SaveData[Save to Database]
+        SaveData --> TriggerSignals[Trigger Signals]
+        TriggerSignals --> ReturnCreate[Return Created Object]
     end
     
-    Note over User,DB: First Login Password Change
-    
-    alt Requires Password Change
-        API-->>Frontend: requires_password_change: true
-        Frontend->>User: Prompt password change
-        User->>Frontend: Enter new password
-        Frontend->>API: POST /first-login-password-change/
-        API->>DB: Update password hash
-        DB-->>API: Success
-        API-->>Frontend: Password changed
+    subgraph Read Operations
+        StartRead[Start Read] --> CheckReadPerms[Check View Permission]
+        CheckReadPerms --> QueryData[Query Database]
+        QueryData --> ApplyFilters[Apply Filters/Sorting]
+        ApplyFilters --> Paginate[Paginate Results]
+        Paginate --> ReturnRead[Return Data]
     end
-<pre><code>
+    
+    subgraph Update Operations
+        StartUpdate[Start Update] --> ValidateUpdate[Validate Data]
+        ValidateUpdate --> CheckUpdatePerms[Check Change Permission]
+        CheckUpdatePerms --> GetObject[Get Object]
+        GetObject --> UpdateFields[Update Fields]
+        UpdateFields --> SaveUpdate[Save Changes]
+        SaveUpdate --> ReturnUpdate[Return Updated Object]
+    end
+    
+    subgraph Delete Operations
+        StartDelete[Start Delete] --> CheckDeletePerms[Check Delete Permission]
+        CheckDeletePerms --> CheckRelations[Check Related Objects]
+        CheckRelations -->|Has Relations| BlockDelete[Block - PROTECT]
+        CheckRelations -->|No Relations| DeleteObject[Delete Object]
+        DeleteObject --> ReturnDelete[Return 204 No Content]
+    end
+    
+    style StartCreate fill:#4CAF50,color:#fff
+    style StartRead fill:#2196F3,color:#fff
+    style StartUpdate fill:#FF9800,color:#fff
+    style StartDelete fill:#f44336,color:#fff
+    style BlockDelete fill:#f44336,color:#fff
+```
+
+### CRUD Permissions Matrix
+
+| Operation | Permission Required | View |
+|-----------|---------------------|------|
+| **Create** | `add_<model>` | Admin, Managers |
+| **Read** | `view_<model>` | All authenticated users |
+| **Update** | `change_<model>` | Admin, Managers |
+| **Delete** | `delete_<model>` | Admin only |
+
 ---
 
-## &#128221; CRUD Operations Flow
-
-### Employee Management
+## Security Flow
 
 ```mermaid
-flowchart TD
-    A[Start] --&gt; B{User Role?}
-    B --&gt;|Admin RH| C[Full Access]
-    B --&gt;|Employee| D[Limited Access]
+sequenceDiagram
+    participant User
+    participant Middleware
+    participant Auth
+    participant Permissions
+    participant View
+    participant Database
     
-    C --&gt; E[Create Employee]
-    E --&gt; F[Pre-Admission RH]
-    F --&gt; G[Generate Temporary Password]
-    G --&gt; H[Send Welcome Email]
-    H --&gt; I[Employee Account Created]
+    Note over User,Database: Request Security Flow
     
-    I --&gt; J[Employee Login]
-    J --&gt; K{First Login?}
-    K --&gt;|Yes| L[Change Password]
-    K --&gt;|No| M[Dashboard]
-    L --&gt; M
+    User->>Middleware: HTTP Request
+    Middleware->>Middleware: CSRF Check
+    Middleware-->>User: 403 if CSRF fails
     
-    M --&gt; N[Complete Personal Info]
-    N --&gt; O[Upload Documents]
-    O --&gt; P[HR Review]
-    P --&gt; Q{Documents Approved?}
-    Q --&gt;|Yes| R[Admission Complete]
-    Q --&gt;|No| S[Request Corrections]
-    S --&gt; N
+    Middleware->>Auth: Check Authentication
+    Auth->>Auth: Validate JWT/Session
+    Auth-->>User: 401 if not authenticated
     
-    R --&gt; T[Employee Active]
+    Auth->>Permissions: Check Permissions
+    Permissions->>Database: Get user permissions
+    Database-->>Permissions: User groups & permissions
+    Permissions-->>User: 403 if not authorized
     
-    D --&gt; U[View Own Profile]
-    U --&gt; V[Update Personal Info]
-    V --&gt; W[View Documents]
-    W --&gt; X[Upload Missing Documents]
-    X --&gt; Y[View Admission Status]</code></pre>
-### Leave Request Flow
+    Permissions->>View: Process Request
+    View->>View: Input Validation
+    View-->>User: 400 if validation fails
+    
+    View->>Database: Execute Query
+    Database-->>View: Return Data
+    
+    View->>View: Sanitize Output
+    View-->>Middleware: Response
+    Middleware-->>User: Secure Response
+    
+    Note over User,Database: Security Layers
+    
+    Note right of Middleware: 1. CSRF Protection
+    Note right of Auth: 2. Authentication
+    Note right of Permissions: 3. Authorization
+    Note right of View: 4. Input Validation
+    Note right of Database: 5. SQL Injection Prevention
+```
 
-```mermaid
-flowchart TD
-    A[Employee] --> B[Create Leave Request]
-    B --> C{Validate Balance}
-    C -->|Insufficient| D[Reject Automatically]
-    C -->|Sufficient| E[Submit for Approval]
-    
-    E --> F[Manager Notification]
-    F --> G{Manager Action}
-    G -->|Approve| H[Update Balance]
-    G -->|Reject| I[Notify Employee]
-    G -->|Pending| J[Reminder After 48h]
-    
-    H --> K[Update Calendar]
-    K --> L[Notify Employee]
-    L --> M[Leave Approved]
-    
-    I --> N[Request Cancelled]
-    
-    M --> O[Take Leave]
-    O --> P[Return to Work]
-    P --> Q[Close Request]
-<pre><code>
-### Performance Evaluation Flow
+### Security Layers
 
-```mermaid
-flowchart TD
-    A[HR Admin] --&gt; B[Create Evaluation Cycle]
-    B --&gt; C[Define Template]
-    C --&gt; D[Add Criteria]
-    D --&gt; E[Assign Participants]
-    
-    E --&gt; F[Start Cycle]
-    F --&gt; G[Notify Evaluators]
-    
-    G --&gt; H{Evaluator}
-    H --&gt; I[Complete Evaluation]
-    I --&gt; J[Submit Scores]
-    J --&gt; K{All Criteria Done?}
-    K --&gt;|No| I
-    K --&gt;|Yes| L[Calculate Final Score]
-    
-    L --&gt; M{All Evaluations Done?}
-    M --&gt;|No| H
-    M --&gt;|Yes| N[Complete Cycle]
-    
-    N --&gt; O[Generate Reports]
-    O --&gt; P[Notify HR]
-    P --&gt; Q[Archive Results]</code></pre>
-### Termination Flow
+| Layer | Protection | Implementation |
+|-------|------------|----------------|
+| **CSRF** | Cross-site request forgery | Django CSRF middleware |
+| **Authentication** | Unauthorized access | JWT + Session auth |
+| **Authorization** | Permission-based access | Django permissions |
+| **Input Validation** | Malicious input | Forms + Serializers |
+| **SQL Injection** | Database attacks | Django ORM |
+| **XSS** | Script injection | Template auto-escaping |
 
-```mermaid
-flowchart TD
-    A[Manager] --> B[Create Termination Request]
-    B --> C[Select Reason]
-    C --> D[Set Last Day]
-    D --> E[Submit to HR]
-    
-    E --> F[HR Review]
-    F --> G{HR Decision}
-    G -->|Approve| H[Start Processing]
-    G -->|Reject| I[Return to Manager]
-    G -->|Request Info| J[Ask for Details]
-    
-    H --> K[Generate Documents]
-    K --> L[Exit Interview]
-    L --> M[Collect Equipment]
-    M --> N[Calculate Rescission]
-    N --> O[Schedule Payment]
-    O --> P[Complete Termination]
-    
-    P --> Q[Deactivate Access]
-    Q --> R[Update Records]
-    R --> S[Archive Process]
-<pre><code>
 ---
 
-## &#128274; Security Flow
+## Stock Movement Flow
 
 ```mermaid
-flowchart TD
-    A[Request Received] --&gt; B{HTTPS?}
-    B --&gt;|No| C[Redirect to HTTPS]
-    B --&gt;|Yes| D[Validate CORS Origin]
+stateDiagram-v2
+    [*] --> ProductCreated: Create Product
+    ProductCreated --> LowStock: quantity < threshold
+    ProductCreated --> NormalStock: quantity >= threshold
     
-    D --&gt; E{Origin Allowed?}
-    E --&gt;|No| F[403 Forbidden]
-    E --&gt;|Yes| G[Validate JWT Token]
+    state Inflow Process {
+        [*] --> CreateInflow: User creates inflow
+        CreateInflow --> ValidateInflow: Validate data
+        ValidateInflow --> SaveInflow: Save to database
+        SaveInflow --> UpdateQuantity: Signal triggers
+        UpdateQuantity --> [*]: Product.quantity += inflow.quantity
+    }
     
-    G --&gt; H{Token Valid?}
-    H --&gt;|No| I[401 Unauthorized]
-    H --&gt;|Yes| J[Check Permissions]
+    state Outflow Process {
+        [*] --> CreateOutflow: User creates outflow
+        CreateOutflow --> ValidateOutflow: Validate data
+        ValidateOutflow --> CheckStock: Check available quantity
+        CheckStock --> InsufficientStock: quantity < required
+        CheckStock --> SufficientStock: quantity >= required
+        
+        InsufficientStock --> ErrorReturn: Return error
+        SufficientStock --> SaveOutflow: Save to database
+        SaveOutflow --> DecreaseQuantity: Signal triggers
+        DecreaseQuantity --> TriggerWebhook: Send webhook
+        TriggerWebhook --> CheckLowStock: Check if low stock
+        CheckLowStock --> LowStockAlert: Send alert if low
+        CheckLowStock --> [*]: Normal
+        LowStockAlert --> [*]
+    }
     
-    J --&gt; K{Has Permission?}
-    K --&gt;|No| L[403 Forbidden]
-    K --&gt;|Yes| M[Validate Input]
+    ProductCreated --> Inflow Process
+    ProductCreated --> Outflow Process
     
-    M --&gt; N{Valid Input?}
-    N --&gt;|No| O[400 Bad Request]
-    N --&gt;|Yes| P[Execute Business Logic]
+    LowStock --> CreateInflow: Auto-suggest restock
+    NormalStock --> Outflow Process
     
-    P --&gt; Q{Operation Type?}
-    Q --&gt;|Read| R[Return Data]
-    Q --&gt;|Write| S[Validate CSRF]
-    
-    S --&gt; T{CSRF Valid?}
-    T --&gt;|No| U[403 Forbidden]
-    T --&gt;|Yes| V[Execute Write Operation]
-    
-    V --&gt; W[Log Operation]
-    W --&gt; X[Return Response]
-    
-    R --&gt; Y[Sanitize Output]
-    Y --&gt; X
-    
-    style F fill:#ff6b6b
-    style I fill:#ff6b6b
-    style L fill:#ff6b6b
-    style O fill:#ff6b6b
-    style U fill:#ff6b6b
-    style X fill:#51cf66</code></pre>
+    style Inflow Process fill:#4CAF50,color:#fff
+    style Outflow Process fill:#FF9800,color:#fff
+    style InsufficientStock fill:#f44336,color:#fff
+    style LowStock fill:#ffeb3b,color:#000
+```
+
+### Stock Movement Rules
+
+| Movement | Effect | Trigger |
+|----------|--------|---------|
+| **Inflow Create** | quantity += inflow.quantity | post_save signal |
+| **Outflow Create** | quantity -= outflow.quantity | post_save signal |
+| **Outflow Check** | Validate quantity >= 0 | pre_save validation |
+| **Low Stock Alert** | Notify if quantity < threshold | post_save signal |
+
 ---
 
-## 📊 Module Interactions
+## Data Flow Diagram
 
 ```mermaid
 graph LR
-    subgraph "Core Modules"
-        ACCOUNTS[Accounts]
-        EMPLOYEES[Employees]
+    subgraph External Entities
+        Supplier[Supplier]
+        Customer[Customer]
+        Admin[Administrator]
+        AI[OpenAI API]
     end
     
-    subgraph "HR Processes"
-        ADMISSION[Admission]
-        EVALUATIONS[Evaluations]
-        LEAVE[Leave Requests]
-        TERMINATION[Termination]
+    subgraph Input Processes
+        P1[Register Products]
+        P2[Record Inflows]
+        P3[Record Outflows]
+        P4[Generate Reports]
     end
     
-    subgraph "Support Modules"
-        REPORTS[Reports]
-        STAFF[Staff]
+    subgraph Data Stores
+        D1[(Products DB)]
+        D2[(Inflows DB)]
+        D3[(Outflows DB)]
+        D4[(Analytics DB)]
     end
     
-    ACCOUNTS --> EMPLOYEES
-    EMPLOYEES --> ADMISSION
-    EMPLOYEES --> EVALUATIONS
-    EMPLOYEES --> LEAVE
-    EMPLOYEES --> TERMINATION
+    subgraph Output Processes
+        O1[Dashboard]
+        O2[Reports]
+        O3[Alerts]
+        O4[Webhooks]
+    end
     
-    ADMISSION --> ACCOUNTS
-    EVALUATIONS --> EMPLOYEES
-    LEAVE --> EMPLOYEES
-    TERMINATION --> EMPLOYEES
-    TERMINATION --> ACCOUNTS
+    Supplier --> P2
+    Admin --> P1
+    Admin --> P2
+    Admin --> P3
+    Customer --> P3
     
-    REPORTS --> EMPLOYEES
-    REPORTS --> EVALUATIONS
-    REPORTS --> LEAVE
-    REPORTS --> TERMINATION
-    REPORTS --> ADMISSION
+    P1 --> D1
+    P2 --> D1
+    P2 --> D2
+    P3 --> D1
+    P3 --> D3
     
-    STAFF --> EMPLOYEES
-    STAFF --> ACCOUNTS
-<pre><code>
+    D1 --> P4
+    D2 --> P4
+    D3 --> P4
+    
+    P4 --> D4
+    D4 --> O1
+    D4 --> O2
+    
+    D1 --> O3
+    D3 --> O4
+    P4 --> AI
+    AI --> O1
+    
+    style D1 fill:#336791,color:#fff
+    style D2 fill:#336791,color:#fff
+    style D3 fill:#336791,color:#fff
+    style D4 fill:#336791,color:#fff
+```
+
 ---
 
-## &#128200; Data Flow Diagram
+## Sequence Diagram: Complete Order Flow
 
 ```mermaid
-flowchart LR
-    subgraph &quot;Data Sources&quot;
-        USER[User Input]
-        FILE[File Upload]
-        EXTERNAL[External APIs]
-    end
+sequenceDiagram
+    participant A as Admin
+    participant S as System
+    participant P as Product
+    participant I as Inflow
+    participant O as Outflow
+    participant W as Webhook
+    participant AI as AI Service
     
-    subgraph &quot;Processing&quot;
-        VALIDATE[Validation]
-        PROCESS[Business Logic]
-        TRANSFORM[Data Transformation]
-    end
+    Note over A,AI: Product Lifecycle
     
-    subgraph &quot;Storage&quot;
-        DB[(PostgreSQL)]
-        CACHE[(Redis)]
-        MEDIA[File Storage]
-    end
+    A->>S: Create Brand/Category/Supplier
+    S-->>A: Confirm creation
     
-    subgraph &quot;Output&quot;
-        API[API Response]
-        REPORT[Generated Report]
-        EMAIL[Email Notification]
-    end
+    A->>S: Create Product
+    S->>P: Save product (qty=0)
+    S-->>A: Product created
     
-    USER --&gt; VALIDATE
-    FILE --&gt; VALIDATE
-    EXTERNAL --&gt; VALIDATE
+    A->>S: Create Inflow (qty=100)
+    S->>I: Save inflow record
+    I->>P: Update quantity (0+100=100)
+    S-->>A: Inflow recorded
     
-    VALIDATE --&gt; PROCESS
-    PROCESS --&gt; TRANSFORM
+    Note over A,AI: Sales Process
     
-    TRANSFORM --&gt; DB
-    TRANSFORM --&gt; CACHE
-    TRANSFORM --&gt; MEDIA
+    A->>S: Create Outflow (qty=20)
+    S->>O: Validate stock (100 >= 20)
+    O->>P: Update quantity (100-20=80)
+    O->>W: Send webhook event
+    W-->>O: Webhook acknowledged
     
-    DB --&gt; API
-    CACHE --&gt; API
-    MEDIA --&gt; API
+    S->>P: Check stock level
+    P-->>S: Stock OK (80 > threshold)
+    S-->>A: Outflow recorded
     
-    DB --&gt; REPORT
-    TRANSFORM --&gt; REPORT
+    Note over A,AI: Low Stock Scenario
     
-    PROCESS --&gt; EMAIL</code></pre>
+    A->>S: Create Outflow (qty=70)
+    S->>O: Validate stock (80 >= 70)
+    O->>P: Update quantity (80-70=10)
+    O->>W: Send webhook event
+    
+    S->>P: Check stock level
+    P-->>S: LOW STOCK (10 < threshold)
+    S->>AI: Request analysis
+    AI-->>S: Generate insights
+    S->>A: Send low stock alert
+    S-->>A: Suggest restock
+    
+    style P fill:#4CAF50,color:#fff
+    style I fill:#2196F3,color:#fff
+    style O fill:#FF9800,color:#fff
+    style W fill:#9C27B0,color:#fff
+    style AI fill:#10a37f,color:#fff
+```
+
 ---
 
-## 🔄 State Machines
-
-### Employee Status
-
-```mermaid
-stateDiagram-v2
-    [*] --> Pending
-    Pending --> UnderReview: Submit Documents
-    UnderReview --> Approved: HR Approval
-    UnderReview --> Pending: Request Corrections
-    Approved --> Active: Start Date Reached
-    Active --> Inactive: Termination
-    Active --> OnLeave: Leave Approved
-    OnLeave --> Active: Leave Ended
-    Inactive --> [*]
-<pre><code>
-### Leave Request Status
-
-```mermaid
-stateDiagram-v2
-    [*] --&gt; Draft
-    Draft --&gt; Pending: Submit
-    Pending --&gt; Approved: Manager Approval
-    Pending --&gt; Rejected: Manager Rejection
-    Approved --&gt; Cancelled: Employee Cancels
-    Approved --&gt; OnLeave: Start Date
-    OnLeave --&gt; Completed: End Date
-    Rejected --&gt; [*]
-    Cancelled --&gt; [*]
-    Completed --&gt; [*]</code></pre>
-### Evaluation Status
-
-```mermaid
-stateDiagram-v2
-    [*] --> Draft
-    Draft --> Pending: Submit
-    Pending --> InProgress: Start Evaluation
-    InProgress --> Completed: Submit Scores
-    Completed --> Approved: HR Approval
-    Completed --> Rejected: HR Rejection
-    Approved --> [*]
-    Rejected --> InProgress: Request Changes
-<pre><code>
-### Termination Status
-
-```mermaid
-stateDiagram-v2
-    [*] --&gt; Draft
-    Draft --&gt; PendingHR: Submit
-    PendingHR --&gt; ApprovedHR: HR Approval
-    PendingHR --&gt; RejectedHR: HR Rejection
-    ApprovedHR --&gt; Processing: Start Processing
-    Processing --&gt; Completed: Complete All Steps
-    Completed --&gt; [*]
-    RejectedHR --&gt; [*]</code></pre>
----
-
-**Next:** [Authentication & Security](authentication-security.md)
+**Next Steps**: 
+- [Authentication & Security](authentication-security.md) - Detailed security documentation
+- [Development](development.md) - Development workflow

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Human Resources Management System documentation">
+        <meta name="description" content="A Django-based Inventory Management System (SGE - Sistema de Gestão de Estoque) that allows you to manage products, suppliers, and stock movements (inflows/outflows), providing a dashboard with metrics and charts. It also includes an optional AI insights module to generate short daily inventory/sales recommendations based on system data.">
       
       
         <meta name="author" content="GabrielDLobo">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Authentication and Security - PortalRH Documentation</title>
+        <title>Authentication and Security - Inventory Management System</title>
       
     
     
@@ -90,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="index.html" title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-header__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +104,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            PortalRH Documentation
+            Inventory Management System
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -185,13 +185,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="index.html" title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-nav__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    PortalRH Documentation
+    Inventory Management System
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -429,47 +429,68 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#authentication-model" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
-      Authentication Model
+      Table of Contents
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#main-endpoints" class="md-nav__link">
+  <a href="#authentication-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Main Endpoints
+      Authentication Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication Flow
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#authorization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Authorization
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#security-controls" class="md-nav__link">
+  <a href="#jwt-authentication" class="md-nav__link">
     <span class="md-ellipsis">
-      Security Controls
+      JWT Authentication
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JWT Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#token-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Token Structure
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#recommended-production-settings" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#token-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Recommended Production Settings
+      Token Configuration
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -548,7 +569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="contributing.html" class="md-nav__link">
+      <a href="contribution.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -568,7 +589,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gallery.html" class="md-nav__link">
+      <a href="image-projects.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -593,26 +614,6 @@
   
   <span class="md-ellipsis">
     Release Notes
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="UPDATE_LOG.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Update Log
   </span>
   
 
@@ -648,47 +649,68 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#authentication-model" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
-      Authentication Model
+      Table of Contents
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#main-endpoints" class="md-nav__link">
+  <a href="#authentication-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Main Endpoints
+      Authentication Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication Flow
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#authorization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Authorization
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#security-controls" class="md-nav__link">
+  <a href="#jwt-authentication" class="md-nav__link">
     <span class="md-ellipsis">
-      Security Controls
+      JWT Authentication
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JWT Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#token-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Token Structure
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#recommended-production-settings" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#token-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Recommended Production Settings
+      Token Configuration
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -708,32 +730,570 @@
 
 
 <h1 id="authentication-and-security">Authentication and Security</h1>
-<h2 id="authentication-model">Authentication Model</h2>
-<p>PortalRH uses JWT authentication with access and refresh tokens.</p>
-<h2 id="main-endpoints">Main Endpoints</h2>
-<ul>
-<li><code>POST /api/v1/accounts/auth/login/</code></li>
-<li><code>POST /api/v1/accounts/auth/refresh/</code></li>
-<li><code>POST /api/v1/accounts/auth/verify/</code></li>
-</ul>
-<h2 id="authorization">Authorization</h2>
-<ul>
-<li>Role-based access control</li>
-<li>Admin RH permissions for critical operations</li>
-<li>Object-level checks where required</li>
-</ul>
-<h2 id="security-controls">Security Controls</h2>
-<ul>
-<li>Input validation in DRF serializers</li>
-<li>Secure password policies</li>
-<li>CORS restrictions</li>
-<li>Security headers in production</li>
-</ul>
-<h2 id="recommended-production-settings">Recommended Production Settings</h2>
-<pre><code>DEBUG = False
-SECURE_SSL_REDIRECT = True
+<p>This document provides comprehensive information about authentication, authorization, and security measures in the Inventory Management System.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#authentication-overview">Authentication Overview</a></li>
+<li><a href="#jwt-authentication">JWT Authentication</a></li>
+<li><a href="#session-authentication">Session Authentication</a></li>
+<li><a href="#authorization--permissions">Authorization &amp; Permissions</a></li>
+<li><a href="#security-measures">Security Measures</a></li>
+<li><a href="#password-management">Password Management</a></li>
+<li><a href="#api-security">API Security</a></li>
+<li><a href="#security-best-practices">Security Best Practices</a></li>
+</ol>
+<hr />
+<h2 id="authentication-overview">Authentication Overview</h2>
+<p>The system implements dual authentication mechanisms:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Use Case</th>
+<th>Token Type</th>
+<th>Duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JWT</strong></td>
+<td>API access</td>
+<td>Bearer token</td>
+<td>1 day (access), 7 days (refresh)</td>
+</tr>
+<tr>
+<td><strong>Session</strong></td>
+<td>Web interface</td>
+<td>Session cookie</td>
+<td>2 weeks</td>
+</tr>
+</tbody>
+</table>
+<h3 id="authentication-flow">Authentication Flow</h3>
+<pre class="mermaid"><code>graph TD
+    A[User Login] --&gt; B{Authentication Type}
+    B --&gt;|Web Interface| C[Session Auth]
+    B --&gt;|API Access| D[JWT Auth]
+
+    C --&gt; E[Django Session]
+    E --&gt; F[Session Cookie]
+    F --&gt; G[Authenticated Request]
+
+    D --&gt; H[JWT Token Pair]
+    H --&gt; I[Access Token]
+    H --&gt; J[Refresh Token]
+    I --&gt; K[API Request with Bearer]
+    J --&gt; L[Token Refresh]</code></pre>
+<hr />
+<h2 id="jwt-authentication">JWT Authentication</h2>
+<h3 id="token-structure">Token Structure</h3>
+<p>JWT tokens consist of three parts:
+- <strong>Header</strong>: Algorithm and token type
+- <strong>Payload</strong>: User claims and expiration
+- <strong>Signature</strong>: Verification signature</p>
+<p><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwMzQ1NjAwLCJpYXQiOjE3MTAyNTkyMDAsImp0aSI6ImFiYzEyMyIsInVzZXJfaWQiOjF9.
+SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</code></p>
+<h3 id="token-configuration">Token Configuration</h3>
+<p>```python</p>
+<h1 id="appsettingspy">app/settings.py</h1>
+<p>from datetime import timedelta</p>
+<p>SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': True,</p>
+<pre><code>'ALGORITHM': 'HS256',
+'SIGNING_KEY': SECRET_KEY,
+'VERIFYING_KEY': None,
+'AUTH_HEADER_TYPES': ('Bearer',),
+'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+'USER_ID_FIELD': 'id',
+'USER_ID_CLAIM': 'user_id',
+
+'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+'TOKEN_TYPE_CLAIM': 'token_type',
+</code></pre>
+<p>}
+```</p>
+<h3 id="obtaining-tokens">Obtaining Tokens</h3>
+<p><strong>Request:</strong>
+```http
+POST /api/v1/authentication/token/
+Content-Type: application/json</p>
+<p>{
+  "username": "admin",
+  "password": "yourpassword"
+}
+```</p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwMzQ1NjAwLCJpYXQiOjE3MTAyNTkyMDAsImp0aSI6ImFiYzEyMyIsInVzZXJfaWQiOjF9.abc123",
+  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxMDg2MDQwMCwiaWF0IjoxNzEwMjU5MjAwLCJqdGkiOiJkZWY0NTYiLCJ1c2VyX2lkIjoxfQ.def456"
+}</code></p>
+<h3 id="using-jwt-tokens">Using JWT Tokens</h3>
+<p>Include the access token in the Authorization header:</p>
+<p><code>http
+GET /api/v1/products/
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...</code></p>
+<h3 id="refreshing-tokens">Refreshing Tokens</h3>
+<p>When the access token expires, use the refresh token:</p>
+<p>```http
+POST /api/v1/authentication/token/refresh/
+Content-Type: application/json</p>
+<p>{
+  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}
+```</p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.new_access_token"
+}</code></p>
+<h3 id="verifying-tokens">Verifying Tokens</h3>
+<p>```http
+POST /api/v1/authentication/token/verify/
+Content-Type: application/json</p>
+<p>{
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}
+```</p>
+<p><strong>Response:</strong>
+- <code>200 OK</code> - Token is valid
+- <code>401 Unauthorized</code> - Token is invalid or expired</p>
+<hr />
+<h2 id="session-authentication">Session Authentication</h2>
+<h3 id="web-interface-authentication">Web Interface Authentication</h3>
+<p>For the Django web interface, session-based authentication is used.</p>
+<h3 id="login-process">Login Process</h3>
+<p>```python</p>
+<h1 id="authenticationviewspy">authentication/views.py</h1>
+<p>from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect</p>
+<p>def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)</p>
+<pre><code>    if user is not None:
+        login(request, user)
+        return redirect('home')
+    else:
+        messages.error(request, 'Invalid credentials')
+
+return render(request, 'registration/login.html')
+</code></pre>
+<p>```</p>
+<h3 id="session-configuration">Session Configuration</h3>
+<p>```python</p>
+<h1 id="appsettingspy_1">app/settings.py</h1>
+<p>SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_NAME = 'sessionid'
+SESSION_COOKIE_AGE = 1209600  # 2 weeks
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = True  # In production (HTTPS)
+```</p>
+<h3 id="protected-views">Protected Views</h3>
+<p>```python
+from django.contrib.auth.mixins import LoginRequiredMixin</p>
+<p>class ProductListView(LoginRequiredMixin, ListView):
+    model = Product
+    template_name = 'products/product_list.html'
+    login_url = '/login/'
+```</p>
+<hr />
+<h2 id="authorization-permissions">Authorization &amp; Permissions</h2>
+<h3 id="permission-types">Permission Types</h3>
+<p>Django provides four default permissions per model:</p>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Codename</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>View</strong></td>
+<td><code>view_&lt;model&gt;</code></td>
+<td>Can view objects</td>
+</tr>
+<tr>
+<td><strong>Add</strong></td>
+<td><code>add_&lt;model&gt;</code></td>
+<td>Can create objects</td>
+</tr>
+<tr>
+<td><strong>Change</strong></td>
+<td><code>change_&lt;model&gt;</code></td>
+<td>Can edit objects</td>
+</tr>
+<tr>
+<td><strong>Delete</strong></td>
+<td><code>delete_&lt;model&gt;</code></td>
+<td>Can delete objects</td>
+</tr>
+</tbody>
+</table>
+<h3 id="model-permissions">Model Permissions</h3>
+<p>```python</p>
+<h1 id="example-permissions-for-product-model">Example permissions for Product model</h1>
+<p>'products.view_product'      # Can view product
+'products.add_product'       # Can add product
+'products.change_product'    # Can change product
+'products.delete_product'    # Can delete product</p>
+<p>'brands.view_brand'
+'brands.add_brand'
+'brands.change_brand'
+'brands.delete_brand'</p>
+<h1 id="similar-for-categories-suppliers-inflows-outflows">Similar for: categories, suppliers, inflows, outflows</h1>
+<p>```</p>
+<h3 id="permission-classes">Permission Classes</h3>
+<p>```python</p>
+<h1 id="appsettingspy_2">app/settings.py</h1>
+<p>REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.DjangoModelPermissions',
+    ),
+}
+```</p>
+<h3 id="custom-permission-classes">Custom Permission Classes</h3>
+<p>```python
+from rest_framework import permissions</p>
+<p>class IsAdminOrReadOnly(permissions.BasePermission):
+    """
+    Custom permission to only allow admins to edit objects.
+    """</p>
+<pre><code>def has_permission(self, request, view):
+    if request.method in permissions.SAFE_METHODS:
+        return True
+    return request.user and request.user.is_staff
+</code></pre>
+<p>class IsOwnerOrReadOnly(permissions.BasePermission):
+    """
+    Custom permission to only allow owners to edit objects.
+    """</p>
+<pre><code>def has_object_permission(self, request, view, obj):
+    if request.method in permissions.SAFE_METHODS:
+        return True
+    return obj.owner == request.user
+</code></pre>
+<p>```</p>
+<h3 id="using-permissions-in-views">Using Permissions in Views</h3>
+<p>```python</p>
+<h1 id="class-based-views">Class-based views</h1>
+<p>from django.contrib.auth.mixins import PermissionRequiredMixin</p>
+<p>class ProductCreateView(PermissionRequiredMixin, CreateView):
+    model = Product
+    fields = ['title', 'price', 'quantity']
+    permission_required = 'products.add_product'</p>
+<h1 id="function-based-views">Function-based views</h1>
+<p>from django.contrib.auth.decorators import permission_required</p>
+<p>@permission_required('products.change_product')
+def product_update(request, pk):
+    # Update logic
+    pass</p>
+<h1 id="api-views">API Views</h1>
+<p>from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions</p>
+<p>class ProductAPIViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+```</p>
+<h3 id="user-groups">User Groups</h3>
+<p>Create groups with specific permissions:</p>
+<p>```python
+from django.contrib.auth.models import Group, Permission</p>
+<h1 id="create-manager-group">Create Manager group</h1>
+<p>manager_group = Group.objects.create(name='Manager')</p>
+<h1 id="add-permissions">Add permissions</h1>
+<p>permissions = [
+    'products.view_product',
+    'products.add_product',
+    'products.change_product',
+    'inflows.view_inflow',
+    'inflows.add_inflow',
+    'outflows.view_outflow',
+    'outflows.add_outflow',
+]</p>
+<p>for codename in permissions:
+    permission = Permission.objects.get(codename=codename)
+    manager_group.permissions.add(permission)</p>
+<h1 id="assign-user-to-group">Assign user to group</h1>
+<p>user.groups.add(manager_group)
+```</p>
+<hr />
+<h2 id="security-measures">Security Measures</h2>
+<h3 id="csrf-protection">CSRF Protection</h3>
+<p>```python</p>
+<h1 id="middleware-is-enabled-by-default">Middleware is enabled by default</h1>
+<p>MIDDLEWARE = [
+    'django.middleware.csrf.CsrfViewMiddleware',
+    # ...
+]</p>
+<h1 id="in-templates">In templates</h1>
+<form method="post">
+    {% csrf_token %}
+    <!-- form fields -->
+</form>
+
+<h1 id="in-api">In API</h1>
+<h1 id="jwt-tokens-handle-csrf-protection-for-api-requests">JWT tokens handle CSRF protection for API requests</h1>
+<p>```</p>
+<h3 id="password-hashing">Password Hashing</h3>
+<p>```python</p>
+<h1 id="appsettingspy_3">app/settings.py</h1>
+<p>PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+]
+```</p>
+<h3 id="security-middleware">Security Middleware</h3>
+<p><code>python
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]</code></p>
+<h3 id="production-security-settings">Production Security Settings</h3>
+<p>```python</p>
+<h1 id="appsettingspy-production">app/settings.py (Production)</h1>
+<p>DEBUG = False</p>
+<h1 id="sslhttps">SSL/HTTPS</h1>
+<p>SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True</code></pre>
+CSRF_COOKIE_SECURE = True</p>
+<h1 id="security-headers">Security headers</h1>
+<p>SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'</p>
+<h1 id="hsts">HSTS</h1>
+<p>SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True</p>
+<h1 id="allowed-hosts">Allowed hosts</h1>
+<p>ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
+CSRF_TRUSTED_ORIGINS = ['https://yourdomain.com']
+```</p>
+<hr />
+<h2 id="password-management">Password Management</h2>
+<h3 id="password-validation">Password Validation</h3>
+<p><code>python
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        }
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]</code></p>
+<h3 id="password-reset-flow">Password Reset Flow</h3>
+<p>```python
+from django.contrib.auth.views import (
+    PasswordResetView,
+    PasswordResetDoneView,
+    PasswordResetConfirmView,
+    PasswordResetCompleteView,
+)</p>
+<p>urlpatterns = [
+    path('password-reset/', PasswordResetView.as_view(), name='password_reset'),
+    path('password-reset/done/', PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('password-reset-complete/', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+]
+```</p>
+<hr />
+<h2 id="api-security">API Security</h2>
+<h3 id="rate-limiting">Rate Limiting</h3>
+<p>```python</p>
+<h1 id="install-django-ratelimit">Install django-ratelimit</h1>
+<p>pip install django-ratelimit</p>
+<h1 id="usage-in-views">Usage in views</h1>
+<p>from ratelimit.decorators import ratelimit</p>
+<p>@ratelimit(key='ip', rate='10/m')
+def login_view(request):
+    # Login logic
+    pass
+```</p>
+<h3 id="input-validation">Input Validation</h3>
+<p>```python
+from rest_framework import serializers
+from django.core.validators import MinValueValidator, MaxValueValidator</p>
+<p>class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['title', 'cost_price', 'selling_price', 'quantity']</p>
+<pre><code>title = serializers.CharField(
+    min_length=3,
+    max_length=500,
+    required=True
+)
+
+cost_price = serializers.DecimalField(
+    max_digits=20,
+    decimal_places=2,
+    validators=[MinValueValidator(0)]
+)
+
+selling_price = serializers.DecimalField(
+    max_digits=20,
+    decimal_places=2,
+    validators=[MinValueValidator(0)]
+)
+
+quantity = serializers.IntegerField(
+    validators=[MinValueValidator(0)]
+)
+
+def validate(self, data):
+    if data['selling_price'] &lt; data['cost_price']:
+        raise serializers.ValidationError(
+            "Selling price cannot be less than cost price"
+        )
+    return data
+</code></pre>
+<p>```</p>
+<h3 id="sql-injection-prevention">SQL Injection Prevention</h3>
+<p>Always use Django ORM instead of raw SQL:</p>
+<p>```python</p>
+<h1 id="safe-using-orm">✅ Safe - Using ORM</h1>
+<p>products = Product.objects.filter(title__icontains=search_term)</p>
+<h1 id="unsafe-raw-sql-vulnerable">❌ Unsafe - Raw SQL (vulnerable)</h1>
+<p>products = Product.objects.raw(
+    f"SELECT * FROM products WHERE title LIKE '%{search_term}%'"
+)
+```</p>
+<h3 id="xss-prevention">XSS Prevention</h3>
+<p>Django templates auto-escape by default:</p>
+<p>```html</p>
+<!-- ✅ Safe - Auto-escaped -->
+<p>{{ user_input }}</p>
+<!-- ❌ Unsafe - Only use if absolutely necessary -->
+<p>{{ user_input|safe }}
+```</p>
+<hr />
+<h2 id="security-best-practices">Security Best Practices</h2>
+<h3 id="checklist">Checklist</h3>
+<ul>
+<li>[ ] Use HTTPS in production</li>
+<li>[ ] Keep Django and dependencies updated</li>
+<li>[ ] Use strong password policies</li>
+<li>[ ] Implement rate limiting</li>
+<li>[ ] Enable security middleware</li>
+<li>[ ] Use environment variables for secrets</li>
+<li>[ ] Implement proper logging</li>
+<li>[ ] Regular security audits</li>
+<li>[ ] Backup data regularly</li>
+<li>[ ] Monitor for suspicious activity</li>
+</ul>
+<h3 id="environment-variables">Environment Variables</h3>
+<p>```bash</p>
+<h1 id="env-file-never-commit-to-git">.env file (never commit to Git)</h1>
+<p>SECRET_KEY=your-super-secret-key
+DEBUG=False
+DATABASE_URL=postgres://user:pass@host:5432/dbname
+OPENAI_API_KEY=your-api-key
+```</p>
+<p>```python</p>
+<h1 id="load-in-settingspy">Load in settings.py</h1>
+<p>import os
+from dotenv import load_dotenv</p>
+<p>load_dotenv()</p>
+<p>SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+```</p>
+<h3 id="security-headers_1">Security Headers</h3>
+<p>```python</p>
+<h1 id="add-security-headers-in-production">Add security headers in production</h1>
+<p>SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True</p>
+<h1 id="content-security-policy-optional">Content Security Policy (optional)</h1>
+<p>CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'")
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
+```</p>
+<h3 id="logging-security-events">Logging Security Events</h3>
+<p><code>python
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'security_file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': '/var/log/django/security.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django.security': {
+            'handlers': ['security_file'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+    },
+}</code></p>
+<hr />
+<h2 id="user-model">User Model</h2>
+<h3 id="default-django-user">Default Django User</h3>
+<p>The system uses Django's default User model:</p>
+<p>```python
+from django.contrib.auth.models import User</p>
+<h1 id="user-fields">User fields</h1>
+<p>user.username
+user.email
+user.first_name
+user.last_name
+user.is_staff      # Can access admin
+user.is_superuser  # Has all permissions
+user.is_active     # Account is active
+user.date_joined
+user.last_login
+```</p>
+<h3 id="creating-users">Creating Users</h3>
+<p>```python</p>
+<h1 id="create-regular-user">Create regular user</h1>
+<p>user = User.objects.create_user(
+    username='john',
+    email='john@example.com',
+    password='securepassword'
+)</p>
+<h1 id="create-superuser">Create superuser</h1>
+<p>admin = User.objects.create_superuser(
+    username='admin',
+    email='admin@example.com',
+    password='adminpassword'
+)
+```</p>
+<hr />
+<p><strong>Next Steps</strong>: 
+- <a href="development.html">Development</a> - Development workflow
+- <a href="testing.html">Testing</a> - Testing strategies</p>
 
 
 

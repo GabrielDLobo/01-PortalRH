@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Human Resources Management System documentation">
+        <meta name="description" content="A Django-based Inventory Management System (SGE - Sistema de Gestão de Estoque) that allows you to manage products, suppliers, and stock movements (inflows/outflows), providing a dashboard with metrics and charts. It also includes an optional AI insights module to generate short daily inventory/sales recommendations based on system data.">
       
       
         <meta name="author" content="GabrielDLobo">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Prerequisites - PortalRH Documentation</title>
+        <title>Prerequisites - Inventory Management System</title>
       
     
     
@@ -90,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="index.html" title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-header__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +104,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            PortalRH Documentation
+            Inventory Management System
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -185,13 +185,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="index.html" title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-nav__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    PortalRH Documentation
+    Inventory Management System
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -289,6 +289,49 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operating System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Software Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#required-software" class="md-nav__link">
     <span class="md-ellipsis">
       Required Software
@@ -296,31 +339,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#recommended-environment" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#python-version-check" class="md-nav__link">
     <span class="md-ellipsis">
-      Recommended Environment
+      Python Version Check
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#backend-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      Backend Dependencies
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#frontend-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      Frontend Dependencies
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -539,7 +569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="contributing.html" class="md-nav__link">
+      <a href="contribution.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -559,7 +589,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gallery.html" class="md-nav__link">
+      <a href="image-projects.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -584,26 +614,6 @@
   
   <span class="md-ellipsis">
     Release Notes
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="UPDATE_LOG.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Update Log
   </span>
   
 
@@ -639,6 +649,49 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operating System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Software Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#required-software" class="md-nav__link">
     <span class="md-ellipsis">
       Required Software
@@ -646,31 +699,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#recommended-environment" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#python-version-check" class="md-nav__link">
     <span class="md-ellipsis">
-      Recommended Environment
+      Python Version Check
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#backend-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      Backend Dependencies
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#frontend-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      Frontend Dependencies
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -690,49 +730,243 @@
 
 
 <h1 id="prerequisites">Prerequisites</h1>
-<h2 id="required-software">Required Software</h2>
+<p>Before installing and running the Inventory Management System, ensure your system meets the following requirements.</p>
+<h2 id="system-requirements">System Requirements</h2>
+<h3 id="operating-system">Operating System</h3>
+<ul>
+<li><strong>Linux</strong> (Ubuntu 20.04+, Debian, CentOS)</li>
+<li><strong>macOS</strong> (10.15+)</li>
+<li><strong>Windows</strong> (10/11)</li>
+<li><strong>WSL2</strong> (Windows Subsystem for Linux)</li>
+</ul>
+<h3 id="hardware">Hardware</h3>
+<ul>
+<li><strong>CPU</strong>: Dual-core processor or higher</li>
+<li><strong>RAM</strong>: Minimum 2GB (4GB+ recommended)</li>
+<li><strong>Storage</strong>: 500MB free space (plus database storage)</li>
+</ul>
+<h2 id="software-requirements">Software Requirements</h2>
+<h3 id="required-software">Required Software</h3>
 <table>
 <thead>
 <tr>
-<th>Tool</th>
+<th>Software</th>
 <th>Version</th>
+<th>Purpose</th>
+<th>Download Link</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Python</td>
-<td>3.10+</td>
+<td><strong>Python</strong></td>
+<td>3.11+</td>
+<td>Runtime environment</td>
+<td><a href="https://www.python.org/downloads/">python.org</a></td>
 </tr>
 <tr>
-<td>Node.js</td>
-<td>18+</td>
+<td><strong>pip</strong></td>
+<td>23.0+</td>
+<td>Package manager</td>
+<td>Included with Python</td>
 </tr>
 <tr>
-<td>npm</td>
-<td>9+</td>
+<td><strong>Git</strong></td>
+<td>2.30+</td>
+<td>Version control</td>
+<td><a href="https://git-scm.com/">git-scm.com</a></td>
 </tr>
 <tr>
-<td>Git</td>
-<td>latest</td>
+<td><strong>PostgreSQL</strong></td>
+<td>15+</td>
+<td>Production database</td>
+<td><a href="https://www.postgresql.org/download/">postgresql.org</a></td>
 </tr>
 <tr>
-<td>Docker (optional)</td>
-<td>latest</td>
+<td><strong>Docker</strong></td>
+<td>20.10+</td>
+<td>Containerization (optional)</td>
+<td><a href="https://www.docker.com/">docker.com</a></td>
+</tr>
+<tr>
+<td><strong>Docker Compose</strong></td>
+<td>2.0+</td>
+<td>Multi-container orchestration</td>
+<td>Included with Docker Desktop</td>
 </tr>
 </tbody>
 </table>
-<h2 id="recommended-environment">Recommended Environment</h2>
+<h3 id="python-version-check">Python Version Check</h3>
+<p>```bash
+python --version</p>
+<h1 id="or">or</h1>
+<p>python3 --version
+```</p>
+<p><strong>Required</strong>: Python 3.11 or higher</p>
+<h3 id="pip-version-check">pip Version Check</h3>
+<p>```bash
+pip --version</p>
+<h1 id="or_1">or</h1>
+<p>pip3 --version
+```</p>
+<h2 id="development-tools-optional-but-recommended">Development Tools (Optional but Recommended)</h2>
+<h3 id="code-editor-ide">Code Editor / IDE</h3>
 <ul>
-<li>OS: Windows, Linux, or macOS</li>
-<li>RAM: 8 GB+</li>
-<li>Free disk: 3 GB+</li>
+<li><strong>VS Code</strong> - <a href="https://code.visualstudio.com/">Download</a></li>
+<li><strong>PyCharm</strong> - <a href="https://www.jetbrains.com/pycharm/">Download</a></li>
+<li><strong>Sublime Text</strong> - <a href="https://www.sublimetext.com/">Download</a></li>
 </ul>
-<h2 id="backend-dependencies">Backend Dependencies</h2>
-<p>Install Python packages from:</p>
-<pre><code>pip install -r requirements.txt</code></pre>
-<h2 id="frontend-dependencies">Frontend Dependencies</h2>
-<pre><code>cd frontend
-npm install</code></pre>
+<h3 id="recommended-vs-code-extensions">Recommended VS Code Extensions</h3>
+<ul>
+<li>Python (Microsoft)</li>
+<li>Django Template</li>
+<li>Pylance</li>
+<li>Black Formatter</li>
+<li>isort</li>
+<li>GitLens</li>
+</ul>
+<h3 id="database-management-tools">Database Management Tools</h3>
+<ul>
+<li><strong>pgAdmin</strong> - PostgreSQL administration</li>
+<li><strong>DBeaver</strong> - Universal database tool</li>
+<li><strong>TablePlus</strong> - Modern database client</li>
+</ul>
+<h2 id="api-keys-optional">API Keys (Optional)</h2>
+<h3 id="openai-api-key">OpenAI API Key</h3>
+<p>Required for AI insights feature.</p>
+<ol>
+<li>Visit <a href="https://platform.openai.com/">OpenAI Platform</a></li>
+<li>Create an account or sign in</li>
+<li>Navigate to API Keys section</li>
+<li>Create a new API key</li>
+<li>Store it securely</li>
+</ol>
+<p><strong>Note</strong>: The API key should be configured in the <code>ai/agent.py</code> file or via environment variables.</p>
+<h2 id="environment-variables">Environment Variables</h2>
+<p>Create a <code>.env</code> file in the project root with the following variables:</p>
+<p>```bash</p>
+<h1 id="django-settings">Django Settings</h1>
+<p>DEBUG=True
+SECRET_KEY=your-secret-key-here</p>
+<h1 id="database-production">Database (Production)</h1>
+<p>POSTGRES_DB=sge
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=your-password
+POSTGRES_HOST=sge_db
+POSTGRES_PORT=5432</p>
+<h1 id="openai-optional">OpenAI (Optional)</h1>
+<p>OPENAI_API_KEY=your-openai-api-key</p>
+<h1 id="webhook-service-optional">Webhook Service (Optional)</h1>
+<p>WEBHOOK_URL=http://localhost:8001/api/V1/webhooks/order/
+```</p>
+<h2 id="network-requirements">Network Requirements</h2>
+<h3 id="ports">Ports</h3>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8000</td>
+<td>Django Dev Server</td>
+<td>Web application</td>
+</tr>
+<tr>
+<td>5432</td>
+<td>PostgreSQL</td>
+<td>Database (production)</td>
+</tr>
+<tr>
+<td>8001</td>
+<td>Webhook Service</td>
+<td>External integration (optional)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="firewall-rules">Firewall Rules</h3>
+<p>Ensure the following ports are accessible:
+- <strong>Inbound</strong>: 8000 (HTTP), 5432 (PostgreSQL - if remote)
+- <strong>Outbound</strong>: 443 (HTTPS - for OpenAI API)</p>
+<h2 id="browser-requirements">Browser Requirements</h2>
+<p>For the web interface, use modern browsers:
+- <strong>Chrome</strong> 90+
+- <strong>Firefox</strong> 88+
+- <strong>Safari</strong> 14+
+- <strong>Edge</strong> 90+</p>
+<p>JavaScript must be enabled for interactive features (charts, dynamic forms).</p>
+<h2 id="knowledge-requirements">Knowledge Requirements</h2>
+<h3 id="recommended-skills">Recommended Skills</h3>
+<ul>
+<li>Basic Python programming</li>
+<li>Django framework fundamentals</li>
+<li>REST API concepts</li>
+<li>SQL and database basics</li>
+<li>Git version control</li>
+<li>Docker basics (for containerized deployment)</li>
+</ul>
+<h3 id="helpful-documentation">Helpful Documentation</h3>
+<ul>
+<li><a href="https://docs.djangoproject.com/">Django Documentation</a></li>
+<li><a href="https://www.django-rest-framework.org/">Django REST Framework</a></li>
+<li><a href="https://www.postgresql.org/docs/">PostgreSQL Documentation</a></li>
+<li><a href="https://docs.docker.com/">Docker Documentation</a></li>
+</ul>
+<h2 id="pre-installation-checklist">Pre-Installation Checklist</h2>
+<p>Before proceeding with installation, verify:</p>
+<ul>
+<li>[ ] Python 3.11+ is installed</li>
+<li>[ ] pip is updated to latest version</li>
+<li>[ ] Git is installed and configured</li>
+<li>[ ] PostgreSQL is installed (for production)</li>
+<li>[ ] Docker is installed (for containerized deployment)</li>
+<li>[ ] You have administrative/sudo access</li>
+<li>[ ] Required ports are available</li>
+<li>[ ] OpenAI API key is obtained (if using AI features)</li>
+</ul>
+<h2 id="verification-commands">Verification Commands</h2>
+<p>Run these commands to verify your environment:</p>
+<p>```bash</p>
+<h1 id="check-python-version">Check Python version</h1>
+<p>python --version</p>
+<h1 id="check-pip-version">Check pip version</h1>
+<p>pip --version</p>
+<h1 id="check-git-installation">Check Git installation</h1>
+<p>git --version</p>
+<h1 id="check-docker-if-using">Check Docker (if using)</h1>
+<p>docker --version
+docker-compose --version</p>
+<h1 id="check-postgresql-if-installed">Check PostgreSQL (if installed)</h1>
+<p>psql --version
+```</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="python-version-issues">Python Version Issues</h3>
+<p>If you have multiple Python versions:</p>
+<p>```bash</p>
+<h1 id="use-specific-python-version">Use specific Python version</h1>
+<p>python3.11 -m pip install -r requirements.txt
+```</p>
+<h3 id="permission-issues-linuxmacos">Permission Issues (Linux/macOS)</h3>
+<p>```bash</p>
+<h1 id="install-packages-locally">Install packages locally</h1>
+<p>pip install --user -r requirements.txt</p>
+<h1 id="or-use-virtual-environment-recommended">Or use virtual environment (recommended)</h1>
+<p>python -m venv venv
+source venv/bin/activate
+```</p>
+<h3 id="windows-specific">Windows-Specific</h3>
+<p>```bash</p>
+<h1 id="create-virtual-environment">Create virtual environment</h1>
+<p>python -m venv venv</p>
+<h1 id="activate-virtual-environment">Activate virtual environment</h1>
+<p>venv\Scripts\activate
+```</p>
+<hr />
+<p><strong>Next Steps</strong>: 
+- <a href="installation.html">Installation Guide</a> - Install the project
+- <a href="configuration.html">Configuration</a> - Configure settings</p>
 
 
 

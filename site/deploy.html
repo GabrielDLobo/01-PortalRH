@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Human Resources Management System documentation">
+        <meta name="description" content="A Django-based Inventory Management System (SGE - Sistema de Gestão de Estoque) that allows you to manage products, suppliers, and stock movements (inflows/outflows), providing a dashboard with metrics and charts. It also includes an optional AI insights module to generate short daily inventory/sales recommendations based on system data.">
       
       
         <meta name="author" content="GabrielDLobo">
@@ -16,7 +16,7 @@
         <link rel="prev" href="testing.html">
       
       
-        <link rel="next" href="contributing.html">
+        <link rel="next" href="contribution.html">
       
       
       <link rel="icon" href="assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Deploy - PortalRH Documentation</title>
+        <title>Deploy - Inventory Management System</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deploy" class="md-skip">
+        <a href="#deployment-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="index.html" title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-header__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +104,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            PortalRH Documentation
+            Inventory Management System
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -185,13 +185,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="index.html" title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-nav__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    PortalRH Documentation
+    Inventory Management System
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -489,6 +489,25 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#deployment-options" class="md-nav__link">
     <span class="md-ellipsis">
       Deployment Options
@@ -496,31 +515,111 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-compose" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Docker Compose
+      Architecture Overview
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#production-essentials" class="md-nav__link">
-    <span class="md-ellipsis">
-      Production Essentials
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#post-deploy-checklist" class="md-nav__link">
+  <a href="#pre-deployment-checklist" class="md-nav__link">
     <span class="md-ellipsis">
-      Post-Deploy Checklist
+      Pre-Deployment Checklist
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Pre-Deployment Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#production-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production docker-compose.yml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#production-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production Dockerfile
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -539,7 +638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="contributing.html" class="md-nav__link">
+      <a href="contribution.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -559,7 +658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gallery.html" class="md-nav__link">
+      <a href="image-projects.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -584,26 +683,6 @@
   
   <span class="md-ellipsis">
     Release Notes
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="UPDATE_LOG.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Update Log
   </span>
   
 
@@ -639,6 +718,25 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#deployment-options" class="md-nav__link">
     <span class="md-ellipsis">
       Deployment Options
@@ -646,31 +744,111 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-compose" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Docker Compose
+      Architecture Overview
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#production-essentials" class="md-nav__link">
-    <span class="md-ellipsis">
-      Production Essentials
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#post-deploy-checklist" class="md-nav__link">
+  <a href="#pre-deployment-checklist" class="md-nav__link">
     <span class="md-ellipsis">
-      Post-Deploy Checklist
+      Pre-Deployment Checklist
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Pre-Deployment Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#production-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production docker-compose.yml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#production-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production Dockerfile
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -689,31 +867,681 @@
                   
 
 
-<h1 id="deploy">Deploy</h1>
-<h2 id="deployment-options">Deployment Options</h2>
+<h1 id="deployment-guide">Deployment Guide</h1>
+<p>This guide covers deployment strategies, configurations, and best practices for deploying the Inventory Management System to production.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#deployment-overview">Deployment Overview</a></li>
+<li><a href="#pre-deployment-checklist">Pre-Deployment Checklist</a></li>
+<li><a href="#docker-deployment">Docker Deployment</a></li>
+<li><a href="#traditional-deployment">Traditional Deployment</a></li>
+<li><a href="#cloud-deployment">Cloud Deployment</a></li>
+<li><a href="#database-setup">Database Setup</a></li>
+<li><a href="#static-files">Static Files</a></li>
+<li><a href="#web-server-configuration">Web Server Configuration</a></li>
+<li><a href="#sslhttps-setup">SSL/HTTPS Setup</a></li>
+<li><a href="#monitoring--logging">Monitoring &amp; Logging</a></li>
+<li><a href="#backup-strategy">Backup Strategy</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ol>
+<hr />
+<h2 id="deployment-overview">Deployment Overview</h2>
+<h3 id="deployment-options">Deployment Options</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Best For</th>
+<th>Complexity</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Docker</strong></td>
+<td>Modern deployments, scalability</td>
+<td>Medium</td>
+<td>Low-Medium</td>
+</tr>
+<tr>
+<td><strong>Traditional (Gunicorn + Nginx)</strong></td>
+<td>Full control, VPS</td>
+<td>High</td>
+<td>Low</td>
+</tr>
+<tr>
+<td><strong>Platform as a Service</strong></td>
+<td>Quick deployment, small teams</td>
+<td>Low</td>
+<td>Medium-High</td>
+</tr>
+<tr>
+<td><strong>Cloud (AWS, GCP, Azure)</strong></td>
+<td>Enterprise, scalability</td>
+<td>High</td>
+<td>Variable</td>
+</tr>
+</tbody>
+</table>
+<h3 id="architecture-overview">Architecture Overview</h3>
+<p><code>┌─────────────────┐
+                    │   Cloudflare    │
+                    │     (CDN)       │
+                    └────────┬────────┘
+                             │
+                    ┌────────▼────────┐
+                    │     Nginx       │
+                    │  (Reverse Proxy)│
+                    └────────┬────────┘
+                             │
+              ┌──────────────┴──────────────┐
+              │                             │
+     ┌────────▼────────┐          ┌────────▼────────┐
+     │    Gunicorn     │          │   Static Files  │
+     │   (App Server)  │          │     (Nginx)     │
+     └────────┬────────┘          └─────────────────┘
+              │
+     ┌────────▼────────┐
+     │    Django App   │
+     └────────┬────────┘
+              │
+     ┌────────▼────────┐
+     │   PostgreSQL    │
+     │    Database     │
+     └─────────────────┘</code></p>
+<hr />
+<h2 id="pre-deployment-checklist">Pre-Deployment Checklist</h2>
+<h3 id="security">Security</h3>
 <ul>
-<li>Docker Compose</li>
-<li>VPS with Gunicorn + Nginx</li>
+<li>[ ] Set <code>DEBUG = False</code></li>
+<li>[ ] Generate new <code>SECRET_KEY</code></li>
+<li>[ ] Configure <code>ALLOWED_HOSTS</code></li>
+<li>[ ] Enable HTTPS/SSL</li>
+<li>[ ] Set up firewall rules</li>
+<li>[ ] Review security settings</li>
+<li>[ ] Remove debug statements</li>
+<li>[ ] Update admin URL (optional)</li>
 </ul>
-<h2 id="docker-compose">Docker Compose</h2>
-<pre><code>docker-compose build
-docker-compose up -d
-docker-compose logs -f</code></pre>
-<h2 id="production-essentials">Production Essentials</h2>
+<h3 id="database">Database</h3>
 <ul>
-<li><code>DEBUG=False</code></li>
-<li>strong <code>SECRET_KEY</code></li>
-<li>PostgreSQL configured</li>
-<li>HTTPS enabled</li>
-<li>static and media persistence configured</li>
+<li>[ ] Set up production database (PostgreSQL)</li>
+<li>[ ] Configure database credentials</li>
+<li>[ ] Run all migrations</li>
+<li>[ ] Create database backup</li>
+<li>[ ] Test database connection</li>
 </ul>
-<h2 id="post-deploy-checklist">Post-Deploy Checklist</h2>
+<h3 id="static-files">Static Files</h3>
 <ul>
-<li>Health endpoint responding</li>
-<li>Admin login working</li>
-<li>API docs accessible</li>
-<li>Logs monitored</li>
+<li>[ ] Run <code>collectstatic</code></li>
+<li>[ ] Configure static file serving</li>
+<li>[ ] Set up CDN (optional)</li>
+<li>[ ] Test static file access</li>
 </ul>
+<h3 id="environment">Environment</h3>
+<ul>
+<li>[ ] Set up environment variables</li>
+<li>[ ] Configure <code>.env</code> file (production)</li>
+<li>[ ] Set up secrets management</li>
+<li>[ ] Review all settings</li>
+</ul>
+<h3 id="monitoring">Monitoring</h3>
+<ul>
+<li>[ ] Set up error tracking (Sentry)</li>
+<li>[ ] Configure logging</li>
+<li>[ ] Set up uptime monitoring</li>
+<li>[ ] Configure alerts</li>
+</ul>
+<hr />
+<h2 id="docker-deployment">Docker Deployment</h2>
+<h3 id="production-docker-composeyml">Production docker-compose.yml</h3>
+<p>```yaml
+version: '3.8'</p>
+<p>services:
+  web:
+    build: .
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000 --workers 4
+    volumes:
+      - static_volume:/app/staticfiles
+    expose:
+      - 8000
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - app-network</p>
+<p>db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    restart: always
+    networks:
+      - app-network</p>
+<p>nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - static_volume:/app/staticfiles
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - web
+    restart: always
+    networks:
+      - app-network</p>
+<p>volumes:
+  postgres_data:
+  static_volume:</p>
+<p>networks:
+  app-network:
+    driver: bridge
+```</p>
+<h3 id="production-dockerfile">Production Dockerfile</h3>
+<p>```dockerfile
+FROM python:3.11-slim</p>
+<h1 id="set-environment-variables">Set environment variables</h1>
+<p>ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1</p>
+<h1 id="set-work-directory">Set work directory</h1>
+<p>WORKDIR /app</p>
+<h1 id="install-system-dependencies">Install system dependencies</h1>
+<p>RUN apt-get update &amp;&amp; apt-get install -y \
+    build-essential \
+    libpq-dev \
+    &amp;&amp; rm -rf /var/lib/apt/lists/*</p>
+<h1 id="install-python-dependencies">Install Python dependencies</h1>
+<p>COPY requirements.txt .
+RUN pip install --upgrade pip &amp;&amp; pip install -r requirements.txt
+RUN pip install gunicorn</p>
+<h1 id="copy-project">Copy project</h1>
+<p>COPY . .</p>
+<h1 id="collect-static-files">Collect static files</h1>
+<p>RUN python manage.py collectstatic --noinput</p>
+<h1 id="run-migrations">Run migrations</h1>
+<p>RUN python manage.py migrate</p>
+<h1 id="create-non-root-user">Create non-root user</h1>
+<p>RUN adduser --disabled-password --gecos '' appuser
+RUN chown -R appuser:appuser /app
+USER appuser</p>
+<h1 id="expose-port">Expose port</h1>
+<p>EXPOSE 8000</p>
+<h1 id="health-check">Health check</h1>
+<p>HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/admin/')" || exit 1</p>
+<h1 id="start-server">Start server</h1>
+<p>CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "app.wsgi:application"]
+```</p>
+<h3 id="nginx-configuration">Nginx Configuration</h3>
+<p><strong>nginx.conf</strong>:</p>
+<p>```nginx
+upstream django {
+    server web:8000;
+}</p>
+<p>server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com;</p>
+<pre><code># Redirect HTTP to HTTPS
+return 301 https://$server_name$request_uri;
+</code></pre>
+<p>}</p>
+<p>server {
+    listen 443 ssl http2;
+    server_name yourdomain.com www.yourdomain.com;</p>
+<pre><code># SSL Configuration
+ssl_certificate /etc/nginx/ssl/fullchain.pem;
+ssl_certificate_key /etc/nginx/ssl/privkey.pem;
+ssl_protocols TLSv1.2 TLSv1.3;
+ssl_ciphers HIGH:!aNULL:!MD5;
+ssl_prefer_server_ciphers on;
+
+# Security headers
+add_header X-Frame-Options "SAMEORIGIN" always;
+add_header X-Content-Type-Options "nosniff" always;
+add_header X-XSS-Protection "1; mode=block" always;
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+# Static files
+location /static/ {
+    alias /app/staticfiles/;
+    expires 30d;
+    add_header Cache-Control "public, immutable";
+}
+
+# Media files
+location /media/ {
+    alias /app/media/;
+    expires 7d;
+}
+
+# Django app
+location / {
+    proxy_pass http://django;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_redirect off;
+
+    # Timeouts
+    proxy_connect_timeout 60s;
+    proxy_send_timeout 60s;
+    proxy_read_timeout 60s;
+}
+
+# Gzip compression
+gzip on;
+gzip_vary on;
+gzip_min_length 1024;
+gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml+rss application/json;
+</code></pre>
+<p>}
+```</p>
+<h3 id="deploy-with-docker">Deploy with Docker</h3>
+<p>```bash</p>
+<h1 id="build-and-start">Build and start</h1>
+<p>docker-compose -f docker-compose.prod.yml up -d --build</p>
+<h1 id="view-logs">View logs</h1>
+<p>docker-compose logs -f</p>
+<h1 id="run-migrations_1">Run migrations</h1>
+<p>docker-compose exec web python manage.py migrate</p>
+<h1 id="create-superuser">Create superuser</h1>
+<p>docker-compose exec web python manage.py createsuperuser</p>
+<h1 id="collect-static-files_1">Collect static files</h1>
+<p>docker-compose exec web python manage.py collectstatic --noinput</p>
+<h1 id="restart-services">Restart services</h1>
+<p>docker-compose restart</p>
+<h1 id="stop-all-services">Stop all services</h1>
+<p>docker-compose down</p>
+<h1 id="update-deployment">Update deployment</h1>
+<p>git pull
+docker-compose down
+docker-compose up -d --build
+```</p>
+<hr />
+<h2 id="traditional-deployment">Traditional Deployment</h2>
+<h3 id="requirements-installation">Requirements Installation</h3>
+<p>```bash</p>
+<h1 id="update-system">Update system</h1>
+<p>sudo apt update &amp;&amp; sudo apt upgrade -y</p>
+<h1 id="install-python-and-dependencies">Install Python and dependencies</h1>
+<p>sudo apt install -y python3.11 python3.11-venv python3-pip
+sudo apt install -y postgresql postgresql-contrib nginx
+sudo apt install -y build-essential libpq-dev</p>
+<h1 id="create-project-directory">Create project directory</h1>
+<p>sudo mkdir -p /var/www/sge
+sudo chown $USER:$USER /var/www/sge
+cd /var/www/sge</p>
+<h1 id="clone-repository">Clone repository</h1>
+<p>git clone <repository-url> .
+```</p>
+<h3 id="virtual-environment">Virtual Environment</h3>
+<p>```bash</p>
+<h1 id="create-virtual-environment">Create virtual environment</h1>
+<p>python3.11 -m venv venv</p>
+<h1 id="activate">Activate</h1>
+<p>source venv/bin/activate</p>
+<h1 id="install-dependencies">Install dependencies</h1>
+<p>pip install --upgrade pip
+pip install -r requirements.txt
+pip install gunicorn
+```</p>
+<h3 id="environment-variables">Environment Variables</h3>
+<p>```bash</p>
+<h1 id="create-env-file">Create .env file</h1>
+<p>sudo nano /var/www/sge/.env
+```</p>
+<p>```bash</p>
+<h1 id="env-content">.env content</h1>
+<p>DEBUG=False
+SECRET_KEY=your-super-secret-key-change-this
+ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com</p>
+<p>POSTGRES_DB=sge
+POSTGRES_USER=sge_user
+POSTGRES_PASSWORD=secure-password
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432</p>
+<h1 id="openai-optional">OpenAI (optional)</h1>
+<p>OPENAI_API_KEY=your-api-key
+```</p>
+<h3 id="gunicorn-service">Gunicorn Service</h3>
+<p><strong>/etc/systemd/system/sge.service</strong>:</p>
+<p>```ini
+[Unit]
+Description=SGE Gunicorn daemon
+After=network.target</p>
+<p>[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/sge
+ExecStart=/var/www/sge/venv/bin/gunicorn \
+    --access-logfile - \
+    --workers 4 \
+    --bind unix:/var/www/sge/sge.sock \
+    app.wsgi:application</p>
+<p>[Install]
+WantedBy=multi-user.target
+```</p>
+<p>```bash</p>
+<h1 id="start-and-enable-service">Start and enable service</h1>
+<p>sudo systemctl start sge
+sudo systemctl enable sge
+sudo systemctl status sge
+```</p>
+<h3 id="nginx-configuration_1">Nginx Configuration</h3>
+<p><strong>/etc/nginx/sites-available/sge</strong>:</p>
+<p>```nginx
+server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com;</p>
+<pre><code>location = /favicon.ico { access_log off; log_not_found off; }
+
+location /static/ {
+    alias /var/www/sge/staticfiles/;
+}
+
+location /media/ {
+    alias /var/www/sge/media/;
+}
+
+location / {
+    include proxy_params;
+    proxy_pass http://unix:/var/www/sge/sge.sock;
+}
+</code></pre>
+<p>}
+```</p>
+<p>```bash</p>
+<h1 id="enable-site">Enable site</h1>
+<p>sudo ln -s /etc/nginx/sites-available/sge /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+```</p>
+<hr />
+<h2 id="cloud-deployment">Cloud Deployment</h2>
+<h3 id="aws-deployment-elastic-beanstalk">AWS Deployment (Elastic Beanstalk)</h3>
+<p><strong>.ebextensions/django.config</strong>:</p>
+<p>```yaml
+option_settings:
+  aws:elasticbeanstalk:application:environment:
+    DJANGO_SETTINGS_MODULE: app.settings
+    SECRET_KEY: your-secret-key
+    DEBUG: false</p>
+<p>aws:elasticbeanstalk:container:python:
+    wsgi_path: app.wsgi:application
+    num_processes: 4
+    num_threads: 20</p>
+<p>files:
+  "/opt/elasticbeanstalk/hooks/appdeploy/pre/01_migrate.sh":
+    mode: "000755"
+    owner: root
+    group: root
+    content: |
+      #!/bin/bash
+      cd /var/app/ondeck
+      source /var/app/ondeck/venv/bin/activate
+      python manage.py migrate --noinput</p>
+<p>"/opt/elasticbeanstalk/hooks/appdeploy/pre/02_collectstatic.sh":
+    mode: "000755"
+    owner: root
+    group: root
+    content: |
+      #!/bin/bash
+      cd /var/app/ondeck
+      source /var/app/ondeck/venv/bin/activate
+      python manage.py collectstatic --noinput
+```</p>
+<p>```bash</p>
+<h1 id="deploy-to-elastic-beanstalk">Deploy to Elastic Beanstalk</h1>
+<p>pip install awsebcli
+eb init
+eb create production
+eb deploy
+```</p>
+<h3 id="heroku-deployment">Heroku Deployment</h3>
+<p><strong>Procfile</strong>:</p>
+<p><code>web: gunicorn app.wsgi:application --log-file -
+release: python manage.py migrate</code></p>
+<p><strong>runtime.txt</strong>:</p>
+<p><code>python-3.11.0</code></p>
+<p><strong>heroku.yml</strong>:</p>
+<p><code>yaml
+build:
+  docker:
+    web: Dockerfile
+release:
+  image: web
+  command:
+    - python manage.py migrate</code></p>
+<p>```bash</p>
+<h1 id="deploy-to-heroku">Deploy to Heroku</h1>
+<p>heroku login
+heroku create your-app-name
+heroku container:login
+heroku container:push web
+heroku container:release web
+heroku open
+```</p>
+<hr />
+<h2 id="database-setup">Database Setup</h2>
+<h3 id="postgresql-configuration">PostgreSQL Configuration</h3>
+<p>```bash</p>
+<h1 id="install-postgresql">Install PostgreSQL</h1>
+<p>sudo apt install postgresql postgresql-contrib</p>
+<h1 id="access-postgresql">Access PostgreSQL</h1>
+<p>sudo -u postgres psql
+```</p>
+<p><code>sql
+-- Create database and user
+CREATE DATABASE sge;
+CREATE USER sge_user WITH PASSWORD 'secure-password';
+ALTER ROLE sge_user SET client_encoding TO 'utf8';
+ALTER ROLE sge_user SET default_transaction_isolation TO 'read committed';
+ALTER ROLE sge_user SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE sge TO sge_user;
+\q</code></p>
+<h3 id="database-optimization">Database Optimization</h3>
+<p>```python</p>
+<h1 id="appsettingspy">app/settings.py</h1>
+<p>DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sge',
+        'USER': 'sge_user',
+        'PASSWORD': 'secure-password',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'CONN_MAX_AGE': 600,  # Persistent connections
+        'OPTIONS': {
+            'connect_timeout': 10,
+        },
+    }
+}
+```</p>
+<hr />
+<h2 id="static-files_1">Static Files</h2>
+<h3 id="collection">Collection</h3>
+<p>```bash</p>
+<h1 id="collect-static-files_2">Collect static files</h1>
+<p>python manage.py collectstatic --noinput</p>
+<h1 id="clear-and-recollect">Clear and recollect</h1>
+<p>python manage.py collectstatic --clear --noinput
+```</p>
+<h3 id="whitenoise-alternative-to-cdn">WhiteNoise (Alternative to CDN)</h3>
+<p><code>bash
+pip install whitenoise</code></p>
+<p>```python</p>
+<h1 id="appsettingspy_1">app/settings.py</h1>
+<p>MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add after SecurityMiddleware
+    # ... other middleware
+]</p>
+<p>STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+```</p>
+<hr />
+<h2 id="sslhttps-setup">SSL/HTTPS Setup</h2>
+<h3 id="lets-encrypt-certbot">Let's Encrypt (Certbot)</h3>
+<p>```bash</p>
+<h1 id="install-certbot">Install Certbot</h1>
+<p>sudo apt install certbot python3-certbot-nginx</p>
+<h1 id="obtain-certificate">Obtain certificate</h1>
+<p>sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com</p>
+<h1 id="auto-renewal-already-configured-by-certbot">Auto-renewal (already configured by certbot)</h1>
+<p>sudo certbot renew --dry-run
+```</p>
+<h3 id="manual-ssl-certificate">Manual SSL Certificate</h3>
+<p>```bash</p>
+<h1 id="create-ssl-directory">Create SSL directory</h1>
+<p>sudo mkdir -p /etc/nginx/ssl</p>
+<h1 id="copy-certificates">Copy certificates</h1>
+<p>sudo cp fullchain.pem /etc/nginx/ssl/
+sudo cp privkey.pem /etc/nginx/ssl/</p>
+<h1 id="set-permissions">Set permissions</h1>
+<p>sudo chmod 600 /etc/nginx/ssl/*
+```</p>
+<hr />
+<h2 id="monitoring-logging">Monitoring &amp; Logging</h2>
+<h3 id="django-logging">Django Logging</h3>
+<p>```python</p>
+<h1 id="appsettingspy_2">app/settings.py</h1>
+<p>LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': '/var/log/django/sge.log',
+            'formatter': 'verbose',
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    },
+}
+```</p>
+<h3 id="sentry-integration">Sentry Integration</h3>
+<p><code>bash
+pip install sentry-sdk</code></p>
+<p>```python</p>
+<h1 id="appsettingspy_3">app/settings.py</h1>
+<p>import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration</p>
+<p>sentry_sdk.init(
+    dsn="https://your-sentry-dsn@sentry.io/project-id",
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+    send_default_pii=True,
+)
+```</p>
+<hr />
+<h2 id="backup-strategy">Backup Strategy</h2>
+<h3 id="database-backup-script">Database Backup Script</h3>
+<p><strong>/usr/local/bin/backup-sge.sh</strong>:</p>
+<p>```bash</p>
+<h1 id="binbash">!/bin/bash</h1>
+<p>BACKUP_DIR="/backups/sge"
+DATE=$(date +%Y%m%d_%H%M%S)
+DB_NAME="sge"
+DB_USER="sge_user"</p>
+<h1 id="create-backup-directory">Create backup directory</h1>
+<p>mkdir -p $BACKUP_DIR</p>
+<h1 id="dump-database">Dump database</h1>
+<p>pg_dump -U $DB_USER $DB_NAME &gt; $BACKUP_DIR/db_$DATE.sql</p>
+<h1 id="compress-backup">Compress backup</h1>
+<p>gzip $BACKUP_DIR/db_$DATE.sql</p>
+<h1 id="backup-media-files">Backup media files</h1>
+<p>tar -czf $BACKUP_DIR/media_$DATE.tar.gz /var/www/sge/media/</p>
+<h1 id="delete-old-backups-keep-7-days">Delete old backups (keep 7 days)</h1>
+<p>find $BACKUP_DIR -type f -mtime +7 -delete</p>
+<p>echo "Backup completed: $DATE"
+```</p>
+<h3 id="cron-job">Cron Job</h3>
+<p>```bash</p>
+<h1 id="edit-crontab">Edit crontab</h1>
+<p>sudo crontab -e</p>
+<h1 id="add-daily-backup-at-2-am">Add daily backup at 2 AM</h1>
+<p>0 2 * * * /usr/local/bin/backup-sge.sh &gt;&gt; /var/log/sge-backup.log 2&gt;&amp;1
+```</p>
+<hr />
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<p><strong>502 Bad Gateway:</strong>
+```bash</p>
+<h1 id="check-gunicorn-is-running">Check Gunicorn is running</h1>
+<p>sudo systemctl status sge</p>
+<h1 id="check-socket-exists">Check socket exists</h1>
+<p>ls -la /var/www/sge/sge.sock</p>
+<h1 id="restart-services_1">Restart services</h1>
+<p>sudo systemctl restart sge
+sudo systemctl restart nginx
+```</p>
+<p><strong>Static Files Not Loading:</strong>
+```bash</p>
+<h1 id="check-collectstatic">Check collectstatic</h1>
+<p>python manage.py collectstatic --noinput</p>
+<h1 id="check-nginx-configuration">Check Nginx configuration</h1>
+<p>sudo nginx -t</p>
+<h1 id="check-file-permissions">Check file permissions</h1>
+<p>sudo chown -R www-data:www-data /var/www/sge/staticfiles
+```</p>
+<p><strong>Database Connection Error:</strong>
+```bash</p>
+<h1 id="check-postgresql-is-running">Check PostgreSQL is running</h1>
+<p>sudo systemctl status postgresql</p>
+<h1 id="test-connection">Test connection</h1>
+<p>psql -U sge_user -d sge -h localhost</p>
+<h1 id="check-credentials-in-env">Check credentials in .env</h1>
+<p>```</p>
+<p><strong>Permission Denied:</strong>
+```bash</p>
+<h1 id="fix-ownership">Fix ownership</h1>
+<p>sudo chown -R www-data:www-data /var/www/sge</p>
+<h1 id="fix-permissions">Fix permissions</h1>
+<p>sudo chmod -R 755 /var/www/sge
+```</p>
+<h3 id="logs">Logs</h3>
+<p>```bash</p>
+<h1 id="django-logs">Django logs</h1>
+<p>sudo tail -f /var/log/django/sge.log</p>
+<h1 id="nginx-logs">Nginx logs</h1>
+<p>sudo tail -f /var/log/nginx/error.log
+sudo tail -f /var/log/nginx/access.log</p>
+<h1 id="gunicorn-logs">Gunicorn logs</h1>
+<p>sudo journalctl -u sge -f</p>
+<h1 id="postgresql-logs">PostgreSQL logs</h1>
+<p>sudo tail -f /var/log/postgresql/postgresql-*.log
+```</p>
+<hr />
+<p><strong>Next Steps</strong>: 
+- <a href="contribution.html">Contribution</a> - How to contribute
+- <a href="release-notes.html">Release Notes</a> - Version history</p>
 
 
 

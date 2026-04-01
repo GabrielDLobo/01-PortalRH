@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Human Resources Management System documentation">
+        <meta name="description" content="A Django-based Inventory Management System (SGE - Sistema de Gestão de Estoque) that allows you to manage products, suppliers, and stock movements (inflows/outflows), providing a dashboard with metrics and charts. It also includes an optional AI insights module to generate short daily inventory/sales recommendations based on system data.">
       
       
         <meta name="author" content="GabrielDLobo">
@@ -24,7 +24,7 @@
     
     
       
-        <title>API Endpoints - PortalRH Documentation</title>
+        <title>API Endpoints - Inventory Management System</title>
       
     
     
@@ -90,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="index.html" title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-header__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +104,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            PortalRH Documentation
+            Inventory Management System
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -185,13 +185,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="index.html" title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-nav__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    PortalRH Documentation
+    Inventory Management System
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -389,46 +389,70 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#api-information" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
-      📡 API Information
+      Table of Contents
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#authentication-format" class="md-nav__link">
+  <a href="#api-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      🔐 Authentication Format
+      API Overview
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#endpoints-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      📋 Endpoints Overview
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#authentication-endpoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔑 Authentication Endpoints
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔑 Authentication Endpoints">
+    <nav class="md-nav" aria-label="API Overview">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#login" class="md-nav__link">
+  <a href="#base-url" class="md-nav__link">
     <span class="md-ellipsis">
-      Login
+      Base URL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Content Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP Methods
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#obtain-jwt-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Obtain JWT Token
     </span>
   </a>
   
@@ -452,28 +476,61 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#register-user" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#brands" class="md-nav__link">
     <span class="md-ellipsis">
-      Register User
+      Brands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Brands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-brands" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Brands
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#first-login-password-change" class="md-nav__link">
+  <a href="#create-brand" class="md-nav__link">
     <span class="md-ellipsis">
-      First Login Password Change
+      Create Brand
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#check-password-change-required" class="md-nav__link">
+  <a href="#get-brand" class="md-nav__link">
     <span class="md-ellipsis">
-      Check Password Change Required
+      Get Brand
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-brand" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update Brand
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-brand" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete Brand
     </span>
   </a>
   
@@ -485,46 +542,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#user-endpoints" class="md-nav__link">
+  <a href="#categories" class="md-nav__link">
     <span class="md-ellipsis">
-      👥 User Endpoints
+      Categories
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="👥 User Endpoints">
+    <nav class="md-nav" aria-label="Categories">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-users" class="md-nav__link">
+  <a href="#list-categories" class="md-nav__link">
     <span class="md-ellipsis">
-      List Users
+      List Categories
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-user-profile" class="md-nav__link">
+  <a href="#create-category" class="md-nav__link">
     <span class="md-ellipsis">
-      Get User Profile
+      Create Category
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#change-password" class="md-nav__link">
+  <a href="#get-category" class="md-nav__link">
     <span class="md-ellipsis">
-      Change Password
+      Get Category
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-user-statistics" class="md-nav__link">
+  <a href="#update-category" class="md-nav__link">
     <span class="md-ellipsis">
-      Get User Statistics
+      Update Category
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-category" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete Category
     </span>
   </a>
   
@@ -536,64 +602,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#employee-endpoints" class="md-nav__link">
+  <a href="#suppliers" class="md-nav__link">
     <span class="md-ellipsis">
-      👨‍💼 Employee Endpoints
+      Suppliers
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="👨‍💼 Employee Endpoints">
+    <nav class="md-nav" aria-label="Suppliers">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-employees" class="md-nav__link">
+  <a href="#list-suppliers" class="md-nav__link">
     <span class="md-ellipsis">
-      List Employees
+      List Suppliers
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-employee-detail" class="md-nav__link">
+  <a href="#create-supplier" class="md-nav__link">
     <span class="md-ellipsis">
-      Get Employee Detail
+      Create Supplier
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-employee" class="md-nav__link">
+  <a href="#get-supplier" class="md-nav__link">
     <span class="md-ellipsis">
-      Create Employee
+      Get Supplier
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-my-profile" class="md-nav__link">
+  <a href="#update-supplier" class="md-nav__link">
     <span class="md-ellipsis">
-      Get My Profile
+      Update Supplier
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#update-personal-information" class="md-nav__link">
+  <a href="#delete-supplier" class="md-nav__link">
     <span class="md-ellipsis">
-      Update Personal Information
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get-admission-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      Get Admission Status
+      Delete Supplier
     </span>
   </a>
   
@@ -605,46 +662,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#employee-document-endpoints" class="md-nav__link">
+  <a href="#products" class="md-nav__link">
     <span class="md-ellipsis">
-      📄 Employee Document Endpoints
+      Products
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📄 Employee Document Endpoints">
+    <nav class="md-nav" aria-label="Products">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-documents" class="md-nav__link">
+  <a href="#list-products" class="md-nav__link">
     <span class="md-ellipsis">
-      List Documents
+      List Products
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#upload-document" class="md-nav__link">
+  <a href="#create-product" class="md-nav__link">
     <span class="md-ellipsis">
-      Upload Document
+      Create Product
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#verify-document" class="md-nav__link">
+  <a href="#get-product" class="md-nav__link">
     <span class="md-ellipsis">
-      Verify Document
+      Get Product
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-required-documents" class="md-nav__link">
+  <a href="#update-product" class="md-nav__link">
     <span class="md-ellipsis">
-      Get Required Documents
+      Update Product
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete Product
     </span>
   </a>
   
@@ -656,55 +722,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#evaluation-endpoints" class="md-nav__link">
+  <a href="#inflows" class="md-nav__link">
     <span class="md-ellipsis">
-      📊 Evaluation Endpoints
+      Inflows
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📊 Evaluation Endpoints">
+    <nav class="md-nav" aria-label="Inflows">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-templates" class="md-nav__link">
+  <a href="#list-inflows" class="md-nav__link">
     <span class="md-ellipsis">
-      List Templates
+      List Inflows
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-evaluation" class="md-nav__link">
+  <a href="#create-inflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Create Evaluation
+      Create Inflow
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#submit-evaluation-score" class="md-nav__link">
+  <a href="#get-inflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Submit Evaluation Score
+      Get Inflow
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-my-evaluations" class="md-nav__link">
+  <a href="#delete-inflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Get My Evaluations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#start-evaluation-cycle" class="md-nav__link">
-    <span class="md-ellipsis">
-      Start Evaluation Cycle
+      Delete Inflow
     </span>
   </a>
   
@@ -716,55 +773,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#leave-request-endpoints" class="md-nav__link">
+  <a href="#outflows" class="md-nav__link">
     <span class="md-ellipsis">
-      🏖️ Leave Request Endpoints
+      Outflows
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏖️ Leave Request Endpoints">
+    <nav class="md-nav" aria-label="Outflows">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-leave-types" class="md-nav__link">
+  <a href="#list-outflows" class="md-nav__link">
     <span class="md-ellipsis">
-      List Leave Types
+      List Outflows
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-leave-request" class="md-nav__link">
+  <a href="#create-outflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Create Leave Request
+      Create Outflow
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#approve-leave-request" class="md-nav__link">
+  <a href="#get-outflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Approve Leave Request
+      Get Outflow
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-my-leave-balances" class="md-nav__link">
+  <a href="#delete-outflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Get My Leave Balances
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get-leave-calendar" class="md-nav__link">
-    <span class="md-ellipsis">
-      Get Leave Calendar
+      Delete Outflow
     </span>
   </a>
   
@@ -776,190 +824,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#report-endpoints" class="md-nav__link">
+  <a href="#error-handling" class="md-nav__link">
     <span class="md-ellipsis">
-      📈 Report Endpoints
+      Error Handling
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📈 Report Endpoints">
+    <nav class="md-nav" aria-label="Error Handling">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-report-templates" class="md-nav__link">
+  <a href="#error-response-format" class="md-nav__link">
     <span class="md-ellipsis">
-      List Report Templates
+      Error Response Format
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#execute-report" class="md-nav__link">
+  <a href="#http-status-codes" class="md-nav__link">
     <span class="md-ellipsis">
-      Execute Report
+      HTTP Status Codes
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#download-report" class="md-nav__link">
+  <a href="#error-examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Download Report
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-report-schedule" class="md-nav__link">
-    <span class="md-ellipsis">
-      Create Report Schedule
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get-dashboard-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Get Dashboard Summary
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#termination-endpoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      🚪 Termination Endpoints
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🚪 Termination Endpoints">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#list-termination-reasons" class="md-nav__link">
-    <span class="md-ellipsis">
-      List Termination Reasons
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-termination-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      Create Termination Request
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#approve-termination" class="md-nav__link">
-    <span class="md-ellipsis">
-      Approve Termination
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#start-termination-processing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Start Termination Processing
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#complete-termination" class="md-nav__link">
-    <span class="md-ellipsis">
-      Complete Termination
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#error-responses" class="md-nav__link">
-    <span class="md-ellipsis">
-      📊 Error Responses
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📊 Error Responses">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#standard-error-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      Standard Error Format
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#common-error-codes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Error Codes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-error-response" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example Error Response
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#query-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔍 Query Parameters
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔍 Query Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#common-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Parameters
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ordering-syntax" class="md-nav__link">
-    <span class="md-ellipsis">
-      Ordering Syntax
+      Error Examples
     </span>
   </a>
   
@@ -973,9 +868,42 @@
         <li class="md-nav__item">
   <a href="#pagination" class="md-nav__link">
     <span class="md-ellipsis">
-      📝 Pagination
+      Pagination
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Pagination">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-pagination" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Pagination
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pagination-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pagination Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navigation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1094,7 +1022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="contributing.html" class="md-nav__link">
+      <a href="contribution.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1114,7 +1042,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gallery.html" class="md-nav__link">
+      <a href="image-projects.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1139,26 +1067,6 @@
   
   <span class="md-ellipsis">
     Release Notes
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="UPDATE_LOG.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Update Log
   </span>
   
 
@@ -1194,46 +1102,70 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#api-information" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
-      📡 API Information
+      Table of Contents
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#authentication-format" class="md-nav__link">
+  <a href="#api-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      🔐 Authentication Format
+      API Overview
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#endpoints-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      📋 Endpoints Overview
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#authentication-endpoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔑 Authentication Endpoints
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔑 Authentication Endpoints">
+    <nav class="md-nav" aria-label="API Overview">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#login" class="md-nav__link">
+  <a href="#base-url" class="md-nav__link">
     <span class="md-ellipsis">
-      Login
+      Base URL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Content Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP Methods
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#obtain-jwt-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Obtain JWT Token
     </span>
   </a>
   
@@ -1257,28 +1189,61 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#register-user" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#brands" class="md-nav__link">
     <span class="md-ellipsis">
-      Register User
+      Brands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Brands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-brands" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Brands
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#first-login-password-change" class="md-nav__link">
+  <a href="#create-brand" class="md-nav__link">
     <span class="md-ellipsis">
-      First Login Password Change
+      Create Brand
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#check-password-change-required" class="md-nav__link">
+  <a href="#get-brand" class="md-nav__link">
     <span class="md-ellipsis">
-      Check Password Change Required
+      Get Brand
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-brand" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update Brand
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-brand" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete Brand
     </span>
   </a>
   
@@ -1290,46 +1255,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#user-endpoints" class="md-nav__link">
+  <a href="#categories" class="md-nav__link">
     <span class="md-ellipsis">
-      👥 User Endpoints
+      Categories
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="👥 User Endpoints">
+    <nav class="md-nav" aria-label="Categories">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-users" class="md-nav__link">
+  <a href="#list-categories" class="md-nav__link">
     <span class="md-ellipsis">
-      List Users
+      List Categories
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-user-profile" class="md-nav__link">
+  <a href="#create-category" class="md-nav__link">
     <span class="md-ellipsis">
-      Get User Profile
+      Create Category
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#change-password" class="md-nav__link">
+  <a href="#get-category" class="md-nav__link">
     <span class="md-ellipsis">
-      Change Password
+      Get Category
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-user-statistics" class="md-nav__link">
+  <a href="#update-category" class="md-nav__link">
     <span class="md-ellipsis">
-      Get User Statistics
+      Update Category
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-category" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete Category
     </span>
   </a>
   
@@ -1341,64 +1315,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#employee-endpoints" class="md-nav__link">
+  <a href="#suppliers" class="md-nav__link">
     <span class="md-ellipsis">
-      👨‍💼 Employee Endpoints
+      Suppliers
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="👨‍💼 Employee Endpoints">
+    <nav class="md-nav" aria-label="Suppliers">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-employees" class="md-nav__link">
+  <a href="#list-suppliers" class="md-nav__link">
     <span class="md-ellipsis">
-      List Employees
+      List Suppliers
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-employee-detail" class="md-nav__link">
+  <a href="#create-supplier" class="md-nav__link">
     <span class="md-ellipsis">
-      Get Employee Detail
+      Create Supplier
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-employee" class="md-nav__link">
+  <a href="#get-supplier" class="md-nav__link">
     <span class="md-ellipsis">
-      Create Employee
+      Get Supplier
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-my-profile" class="md-nav__link">
+  <a href="#update-supplier" class="md-nav__link">
     <span class="md-ellipsis">
-      Get My Profile
+      Update Supplier
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#update-personal-information" class="md-nav__link">
+  <a href="#delete-supplier" class="md-nav__link">
     <span class="md-ellipsis">
-      Update Personal Information
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get-admission-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      Get Admission Status
+      Delete Supplier
     </span>
   </a>
   
@@ -1410,46 +1375,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#employee-document-endpoints" class="md-nav__link">
+  <a href="#products" class="md-nav__link">
     <span class="md-ellipsis">
-      📄 Employee Document Endpoints
+      Products
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📄 Employee Document Endpoints">
+    <nav class="md-nav" aria-label="Products">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-documents" class="md-nav__link">
+  <a href="#list-products" class="md-nav__link">
     <span class="md-ellipsis">
-      List Documents
+      List Products
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#upload-document" class="md-nav__link">
+  <a href="#create-product" class="md-nav__link">
     <span class="md-ellipsis">
-      Upload Document
+      Create Product
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#verify-document" class="md-nav__link">
+  <a href="#get-product" class="md-nav__link">
     <span class="md-ellipsis">
-      Verify Document
+      Get Product
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-required-documents" class="md-nav__link">
+  <a href="#update-product" class="md-nav__link">
     <span class="md-ellipsis">
-      Get Required Documents
+      Update Product
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete Product
     </span>
   </a>
   
@@ -1461,55 +1435,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#evaluation-endpoints" class="md-nav__link">
+  <a href="#inflows" class="md-nav__link">
     <span class="md-ellipsis">
-      📊 Evaluation Endpoints
+      Inflows
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📊 Evaluation Endpoints">
+    <nav class="md-nav" aria-label="Inflows">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-templates" class="md-nav__link">
+  <a href="#list-inflows" class="md-nav__link">
     <span class="md-ellipsis">
-      List Templates
+      List Inflows
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-evaluation" class="md-nav__link">
+  <a href="#create-inflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Create Evaluation
+      Create Inflow
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#submit-evaluation-score" class="md-nav__link">
+  <a href="#get-inflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Submit Evaluation Score
+      Get Inflow
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-my-evaluations" class="md-nav__link">
+  <a href="#delete-inflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Get My Evaluations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#start-evaluation-cycle" class="md-nav__link">
-    <span class="md-ellipsis">
-      Start Evaluation Cycle
+      Delete Inflow
     </span>
   </a>
   
@@ -1521,55 +1486,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#leave-request-endpoints" class="md-nav__link">
+  <a href="#outflows" class="md-nav__link">
     <span class="md-ellipsis">
-      🏖️ Leave Request Endpoints
+      Outflows
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏖️ Leave Request Endpoints">
+    <nav class="md-nav" aria-label="Outflows">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-leave-types" class="md-nav__link">
+  <a href="#list-outflows" class="md-nav__link">
     <span class="md-ellipsis">
-      List Leave Types
+      List Outflows
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-leave-request" class="md-nav__link">
+  <a href="#create-outflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Create Leave Request
+      Create Outflow
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#approve-leave-request" class="md-nav__link">
+  <a href="#get-outflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Approve Leave Request
+      Get Outflow
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-my-leave-balances" class="md-nav__link">
+  <a href="#delete-outflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Get My Leave Balances
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get-leave-calendar" class="md-nav__link">
-    <span class="md-ellipsis">
-      Get Leave Calendar
+      Delete Outflow
     </span>
   </a>
   
@@ -1581,190 +1537,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#report-endpoints" class="md-nav__link">
+  <a href="#error-handling" class="md-nav__link">
     <span class="md-ellipsis">
-      📈 Report Endpoints
+      Error Handling
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📈 Report Endpoints">
+    <nav class="md-nav" aria-label="Error Handling">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-report-templates" class="md-nav__link">
+  <a href="#error-response-format" class="md-nav__link">
     <span class="md-ellipsis">
-      List Report Templates
+      Error Response Format
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#execute-report" class="md-nav__link">
+  <a href="#http-status-codes" class="md-nav__link">
     <span class="md-ellipsis">
-      Execute Report
+      HTTP Status Codes
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#download-report" class="md-nav__link">
+  <a href="#error-examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Download Report
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-report-schedule" class="md-nav__link">
-    <span class="md-ellipsis">
-      Create Report Schedule
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get-dashboard-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Get Dashboard Summary
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#termination-endpoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      🚪 Termination Endpoints
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🚪 Termination Endpoints">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#list-termination-reasons" class="md-nav__link">
-    <span class="md-ellipsis">
-      List Termination Reasons
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-termination-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      Create Termination Request
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#approve-termination" class="md-nav__link">
-    <span class="md-ellipsis">
-      Approve Termination
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#start-termination-processing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Start Termination Processing
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#complete-termination" class="md-nav__link">
-    <span class="md-ellipsis">
-      Complete Termination
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#error-responses" class="md-nav__link">
-    <span class="md-ellipsis">
-      📊 Error Responses
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📊 Error Responses">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#standard-error-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      Standard Error Format
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#common-error-codes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Error Codes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-error-response" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example Error Response
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#query-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔍 Query Parameters
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔍 Query Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#common-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Parameters
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ordering-syntax" class="md-nav__link">
-    <span class="md-ellipsis">
-      Ordering Syntax
+      Error Examples
     </span>
   </a>
   
@@ -1778,9 +1581,42 @@
         <li class="md-nav__item">
   <a href="#pagination" class="md-nav__link">
     <span class="md-ellipsis">
-      📝 Pagination
+      Pagination
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Pagination">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-pagination" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Pagination
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pagination-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pagination Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navigation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1800,837 +1636,739 @@
 
 
 <h1 id="api-endpoints">API Endpoints</h1>
-<p>Complete reference for all PortalRH API endpoints.</p>
+<p>Complete reference for the Inventory Management System REST API.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#api-overview">API Overview</a></li>
+<li><a href="#authentication">Authentication</a></li>
+<li><a href="#brands">Brands</a></li>
+<li><a href="#categories">Categories</a></li>
+<li><a href="#suppliers">Suppliers</a></li>
+<li><a href="#products">Products</a></li>
+<li><a href="#inflows">Inflows</a></li>
+<li><a href="#outflows">Outflows</a></li>
+<li><a href="#error-handling">Error Handling</a></li>
+<li><a href="#pagination">Pagination</a></li>
+</ol>
 <hr />
-<h2 id="api-information">📡 API Information</h2>
-<ul>
-<li><strong>Base URL:</strong> <code>/api/v1/</code></li>
-<li><strong>Authentication:</strong> JWT Bearer Token</li>
-<li><strong>Content Type:</strong> <code>application/json</code></li>
-<li><strong>API Documentation:</strong> <code>/api/docs/</code> (Swagger UI)</li>
-<li><strong>Alternative Docs:</strong> <code>/api/redoc/</code> (ReDoc)</li>
-<li><strong>Schema:</strong> <code>/api/schema/</code></li>
-</ul>
-<hr />
-<h2 id="authentication-format">🔐 Authentication Format</h2>
-<p>Include JWT token in request headers:</p>
-<pre><code>Authorization: Bearer &lt;access_token&gt;</code></pre>
-<hr />
-<h2 id="endpoints-overview">📋 Endpoints Overview</h2>
+<h2 id="api-overview">API Overview</h2>
+<h3 id="base-url">Base URL</h3>
+<p><code>Development: http://localhost:8000/api/v1/
+Production: https://yourdomain.com/api/v1/</code></p>
+<h3 id="content-type">Content Type</h3>
+<p>All requests and responses use JSON format:</p>
+<p><code>Content-Type: application/json</code></p>
+<h3 id="http-methods">HTTP Methods</h3>
 <table>
 <thead>
 <tr>
-<th>Module</th>
-<th>Base Path</th>
-<th>Endpoints</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td>Retrieve resource(s)</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td>Create new resource</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td>Update entire resource</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td>Partial update</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td>Delete resource</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="authentication">Authentication</h2>
+<h3 id="obtain-jwt-token">Obtain JWT Token</h3>
+<p><strong>Endpoint:</strong> <code>POST /api/v1/authentication/token/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "username": "admin",
+  "password": "yourpassword"
+}</code></p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}</code></p>
+<p><strong>Usage:</strong>
+Include the access token in the Authorization header:</p>
+<p><code>Authorization: Bearer &lt;access_token&gt;</code></p>
+<hr />
+<h3 id="refresh-token">Refresh Token</h3>
+<p><strong>Endpoint:</strong> <code>POST /api/v1/authentication/token/refresh/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}</code></p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}</code></p>
+<hr />
+<h3 id="verify-token">Verify Token</h3>
+<p><strong>Endpoint:</strong> <code>POST /api/v1/authentication/token/verify/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}</code></p>
+<p><strong>Response:</strong>
+<code>200 OK (if valid)
+401 Unauthorized (if invalid)</code></p>
+<hr />
+<h2 id="brands">Brands</h2>
+<h3 id="list-brands">List Brands</h3>
+<p><strong>Endpoint:</strong> <code>GET /api/v1/brands/</code></p>
+<p><strong>Headers:</strong>
+<code>Authorization: Bearer &lt;token&gt;</code></p>
+<p><strong>Query Parameters:</strong>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| <code>page</code> | int | 1 | Page number |
+| <code>search</code> | string | - | Search by name |
+| <code>ordering</code> | string | <code>name</code> | Field to order by |</p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "count": 50,
+  "next": "http://localhost:8000/api/v1/brands/?page=2",
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "name": "Samsung",
+      "description": "Electronics brand",
+      "created_at": "2024-01-15T10:30:00Z",
+      "updated_at": "2024-01-15T10:30:00Z"
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="create-brand">Create Brand</h3>
+<p><strong>Endpoint:</strong> <code>POST /api/v1/brands/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "name": "LG",
+  "description": "Korean electronics manufacturer"
+}</code></p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "id": 2,
+  "name": "LG",
+  "description": "Korean electronics manufacturer",
+  "created_at": "2024-01-16T14:20:00Z",
+  "updated_at": "2024-01-16T14:20:00Z"
+}</code></p>
+<hr />
+<h3 id="get-brand">Get Brand</h3>
+<p><strong>Endpoint:</strong> <code>GET /api/v1/brands/&lt;id&gt;/</code></p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "id": 1,
+  "name": "Samsung",
+  "description": "Electronics brand",
+  "created_at": "2024-01-15T10:30:00Z",
+  "updated_at": "2024-01-15T10:30:00Z"
+}</code></p>
+<hr />
+<h3 id="update-brand">Update Brand</h3>
+<p><strong>Endpoint:</strong> <code>PUT /api/v1/brands/&lt;id&gt;/</code> or <code>PATCH /api/v1/brands/&lt;id&gt;/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "name": "Samsung Electronics",
+  "description": "Updated description"
+}</code></p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "id": 1,
+  "name": "Samsung Electronics",
+  "description": "Updated description",
+  "created_at": "2024-01-15T10:30:00Z",
+  "updated_at": "2024-01-16T15:00:00Z"
+}</code></p>
+<hr />
+<h3 id="delete-brand">Delete Brand</h3>
+<p><strong>Endpoint:</strong> <code>DELETE /api/v1/brands/&lt;id&gt;/</code></p>
+<p><strong>Response:</strong>
+<code>204 No Content</code></p>
+<hr />
+<h2 id="categories">Categories</h2>
+<h3 id="list-categories">List Categories</h3>
+<p><strong>Endpoint:</strong> <code>GET /api/v1/categories/</code></p>
+<p><strong>Query Parameters:</strong>
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| <code>page</code> | int | Page number |
+| <code>search</code> | string | Search by name |</p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "count": 30,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "name": "Electronics",
+      "description": "Electronic devices and accessories",
+      "created_at": "2024-01-10T08:00:00Z",
+      "updated_at": "2024-01-10T08:00:00Z"
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="create-category">Create Category</h3>
+<p><strong>Endpoint:</strong> <code>POST /api/v1/categories/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "name": "Home Appliances",
+  "description": "Household appliances"
+}</code></p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "id": 2,
+  "name": "Home Appliances",
+  "description": "Household appliances",
+  "created_at": "2024-01-16T14:30:00Z",
+  "updated_at": "2024-01-16T14:30:00Z"
+}</code></p>
+<hr />
+<h3 id="get-category">Get Category</h3>
+<p><strong>Endpoint:</strong> <code>GET /api/v1/categories/&lt;id&gt;/</code></p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "id": 1,
+  "name": "Electronics",
+  "description": "Electronic devices and accessories",
+  "created_at": "2024-01-10T08:00:00Z",
+  "updated_at": "2024-01-10T08:00:00Z"
+}</code></p>
+<hr />
+<h3 id="update-category">Update Category</h3>
+<p><strong>Endpoint:</strong> <code>PUT /api/v1/categories/&lt;id&gt;/</code> or <code>PATCH /api/v1/categories/&lt;id&gt;/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "name": "Consumer Electronics",
+  "description": "Updated description"
+}</code></p>
+<hr />
+<h3 id="delete-category">Delete Category</h3>
+<p><strong>Endpoint:</strong> <code>DELETE /api/v1/categories/&lt;id&gt;/</code></p>
+<p><strong>Response:</strong>
+<code>204 No Content</code></p>
+<hr />
+<h2 id="suppliers">Suppliers</h2>
+<h3 id="list-suppliers">List Suppliers</h3>
+<p><strong>Endpoint:</strong> <code>GET /api/v1/suppliers/</code></p>
+<p><strong>Query Parameters:</strong>
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| <code>page</code> | int | Page number |
+| <code>search</code> | string | Search by name |</p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "count": 25,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "name": "Tech Distributors Inc.",
+      "description": "Main electronics distributor",
+      "created_at": "2024-01-05T09:00:00Z",
+      "updated_at": "2024-01-05T09:00:00Z"
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="create-supplier">Create Supplier</h3>
+<p><strong>Endpoint:</strong> <code>POST /api/v1/suppliers/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "name": "Global Supplies Ltd.",
+  "description": "International supplier"
+}</code></p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "id": 2,
+  "name": "Global Supplies Ltd.",
+  "description": "International supplier",
+  "created_at": "2024-01-16T14:45:00Z",
+  "updated_at": "2024-01-16T14:45:00Z"
+}</code></p>
+<hr />
+<h3 id="get-supplier">Get Supplier</h3>
+<p><strong>Endpoint:</strong> <code>GET /api/v1/suppliers/&lt;id&gt;/</code></p>
+<hr />
+<h3 id="update-supplier">Update Supplier</h3>
+<p><strong>Endpoint:</strong> <code>PUT /api/v1/suppliers/&lt;id&gt;/</code> or <code>PATCH /api/v1/suppliers/&lt;id&gt;/</code></p>
+<hr />
+<h3 id="delete-supplier">Delete Supplier</h3>
+<p><strong>Endpoint:</strong> <code>DELETE /api/v1/suppliers/&lt;id&gt;/</code></p>
+<hr />
+<h2 id="products">Products</h2>
+<h3 id="list-products">List Products</h3>
+<p><strong>Endpoint:</strong> <code>GET /api/v1/products/</code></p>
+<p><strong>Query Parameters:</strong>
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| <code>page</code> | int | Page number |
+| <code>search</code> | string | Search by title |
+| <code>category</code> | int | Filter by category ID |
+| <code>brand</code> | int | Filter by brand ID |
+| <code>min_price</code> | decimal | Minimum price filter |
+| <code>max_price</code> | decimal | Maximum price filter |
+| <code>ordering</code> | string | Ordering field |</p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "count": 150,
+  "next": "http://localhost:8000/api/v1/products/?page=2",
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "title": "Samsung Galaxy S23",
+      "category": {
+        "id": 1,
+        "name": "Electronics"
+      },
+      "brand": {
+        "id": 1,
+        "name": "Samsung"
+      },
+      "description": "Latest flagship smartphone",
+      "serie_number": "SN123456789",
+      "cost_price": "500.00",
+      "selling_price": "799.99",
+      "quantity": 50,
+      "created_at": "2024-01-10T10:00:00Z",
+      "updated_at": "2024-01-15T14:30:00Z"
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="create-product">Create Product</h3>
+<p><strong>Endpoint:</strong> <code>POST /api/v1/products/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "title": "iPhone 15 Pro",
+  "category": 1,
+  "brand": 2,
+  "description": "Apple flagship phone",
+  "cost_price": "899.00",
+  "selling_price": "1199.00",
+  "quantity": 30
+}</code></p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "id": 2,
+  "title": "iPhone 15 Pro",
+  "category": {
+    "id": 1,
+    "name": "Electronics"
+  },
+  "brand": {
+    "id": 2,
+    "name": "Apple"
+  },
+  "description": "Apple flagship phone",
+  "serie_number": null,
+  "cost_price": "899.00",
+  "selling_price": "1199.00",
+  "quantity": 30,
+  "created_at": "2024-01-16T15:00:00Z",
+  "updated_at": "2024-01-16T15:00:00Z"
+}</code></p>
+<hr />
+<h3 id="get-product">Get Product</h3>
+<p><strong>Endpoint:</strong> <code>GET /api/v1/products/&lt;id&gt;/</code></p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "id": 1,
+  "title": "Samsung Galaxy S23",
+  "category": {
+    "id": 1,
+    "name": "Electronics"
+  },
+  "brand": {
+    "id": 1,
+    "name": "Samsung"
+  },
+  "description": "Latest flagship smartphone",
+  "serie_number": "SN123456789",
+  "cost_price": "500.00",
+  "selling_price": "799.99",
+  "quantity": 50,
+  "created_at": "2024-01-10T10:00:00Z",
+  "updated_at": "2024-01-15T14:30:00Z"
+}</code></p>
+<hr />
+<h3 id="update-product">Update Product</h3>
+<p><strong>Endpoint:</strong> <code>PUT /api/v1/products/&lt;id&gt;/</code> or <code>PATCH /api/v1/products/&lt;id&gt;/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "title": "Samsung Galaxy S23 Ultra",
+  "selling_price": "899.99",
+  "quantity": 45
+}</code></p>
+<hr />
+<h3 id="delete-product">Delete Product</h3>
+<p><strong>Endpoint:</strong> <code>DELETE /api/v1/products/&lt;id&gt;/</code></p>
+<p><strong>Note:</strong> Fails if product has related inflows/outflows (PROTECT constraint).</p>
+<hr />
+<h2 id="inflows">Inflows</h2>
+<h3 id="list-inflows">List Inflows</h3>
+<p><strong>Endpoint:</strong> <code>GET /api/v1/inflows/</code></p>
+<p><strong>Query Parameters:</strong>
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| <code>page</code> | int | Page number |
+| <code>supplier</code> | int | Filter by supplier ID |
+| <code>product</code> | int | Filter by product ID |
+| <code>date_from</code> | date | Start date filter |
+| <code>date_to</code> | date | End date filter |</p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "count": 100,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "supplier": {
+        "id": 1,
+        "name": "Tech Distributors Inc."
+      },
+      "product": {
+        "id": 1,
+        "title": "Samsung Galaxy S23"
+      },
+      "quantity": 20,
+      "description": "Monthly restock",
+      "created_at": "2024-01-15T09:00:00Z",
+      "updated_at": "2024-01-15T09:00:00Z"
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="create-inflow">Create Inflow</h3>
+<p><strong>Endpoint:</strong> <code>POST /api/v1/inflows/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "supplier": 1,
+  "product": 1,
+  "quantity": 50,
+  "description": "Emergency restock"
+}</code></p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "id": 2,
+  "supplier": {
+    "id": 1,
+    "name": "Tech Distributors Inc."
+  },
+  "product": {
+    "id": 1,
+    "title": "Samsung Galaxy S23"
+  },
+  "quantity": 50,
+  "description": "Emergency restock",
+  "created_at": "2024-01-16T10:00:00Z",
+  "updated_at": "2024-01-16T10:00:00Z"
+}</code></p>
+<p><strong>Note:</strong> Creating an inflow automatically updates the product quantity.</p>
+<hr />
+<h3 id="get-inflow">Get Inflow</h3>
+<p><strong>Endpoint:</strong> <code>GET /api/v1/inflows/&lt;id&gt;/</code></p>
+<hr />
+<h3 id="delete-inflow">Delete Inflow</h3>
+<p><strong>Endpoint:</strong> <code>DELETE /api/v1/inflows/&lt;id&gt;/</code></p>
+<p><strong>Note:</strong> Inflows cannot be updated (immutable record). Delete and create new if needed.</p>
+<hr />
+<h2 id="outflows">Outflows</h2>
+<h3 id="list-outflows">List Outflows</h3>
+<p><strong>Endpoint:</strong> <code>GET /api/v1/outflows/</code></p>
+<p><strong>Query Parameters:</strong>
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| <code>page</code> | int | Page number |
+| <code>product</code> | int | Filter by product ID |
+| <code>date_from</code> | date | Start date filter |
+| <code>date_to</code> | date | End date filter |</p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "count": 200,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "product": {
+        "id": 1,
+        "title": "Samsung Galaxy S23"
+      },
+      "quantity": 5,
+      "description": "Sale to customer #1234",
+      "created_at": "2024-01-15T14:30:00Z",
+      "updated_at": "2024-01-15T14:30:00Z"
+    }
+  ]
+}</code></p>
+<hr />
+<h3 id="create-outflow">Create Outflow</h3>
+<p><strong>Endpoint:</strong> <code>POST /api/v1/outflows/</code></p>
+<p><strong>Request:</strong>
+<code>json
+{
+  "product": 1,
+  "quantity": 10,
+  "description": "Bulk sale"
+}</code></p>
+<p><strong>Response:</strong>
+<code>json
+{
+  "id": 2,
+  "product": {
+    "id": 1,
+    "title": "Samsung Galaxy S23"
+  },
+  "quantity": 10,
+  "description": "Bulk sale",
+  "created_at": "2024-01-16T11:00:00Z",
+  "updated_at": "2024-01-16T11:00:00Z"
+}</code></p>
+<p><strong>Note:</strong> 
+- Creating an outflow automatically decreases product quantity
+- Triggers webhook notification if enabled
+- Fails if quantity exceeds available stock</p>
+<hr />
+<h3 id="get-outflow">Get Outflow</h3>
+<p><strong>Endpoint:</strong> <code>GET /api/v1/outflows/&lt;id&gt;/</code></p>
+<hr />
+<h3 id="delete-outflow">Delete Outflow</h3>
+<p><strong>Endpoint:</strong> <code>DELETE /api/v1/outflows/&lt;id&gt;/</code></p>
+<p><strong>Note:</strong> Outflows cannot be updated (immutable record).</p>
+<hr />
+<h2 id="error-handling">Error Handling</h2>
+<h3 id="error-response-format">Error Response Format</h3>
+<p><code>json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable message",
+    "details": {}
+  }
+}</code></p>
+<h3 id="http-status-codes">HTTP Status Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>200</code></td>
+<td>Success</td>
+</tr>
+<tr>
+<td><code>201</code></td>
+<td>Created</td>
+</tr>
+<tr>
+<td><code>204</code></td>
+<td>No Content</td>
+</tr>
+<tr>
+<td><code>400</code></td>
+<td>Bad Request</td>
+</tr>
+<tr>
+<td><code>401</code></td>
+<td>Unauthorized</td>
+</tr>
+<tr>
+<td><code>403</code></td>
+<td>Forbidden</td>
+</tr>
+<tr>
+<td><code>404</code></td>
+<td>Not Found</td>
+</tr>
+<tr>
+<td><code>405</code></td>
+<td>Method Not Allowed</td>
+</tr>
+<tr>
+<td><code>422</code></td>
+<td>Validation Error</td>
+</tr>
+<tr>
+<td><code>500</code></td>
+<td>Server Error</td>
+</tr>
+</tbody>
+</table>
+<h3 id="error-examples">Error Examples</h3>
+<p><strong>401 Unauthorized:</strong>
+<code>json
+{
+  "detail": "Authentication credentials were not provided."
+}</code></p>
+<p><strong>403 Forbidden:</strong>
+<code>json
+{
+  "detail": "You do not have permission to perform this action."
+}</code></p>
+<p><strong>404 Not Found:</strong>
+<code>json
+{
+  "detail": "Not found."
+}</code></p>
+<p><strong>422 Validation Error:</strong>
+<code>json
+{
+  "title": [
+    "This field is required."
+  ],
+  "selling_price": [
+    "Ensure that there are no more than 20 digits before the decimal point."
+  ]
+}</code></p>
+<hr />
+<h2 id="pagination">Pagination</h2>
+<h3 id="default-pagination">Default Pagination</h3>
+<p>All list endpoints return paginated responses:</p>
+<p><code>json
+{
+  "count": 100,
+  "next": "http://localhost:8000/api/v1/products/?page=2",
+  "previous": null,
+  "results": [...]
+}</code></p>
+<h3 id="pagination-parameters">Pagination Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>page</code></td>
+<td>1</td>
+<td>Page number</td>
+</tr>
+<tr>
+<td><code>page_size</code></td>
+<td>10</td>
+<td>Items per page (if configured)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="navigation">Navigation</h3>
+<p>```bash</p>
+<h1 id="first-page">First page</h1>
+<p>GET /api/v1/products/</p>
+<h1 id="second-page">Second page</h1>
+<p>GET /api/v1/products/?page=2</p>
+<h1 id="with-custom-page-size">With custom page size</h1>
+<p>GET /api/v1/products/?page=2&amp;page_size=25
+```</p>
+<hr />
+<h2 id="rate-limiting">Rate Limiting</h2>
+<p>API rate limiting may be configured. Typical limits:</p>
+<table>
+<thead>
+<tr>
+<th>Endpoint Type</th>
+<th>Limit</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Authentication</td>
-<td><code>/accounts/auth/</code></td>
-<td>login, refresh, verify, register</td>
+<td>10 requests/minute</td>
 </tr>
 <tr>
-<td>Users</td>
-<td><code>/accounts/users/</code></td>
-<td>CRUD, profile, password change</td>
+<td>Read (GET)</td>
+<td>100 requests/minute</td>
 </tr>
 <tr>
-<td>Employees</td>
-<td><code>/employees/</code></td>
-<td>CRUD, documents, admission</td>
-</tr>
-<tr>
-<td>Evaluations</td>
-<td><code>/evaluations/</code></td>
-<td>templates, evaluations, cycles</td>
-</tr>
-<tr>
-<td>Leave Requests</td>
-<td><code>/leave-requests/</code></td>
-<td>types, requests, balances</td>
-</tr>
-<tr>
-<td>Reports</td>
-<td><code>/reports/</code></td>
-<td>templates, executions, schedules</td>
-</tr>
-<tr>
-<td>Staff</td>
-<td><code>/staff/</code></td>
-<td>departments, employees</td>
-</tr>
-<tr>
-<td>Termination</td>
-<td><code>/termination/</code></td>
-<td>reasons, requests, documents</td>
+<td>Write (POST/PUT/DELETE)</td>
+<td>50 requests/minute</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="authentication-endpoints">🔑 Authentication Endpoints</h2>
-<h3 id="login">Login</h3>
-<p><strong>POST</strong> <code>/api/v1/accounts/auth/login/</code></p>
-<p>Authenticate user and receive JWT tokens.</p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;email&quot;: &quot;user@example.com&quot;,
-  &quot;password&quot;: &quot;securepassword&quot;
-}</code></pre>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;access&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;,
-  &quot;refresh&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;,
-  &quot;user&quot;: {
-    &quot;id&quot;: 1,
-    &quot;email&quot;: &quot;user@example.com&quot;,
-    &quot;first_name&quot;: &quot;John&quot;,
-    &quot;last_name&quot;: &quot;Doe&quot;,
-    &quot;role&quot;: &quot;admin_rh&quot;
-  },
-  &quot;requires_password_change&quot;: false
-}</code></pre>
+<h2 id="curl-examples">cURL Examples</h2>
+<h3 id="authenticate">Authenticate</h3>
+<p><code>bash
+curl -X POST http://localhost:8000/api/v1/authentication/token/ \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"password"}'</code></p>
+<h3 id="list-products_1">List Products</h3>
+<p><code>bash
+curl -X GET http://localhost:8000/api/v1/products/ \
+  -H "Authorization: Bearer &lt;token&gt;"</code></p>
+<h3 id="create-product_1">Create Product</h3>
+<p><code>bash
+curl -X POST http://localhost:8000/api/v1/products/ \
+  -H "Authorization: Bearer &lt;token&gt;" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "New Product",
+    "category": 1,
+    "brand": 1,
+    "cost_price": "10.00",
+    "selling_price": "20.00",
+    "quantity": 100
+  }'</code></p>
 <hr />
-<h3 id="refresh-token">Refresh Token</h3>
-<p><strong>POST</strong> <code>/api/v1/accounts/auth/refresh/</code></p>
-<p>Get new access token using refresh token.</p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;refresh&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;
-}</code></pre>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;access&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;
-}</code></pre>
-<hr />
-<h3 id="verify-token">Verify Token</h3>
-<p><strong>POST</strong> <code>/api/v1/accounts/auth/verify/</code></p>
-<p>Verify if access token is valid.</p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;token&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbG...&quot;
-}</code></pre>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{}</code></pre>
-<hr />
-<h3 id="register-user">Register User</h3>
-<p><strong>POST</strong> <code>/api/v1/accounts/auth/register/</code></p>
-<p>Create new user (Admin RH only).</p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;email&quot;: &quot;newuser@example.com&quot;,
-  &quot;password&quot;: &quot;securepassword&quot;,
-  &quot;first_name&quot;: &quot;Jane&quot;,
-  &quot;last_name&quot;: &quot;Doe&quot;,
-  &quot;role&quot;: &quot;funcionario&quot;
-}</code></pre>
-<p><strong>Response (201 Created):</strong></p>
-<pre><code>{
-  &quot;id&quot;: 5,
-  &quot;email&quot;: &quot;newuser@example.com&quot;,
-  &quot;first_name&quot;: &quot;Jane&quot;,
-  &quot;last_name&quot;: &quot;Doe&quot;,
-  &quot;role&quot;: &quot;funcionario&quot;,
-  &quot;is_active&quot;: true
-}</code></pre>
-<hr />
-<h3 id="first-login-password-change">First Login Password Change</h3>
-<p><strong>POST</strong> <code>/api/v1/accounts/auth/first-login-password-change/</code></p>
-<p>Change password on first login.</p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;old_password&quot;: &quot;temporary_password&quot;,
-  &quot;new_password&quot;: &quot;new_secure_password&quot;
-}</code></pre>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;message&quot;: &quot;Senha alterada com sucesso.&quot;
-}</code></pre>
-<hr />
-<h3 id="check-password-change-required">Check Password Change Required</h3>
-<p><strong>GET</strong> <code>/api/v1/accounts/auth/check-password-change-required/</code></p>
-<p>Check if user needs to change password.</p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;requires_password_change&quot;: true
-}</code></pre>
-<hr />
-<h2 id="user-endpoints">👥 User Endpoints</h2>
-<h3 id="list-users">List Users</h3>
-<p><strong>GET</strong> <code>/api/v1/accounts/users/</code></p>
-<p><strong>Query Parameters:</strong>
-- <code>search</code> - Search by name or email
-- <code>role</code> - Filter by role
-- <code>is_active</code> - Filter by active status
-- <code>page</code> - Page number</p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;count&quot;: 50,
-  &quot;next&quot;: &quot;http://api/users/?page=2&quot;,
-  &quot;previous&quot;: null,
-  &quot;results&quot;: [
-    {
-      &quot;id&quot;: 1,
-      &quot;email&quot;: &quot;admin@portalrh.com&quot;,
-      &quot;first_name&quot;: &quot;Admin&quot;,
-      &quot;last_name&quot;: &quot;RH&quot;,
-      &quot;role&quot;: &quot;admin_rh&quot;,
-      &quot;is_active&quot;: true
-    }
-  ]
-}</code></pre>
-<hr />
-<h3 id="get-user-profile">Get User Profile</h3>
-<p><strong>GET</strong> <code>/api/v1/accounts/users/profile/</code></p>
-<p>Get current authenticated user's profile.</p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;id&quot;: 1,
-  &quot;email&quot;: &quot;user@example.com&quot;,
-  &quot;first_name&quot;: &quot;John&quot;,
-  &quot;last_name&quot;: &quot;Doe&quot;,
-  &quot;role&quot;: &quot;funcionario&quot;,
-  &quot;date_joined&quot;: &quot;2024-01-15T10:30:00Z&quot;
-}</code></pre>
-<hr />
-<h3 id="change-password">Change Password</h3>
-<p><strong>POST</strong> <code>/api/v1/accounts/users/change_password/</code></p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;old_password&quot;: &quot;current_password&quot;,
-  &quot;new_password&quot;: &quot;new_password&quot;
-}</code></pre>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;message&quot;: &quot;Senha alterada com sucesso.&quot;
-}</code></pre>
-<hr />
-<h3 id="get-user-statistics">Get User Statistics</h3>
-<p><strong>GET</strong> <code>/api/v1/accounts/users/stats/</code></p>
-<p>Get user statistics (Admin RH only).</p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;total_users&quot;: 150,
-  &quot;active_users&quot;: 142,
-  &quot;admin_rh_count&quot;: 5,
-  &quot;funcionario_count&quot;: 145
-}</code></pre>
-<hr />
-<h2 id="employee-endpoints">👨‍💼 Employee Endpoints</h2>
-<h3 id="list-employees">List Employees</h3>
-<p><strong>GET</strong> <code>/api/v1/employees/employees/</code></p>
-<p><strong>Query Parameters:</strong>
-- <code>search</code> - Search by name
-- <code>status</code> - Filter by status
-- <code>department</code> - Filter by department
-- <code>page</code> - Page number</p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;count&quot;: 100,
-  &quot;next&quot;: null,
-  &quot;previous&quot;: null,
-  &quot;results&quot;: [
-    {
-      &quot;id&quot;: 1,
-      &quot;employee_id&quot;: &quot;EMP-0001&quot;,
-      &quot;full_name&quot;: &quot;John Doe&quot;,
-      &quot;email&quot;: &quot;john@company.com&quot;,
-      &quot;department&quot;: &quot;Engineering&quot;,
-      &quot;position&quot;: &quot;Developer&quot;,
-      &quot;status&quot;: &quot;active&quot;,
-      &quot;hire_date&quot;: &quot;2024-01-15&quot;
-    }
-  ]
-}</code></pre>
-<hr />
-<h3 id="get-employee-detail">Get Employee Detail</h3>
-<p><strong>GET</strong> <code>/api/v1/employees/employees/{id}/</code></p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;id&quot;: 1,
-  &quot;employee_id&quot;: &quot;EMP-0001&quot;,
-  &quot;user&quot;: 1,
-  &quot;full_name&quot;: &quot;John Doe&quot;,
-  &quot;cpf&quot;: &quot;123.456.789-00&quot;,
-  &quot;rg&quot;: &quot;12.345.678-9&quot;,
-  &quot;birth_date&quot;: &quot;1990-05-15&quot;,
-  &quot;phone&quot;: &quot;(11) 99999-9999&quot;,
-  &quot;email&quot;: &quot;john@company.com&quot;,
-  &quot;street_address&quot;: &quot;Rua Principal&quot;,
-  &quot;address_number&quot;: &quot;123&quot;,
-  &quot;neighborhood&quot;: &quot;Centro&quot;,
-  &quot;city&quot;: &quot;S&#227;o Paulo&quot;,
-  &quot;state&quot;: &quot;SP&quot;,
-  &quot;zip_code&quot;: &quot;01000-000&quot;,
-  &quot;department&quot;: &quot;Engineering&quot;,
-  &quot;position&quot;: &quot;Developer&quot;,
-  &quot;hire_date&quot;: &quot;2024-01-15&quot;,
-  &quot;salary&quot;: &quot;5000.00&quot;,
-  &quot;status&quot;: &quot;active&quot;,
-  &quot;admission_completed&quot;: true
-}</code></pre>
-<hr />
-<h3 id="create-employee">Create Employee</h3>
-<p><strong>POST</strong> <code>/api/v1/employees/employees/</code></p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;user&quot;: 1,
-  &quot;full_name&quot;: &quot;Jane Doe&quot;,
-  &quot;cpf&quot;: &quot;987.654.321-00&quot;,
-  &quot;rg&quot;: &quot;98.765.432-1&quot;,
-  &quot;birth_date&quot;: &quot;1992-08-20&quot;,
-  &quot;phone&quot;: &quot;(11) 98888-8888&quot;,
-  &quot;email&quot;: &quot;jane@company.com&quot;,
-  &quot;street_address&quot;: &quot;Rua Secund&#225;ria&quot;,
-  &quot;address_number&quot;: &quot;456&quot;,
-  &quot;neighborhood&quot;: &quot;Jardins&quot;,
-  &quot;city&quot;: &quot;S&#227;o Paulo&quot;,
-  &quot;state&quot;: &quot;SP&quot;,
-  &quot;zip_code&quot;: &quot;01001-000&quot;,
-  &quot;department&quot;: &quot;Marketing&quot;,
-  &quot;position&quot;: &quot;Designer&quot;,
-  &quot;hire_date&quot;: &quot;2024-02-01&quot;,
-  &quot;salary&quot;: &quot;4500.00&quot;
-}</code></pre>
-<p><strong>Response (201 Created):</strong></p>
-<pre><code>{
-  &quot;id&quot;: 2,
-  &quot;employee_id&quot;: &quot;EMP-0002&quot;,
-  &quot;full_name&quot;: &quot;Jane Doe&quot;,
-  ...
-}</code></pre>
-<hr />
-<h3 id="get-my-profile">Get My Profile</h3>
-<p><strong>GET</strong> <code>/api/v1/employees/employees/my_profile/</code></p>
-<p>Get current user's employee profile.</p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;id&quot;: 1,
-  &quot;employee_id&quot;: &quot;EMP-0001&quot;,
-  &quot;full_name&quot;: &quot;John Doe&quot;,
-  ...
-}</code></pre>
-<hr />
-<h3 id="update-personal-information">Update Personal Information</h3>
-<p><strong>PATCH</strong> <code>/api/v1/employees/employees/{id}/update_personal_info/</code></p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;phone&quot;: &quot;(11) 97777-7777&quot;,
-  &quot;street_address&quot;: &quot;Nova Rua&quot;,
-  &quot;address_number&quot;: &quot;789&quot;
-}</code></pre>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;message&quot;: &quot;Informa&#231;&#245;es atualizadas com sucesso.&quot;
-}</code></pre>
-<hr />
-<h3 id="get-admission-status">Get Admission Status</h3>
-<p><strong>GET</strong> <code>/api/v1/employees/employees/{id}/admission_status/</code></p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;employee_id&quot;: &quot;EMP-0001&quot;,
-  &quot;status&quot;: &quot;documents_uploaded&quot;,
-  &quot;completion_percentage&quot;: 75,
-  &quot;personal_info_completed&quot;: true,
-  &quot;documents_uploaded&quot;: true,
-  &quot;hr_review_completed&quot;: false
-}</code></pre>
-<hr />
-<h2 id="employee-document-endpoints">📄 Employee Document Endpoints</h2>
-<h3 id="list-documents">List Documents</h3>
-<p><strong>GET</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/</code></p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;count&quot;: 5,
-  &quot;results&quot;: [
-    {
-      &quot;id&quot;: 1,
-      &quot;employee&quot;: 1,
-      &quot;document_type&quot;: &quot;rg&quot;,
-      &quot;document_name&quot;: &quot;RG Front&quot;,
-      &quot;file&quot;: &quot;/media/employees/documents/rg_001.pdf&quot;,
-      &quot;file_size&quot;: 102400,
-      &quot;uploaded_at&quot;: &quot;2024-01-15T10:00:00Z&quot;,
-      &quot;is_required&quot;: true,
-      &quot;is_verified&quot;: false
-    }
-  ]
-}</code></pre>
-<hr />
-<h3 id="upload-document">Upload Document</h3>
-<p><strong>POST</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/</code></p>
-<p><strong>Content-Type:</strong> <code>multipart/form-data</code></p>
-<p><strong>Request:</strong></p>
-<pre><code>document_type: rg
-document_name: RG Front
-file: &lt;file&gt;
-is_required: true</code></pre>
-<p><strong>Response (201 Created):</strong></p>
-<pre><code>{
-  &quot;id&quot;: 1,
-  &quot;document_type&quot;: &quot;rg&quot;,
-  &quot;file&quot;: &quot;/media/employees/documents/rg_001.pdf&quot;,
-  ...
-}</code></pre>
-<hr />
-<h3 id="verify-document">Verify Document</h3>
-<p><strong>PATCH</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/{id}/verify/</code></p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;is_verified&quot;: true
-}</code></pre>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;message&quot;: &quot;Documento verificado com sucesso.&quot;
-}</code></pre>
-<hr />
-<h3 id="get-required-documents">Get Required Documents</h3>
-<p><strong>GET</strong> <code>/api/v1/employees/employees/{employee_pk}/documents/required_documents/</code></p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;required_documents&quot;: [
-    {&quot;type&quot;: &quot;rg&quot;, &quot;name&quot;: &quot;RG&quot;, &quot;uploaded&quot;: true},
-    {&quot;type&quot;: &quot;cpf&quot;, &quot;name&quot;: &quot;CPF&quot;, &quot;uploaded&quot;: true},
-    {&quot;type&quot;: &quot;birth_certificate&quot;, &quot;name&quot;: &quot;Birth Certificate&quot;, &quot;uploaded&quot;: false},
-    {&quot;type&quot;: &quot;residence_proof&quot;, &quot;name&quot;: &quot;Residence Proof&quot;, &quot;uploaded&quot;: false},
-    {&quot;type&quot;: &quot;photo&quot;, &quot;name&quot;: &quot;Photo&quot;, &quot;uploaded&quot;: true}
-  ]
-}</code></pre>
-<hr />
-<h2 id="evaluation-endpoints">📊 Evaluation Endpoints</h2>
-<h3 id="list-templates">List Templates</h3>
-<p><strong>GET</strong> <code>/api/v1/evaluations/templates/</code></p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;count&quot;: 3,
-  &quot;results&quot;: [
-    {
-      &quot;id&quot;: 1,
-      &quot;nome&quot;: &quot;Annual Performance Review&quot;,
-      &quot;descricao&quot;: &quot;Annual evaluation template&quot;,
-      &quot;ativo&quot;: true,
-      &quot;created_at&quot;: &quot;2024-01-01T00:00:00Z&quot;
-    }
-  ]
-}</code></pre>
-<hr />
-<h3 id="create-evaluation">Create Evaluation</h3>
-<p><strong>POST</strong> <code>/api/v1/evaluations/evaluations/</code></p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;template&quot;: 1,
-  &quot;avaliado&quot;: 5,
-  &quot;avaliador&quot;: 1,
-  &quot;tipo&quot;: &quot;avaliacao_superior&quot;,
-  &quot;periodo_inicio&quot;: &quot;2024-01-01&quot;,
-  &quot;periodo_fim&quot;: &quot;2024-12-31&quot;,
-  &quot;status&quot;: &quot;pendente&quot;
-}</code></pre>
-<p><strong>Response (201 Created):</strong></p>
-<pre><code>{
-  &quot;id&quot;: 10,
-  &quot;template&quot;: 1,
-  &quot;avaliado&quot;: 5,
-  &quot;avaliador&quot;: 1,
-  &quot;tipo&quot;: &quot;avaliacao_superior&quot;,
-  &quot;status&quot;: &quot;pendente&quot;,
-  ...
-}</code></pre>
-<hr />
-<h3 id="submit-evaluation-score">Submit Evaluation Score</h3>
-<p><strong>POST</strong> <code>/api/v1/evaluations/scores/</code></p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;avaliacao&quot;: 10,
-  &quot;criterio&quot;: 1,
-  &quot;nota&quot;: &quot;8.5&quot;,
-  &quot;comentario&quot;: &quot;Great performance&quot;
-}</code></pre>
-<p><strong>Response (201 Created):</strong></p>
-<pre><code>{
-  &quot;id&quot;: 50,
-  &quot;avaliacao&quot;: 10,
-  &quot;criterio&quot;: 1,
-  &quot;nota&quot;: &quot;8.50&quot;,
-  &quot;comentario&quot;: &quot;Great performance&quot;
-}</code></pre>
-<hr />
-<h3 id="get-my-evaluations">Get My Evaluations</h3>
-<p><strong>GET</strong> <code>/api/v1/evaluations/evaluations/my_evaluations/</code></p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;count&quot;: 5,
-  &quot;results&quot;: [
-    {
-      &quot;id&quot;: 10,
-      &quot;template_name&quot;: &quot;Annual Performance Review&quot;,
-      &quot;tipo&quot;: &quot;avaliacao_superior&quot;,
-      &quot;status&quot;: &quot;concluida&quot;,
-      &quot;nota_final&quot;: &quot;8.75&quot;,
-      &quot;data_conclusao&quot;: &quot;2024-12-15T10:00:00Z&quot;
-    }
-  ]
-}</code></pre>
-<hr />
-<h3 id="start-evaluation-cycle">Start Evaluation Cycle</h3>
-<p><strong>POST</strong> <code>/api/v1/evaluations/cycles/{id}/start/</code></p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;message&quot;: &quot;Ciclo iniciado com sucesso.&quot;,
-  &quot;status&quot;: &quot;ativo&quot;
-}</code></pre>
-<hr />
-<h2 id="leave-request-endpoints">🏖️ Leave Request Endpoints</h2>
-<h3 id="list-leave-types">List Leave Types</h3>
-<p><strong>GET</strong> <code>/api/v1/leave-requests/types/</code></p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;count&quot;: 4,
-  &quot;results&quot;: [
-    {
-      &quot;id&quot;: 1,
-      &quot;nome&quot;: &quot;Vacation&quot;,
-      &quot;descricao&quot;: &quot;Annual vacation leave&quot;,
-      &quot;max_dias_ano&quot;: 30,
-      &quot;requer_aprovacao&quot;: true,
-      &quot;ativo&quot;: true
-    }
-  ]
-}</code></pre>
-<hr />
-<h3 id="create-leave-request">Create Leave Request</h3>
-<p><strong>POST</strong> <code>/api/v1/leave-requests/requests/</code></p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;tipo&quot;: 1,
-  &quot;data_inicio&quot;: &quot;2024-06-01&quot;,
-  &quot;data_fim&quot;: &quot;2024-06-30&quot;,
-  &quot;motivo&quot;: &quot;Annual vacation&quot;,
-  &quot;observacoes&quot;: &quot;Will be traveling&quot;,
-  &quot;dias_gozo&quot;: 30,
-  &quot;tem_abono_pecuniario&quot;: true,
-  &quot;dias_abono_pecuniario&quot;: 10
-}</code></pre>
-<p><strong>Response (201 Created):</strong></p>
-<pre><code>{
-  &quot;id&quot;: 15,
-  &quot;solicitante&quot;: 1,
-  &quot;tipo&quot;: 1,
-  &quot;data_inicio&quot;: &quot;2024-06-01&quot;,
-  &quot;data_fim&quot;: &quot;2024-06-30&quot;,
-  &quot;status&quot;: &quot;pendente&quot;,
-  &quot;dias_solicitados&quot;: 30
-}</code></pre>
-<hr />
-<h3 id="approve-leave-request">Approve Leave Request</h3>
-<p><strong>POST</strong> <code>/api/v1/leave-requests/requests/{id}/approve/</code></p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;status&quot;: &quot;aprovada&quot;,
-  &quot;comentario_aprovacao&quot;: &quot;Approved. Enjoy your vacation!&quot;
-}</code></pre>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;message&quot;: &quot;Solicita&#231;&#227;o aprovada com sucesso.&quot;,
-  &quot;status&quot;: &quot;aprovada&quot;
-}</code></pre>
-<hr />
-<h3 id="get-my-leave-balances">Get My Leave Balances</h3>
-<p><strong>GET</strong> <code>/api/v1/leave-requests/balances/my_balances/</code></p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;count&quot;: 3,
-  &quot;results&quot;: [
-    {
-      &quot;id&quot;: 1,
-      &quot;tipo&quot;: &quot;Vacation&quot;,
-      &quot;ano&quot;: 2024,
-      &quot;dias_disponiveis&quot;: 30,
-      &quot;dias_utilizados&quot;: 15,
-      &quot;dias_restantes&quot;: 15
-    }
-  ]
-}</code></pre>
-<hr />
-<h3 id="get-leave-calendar">Get Leave Calendar</h3>
-<p><strong>GET</strong> <code>/api/v1/leave-requests/requests/calendar/</code></p>
-<p><strong>Query Parameters:</strong>
-- <code>year</code> - Year to display
-- <code>department</code> - Filter by department</p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;events&quot;: [
-    {
-      &quot;employee_name&quot;: &quot;John Doe&quot;,
-      &quot;start&quot;: &quot;2024-06-01&quot;,
-      &quot;end&quot;: &quot;2024-06-30&quot;,
-      &quot;type&quot;: &quot;Vacation&quot;
-    }
-  ]
-}</code></pre>
-<hr />
-<h2 id="report-endpoints">📈 Report Endpoints</h2>
-<h3 id="list-report-templates">List Report Templates</h3>
-<p><strong>GET</strong> <code>/api/v1/reports/templates/</code></p>
-<p><strong>Query Parameters:</strong>
-- <code>category</code> - Filter by category
-- <code>report_type</code> - Filter by type
-- <code>is_public</code> - Filter by visibility</p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;count&quot;: 10,
-  &quot;results&quot;: [
-    {
-      &quot;id&quot;: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
-      &quot;name&quot;: &quot;Employee Headcount Report&quot;,
-      &quot;description&quot;: &quot;Current employee count by department&quot;,
-      &quot;report_type&quot;: &quot;employees&quot;,
-      &quot;category&quot;: 1,
-      &quot;output_formats&quot;: [&quot;pdf&quot;, &quot;excel&quot;, &quot;csv&quot;],
-      &quot;default_format&quot;: &quot;excel&quot;,
-      &quot;is_public&quot;: true
-    }
-  ]
-}</code></pre>
-<hr />
-<h3 id="execute-report">Execute Report</h3>
-<p><strong>POST</strong> <code>/api/v1/reports/templates/{id}/execute/</code></p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;output_format&quot;: &quot;excel&quot;,
-  &quot;parameters&quot;: {
-    &quot;department&quot;: &quot;Engineering&quot;,
-    &quot;start_date&quot;: &quot;2024-01-01&quot;,
-    &quot;end_date&quot;: &quot;2024-12-31&quot;
-  }
-}</code></pre>
-<p><strong>Response (202 Accepted):</strong></p>
-<pre><code>{
-  &quot;execution_id&quot;: &quot;550e8400-e29b-41d4-a716-446655440001&quot;,
-  &quot;status&quot;: &quot;pending&quot;,
-  &quot;message&quot;: &quot;Report execution started&quot;
-}</code></pre>
-<hr />
-<h3 id="download-report">Download Report</h3>
-<p><strong>GET</strong> <code>/api/v1/reports/executions/{id}/download/</code></p>
-<p><strong>Response:</strong> File download (binary)</p>
-<hr />
-<h3 id="create-report-schedule">Create Report Schedule</h3>
-<p><strong>POST</strong> <code>/api/v1/reports/schedules/</code></p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;name&quot;: &quot;Monthly Headcount Report&quot;,
-  &quot;template&quot;: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
-  &quot;frequency&quot;: &quot;monthly&quot;,
-  &quot;cron_expression&quot;: &quot;0 9 1 * *&quot;,
-  &quot;output_format&quot;: &quot;excel&quot;,
-  &quot;email_recipients&quot;: [&quot;hr@company.com&quot;],
-  &quot;send_email_on_success&quot;: true
-}</code></pre>
-<p><strong>Response (201 Created):</strong></p>
-<pre><code>{
-  &quot;id&quot;: &quot;550e8400-e29b-41d4-a716-446655440002&quot;,
-  &quot;name&quot;: &quot;Monthly Headcount Report&quot;,
-  &quot;status&quot;: &quot;active&quot;,
-  &quot;next_execution&quot;: &quot;2024-05-01T09:00:00Z&quot;
-}</code></pre>
-<hr />
-<h3 id="get-dashboard-summary">Get Dashboard Summary</h3>
-<p><strong>GET</strong> <code>/api/v1/reports/dashboard/summary/</code></p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;total_employees&quot;: 150,
-  &quot;active_leave_requests&quot;: 12,
-  &quot;pending_evaluations&quot;: 25,
-  &quot;pending_terminations&quot;: 3,
-  &quot;recent_hires&quot;: 5,
-  &quot;upcoming_birthdays&quot;: 8
-}</code></pre>
-<hr />
-<h2 id="termination-endpoints">🚪 Termination Endpoints</h2>
-<h3 id="list-termination-reasons">List Termination Reasons</h3>
-<p><strong>GET</strong> <code>/api/v1/termination/reasons/</code></p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;count&quot;: 5,
-  &quot;results&quot;: [
-    {
-      &quot;id&quot;: 1,
-      &quot;nome&quot;: &quot;Voluntary Resignation&quot;,
-      &quot;codigo&quot;: &quot;VR&quot;,
-      &quot;descricao&quot;: &quot;Employee voluntarily resigns&quot;,
-      &quot;ativo&quot;: true
-    }
-  ]
-}</code></pre>
-<hr />
-<h3 id="create-termination-request">Create Termination Request</h3>
-<p><strong>POST</strong> <code>/api/v1/termination/requests/</code></p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;funcionario&quot;: 5,
-  &quot;motivo&quot;: 1,
-  &quot;data_ultimo_dia&quot;: &quot;2024-06-30&quot;,
-  &quot;justificativa&quot;: &quot;Personal reasons&quot;
-}</code></pre>
-<p><strong>Response (201 Created):</strong></p>
-<pre><code>{
-  &quot;id&quot;: 10,
-  &quot;funcionario&quot;: 5,
-  &quot;motivo&quot;: 1,
-  &quot;status&quot;: &quot;pendente_rh&quot;,
-  &quot;data_ultimo_dia&quot;: &quot;2024-06-30&quot;
-}</code></pre>
-<hr />
-<h3 id="approve-termination">Approve Termination</h3>
-<p><strong>POST</strong> <code>/api/v1/termination/requests/{id}/approve/</code></p>
-<p><strong>Request:</strong></p>
-<pre><code>{
-  &quot;comentario_aprovacao_rh&quot;: &quot;Approved. Exit interview scheduled.&quot;
-}</code></pre>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;message&quot;: &quot;Termina&#231;&#227;o aprovada com sucesso.&quot;,
-  &quot;status&quot;: &quot;aprovada_rh&quot;
-}</code></pre>
-<hr />
-<h3 id="start-termination-processing">Start Termination Processing</h3>
-<p><strong>POST</strong> <code>/api/v1/termination/requests/{id}/start_processing/</code></p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;message&quot;: &quot;Processamento de desligamento iniciado.&quot;,
-  &quot;status&quot;: &quot;processando&quot;
-}</code></pre>
-<hr />
-<h3 id="complete-termination">Complete Termination</h3>
-<p><strong>POST</strong> <code>/api/v1/termination/requests/{id}/complete/</code></p>
-<p><strong>Response (200 OK):</strong></p>
-<pre><code>{
-  &quot;message&quot;: &quot;Desligamento conclu&#237;do com sucesso.&quot;,
-  &quot;status&quot;: &quot;concluida&quot;
-}</code></pre>
-<hr />
-<h2 id="error-responses">📊 Error Responses</h2>
-<h3 id="standard-error-format">Standard Error Format</h3>
-<pre><code>{
-  &quot;error&quot;: {
-    &quot;code&quot;: &quot;ERROR_CODE&quot;,
-    &quot;message&quot;: &quot;Human-readable message&quot;,
-    &quot;details&quot;: {
-      &quot;field_name&quot;: [&quot;Error message for field&quot;]
-    }
-  }
-}</code></pre>
-<h3 id="common-error-codes">Common Error Codes</h3>
-<table>
-<thead>
-<tr>
-<th>Code</th>
-<th>HTTP Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>VALIDATION_ERROR</code></td>
-<td>400</td>
-<td>Invalid input data</td>
-</tr>
-<tr>
-<td><code>AUTHENTICATION_FAILED</code></td>
-<td>401</td>
-<td>Invalid credentials</td>
-</tr>
-<tr>
-<td><code>PERMISSION_DENIED</code></td>
-<td>403</td>
-<td>Insufficient permissions</td>
-</tr>
-<tr>
-<td><code>NOT_FOUND</code></td>
-<td>404</td>
-<td>Resource not found</td>
-</tr>
-<tr>
-<td><code>CONFLICT</code></td>
-<td>409</td>
-<td>Resource conflict</td>
-</tr>
-<tr>
-<td><code>SERVER_ERROR</code></td>
-<td>500</td>
-<td>Internal server error</td>
-</tr>
-</tbody>
-</table>
-<h3 id="example-error-response">Example Error Response</h3>
-<pre><code>{
-  &quot;error&quot;: {
-    &quot;code&quot;: &quot;VALIDATION_ERROR&quot;,
-    &quot;message&quot;: &quot;Invalid input data&quot;,
-    &quot;details&quot;: {
-      &quot;email&quot;: [&quot;This field is required&quot;],
-      &quot;cpf&quot;: [&quot;Invalid CPF format&quot;]
-    }
-  }
-}</code></pre>
-<hr />
-<h2 id="query-parameters">🔍 Query Parameters</h2>
-<h3 id="common-parameters">Common Parameters</h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>search</code></td>
-<td>Full-text search</td>
-<td><code>?search=john</code></td>
-</tr>
-<tr>
-<td><code>page</code></td>
-<td>Page number</td>
-<td><code>?page=2</code></td>
-</tr>
-<tr>
-<td><code>page_size</code></td>
-<td>Items per page</td>
-<td><code>?page_size=20</code></td>
-</tr>
-<tr>
-<td><code>ordering</code></td>
-<td>Sort field</td>
-<td><code>?ordering=-created_at</code></td>
-</tr>
-<tr>
-<td><code>status</code></td>
-<td>Filter by status</td>
-<td><code>?status=active</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="ordering-syntax">Ordering Syntax</h3>
-<ul>
-<li>Ascending: <code>?ordering=name</code></li>
-<li>Descending: <code>?ordering=-name</code></li>
-<li>Multiple: <code>?ordering=department,-created_at</code></li>
-</ul>
-<hr />
-<h2 id="pagination">📝 Pagination</h2>
-<p>All list endpoints support pagination:</p>
-<pre><code>{
-  &quot;count&quot;: 100,
-  &quot;next&quot;: &quot;http://api/endpoint/?page=2&quot;,
-  &quot;previous&quot;: null,
-  &quot;results&quot;: [...]
-}</code></pre>
-<hr />
-<p><strong>Next:</strong> <a href="system-modeling.html">System Modeling</a></p>
+<p><strong>Next Steps</strong>: 
+- <a href="system-modeling.html">System Modeling</a> - Architecture diagrams
+- <a href="authentication-security.html">Authentication &amp; Security</a> - Security details</p>
 
 
 

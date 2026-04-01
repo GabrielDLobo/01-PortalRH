@@ -6,17 +6,15 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Human Resources Management System documentation">
+        <meta name="description" content="A Django-based Inventory Management System (SGE - Sistema de Gestão de Estoque) that allows you to manage products, suppliers, and stock movements (inflows/outflows), providing a dashboard with metrics and charts. It also includes an optional AI insights module to generate short daily inventory/sales recommendations based on system data.">
       
       
         <meta name="author" content="GabrielDLobo">
       
       
       
-        <link rel="prev" href="gallery.html">
+        <link rel="prev" href="image-projects.html">
       
-      
-        <link rel="next" href="UPDATE_LOG.html">
       
       
       <link rel="icon" href="assets/images/favicon.png">
@@ -24,7 +22,7 @@
     
     
       
-        <title>Release Notes - PortalRH Documentation</title>
+        <title>Release Notes - Inventory Management System</title>
       
     
     
@@ -90,7 +88,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="index.html" title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-header__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +102,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            PortalRH Documentation
+            Inventory Management System
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -185,13 +183,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="index.html" title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component="logo">
+    <a href="index.html" title="Inventory Management System" class="md-nav__button md-logo" aria-label="Inventory Management System" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    PortalRH Documentation
+    Inventory Management System
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -463,7 +461,7 @@
   
   
     <li class="md-nav__item">
-      <a href="contributing.html" class="md-nav__link">
+      <a href="contribution.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -483,7 +481,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gallery.html" class="md-nav__link">
+      <a href="image-projects.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -549,46 +547,325 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#versioning" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
-      Versioning
+      Table of Contents
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#100-2026-04-01" class="md-nav__link">
+  <a href="#version-100-march-2026" class="md-nav__link">
     <span class="md-ellipsis">
-      [1.0.0] - 2026-04-01
+      Version 1.0.0 - March 2026
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[1.0.0] - 2026-04-01">
+    <nav class="md-nav" aria-label="Version 1.0.0 - March 2026">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+  <a href="#features" class="md-nav__link">
     <span class="md-ellipsis">
-      Added
+      🎉 Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎉 Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-functionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Functionality
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#improved" class="md-nav__link">
+  <a href="#dashboard-analytics" class="md-nav__link">
     <span class="md-ellipsis">
-      Improved
+      Dashboard &amp; Analytics
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
+  <a href="#api" class="md-nav__link">
     <span class="md-ellipsis">
-      Fixed
+      API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integrations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#developer-experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      Developer Experience
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Technical Stack
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Database Schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      🐛 Known Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breaking-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Breaking Changes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contributors" class="md-nav__link">
+    <span class="md-ellipsis">
+      🙏 Contributors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Process
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Release Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-release-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-Release Checklist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Versioning Policy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Versioning Policy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version Numbers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade Guide
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Upgrade Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-previous-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Previous Versions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#future-upgrades" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Upgrades
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roadmap
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Roadmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planned-for-v110" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planned for v1.1.0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planned-for-v120" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planned for v1.2.0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#under-consideration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Under Consideration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reporting-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reporting Issues
     </span>
   </a>
   
@@ -603,26 +880,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="UPDATE_LOG.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Update Log
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -654,46 +911,325 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#versioning" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
-      Versioning
+      Table of Contents
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#100-2026-04-01" class="md-nav__link">
+  <a href="#version-100-march-2026" class="md-nav__link">
     <span class="md-ellipsis">
-      [1.0.0] - 2026-04-01
+      Version 1.0.0 - March 2026
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[1.0.0] - 2026-04-01">
+    <nav class="md-nav" aria-label="Version 1.0.0 - March 2026">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+  <a href="#features" class="md-nav__link">
     <span class="md-ellipsis">
-      Added
+      🎉 Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎉 Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-functionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Functionality
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#improved" class="md-nav__link">
+  <a href="#dashboard-analytics" class="md-nav__link">
     <span class="md-ellipsis">
-      Improved
+      Dashboard &amp; Analytics
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
+  <a href="#api" class="md-nav__link">
     <span class="md-ellipsis">
-      Fixed
+      API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integrations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#developer-experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      Developer Experience
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Technical Stack
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Database Schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      🐛 Known Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breaking-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Breaking Changes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contributors" class="md-nav__link">
+    <span class="md-ellipsis">
+      🙏 Contributors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Process
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Release Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-release-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-Release Checklist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Versioning Policy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Versioning Policy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version Numbers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade Guide
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Upgrade Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-previous-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Previous Versions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#future-upgrades" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Upgrades
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roadmap
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Roadmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planned-for-v110" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planned for v1.1.0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planned-for-v120" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planned for v1.2.0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#under-consideration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Under Consideration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reporting-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reporting Issues
     </span>
   </a>
   
@@ -720,30 +1256,461 @@
 
 
 <h1 id="release-notes">Release Notes</h1>
-<h2 id="versioning">Versioning</h2>
-<p>This project follows semantic versioning:
-- MAJOR: breaking changes
-- MINOR: backward-compatible features
-- PATCH: backward-compatible fixes</p>
+<p>Version history and changelog for the Inventory Management System.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#version-100-march-2026">Version 1.0.0</a></li>
+<li><a href="#release-process">Release Process</a></li>
+<li><a href="#versioning-policy">Versioning Policy</a></li>
+<li><a href="#upgrade-guide">Upgrade Guide</a></li>
+</ol>
 <hr />
-<h2 id="100-2026-04-01">[1.0.0] - 2026-04-01</h2>
-<h3 id="added">Added</h3>
+<h2 id="version-100-march-2026">Version 1.0.0 - March 2026</h2>
+<p><strong>Release Date:</strong> March 26, 2026</p>
+<p><strong>Type:</strong> Initial Release</p>
+<h3 id="features">🎉 Features</h3>
+<h4 id="core-functionality">Core Functionality</h4>
 <ul>
-<li>Core HR modules (employees, leave requests, evaluations)</li>
-<li>Authentication with JWT</li>
-<li>Reporting module with exports</li>
-<li>Admission and termination workflows</li>
+<li><strong>Product Management</strong> - Complete CRUD operations for products</li>
+<li>Track cost price, selling price, and quantity</li>
+<li>Associate products with brands and categories</li>
+<li>Serial number tracking (optional)</li>
+<li>
+<p>Profit margin calculation</p>
+</li>
+<li>
+<p><strong>Stock Control</strong> - Inflow and Outflow management</p>
+</li>
+<li>Record product entries from suppliers</li>
+<li>Track product sales/outputs</li>
+<li>Automatic quantity updates via signals</li>
+<li>
+<p>Stock history tracking</p>
+</li>
+<li>
+<p><strong>Supplier Management</strong> - Manage supplier information</p>
+</li>
+<li>Create and maintain supplier records</li>
+<li>Link suppliers to product inflows</li>
+<li>
+<p>Track supplier relationships</p>
+</li>
+<li>
+<p><strong>Brand Management</strong> - Organize products by brand</p>
+</li>
+<li>Create and manage brands</li>
+<li>Associate products with brands</li>
+<li>
+<p>Brand-based filtering</p>
+</li>
+<li>
+<p><strong>Category Management</strong> - Categorize products</p>
+</li>
+<li>Create and manage categories</li>
+<li>Hierarchical organization</li>
+<li>Category-based filtering</li>
 </ul>
-<h3 id="improved">Improved</h3>
+<h4 id="dashboard-analytics">Dashboard &amp; Analytics</h4>
 <ul>
-<li>Documentation structure and readability</li>
-<li>MkDocs rendering consistency</li>
+<li><strong>Real-time Metrics</strong></li>
+<li>Total products count</li>
+<li>Total inventory value</li>
+<li>Total profit potential</li>
+<li>
+<p>Sales metrics</p>
+</li>
+<li>
+<p><strong>Charts &amp; Visualizations</strong></p>
+</li>
+<li>Daily sales chart (last 7 days)</li>
+<li>Products by category (doughnut chart)</li>
+<li>Products by brand (doughnut chart)</li>
+<li>
+<p>Sales trend analysis</p>
+</li>
+<li>
+<p><strong>AI Insights</strong></p>
+</li>
+<li>OpenAI GPT-3.5-turbo integration</li>
+<li>Automated stock analysis</li>
+<li>Replenishment recommendations</li>
+<li>Sales trend insights</li>
 </ul>
-<h3 id="fixed">Fixed</h3>
+<h4 id="api">API</h4>
 <ul>
-<li>Documentation links and routing behavior for published static pages</li>
-<li>Markdown rendering issues in multiple pages</li>
+<li><strong>RESTful API</strong> - Full API coverage</li>
+<li>JWT authentication</li>
+<li>CRUD endpoints for all models</li>
+<li>Filtering, searching, ordering</li>
+<li>Pagination support</li>
+<li>
+<p>Permission-based access</p>
+</li>
+<li>
+<p><strong>Authentication Endpoints</strong></p>
+</li>
+<li>Token obtain</li>
+<li>Token refresh</li>
+<li>Token verify</li>
 </ul>
+<h4 id="user-interface">User Interface</h4>
+<ul>
+<li><strong>Modern Design</strong></li>
+<li>Dark theme with purple/blue gradients</li>
+<li>Responsive design (mobile-first)</li>
+<li>TailwindCSS styling</li>
+<li>
+<p>Interactive charts with Chart.js</p>
+</li>
+<li>
+<p><strong>Components</strong></p>
+</li>
+<li>Reusable header component</li>
+<li>Dynamic sidebar navigation</li>
+<li>Pagination component</li>
+<li>Metric cards</li>
+<li>AI insights display</li>
+</ul>
+<h4 id="security">Security</h4>
+<ul>
+<li><strong>Authentication</strong></li>
+<li>Django session auth for web</li>
+<li>JWT for API</li>
+<li>Password validation</li>
+<li>
+<p>LoginRequiredMixin on all views</p>
+</li>
+<li>
+<p><strong>Authorization</strong></p>
+</li>
+<li>Permission-based access control</li>
+<li>Model-level permissions</li>
+<li>
+<p>Group-based permissions</p>
+</li>
+<li>
+<p><strong>Security Features</strong></p>
+</li>
+<li>CSRF protection</li>
+<li>XSS prevention</li>
+<li>SQL injection prevention</li>
+<li>Security headers</li>
+</ul>
+<h4 id="integrations">Integrations</h4>
+<ul>
+<li><strong>Webhooks</strong> - External system integration</li>
+<li>Outflow event notifications</li>
+<li>Configurable webhook URLs</li>
+<li>
+<p>HTTPX client for reliability</p>
+</li>
+<li>
+<p><strong>OpenAI</strong> - AI-powered insights</p>
+</li>
+<li>Configurable API key</li>
+<li>Custom prompts</li>
+<li>Result storage</li>
+</ul>
+<h4 id="developer-experience">Developer Experience</h4>
+<ul>
+<li><strong>Docker Support</strong></li>
+<li>Docker Compose configuration</li>
+<li>PostgreSQL container</li>
+<li>Web application container</li>
+<li>
+<p>Easy setup and deployment</p>
+</li>
+<li>
+<p><strong>Documentation</strong></p>
+</li>
+<li>Comprehensive docs folder</li>
+<li>API documentation</li>
+<li>Installation guide</li>
+<li>Development guide</li>
+<li>
+<p>Deployment guide</p>
+</li>
+<li>
+<p><strong>Testing Infrastructure</strong></p>
+</li>
+<li>pytest configuration</li>
+<li>Test fixtures</li>
+<li>Example test cases</li>
+<li>Coverage reporting</li>
+</ul>
+<h3 id="technical-stack">📦 Technical Stack</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Technology</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Backend</strong></td>
+<td>Django</td>
+<td>5.0.1</td>
+</tr>
+<tr>
+<td><strong>API</strong></td>
+<td>Django REST Framework</td>
+<td>3.15.1</td>
+</tr>
+<tr>
+<td><strong>Auth</strong></td>
+<td>SimpleJWT</td>
+<td>5.3.1</td>
+</tr>
+<tr>
+<td><strong>Database</strong></td>
+<td>PostgreSQL / SQLite</td>
+<td>15+</td>
+</tr>
+<tr>
+<td><strong>Frontend</strong></td>
+<td>Django Templates</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>Styling</strong></td>
+<td>TailwindCSS</td>
+<td>CDN</td>
+</tr>
+<tr>
+<td><strong>Charts</strong></td>
+<td>Chart.js</td>
+<td>Latest</td>
+</tr>
+<tr>
+<td><strong>AI</strong></td>
+<td>OpenAI API</td>
+<td>1.38.0</td>
+</tr>
+<tr>
+<td><strong>HTTP Client</strong></td>
+<td>HTTPX</td>
+<td>0.28.1</td>
+</tr>
+<tr>
+<td><strong>Validation</strong></td>
+<td>Pydantic</td>
+<td>2.10.6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="database-schema">📋 Database Schema</h3>
+<p><strong>Models:</strong>
+- <code>Brand</code> - Product brands
+- <code>Category</code> - Product categories
+- <code>Supplier</code> - Product suppliers
+- <code>Product</code> - Inventory items
+- <code>Inflow</code> - Stock entries
+- <code>Outflow</code> - Stock exits
+- <code>AIResult</code> - AI insights</p>
+<h3 id="configuration">🔧 Configuration</h3>
+<p><strong>Key Settings:</strong>
+- <code>DEBUG = False</code> (production default)
+- <code>LANGUAGE_CODE = 'pt-BR'</code>
+- <code>TIME_ZONE = 'UTC'</code>
+- JWT Access Token: 1 day
+- JWT Refresh Token: 7 days</p>
+<h3 id="documentation">📝 Documentation</h3>
+<p>All documentation available in <code>/docs</code>:
+- <code>index.md</code> - Documentation home
+- <code>overview.md</code> - Project overview
+- <code>prerequisites.md</code> - Requirements
+- <code>installation.md</code> - Installation guide
+- <code>configuration.md</code> - Configuration
+- <code>guidelines.md</code> - Coding standards
+- <code>project-structure.md</code> - File organization
+- <code>api-endpoints.md</code> - API reference
+- <code>system-modeling.md</code> - Architecture diagrams
+- <code>authentication-security.md</code> - Security docs
+- <code>development.md</code> - Development guide
+- <code>testing.md</code> - Testing guide
+- <code>deploy.md</code> - Deployment guide
+- <code>contribution.md</code> - Contribution guide
+- <code>release-notes.md</code> - This file</p>
+<h3 id="known-issues">🐛 Known Issues</h3>
+<p>None at initial release.</p>
+<h3 id="breaking-changes">⚠️ Breaking Changes</h3>
+<p>None - Initial release.</p>
+<h3 id="contributors">🙏 Contributors</h3>
+<ul>
+<li>Initial development team</li>
+</ul>
+<hr />
+<h2 id="release-process">Release Process</h2>
+<h3 id="pre-release-checklist">Pre-Release Checklist</h3>
+<ul>
+<li>[ ] All tests pass</li>
+<li>[ ] Code review completed</li>
+<li>[ ] Documentation updated</li>
+<li>[ ] Changelog updated</li>
+<li>[ ] Version number updated</li>
+<li>[ ] Migration files created</li>
+<li>[ ] Static files collected</li>
+<li>[ ] Security audit completed</li>
+<li>[ ] Performance tested</li>
+<li>[ ] Backup strategy verified</li>
+</ul>
+<h3 id="release-steps">Release Steps</h3>
+<ol>
+<li>
+<p><strong>Update Version</strong>
+   <code>bash
+   # Update version in relevant files
+   git tag -a v1.0.0 -m "Version 1.0.0"
+   git push origin v1.0.0</code></p>
+</li>
+<li>
+<p><strong>Create Release on GitHub</strong></p>
+</li>
+<li>Go to Releases</li>
+<li>Create new release</li>
+<li>Add release notes</li>
+<li>
+<p>Upload artifacts</p>
+</li>
+<li>
+<p><strong>Deploy</strong></p>
+</li>
+<li>Deploy to staging</li>
+<li>Run smoke tests</li>
+<li>Deploy to production</li>
+<li>Monitor for issues</li>
+</ol>
+<hr />
+<h2 id="versioning-policy">Versioning Policy</h2>
+<p>We follow <a href="https://semver.org/">Semantic Versioning</a>:</p>
+<p><code>MAJOR.MINOR.PATCH</code></p>
+<ul>
+<li><strong>MAJOR</strong> - Incompatible API changes</li>
+<li><strong>MINOR</strong> - New functionality (backward compatible)</li>
+<li><strong>PATCH</strong> - Bug fixes (backward compatible)</li>
+</ul>
+<h3 id="version-numbers">Version Numbers</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Git Tags</strong></td>
+<td><code>v1.0.0</code></td>
+</tr>
+<tr>
+<td><strong>Documentation</strong></td>
+<td>This file</td>
+</tr>
+<tr>
+<td><strong>Package</strong></td>
+<td>(if published)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="upgrade-guide">Upgrade Guide</h2>
+<h3 id="from-previous-versions">From Previous Versions</h3>
+<p>This is the initial release (v1.0.0). No upgrade path needed.</p>
+<h3 id="future-upgrades">Future Upgrades</h3>
+<p>When upgrading from v1.x.x to v2.x.x:</p>
+<ol>
+<li>
+<p><strong>Backup Database</strong>
+   <code>bash
+   pg_dump -U user sge &gt; backup.sql</code></p>
+</li>
+<li>
+<p><strong>Update Code</strong>
+   <code>bash
+   git pull origin main</code></p>
+</li>
+<li>
+<p><strong>Install Dependencies</strong>
+   <code>bash
+   pip install -r requirements.txt</code></p>
+</li>
+<li>
+<p><strong>Run Migrations</strong>
+   <code>bash
+   python manage.py migrate</code></p>
+</li>
+<li>
+<p><strong>Collect Static</strong>
+   <code>bash
+   python manage.py collectstatic --noinput</code></p>
+</li>
+<li>
+<p><strong>Restart Services</strong>
+   ```bash
+   # Docker
+   docker-compose restart</p>
+</li>
+</ol>
+<p># Traditional
+   sudo systemctl restart sge
+   sudo systemctl restart nginx
+   ```</p>
+<ol>
+<li><strong>Verify</strong></li>
+<li>Test all major features</li>
+<li>Check logs for errors</li>
+<li>Monitor performance</li>
+</ol>
+<hr />
+<h2 id="roadmap">Roadmap</h2>
+<h3 id="planned-for-v110">Planned for v1.1.0</h3>
+<ul>
+<li>[ ] Multi-warehouse support</li>
+<li>[ ] Barcode/QR code scanning</li>
+<li>[ ] Export to Excel/PDF</li>
+<li>[ ] Email notifications</li>
+<li>[ ] Advanced reporting</li>
+</ul>
+<h3 id="planned-for-v120">Planned for v1.2.0</h3>
+<ul>
+<li>[ ] Mobile application</li>
+<li>[ ] Real-time notifications</li>
+<li>[ ] Advanced AI predictions</li>
+<li>[ ] Multi-currency support</li>
+<li>[ ] API rate limiting</li>
+</ul>
+<h3 id="under-consideration">Under Consideration</h3>
+<ul>
+<li>[ ] GraphQL API</li>
+<li>[ ] WebSocket support</li>
+<li>[ ] Multi-tenancy</li>
+<li>[ ] Audit logging</li>
+<li>[ ] Advanced analytics</li>
+</ul>
+<hr />
+<h2 id="support">Support</h2>
+<h3 id="getting-help">Getting Help</h3>
+<ul>
+<li><strong>Documentation</strong>: <code>/docs</code> folder</li>
+<li><strong>Issues</strong>: GitHub Issues</li>
+<li><strong>Discussions</strong>: GitHub Discussions</li>
+<li><strong>Security</strong>: Contact maintainers directly</li>
+</ul>
+<h3 id="reporting-issues">Reporting Issues</h3>
+<p>When reporting issues with this release:</p>
+<ol>
+<li>Include version number</li>
+<li>Describe the problem</li>
+<li>Provide steps to reproduce</li>
+<li>Include relevant logs</li>
+<li>Add screenshots if applicable</li>
+</ol>
+<hr />
+<p><strong>Last Updated:</strong> March 26, 2026<br />
+<strong>Current Version:</strong> 1.0.0<br />
+<strong>Status:</strong> Stable</p>
 
 
 
