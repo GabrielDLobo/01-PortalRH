@@ -32,6 +32,7 @@ nav:
   - Guidelines and Standards: guidelines.md
   - Project Structure: structure.md
   - Development: development.md
+  - Frontend: frontend.md
   - Testing: testing.md
   - API Endpoints: api-endpoints.md
   - System Modeling: system-modeling.md
