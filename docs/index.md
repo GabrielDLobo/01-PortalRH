@@ -1,105 +1,157 @@
-# PortalRH Documentation
+# PortalRH - Documentation
 
-<div class="hero-box">
-	<p><strong>PortalRH</strong> is a full Human Resources platform built with Django REST Framework and React + TypeScript.</p>
-	<p>Use this documentation as the main entry point for architecture, setup, API contracts, testing, and deployment.</p>
-</div>
+Welcome to the **PortalRH** documentation. This guide provides comprehensive information about the project,
+from installation to deployment.
 
-## Documentation Map
+## 📚 Documentation Index
 
-<div class="doc-grid" markdown>
+### Getting Started / Primeiros Passos
+- [**Overview / Visão Geral**](overview.md) - Project overview and key features
+- [**Prerequisites / Pré-requisitos**](prerequisites.md) - Requirements before installation
+- [**Installation / Instalação**](installation.md) - Step-by-step installation guide
+- [**Configuration / Configuração**](configuration.md) - Project configuration and settings
 
-<a class="doc-card" href="overview.md">
-	<strong>Overview</strong><br>
-	Product vision, core modules, and tech stack.
-</a>
+### Development / Desenvolvimento
+- [**Project Structure / Estrutura do Projeto**](project-structure.md) - Directory and file organization
+- [**Guidelines / Diretrizes**](guidelines.md) - Coding standards and best practices
+- [**Development / Desenvolvimento**](development.md) - Development workflow and tools
+- [**Testing / Testes**](testing.md) - Testing strategies and commands
 
-<a class="doc-card" href="prerequisites.md">
-	<strong>Prerequisites</strong><br>
-	Required tools and environment versions.
-</a>
+### Technical Documentation / Documentação Técnica
+- [**API Endpoints**](api-endpoints.md) - Complete API reference
+- [**System Modeling / Modelagem do Sistema**](system-modeling.md) - Data models and architecture diagrams
+- [**Authentication & Security / Autenticação e Segurança**](authentication-security.md) - Security implementation
 
-<a class="doc-card" href="installation.md">
-	<strong>Installation</strong><br>
-	Step-by-step setup for backend and frontend.
-</a>
+### Deployment & Contribution / Deploy e Contribuição
+- [**Deploy**](deploy.md) - Deployment guide
+- [**Contributing / Contribuição**](contributing.md) - How to contribute
+- [**Release Notes**](release-notes.md) - Version history and changelog
+- [**Update Log**](UPDATE_LOG.md) - Incremental update history
 
-<a class="doc-card" href="configuration.md">
-	<strong>Configuration</strong><br>
-	Environment variables and project settings.
-</a>
+---
 
-<a class="doc-card" href="project-structure.md">
-	<strong>Project Structure</strong><br>
-	Directory layout and responsibilities.
-</a>
-
-<a class="doc-card" href="api-endpoints.md">
-	<strong>API Endpoints</strong><br>
-	Endpoint catalog and usage patterns.
-</a>
-
-<a class="doc-card" href="authentication-security.md">
-	<strong>Authentication and Security</strong><br>
-	JWT flow, roles, permissions, and hardening.
-</a>
-
-<a class="doc-card" href="development.md">
-	<strong>Development</strong><br>
-	Workflow, coding standards, and conventions.
-</a>
-
-<a class="doc-card" href="testing.md">
-	<strong>Testing</strong><br>
-	Test strategy, execution commands, and scope.
-</a>
-
-<a class="doc-card" href="deploy.md">
-	<strong>Deploy</strong><br>
-	Production deployment checklist and guides.
-</a>
-
-<a class="doc-card" href="contributing.md">
-	<strong>Contributing</strong><br>
-	Branching, review process, and collaboration rules.
-</a>
-
-<a class="doc-card" href="release-notes.md">
-	<strong>Release Notes</strong><br>
-	Version timeline and change log.
-</a>
-
-</div>
-
-## Quick Start
+## 🚀 Quick Start
 
 ```bash
+# Clone the repository
 git clone https://github.com/GabrielDLobo/01-PortalRH.git
 cd 01-PortalRH
 
-# Use the existing project venv
+# Install dependencies
 venv\Scripts\python -m pip install -r requirements.txt
 
+# Run migrations
 venv\Scripts\python manage.py migrate
+
+# Create superuser
+venv\Scripts\python manage.py createsuperuser
+
+# Start development server
 venv\Scripts\python manage.py runserver
 ```
 
-## Local Documentation Preview
+## 📦 Docker Quick Start
 
 ```bash
-venv\Scripts\python -m mkdocs serve
+# Start all services
+docker-compose up -d
+
+# Access the backend
+# http://localhost:8000
+
+# Access the frontend
+# http://localhost:3000
 ```
 
-## Platform Snapshot
+## 🔑 Default Access
 
-| Metric | Value |
-|---|---|
-| Backend | Django 5.2.6 + DRF 3.16.1 |
-| Frontend | React 19 + TypeScript |
-| Auth | JWT (SimpleJWT 5.5.1) |
-| Databases | SQLite (dev), PostgreSQL (prod) |
-| API Base Path | /api/v1/ |
+- **Admin URL**: `http://localhost:8000/admin/`
+- **Frontend (dev)**: `http://localhost:3000/`
+- **API**: `http://localhost:8000/api/v1/`
 
-## Support
+---
 
-If you find a documentation issue, open an issue in the repository and include the affected page URL.
+## 📖 What is PortalRH?
+
+The **PortalRH** is a complete HR solution built with Django REST Framework and React + TypeScript.
+It features:
+
+- ✅ **Employee Management / Gestão de Colaboradores** - Full employee profile lifecycle and document handling
+- ✅ **Leave Management / Gestão de Férias e Afastamentos** - Requests, approvals, and balance tracking
+- ✅ **Performance Reviews / Avaliações de Desempenho** - Evaluation cycles, criteria, and scoring
+- ✅ **Admission & Onboarding / Admissão e Onboarding** - Structured pre-admission and admission workflows
+- ✅ **Termination Management / Gestão de Desligamentos** - End-to-end offboarding process
+- ✅ **Reports & Analytics / Relatórios e Analytics** - Exportable insights and dashboards
+- ✅ **REST API** - JWT-authenticated API
+- ✅ **Docker Ready** - Containerized deployment
+
+---
+
+## 🏗️ System Architecture
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                  Frontend (React + TypeScript)             │
+│                        + TailwindCSS                        │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                 Django Application Layer                    │
+│  ┌─────────────┬─────────────┬─────────────┬─────────────┐ │
+│  │ Employees   │ Leave Req.  │ Evaluations │ Accounts    │ │
+│  ├─────────────┼─────────────┼─────────────┼─────────────┤ │
+│  │ Staff       │ Termination │ Reports     │ Auth (JWT)  │ │
+│  └─────────────┴─────────────┴─────────────┴─────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                     REST API (DRF + JWT)                   │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    PostgreSQL / SQLite DB                  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📊 Key Features
+
+| Feature | Description |
+|---------|-------------|
+| **Employee Management** | Complete employee profiles and document lifecycle |
+| **Leave Management** | Leave requests, approval workflows, and balances |
+| **Performance Reviews** | Structured evaluations, cycles, and scoring |
+| **Admission & Termination** | Employee lifecycle workflows from hiring to offboarding |
+| **Reports & Analytics** | PDF/Excel exports and management insights |
+| **Access Control** | Role-based access with JWT authentication |
+| **Docker Support** | Easy deployment with docker-compose |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Backend** | Django 5.2.6, Python 3.12 |
+| **API** | Django REST Framework 3.16.1 |
+| **Authentication** | JWT (SimpleJWT 5.5.1) |
+| **Database** | PostgreSQL (prod) / SQLite (dev) |
+| **Frontend** | React 19 + TypeScript + TailwindCSS |
+| **Deployment** | Docker, docker-compose |
+| **Documentation** | MkDocs + Material for MkDocs |
+
+---
+
+## 📞 Support
+
+For issues, questions, or contributions, please refer to the [Contributing Guide](contributing.md).
+
+---
+
+**Version**: 1.0.0  
+**Last Updated**: April 2026  
+**License**: Private repository for internal use
