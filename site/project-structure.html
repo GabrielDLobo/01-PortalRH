@@ -1079,8 +1079,7 @@
 </ol>
 <hr />
 <h2 id="root-structure">Root Structure</h2>
-<p><code>text
-01-PortalRH/
+<pre><code>01-PortalRH/
 ├── .gitignore
 ├── db.sqlite3
 ├── docker-compose.yml
@@ -1103,41 +1102,41 @@
 ├── termination/               # Offboarding workflows
 ├── frontend/                  # React + TypeScript frontend
 ├── media/                     # Uploaded files
-└── logs/                      # Application logs</code></p>
+└── logs/                      # Application logs</code></pre>
+
 <hr />
 <h2 id="application-structure">Application Structure</h2>
 <h3 id="app-main-django-configuration"><code>/app/</code> - Main Django Configuration</h3>
-<p><code>text
-app/
+<pre><code>app/
 ├── __init__.py
 ├── asgi.py
 ├── permissions.py
 ├── settings.py
 ├── urls.py
-└── wsgi.py</code></p>
+└── wsgi.py</code></pre>
+
 <p>Key files:
 - <code>settings.py</code> - global Django settings
 - <code>urls.py</code> - root router and app includes
 - <code>permissions.py</code> - custom DRF permission classes</p>
 <hr />
 <h3 id="accounts-authentication-module"><code>/accounts/</code> - Authentication Module</h3>
-<p><code>text
-accounts/
+<pre><code>accounts/
 ├── admin.py
 ├── apps.py
 ├── models.py
 ├── serializers.py
 ├── tests.py
 ├── urls.py
-└── views.py</code></p>
+└── views.py</code></pre>
+
 <p>Purpose:
 - JWT login/refresh/verify
 - user registration/profile flows
 - role-aware access boundaries</p>
 <hr />
 <h3 id="employees-employee-management"><code>/employees/</code> - Employee Management</h3>
-<p><code>text
-employees/
+<pre><code>employees/
 ├── admin.py
 ├── apps.py
 ├── models.py
@@ -1145,22 +1144,23 @@ employees/
 ├── services.py
 ├── tests.py
 ├── urls.py
-└── views.py</code></p>
+└── views.py</code></pre>
+
 <p>Main entities:
 - Employee
 - EmployeeDocument
 - Admission process related records</p>
 <hr />
 <h3 id="evaluations-evaluation-module"><code>/evaluations/</code> - Evaluation Module</h3>
-<p><code>text
-evaluations/
+<pre><code>evaluations/
 ├── admin.py
 ├── apps.py
 ├── models.py
 ├── serializers.py
 ├── tests.py
 ├── urls.py
-└── views.py</code></p>
+└── views.py</code></pre>
+
 <p>Main entities:
 - EvaluationTemplate
 - EvaluationCriteria
@@ -1169,23 +1169,22 @@ evaluations/
 - EvaluationCycle</p>
 <hr />
 <h3 id="leave_requests-leave-module"><code>/leave_requests/</code> - Leave Module</h3>
-<p><code>text
-leave_requests/
+<pre><code>leave_requests/
 ├── admin.py
 ├── apps.py
 ├── models.py
 ├── serializers.py
 ├── tests.py
 ├── urls.py
-└── views.py</code></p>
+└── views.py</code></pre>
+
 <p>Main entities:
 - LeaveType
 - LeaveRequest
 - LeaveBalance</p>
 <hr />
 <h3 id="reports-reports-module"><code>/reports/</code> - Reports Module</h3>
-<p><code>text
-reports/
+<pre><code>reports/
 ├── admin.py
 ├── apps.py
 ├── models.py
@@ -1193,7 +1192,8 @@ reports/
 ├── services.py
 ├── tests.py
 ├── urls.py
-└── views.py</code></p>
+└── views.py</code></pre>
+
 <p>Main entities:
 - ReportCategory
 - ReportTemplate
@@ -1202,37 +1202,36 @@ reports/
 - ReportBookmark</p>
 <hr />
 <h3 id="staff-staff-module"><code>/staff/</code> - Staff Module</h3>
-<p><code>text
-staff/
+<pre><code>staff/
 ├── admin.py
 ├── apps.py
 ├── models.py
 ├── serializers.py
 ├── tests.py
 ├── urls.py
-└── views.py</code></p>
+└── views.py</code></pre>
+
 <p>Main entities:
 - Department
 - Staff employee profiles</p>
 <hr />
 <h3 id="termination-offboarding-module"><code>/termination/</code> - Offboarding Module</h3>
-<p><code>text
-termination/
+<pre><code>termination/
 ├── admin.py
 ├── apps.py
 ├── models.py
 ├── serializers.py
 ├── tests.py
 ├── urls.py
-└── views.py</code></p>
+└── views.py</code></pre>
+
 <p>Main entities:
 - TerminationReason
 - TerminationRequest
 - TerminationDocument</p>
 <hr />
 <h3 id="frontend-frontend-application"><code>/frontend/</code> - Frontend Application</h3>
-<p><code>text
-frontend/
+<pre><code>frontend/
 ├── package.json
 ├── tsconfig.json
 ├── tailwind.config.js
@@ -1245,7 +1244,8 @@ frontend/
 │   ├── contexts/
 │   ├── utils/
 │   └── types/
-└── public/</code></p>
+└── public/</code></pre>
+
 <hr />
 <h2 id="core-modules">Core Modules</h2>
 <table>
@@ -1368,15 +1368,15 @@ frontend/
 </table>
 <hr />
 <h2 id="url-structure">URL Structure</h2>
-<p><code>text
-/api/v1/
+<pre><code>/api/v1/
 ├── accounts/
 ├── employees/
 ├── evaluations/
 ├── leave-requests/
 ├── reports/
 ├── staff/
-└── termination/</code></p>
+└── termination/</code></pre>
+
 <hr />
 <p>Next: <a href="api-endpoints.html">API Endpoints</a></p>
 
