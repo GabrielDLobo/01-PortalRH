@@ -1,6 +1,7 @@
 site_name: PortalRH Documentation
 site_description: Human Resources Management System documentation
 site_author: GabrielDLobo
+use_directory_urls: false
 
 docs_dir: docs
 
