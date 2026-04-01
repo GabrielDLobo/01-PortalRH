@@ -14,8 +14,7 @@ This document provides a comprehensive overview of the PortalRH directory struct
 
 ## Root Structure
 
-```text
-01-PortalRH/
+<pre><code>01-PortalRH/
 ├── .gitignore
 ├── db.sqlite3
 ├── docker-compose.yml
@@ -38,8 +37,7 @@ This document provides a comprehensive overview of the PortalRH directory struct
 ├── termination/               # Offboarding workflows
 ├── frontend/                  # React + TypeScript frontend
 ├── media/                     # Uploaded files
-└── logs/                      # Application logs
-```
+└── logs/                      # Application logs</code></pre>
 
 ---
 
@@ -47,15 +45,13 @@ This document provides a comprehensive overview of the PortalRH directory struct
 
 ### `/app/` - Main Django Configuration
 
-```text
-app/
+<pre><code>app/
 ├── __init__.py
 ├── asgi.py
 ├── permissions.py
 ├── settings.py
 ├── urls.py
-└── wsgi.py
-```
+└── wsgi.py</code></pre>
 
 Key files:
 - `settings.py` - global Django settings
@@ -66,16 +62,14 @@ Key files:
 
 ### `/accounts/` - Authentication Module
 
-```text
-accounts/
+<pre><code>accounts/
 ├── admin.py
 ├── apps.py
 ├── models.py
 ├── serializers.py
 ├── tests.py
 ├── urls.py
-└── views.py
-```
+└── views.py</code></pre>
 
 Purpose:
 - JWT login/refresh/verify
@@ -86,8 +80,7 @@ Purpose:
 
 ### `/employees/` - Employee Management
 
-```text
-employees/
+<pre><code>employees/
 ├── admin.py
 ├── apps.py
 ├── models.py
@@ -95,8 +88,7 @@ employees/
 ├── services.py
 ├── tests.py
 ├── urls.py
-└── views.py
-```
+└── views.py</code></pre>
 
 Main entities:
 - Employee
@@ -107,16 +99,14 @@ Main entities:
 
 ### `/evaluations/` - Evaluation Module
 
-```text
-evaluations/
+<pre><code>evaluations/
 ├── admin.py
 ├── apps.py
 ├── models.py
 ├── serializers.py
 ├── tests.py
 ├── urls.py
-└── views.py
-```
+└── views.py</code></pre>
 
 Main entities:
 - EvaluationTemplate
@@ -129,16 +119,14 @@ Main entities:
 
 ### `/leave_requests/` - Leave Module
 
-```text
-leave_requests/
+<pre><code>leave_requests/
 ├── admin.py
 ├── apps.py
 ├── models.py
 ├── serializers.py
 ├── tests.py
 ├── urls.py
-└── views.py
-```
+└── views.py</code></pre>
 
 Main entities:
 - LeaveType
@@ -149,8 +137,7 @@ Main entities:
 
 ### `/reports/` - Reports Module
 
-```text
-reports/
+<pre><code>reports/
 ├── admin.py
 ├── apps.py
 ├── models.py
@@ -158,8 +145,7 @@ reports/
 ├── services.py
 ├── tests.py
 ├── urls.py
-└── views.py
-```
+└── views.py</code></pre>
 
 Main entities:
 - ReportCategory
@@ -172,16 +158,14 @@ Main entities:
 
 ### `/staff/` - Staff Module
 
-```text
-staff/
+<pre><code>staff/
 ├── admin.py
 ├── apps.py
 ├── models.py
 ├── serializers.py
 ├── tests.py
 ├── urls.py
-└── views.py
-```
+└── views.py</code></pre>
 
 Main entities:
 - Department
@@ -191,16 +175,14 @@ Main entities:
 
 ### `/termination/` - Offboarding Module
 
-```text
-termination/
+<pre><code>termination/
 ├── admin.py
 ├── apps.py
 ├── models.py
 ├── serializers.py
 ├── tests.py
 ├── urls.py
-└── views.py
-```
+└── views.py</code></pre>
 
 Main entities:
 - TerminationReason
@@ -211,8 +193,7 @@ Main entities:
 
 ### `/frontend/` - Frontend Application
 
-```text
-frontend/
+<pre><code>frontend/
 ├── package.json
 ├── tsconfig.json
 ├── tailwind.config.js
@@ -225,8 +206,7 @@ frontend/
 │   ├── contexts/
 │   ├── utils/
 │   └── types/
-└── public/
-```
+└── public/</code></pre>
 
 ---
 
@@ -290,16 +270,14 @@ Tooling and project metadata.
 
 ## URL Structure
 
-```text
-/api/v1/
+<pre><code>/api/v1/
 ├── accounts/
 ├── employees/
 ├── evaluations/
 ├── leave-requests/
 ├── reports/
 ├── staff/
-└── termination/
-```
+└── termination/</code></pre>
 
 ---
 
