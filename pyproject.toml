@@ -1,0 +1,11 @@
+[project]
+name = "portalrh"
+version = "1.0.0"
+description = "PortalRH - Human Resources Management System"
+requires-python = ">=3.11"
+
+[tool.mkdocs]
+config_file = "mkdocs.yml"
+
+[tool.docs]
+notes = "Use the existing venv at ./venv. Do not create another environment."
