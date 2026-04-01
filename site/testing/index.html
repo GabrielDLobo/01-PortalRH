@@ -1,0 +1,364 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Human Resources Management System documentation"><meta name=author content=GabrielDLobo><link href=https://gabrieldlobo.github.io/01-PortalRH/testing/ rel=canonical><link href=../development/ rel=prev><link href=../deploy/ rel=next><link rel=icon href=../assets/favicon.svg><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.5.34"><title>Testing - PortalRH Documentation</title><link rel=stylesheet href=../assets/stylesheets/main.35f28582.min.css><link rel=stylesheet href=../assets/stylesheets/palette.06af60db.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style><link rel=stylesheet href=../stylesheets/extra.css><script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=teal data-md-color-accent=amber> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#testing class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=.. title="PortalRH Documentation" class="md-header__button md-logo" aria-label="PortalRH Documentation" data-md-component=logo> <img src=../assets/logo.svg alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> PortalRH Documentation </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Testing </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=teal data-md-color-accent=amber aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/GabrielDLobo/01-PortalRH title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg> </div> <div class=md-source__repository> GabrielDLobo/01-PortalRH </div> </a> </div> </nav> </header> <div class=md-container data-md-component=container> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=.. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=../gallery/ class=md-tabs__link> Gallery </a> </li> <li class=md-tabs__item> <a href=../overview/ class=md-tabs__link> Overview </a> </li> <li class=md-tabs__item> <a href=../prerequisites/ class=md-tabs__link> Prerequisites </a> </li> <li class=md-tabs__item> <a href=../installation/ class=md-tabs__link> Installation </a> </li> <li class=md-tabs__item> <a href=../configuration/ class=md-tabs__link> Configuration </a> </li> <li class=md-tabs__item> <a href=../guidelines/ class=md-tabs__link> Guidelines and Standards </a> </li> <li class=md-tabs__item> <a href=../project-structure/ class=md-tabs__link> Project Structure </a> </li> <li class=md-tabs__item> <a href=../api-endpoints/ class=md-tabs__link> API Endpoints </a> </li> <li class=md-tabs__item> <a href=../system-modeling/ class=md-tabs__link> System Modeling </a> </li> <li class=md-tabs__item> <a href=../authentication-security/ class=md-tabs__link> Authentication and Security </a> </li> <li class=md-tabs__item> <a href=../development/ class=md-tabs__link> Development </a> </li> <li class="md-tabs__item md-tabs__item--active"> <a href=./ class=md-tabs__link> Testing </a> </li> <li class=md-tabs__item> <a href=../deploy/ class=md-tabs__link> Deploy </a> </li> <li class=md-tabs__item> <a href=../contributing/ class=md-tabs__link> Contributing </a> </li> <li class=md-tabs__item> <a href=../release-notes/ class=md-tabs__link> Release Notes </a> </li> <li class=md-tabs__item> <a href=../UPDATE_LOG/ class=md-tabs__link> Update Log </a> </li> </ul> </div> </nav> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=.. title="PortalRH Documentation" class="md-nav__button md-logo" aria-label="PortalRH Documentation" data-md-component=logo> <img src=../assets/logo.svg alt=logo> </a> PortalRH Documentation </label> <div class=md-nav__source> <a href=https://github.com/GabrielDLobo/01-PortalRH title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg> </div> <div class=md-source__repository> GabrielDLobo/01-PortalRH </div> </a> </div> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../gallery/ class=md-nav__link> <span class=md-ellipsis> Gallery </span> </a> </li> <li class=md-nav__item> <a href=../overview/ class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> </li> <li class=md-nav__item> <a href=../prerequisites/ class=md-nav__link> <span class=md-ellipsis> Prerequisites </span> </a> </li> <li class=md-nav__item> <a href=../installation/ class=md-nav__link> <span class=md-ellipsis> Installation </span> </a> </li> <li class=md-nav__item> <a href=../configuration/ class=md-nav__link> <span class=md-ellipsis> Configuration </span> </a> </li> <li class=md-nav__item> <a href=../guidelines/ class=md-nav__link> <span class=md-ellipsis> Guidelines and Standards </span> </a> </li> <li class=md-nav__item> <a href=../project-structure/ class=md-nav__link> <span class=md-ellipsis> Project Structure </span> </a> </li> <li class=md-nav__item> <a href=../api-endpoints/ class=md-nav__link> <span class=md-ellipsis> API Endpoints </span> </a> </li> <li class=md-nav__item> <a href=../system-modeling/ class=md-nav__link> <span class=md-ellipsis> System Modeling </span> </a> </li> <li class=md-nav__item> <a href=../authentication-security/ class=md-nav__link> <span class=md-ellipsis> Authentication and Security </span> </a> </li> <li class=md-nav__item> <a href=../development/ class=md-nav__link> <span class=md-ellipsis> Development </span> </a> </li> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> Testing </span> <span class="md-nav__icon md-icon"></span> </label> <a href=./ class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> Testing </span> </a> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#testing-framework class=md-nav__link> <span class=md-ellipsis> 🧪 Testing Framework </span> </a> <nav class=md-nav aria-label="🧪 Testing Framework"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#installed-testing-tools class=md-nav__link> <span class=md-ellipsis> Installed Testing Tools </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../deploy/ class=md-nav__link> <span class=md-ellipsis> Deploy </span> </a> </li> <li class=md-nav__item> <a href=../contributing/ class=md-nav__link> <span class=md-ellipsis> Contributing </span> </a> </li> <li class=md-nav__item> <a href=../release-notes/ class=md-nav__link> <span class=md-ellipsis> Release Notes </span> </a> </li> <li class=md-nav__item> <a href=../UPDATE_LOG/ class=md-nav__link> <span class=md-ellipsis> Update Log </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#testing-framework class=md-nav__link> <span class=md-ellipsis> 🧪 Testing Framework </span> </a> <nav class=md-nav aria-label="🧪 Testing Framework"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#installed-testing-tools class=md-nav__link> <span class=md-ellipsis> Installed Testing Tools </span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <a href=https://github.com/GabrielDLobo/01-PortalRH/edit/master/docs/testing.md title="Edit this page" class="md-content__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg> </a> <h1 id=testing>Testing<a class=headerlink href=#testing title="Permanent link">&para;</a></h1> <p>This document covers testing strategies, frameworks, and best practices for PortalRH.</p> <hr> <h2 id=testing-framework>🧪 Testing Framework<a class=headerlink href=#testing-framework title="Permanent link">&para;</a></h2> <p>PortalRH uses Django's built-in testing framework with pytest support.</p> <h3 id=installed-testing-tools>Installed Testing Tools<a class=headerlink href=#installed-testing-tools title="Permanent link">&para;</a></h3> <p>```txt</p> <h1 id=testing-dependencies>Testing dependencies<a class=headerlink href=#testing-dependencies title="Permanent link">&para;</a></h1> <p>pytest&gt;=7.0.0 pytest-django&gt;=4.5.0 pytest-cov&gt;=4.0.0 factory-boy&gt;=3.2.0 model-bakery&gt;=1.11.0 ```</p> <hr> <h2 id=test-structure>📁 Test Structure<a class=headerlink href=#test-structure title="Permanent link">&para;</a></h2> <p><code>&lt;app_name&gt;/ ├── __init__.py ├── models.py ├── serializers.py ├── views.py └── tests/ ├── __init__.py ├── conftest.py # Pytest fixtures ├── factories.py # Factory Boy factories ├── test_models.py # Model tests ├── test_serializers.py # Serializer tests ├── test_views.py # View/endpoint tests ├── test_permissions.py # Permission tests └── test_integration.py # Integration tests</code></p> <hr> <h2 id=running-tests>🏃 Running Tests<a class=headerlink href=#running-tests title="Permanent link">&para;</a></h2> <h3 id=basic-commands>Basic Commands<a class=headerlink href=#basic-commands title="Permanent link">&para;</a></h3> <p>```bash</p> <h1 id=run-all-tests>Run all tests<a class=headerlink href=#run-all-tests title="Permanent link">&para;</a></h1> <p>python manage.py test</p> <h1 id=run-with-pytest>Run with pytest<a class=headerlink href=#run-with-pytest title="Permanent link">&para;</a></h1> <p>pytest</p> <h1 id=run-specific-app>Run specific app<a class=headerlink href=#run-specific-app title="Permanent link">&para;</a></h1> <p>pytest employees/</p> <h1 id=run-specific-test-file>Run specific test file<a class=headerlink href=#run-specific-test-file title="Permanent link">&para;</a></h1> <p>pytest employees/tests/test_models.py</p> <h1 id=run-specific-test>Run specific test<a class=headerlink href=#run-specific-test title="Permanent link">&para;</a></h1> <p>pytest employees/tests/test_models.py::test_employee_creation</p> <h1 id=run-with-coverage>Run with coverage<a class=headerlink href=#run-with-coverage title="Permanent link">&para;</a></h1> <p>pytest --cov=.</p> <h1 id=run-with-verbose-output>Run with verbose output<a class=headerlink href=#run-with-verbose-output title="Permanent link">&para;</a></h1> <p>pytest -v</p> <h1 id=run-tests-matching-pattern>Run tests matching pattern<a class=headerlink href=#run-tests-matching-pattern title="Permanent link">&para;</a></h1> <p>pytest -k "employee" ```</p> <h3 id=coverage-report>Coverage Report<a class=headerlink href=#coverage-report title="Permanent link">&para;</a></h3> <p>```bash</p> <h1 id=generate-coverage-report>Generate coverage report<a class=headerlink href=#generate-coverage-report title="Permanent link">&para;</a></h1> <p>pytest --cov=. --cov-report=html</p> <h1 id=open-coverage-report>Open coverage report<a class=headerlink href=#open-coverage-report title="Permanent link">&para;</a></h1> <p>open htmlcov/index.html # macOS/Linux start htmlcov\index.html # Windows</p> <h1 id=terminal-report>Terminal report<a class=headerlink href=#terminal-report title="Permanent link">&para;</a></h1> <p>pytest --cov=. --cov-report=term-missing ```</p> <hr> <h2 id=writing-tests>📝 Writing Tests<a class=headerlink href=#writing-tests title="Permanent link">&para;</a></h2> <h3 id=model-tests>Model Tests<a class=headerlink href=#model-tests title="Permanent link">&para;</a></h3> <p>```python</p> <h1 id=teststest_modelspy>tests/test_models.py<a class=headerlink href=#teststest_modelspy title="Permanent link">&para;</a></h1> <p>import pytest from django.test import TestCase from employees.models import Employee, EmployeeDocument</p> <p>class EmployeeModelTest(TestCase): """Test Employee model."""</p> <pre><code>def setUp(self):
+    """Set up test data."""
+    self.employee = Employee.objects.create(
+        full_name='Test User',
+        email='test@example.com',
+        cpf='123.456.789-00',
+        department='Engineering',
+        position='Developer',
+        salary=5000.00
+    )
+
+def test_employee_creation(self):
+    """Test employee is created with all fields."""
+    self.assertEqual(self.employee.full_name, 'Test User')
+    self.assertEqual(self.employee.email, 'test@example.com')
+    self.assertIsNotNone(self.employee.employee_id)
+    self.assertTrue(self.employee.employee_id.startswith('EMP-'))
+
+def test_employee_str_method(self):
+    """Test string representation."""
+    self.assertEqual(str(self.employee), 'Test User')
+
+def test_employee_is_active_property(self):
+    """Test is_active property."""
+    self.employee.status = 'active'
+    self.assertTrue(self.employee.is_active)
+
+    self.employee.status = 'inactive'
+    self.assertFalse(self.employee.is_active)
+
+def test_employee_id_auto_generation(self):
+    """Test employee_id is auto-generated."""
+    employee2 = Employee.objects.create(
+        full_name='Test User 2',
+        email='test2@example.com',
+        cpf='987.654.321-00'
+    )
+    self.assertTrue(employee2.employee_id.startswith('EMP-'))
+
+def test_cpf_must_be_unique(self):
+    """Test CPF uniqueness."""
+    with self.assertRaises(Exception):
+        Employee.objects.create(
+            full_name='Another User',
+            email='another@example.com',
+            cpf='123.456.789-00'  # Same as setUp
+        )
+</code></pre> <p>```</p> <h3 id=serializer-tests>Serializer Tests<a class=headerlink href=#serializer-tests title="Permanent link">&para;</a></h3> <p>```python</p> <h1 id=teststest_serializerspy>tests/test_serializers.py<a class=headerlink href=#teststest_serializerspy title="Permanent link">&para;</a></h1> <p>import pytest from rest_framework.test import APITestCase from employees.serializers import EmployeeSerializer</p> <p>class EmployeeSerializerTest(APITestCase): """Test Employee serializers."""</p> <pre><code>def test_serializer_valid_data(self):
+    """Test serializer with valid data."""
+    data = {
+        'full_name': 'Test User',
+        'email': 'test@example.com',
+        'cpf': '123.456.789-00',
+        'department': 'Engineering',
+        'position': 'Developer',
+        'salary': '5000.00'
+    }
+    serializer = EmployeeSerializer(data=data)
+    self.assertTrue(serializer.is_valid())
+
+def test_serializer_invalid_email(self):
+    """Test serializer rejects invalid email."""
+    data = {
+        'full_name': 'Test User',
+        'email': 'invalid-email',
+        'cpf': '123.456.789-00'
+    }
+    serializer = EmployeeSerializer(data=data)
+    self.assertFalse(serializer.is_valid())
+    self.assertIn('email', serializer.errors)
+
+def test_serializer_invalid_cpf(self):
+    """Test serializer rejects invalid CPF."""
+    data = {
+        'full_name': 'Test User',
+        'email': 'test@example.com',
+        'cpf': 'invalid-cpf'
+    }
+    serializer = EmployeeSerializer(data=data)
+    self.assertFalse(serializer.is_valid())
+    self.assertIn('cpf', serializer.errors)
+
+def test_serializer_required_fields(self):
+    """Test required fields validation."""
+    serializer = EmployeeSerializer(data={})
+    self.assertFalse(serializer.is_valid())
+    self.assertIn('full_name', serializer.errors)
+    self.assertIn('cpf', serializer.errors)
+</code></pre> <p>```</p> <h3 id=viewapi-tests>View/API Tests<a class=headerlink href=#viewapi-tests title="Permanent link">&para;</a></h3> <p>```python</p> <h1 id=teststest_viewspy>tests/test_views.py<a class=headerlink href=#teststest_viewspy title="Permanent link">&para;</a></h1> <p>import pytest from rest_framework.test import APITestCase, APIClient from rest_framework import status from accounts.models import User from employees.models import Employee</p> <p>class EmployeeViewSetTest(APITestCase): """Test Employee API endpoints."""</p> <pre><code>def setUp(self):
+    """Set up test client and users."""
+    self.client = APIClient()
+
+    # Create admin user
+    self.admin_user = User.objects.create_user(
+        email='admin@portalrh.com',
+        password='admin123',
+        role='admin_rh'
+    )
+
+    # Create regular employee
+    self.employee_user = User.objects.create_user(
+        email='employee@portalrh.com',
+        password='employee123',
+        role='funcionario'
+    )
+
+    # Create employee profile
+    self.employee = Employee.objects.create(
+        user=self.employee_user,
+        full_name='Employee User',
+        cpf='123.456.789-00'
+    )
+
+def test_list_employees_admin(self):
+    """Test admin can list all employees."""
+    self.client.force_authenticate(user=self.admin_user)
+    response = self.client.get('/api/v1/employees/employees/')
+
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(response.data['count'], 1)
+
+def test_list_employees_employee(self):
+    """Test employee can list employees."""
+    self.client.force_authenticate(user=self.employee_user)
+    response = self.client.get('/api/v1/employees/employees/')
+
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+def test_create_employee_admin(self):
+    """Test admin can create employee."""
+    self.client.force_authenticate(user=self.admin_user)
+
+    data = {
+        'full_name': 'New Employee',
+        'email': 'new@example.com',
+        'cpf': '987.654.321-00',
+        'department': 'Marketing',
+        'position': 'Designer'
+    }
+
+    response = self.client.post('/api/v1/employees/employees/', data)
+    self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+    self.assertEqual(Employee.objects.count(), 2)
+
+def test_create_employee_not_allowed(self):
+    """Test employee cannot create employee."""
+    self.client.force_authenticate(user=self.employee_user)
+
+    data = {
+        'full_name': 'New Employee',
+        'cpf': '987.654.321-00'
+    }
+
+    response = self.client.post('/api/v1/employees/employees/', data)
+    self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+def test_retrieve_employee(self):
+    """Test retrieve employee detail."""
+    self.client.force_authenticate(user=self.admin_user)
+
+    response = self.client.get(f'/api/v1/employees/employees/{self.employee.id}/')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(response.data['full_name'], 'Employee User')
+
+def test_update_employee_admin(self):
+    """Test admin can update employee."""
+    self.client.force_authenticate(user=self.admin_user)
+
+    data = {'position': 'Senior Developer'}
+    response = self.client.patch(
+        f'/api/v1/employees/employees/{self.employee.id}/',
+        data
+    )
+
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.employee.refresh_from_db()
+    self.assertEqual(self.employee.position, 'Senior Developer')
+
+def test_delete_employee_admin(self):
+    """Test admin can delete employee."""
+    self.client.force_authenticate(user=self.admin_user)
+
+    response = self.client.delete(
+        f'/api/v1/employees/employees/{self.employee.id}/'
+    )
+
+    self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+    self.assertEqual(Employee.objects.count(), 0)
+</code></pre> <p>```</p> <h3 id=permission-tests>Permission Tests<a class=headerlink href=#permission-tests title="Permanent link">&para;</a></h3> <p>```python</p> <h1 id=teststest_permissionspy>tests/test_permissions.py<a class=headerlink href=#teststest_permissionspy title="Permanent link">&para;</a></h1> <p>import pytest from rest_framework.test import APITestCase from accounts.models import User from app.permissions import IsAdminRH, IsOwnerOrAdminRH</p> <p>class IsAdminRHPermissionTest(APITestCase): """Test IsAdminRH permission class."""</p> <pre><code>def test_admin_rh_has_permission(self):
+    """Test admin_rh user has permission."""
+    admin = User.objects.create_user(
+        email='admin@portalrh.com',
+        role='admin_rh'
+    )
+
+    permission = IsAdminRH()
+    request = type('obj', (object,), {'user': admin})()
+
+    self.assertTrue(permission.has_permission(request, None))
+
+def test_funcionario_no_permission(self):
+    """Test funcionario user doesn't have permission."""
+    employee = User.objects.create_user(
+        email='employee@portalrh.com',
+        role='funcionario'
+    )
+
+    permission = IsAdminRH()
+    request = type('obj', (object,), {'user': employee})()
+
+    self.assertFalse(permission.has_permission(request, None))
+
+def test_anonymous_no_permission(self):
+    """Test anonymous user doesn't have permission."""
+    permission = IsAdminRH()
+    request = type('obj', (object,), {'user': None})()
+
+    self.assertFalse(permission.has_permission(request, None))
+</code></pre> <p>```</p> <hr> <h2 id=factory-boy-fixtures>🏭 Factory Boy Fixtures<a class=headerlink href=#factory-boy-fixtures title="Permanent link">&para;</a></h2> <p>```python</p> <h1 id=testsfactoriespy>tests/factories.py<a class=headerlink href=#testsfactoriespy title="Permanent link">&para;</a></h1> <p>import factory from factory.django import DjangoModelFactory from accounts.models import User from employees.models import Employee, EmployeeDocument</p> <p>class UserFactory(DjangoModelFactory): """Factory for User model."""</p> <pre><code>class Meta:
+    model = User
+
+email = factory.Sequence(lambda n: f'user{n}@example.com')
+password = factory.PostGenerationMethodCall('set_password', 'defaultpassword')
+first_name = factory.Faker('first_name')
+last_name = factory.Faker('last_name')
+role = 'funcionario'
+is_active = True
+</code></pre> <p>class AdminUserFactory(UserFactory): """Factory for Admin RH user."""</p> <pre><code>role = 'admin_rh'
+email = factory.Sequence(lambda n: f'admin{n}@portalrh.com')
+</code></pre> <p>class EmployeeFactory(DjangoModelFactory): """Factory for Employee model."""</p> <pre><code>class Meta:
+    model = Employee
+
+user = factory.SubFactory(UserFactory)
+full_name = factory.LazyAttribute(lambda obj: f"{obj.user.first_name} {obj.user.last_name}")
+cpf = factory.Sequence(lambda n: f'{n:3d}.{n:3d}.{n:3d}-{n:02d}')
+rg = factory.Sequence(lambda n: f'{n:2d}.{n:3d}.{n:3d}-{n}')
+department = factory.Iterator(['Engineering', 'Marketing', 'HR', 'Finance'])
+position = factory.Faker('job')
+salary = factory.Faker('pydecimal', left_digits=4, right_digits=2, positive=True)
+status = 'active'
+</code></pre> <p>class EmployeeDocumentFactory(DjangoModelFactory): """Factory for EmployeeDocument model."""</p> <pre><code>class Meta:
+    model = EmployeeDocument
+
+employee = factory.SubFactory(EmployeeFactory)
+document_type = factory.Iterator(['rg', 'cpf', 'birth_certificate'])
+document_name = factory.Faker('sentence', nb_words=3)
+is_required = True
+is_verified = False
+</code></pre> <p>```</p> <h3 id=using-factories-in-tests>Using Factories in Tests<a class=headerlink href=#using-factories-in-tests title="Permanent link">&para;</a></h3> <p>```python</p> <h1 id=teststest_modelspy_1>tests/test_models.py<a class=headerlink href=#teststest_modelspy_1 title="Permanent link">&para;</a></h1> <p>import pytest from .factories import EmployeeFactory, UserFactory</p> <p>@pytest.mark.django_db def test_employee_factory(): """Test employee factory creates valid employee.""" employee = EmployeeFactory.create()</p> <pre><code>assert employee.full_name is not None
+assert employee.cpf is not None
+assert employee.employee_id is not None
+assert employee.status == 'active'
+</code></pre> <p>@pytest.mark.django_db def test_create_multiple_employees(): """Test creating multiple employees.""" employees = EmployeeFactory.create_batch(5)</p> <pre><code>assert len(employees) == 5
+assert Employee.objects.count() == 5
+</code></pre> <p>```</p> <hr> <h2 id=pytest-fixtures>🔧 Pytest Fixtures<a class=headerlink href=#pytest-fixtures title="Permanent link">&para;</a></h2> <p>```python</p> <h1 id=testsconftestpy>tests/conftest.py<a class=headerlink href=#testsconftestpy title="Permanent link">&para;</a></h1> <p>import pytest from accounts.models import User from employees.models import Employee from .factories import UserFactory, EmployeeFactory</p> <p>@pytest.fixture def api_client(): """Return API client fixture.""" from rest_framework.test import APIClient return APIClient()</p> <p>@pytest.fixture def admin_user(): """Create admin user fixture.""" return UserFactory.create(role='admin_rh')</p> <p>@pytest.fixture def employee_user(): """Create employee user fixture.""" return UserFactory.create(role='funcionario')</p> <p>@pytest.fixture def authenticated_client(api_client, admin_user): """Create authenticated API client.""" api_client.force_authenticate(user=admin_user) return api_client</p> <p>@pytest.fixture def sample_employee(): """Create sample employee fixture.""" return EmployeeFactory.create()</p> <p>@pytest.fixture def leave_type(): """Create leave type fixture.""" from leave_requests.models import LeaveType return LeaveType.objects.create( nome='Vacation', max_dias_ano=30, requer_aprovacao=True ) ```</p> <h3 id=using-fixtures>Using Fixtures<a class=headerlink href=#using-fixtures title="Permanent link">&para;</a></h3> <p><code>python def test_employee_list(authenticated_client, sample_employee): """Test employee list endpoint.""" response = authenticated_client.get('/api/v1/employees/employees/') assert response.status_code == 200 assert response.data['count'] == 1</code></p> <hr> <h2 id=integration-tests>🔄 Integration Tests<a class=headerlink href=#integration-tests title="Permanent link">&para;</a></h2> <p>```python</p> <h1 id=teststest_integrationpy>tests/test_integration.py<a class=headerlink href=#teststest_integrationpy title="Permanent link">&para;</a></h1> <p>from django.test import TestCase from django.urls import reverse from rest_framework.test import APIClient from accounts.models import User from employees.models import Employee, AdmissionProcess</p> <p>class EmployeeAdmissionIntegrationTest(TestCase): """Integration tests for employee admission flow."""</p> <pre><code>def setUp(self):
+    self.client = APIClient()
+    self.admin = User.objects.create_user(
+        email='admin@portalrh.com',
+        password='admin123',
+        role='admin_rh'
+    )
+    self.client.force_authenticate(user=self.admin)
+
+def test_complete_admission_flow(self):
+    """Test complete employee admission workflow."""
+    # Step 1: Create pre-admission
+    pre_admission_data = {
+        'personal_email': 'newuser@example.com',
+        'full_name': 'New Employee',
+        'position': 'Developer',
+        'department': 'Engineering',
+        'salary': '5000.00',
+        'start_date': '2024-06-01'
+    }
+
+    response = self.client.post(
+        '/api/v1/employees/pre-admissions/',
+        pre_admission_data
+    )
+    self.assertEqual(response.status_code, 201)
+    pre_admission_id = response.data['id']
+
+    # Step 2: Create employee account
+    response = self.client.post(
+        f'/api/v1/employees/pre-admissions/{pre_admission_id}/create_employee_account/'
+    )
+    self.assertEqual(response.status_code, 200)
+
+    # Step 3: Login as new employee
+    temporary_password = response.data['temporary_password']
+    self.client.logout()
+    self.client.login(
+        email='newuser@example.com',
+        password=temporary_password
+    )
+
+    # Step 4: Complete personal info
+    employee = Employee.objects.get(email='newuser@example.com')
+    personal_data = {
+        'cpf': '123.456.789-00',
+        'rg': '12.345.678-9',
+        'birth_date': '1990-01-01',
+        'phone': '(11) 99999-9999'
+    }
+
+    response = self.client.patch(
+        f'/api/v1/employees/employees/{employee.id}/update_personal_info/',
+        personal_data
+    )
+    self.assertEqual(response.status_code, 200)
+
+    # Step 5: Upload documents
+    # (File upload test would go here)
+
+    # Step 6: HR approves
+    self.client.force_authenticate(user=self.admin)
+    response = self.client.patch(
+        f'/api/v1/employees/admission-processes/{employee.id}/update_status/',
+        {'status': 'approved'}
+    )
+    self.assertEqual(response.status_code, 200)
+
+    # Verify final state
+    employee.refresh_from_db()
+    self.assertEqual(employee.status, 'active')
+    self.assertTrue(employee.admission_completed)
+</code></pre> <p>```</p> <hr> <h2 id=test-coverage>📊 Test Coverage<a class=headerlink href=#test-coverage title="Permanent link">&para;</a></h2> <h3 id=coverage-configuration>Coverage Configuration<a class=headerlink href=#coverage-configuration title="Permanent link">&para;</a></h3> <p>```ini</p> <h1 id=coveragerc>.coveragerc<a class=headerlink href=#coveragerc title="Permanent link">&para;</a></h1> <p>[run] source = . omit = <em>/migrations/</em> <em>/tests/</em> <em>/<strong>pycache</strong>/</em> <em>/venv/</em> manage.py app/settings.py app/urls.py</p> <p>[report] precision = 2 exclude_lines = pragma: no cover def <strong>str</strong> def <strong>repr</strong> raise NotImplementedError if TYPE_CHECKING: if DEBUG: ```</p> <h3 id=coverage-goals>Coverage Goals<a class=headerlink href=#coverage-goals title="Permanent link">&para;</a></h3> <table> <thead> <tr> <th>Component</th> <th>Minimum Coverage</th> </tr> </thead> <tbody> <tr> <td>Models</td> <td>90%</td> </tr> <tr> <td>Serializers</td> <td>85%</td> </tr> <tr> <td>Views</td> <td>80%</td> </tr> <tr> <td>Permissions</td> <td>95%</td> </tr> <tr> <td>Services</td> <td>85%</td> </tr> <tr> <td>Overall</td> <td>85%</td> </tr> </tbody> </table> <hr> <h2 id=cicd-testing>🚀 CI/CD Testing<a class=headerlink href=#cicd-testing title="Permanent link">&para;</a></h2> <h3 id=github-actions-example>GitHub Actions Example<a class=headerlink href=#github-actions-example title="Permanent link">&para;</a></h3> <p>```yaml</p> <h1 id=githubworkflowstestsyml>.github/workflows/tests.yml<a class=headerlink href=#githubworkflowstestsyml title="Permanent link">&para;</a></h1> <p>name: Tests</p> <p>on: push: branches: [main, develop] pull_request: branches: [main, develop]</p> <p>jobs: test: runs-on: ubuntu-latest</p> <pre><code>services:
+  postgres:
+    image: postgres:14
+    env:
+      POSTGRES_PASSWORD: postgres
+    options: &gt;-
+      --health-cmd pg_isready
+      --health-interval 10s
+      --health-timeout 5s
+      --health-retries 5
+    ports:
+      - 5432:5432
+
+steps:
+  - uses: actions/checkout@v3
+
+  - name: Set up Python
+    uses: actions/setup-python@v4
+    with:
+      python-version: '3.10'
+
+  - name: Install dependencies
+    run: |
+      pip install -r requirements.txt
+
+  - name: Run migrations
+    run: python manage.py migrate
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+
+  - name: Run tests
+    run: pytest --cov=. --cov-report=xml
+
+  - name: Upload coverage
+    uses: codecov/codecov-action@v3
+    with:
+      file: ./coverage.xml
+</code></pre> <p>```</p> <hr> <h2 id=debugging-tests>🐛 Debugging Tests<a class=headerlink href=#debugging-tests title="Permanent link">&para;</a></h2> <h3 id=common-issues>Common Issues<a class=headerlink href=#common-issues title="Permanent link">&para;</a></h3> <p><strong>Test database not created:</strong> <code>python @pytest.mark.django_db def test_something(): # This decorator is needed for database access pass</code></p> <p><strong>Authentication not working:</strong> <code>python def test_authenticated_endpoint(): client = APIClient() client.force_authenticate(user=user) # Use this for DRF # Don't use client.login() for JWT auth</code></p> <p><strong>Fixture not found:</strong> ```python</p> <h1 id=make-sure-conftestpy-is-in-the-tests-directory>Make sure conftest.py is in the tests directory<a class=headerlink href=#make-sure-conftestpy-is-in-the-tests-directory title="Permanent link">&para;</a></h1> <h1 id=fixtures-must-be-defined-with-pytestfixture-decorator>Fixtures must be defined with @pytest.fixture decorator<a class=headerlink href=#fixtures-must-be-defined-with-pytestfixture-decorator title="Permanent link">&para;</a></h1> <p>```</p> <hr> <h2 id=test-checklist>📋 Test Checklist<a class=headerlink href=#test-checklist title="Permanent link">&para;</a></h2> <p>Before merging code:</p> <ul> <li>[ ] All new features have tests</li> <li>[ ] All bug fixes have regression tests</li> <li>[ ] Model tests cover all methods</li> <li>[ ] Serializer tests cover validation</li> <li>[ ] View tests cover success and error cases</li> <li>[ ] Permission tests verify access control</li> <li>[ ] Tests pass locally</li> <li>[ ] Coverage meets minimum requirements</li> <li>[ ] No tests are skipped or marked as expected failures</li> </ul> <hr> <p><strong>Next:</strong> <a href=../deploy/ >Deploy</a></p> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <footer class=md-footer> <nav class="md-footer__inner md-grid" aria-label=Footer> <a href=../development/ class="md-footer__link md-footer__link--prev" aria-label="Previous: Development"> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </div> <div class=md-footer__title> <span class=md-footer__direction> Previous </span> <div class=md-ellipsis> Development </div> </div> </a> <a href=../deploy/ class="md-footer__link md-footer__link--next" aria-label="Next: Deploy"> <div class=md-footer__title> <span class=md-footer__direction> Next </span> <div class=md-ellipsis> Deploy </div> </div> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg> </div> </a> </nav> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "..", "features": ["navigation.instant", "navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../assets/javascripts/bundle.56dfad97.min.js></script> <script src=../javascripts/extra.js></script> </body> </html>

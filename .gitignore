@@ -1,0 +1,14 @@
+.venv
+venv
+.claude
+claude
+.test
+test
+.env
+env
+.dbsqlite3
+db.sqlite3
+.logs
+logs
+
+.vercel
