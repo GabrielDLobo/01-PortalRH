@@ -54,7 +54,7 @@ class ReportCategoryViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(
                 Q(reporttemplate__is_public=True) |
                 Q(reporttemplate__allowed_users=self.request.user) |
-                Q(reporttemplate__allowed_roles__contains=self.request.user.role)
+                Q(reporttemplate__allowed_roles__icontains=self.request.user.role)
             ).distinct()
 
         return queryset
@@ -91,7 +91,7 @@ class ReportTemplateViewSet(viewsets.ModelViewSet):
                 Q(is_public=True) |
                 Q(created_by=user) |
                 Q(allowed_users=user) |
-                Q(allowed_roles__contains=user.role)
+                Q(allowed_roles__icontains=user.role)
             ).distinct()
 
         # Additional filters
