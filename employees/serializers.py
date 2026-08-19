@@ -4,6 +4,28 @@ from .models import Employee, EmployeeDocument, AdmissionProcess, PreAdmissionRH
 
 User = get_user_model()
 
+# Magic-byte signatures used to check that a file's actual content matches
+# its declared extension, so a renamed file cannot bypass the extension check.
+FILE_SIGNATURES = {
+    '.pdf': (b'%PDF-',),
+    '.jpg': (b'\xff\xd8\xff',),
+    '.jpeg': (b'\xff\xd8\xff',),
+    '.png': (b'\x89PNG\r\n\x1a\n',),
+    '.doc': (b'\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1',),
+    '.xls': (b'\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1',),
+    '.docx': (b'PK\x03\x04',),
+    '.xlsx': (b'PK\x03\x04',),
+}
+
+
+def _content_matches_extension(file_obj, extension):
+    signatures = FILE_SIGNATURES.get(extension)
+    if not signatures:
+        return True
+    header = file_obj.read(8)
+    file_obj.seek(0)
+    return any(header.startswith(signature) for signature in signatures)
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -230,7 +252,12 @@ class DocumentUploadSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 f"Tipo de arquivo não permitido. Formatos aceitos: {', '.join(allowed_extensions)}"
             )
-        
+
+        if not _content_matches_extension(value, file_extension):
+            raise serializers.ValidationError(
+                "O conteúdo do arquivo não corresponde à extensão informada."
+            )
+
         return value
 
 

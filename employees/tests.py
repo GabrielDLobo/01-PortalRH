@@ -1,10 +1,12 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import SimpleUploadedFile
 from datetime import date, timedelta
 from decimal import Decimal
 
 from .models import Employee, PreAdmissionRH, EmployeeDocument, AdmissionProcess
+from .serializers import DocumentUploadSerializer
 
 User = get_user_model()
 
@@ -173,6 +175,54 @@ class EmployeeDocumentModelTestCase(TestCase):
         )
         
         self.assertEqual(doc.file_size_mb, 2.0)
+
+
+class DocumentUploadValidationTestCase(TestCase):
+    """Test cases for DocumentUploadSerializer file validation"""
+
+    def _serializer_for(self, uploaded_file):
+        return DocumentUploadSerializer(data={
+            'document_type': 'other',
+            'document_name': uploaded_file.name,
+            'file': uploaded_file,
+            'is_required': True,
+        })
+
+    def test_rejects_extension_not_in_whitelist(self):
+        uploaded_file = SimpleUploadedFile(
+            'malware.exe', b'MZ\x90\x00', content_type='application/octet-stream'
+        )
+        serializer = self._serializer_for(uploaded_file)
+
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('file', serializer.errors)
+
+    def test_rejects_content_not_matching_declared_extension(self):
+        uploaded_file = SimpleUploadedFile(
+            'fake.pdf', b'this is not really a pdf', content_type='application/pdf'
+        )
+        serializer = self._serializer_for(uploaded_file)
+
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('file', serializer.errors)
+
+    def test_rejects_file_exceeding_size_limit(self):
+        oversized_content = b'%PDF-1.4\n' + b'0' * (10 * 1024 * 1024 + 1)
+        uploaded_file = SimpleUploadedFile(
+            'big.pdf', oversized_content, content_type='application/pdf'
+        )
+        serializer = self._serializer_for(uploaded_file)
+
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('file', serializer.errors)
+
+    def test_accepts_genuine_pdf_content(self):
+        uploaded_file = SimpleUploadedFile(
+            'real.pdf', b'%PDF-1.4\n%some pdf bytes', content_type='application/pdf'
+        )
+        serializer = self._serializer_for(uploaded_file)
+
+        self.assertTrue(serializer.is_valid(), serializer.errors)
 
 
 class AdmissionProcessModelTestCase(TestCase):

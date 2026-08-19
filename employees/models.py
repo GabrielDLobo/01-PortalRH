@@ -3,7 +3,7 @@ import os
 
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, FileExtensionValidator
 from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
@@ -402,7 +402,13 @@ class EmployeeDocument(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='documents')
     document_type = models.CharField(max_length=30, choices=DOCUMENT_TYPE_CHOICES, verbose_name="Tipo de Documento")
     document_name = models.CharField(max_length=255, verbose_name="Nome do Documento")
-    file = models.FileField(upload_to=employee_documents_upload_path, verbose_name="Arquivo")
+    file = models.FileField(
+        upload_to=employee_documents_upload_path,
+        validators=[FileExtensionValidator(
+            allowed_extensions=['pdf', 'doc', 'docx', 'xls', 'xlsx', 'jpg', 'jpeg', 'png']
+        )],
+        verbose_name="Arquivo",
+    )
     file_size = models.PositiveIntegerField(verbose_name="Tamanho do Arquivo (bytes)")
     uploaded_at = models.DateTimeField(auto_now_add=True, verbose_name="Data de Upload")
     is_required = models.BooleanField(default=True, verbose_name="Documento Obrigatório")
