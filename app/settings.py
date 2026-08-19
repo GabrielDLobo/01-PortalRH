@@ -15,7 +15,6 @@ SECRET_KEY = config('SECRET_KEY', default='REMOVED')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-##ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=lambda v: [s.strip() for s in v.split(',')], 'zero2-inventory-management-system.onrender.com', 'zero2-inventory-management-system.onrender.com')
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.vercel.app', 'zero1-portalrh.onrender.com']
 
 # Application definition
@@ -292,9 +291,6 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@app.com')
 # Frontend URL for email links
 FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:3000')
 
-# Redis and Cache Configuration
-REDIS_URL = config('REDIS_URL', default='redis://localhost:6379/0')
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
@@ -303,39 +299,6 @@ CACHES = {
     }
 }
 
-# Redis Cache Configuration (enabled when django-redis is installed)
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django_redis.cache.RedisCache',
-#         'LOCATION': REDIS_URL,
-#         'OPTIONS': {
-#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-#             'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
-#             'IGNORE_EXCEPTIONS': True,
-#         },
-#         'KEY_PREFIX': 'portalrh',
-#         'TIMEOUT': 300,  # 5 minutes default
-#     }
-# }
-
-# Session configuration (optional - use Redis for sessions)
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_CACHE_ALIAS = 'default'
 SESSION_COOKIE_AGE = 3600  # 1 hour
-
-# Celery Configuration (for background tasks)
-CELERY_BROKER_URL = config('CELERY_BROKER_URL', default=REDIS_URL)
-CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default=REDIS_URL)
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = TIME_ZONE
-CELERY_ENABLE_UTC = True
-
-# Cache timeouts for different data types
-CACHE_TIMEOUTS = {
-    'reports': 300,  # 5 minutes
-    'dashboard': 300,  # 5 minutes
-    'user_data': 900,  # 15 minutes
-    'static_data': 3600,  # 1 hour
-}
