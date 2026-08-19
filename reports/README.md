@@ -105,10 +105,10 @@ GET /api/v1/reports/dashboard/summary/   # Dashboard resumo
 ```python
 # Cache configurável no settings.py
 CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://localhost:6379/0',
-        'TIMEOUT': 300,  # 5 minutos
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://localhost:6379/0",
+        "TIMEOUT": 300,  # 5 minutos
     }
 }
 ```
@@ -186,26 +186,26 @@ python manage.py populate_reports
 ### 1. Celery para Processamento Assíncrono
 ```python
 # settings.py
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 ```
 
 ### 2. Timeouts de Cache Personalizados
 ```python
 # settings.py
 CACHE_TIMEOUTS = {
-    'reports': 300,      # 5 minutos
-    'dashboard': 300,    # 5 minutos
-    'user_data': 900,    # 15 minutos
-    'static_data': 3600, # 1 hora
+    "reports": 300,  # 5 minutos
+    "dashboard": 300,  # 5 minutos
+    "user_data": 900,  # 15 minutos
+    "static_data": 3600,  # 1 hora
 }
 ```
 
 ### 3. Configuração de Email para Agendamentos
 ```python
 # settings.py
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 ```
@@ -267,7 +267,7 @@ const getDashboardData = async () => {
 1. **Adicionar enum no modelo**:
 ```python
 class ReportTypeChoices(models.TextChoices):
-    NEW_TYPE = 'new_type', 'Novo Tipo de Relatório'
+    NEW_TYPE = "new_type", "Novo Tipo de Relatório"
 ```
 
 2. **Implementar geração no ReportService**:

@@ -196,12 +196,13 @@ flowchart LR
 def calculate_salary(base: Decimal, bonus: Decimal = None) -> Decimal:
     """Calculate final salary."""
     if bonus is None:
-        bonus = Decimal('0')
+        bonus = Decimal("0")
     return base + bonus
 
+
 # Bad
-def calcSal(b,b2=0):  # Bad naming, no types
-    return b+b2  # No docstring
+def calcSal(b, b2=0):  # Bad naming, no types
+    return b + b2  # No docstring
 ```
 
 **Type Hints:**
@@ -209,10 +210,8 @@ def calcSal(b,b2=0):  # Bad naming, no types
 ```python
 from typing import Optional, List, Dict
 
-def process_employees(
-    ids: List[int],
-    options: Optional[Dict[str, str]] = None
-) -> List[Employee]:
+
+def process_employees(ids: List[int], options: Optional[Dict[str, str]] = None) -> List[Employee]:
     """Process multiple employees."""
     pass
 ```
@@ -220,22 +219,18 @@ def process_employees(
 **Docstrings:**
 
 ```python
-def approve_leave_request(
-    request_id: int,
-    approver: User,
-    comments: str = ''
-) -> LeaveRequest:
+def approve_leave_request(request_id: int, approver: User, comments: str = "") -> LeaveRequest:
     """
     Approve a leave request.
-    
+
     Args:
         request_id: ID of leave request
         approver: User approving
         comments: Optional comments
-    
+
     Returns:
         Updated LeaveRequest
-    
+
     Raises:
         ValidationError: If approval fails
     """
@@ -407,14 +402,14 @@ chore(deps): update django version
 # tests/test_feature.py
 import pytest
 
+
 @pytest.mark.django_db
 class TestNewFeature:
-    
     def test_feature_works(self, user):
         """Test that feature works as expected"""
         result = do_something(user)
         assert result is True
-    
+
     def test_feature_handles_error(self, user):
         """Test error handling"""
         with pytest.raises(ValueError):
@@ -457,7 +452,7 @@ npm test -- --coverage
 ```python
 # Good - explains why
 # Using select_related to avoid N+1 queries
-employees = Employee.objects.select_related('user').all()
+employees = Employee.objects.select_related("user").all()
 
 # Bad - states the obvious
 # Get all employees

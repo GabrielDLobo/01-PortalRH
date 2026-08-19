@@ -57,15 +57,14 @@ Use type hints for all function parameters and return values:
 from typing import Optional, List, Dict
 from decimal import Decimal
 
+
 def calculate_salary(
-    base_salary: Decimal,
-    bonus: Optional[Decimal] = None,
-    deductions: List[Decimal] = None
+    base_salary: Decimal, bonus: Optional[Decimal] = None, deductions: List[Decimal] = None
 ) -> Decimal:
     """Calculate final salary after bonuses and deductions."""
     if deductions is None:
         deductions = []
-    
+
     total = base_salary
     if bonus:
         total += bonus
@@ -79,22 +78,18 @@ def calculate_salary(
 Use Google-style docstrings:
 
 ```python
-def approve_leave_request(
-    request_id: int,
-    approver: User,
-    comments: str = ''
-) -> LeaveRequest:
+def approve_leave_request(request_id: int, approver: User, comments: str = "") -> LeaveRequest:
     """
     Approve a leave request.
-    
+
     Args:
         request_id: ID of the leave request to approve
         approver: User approving the request
         comments: Optional approval comments
-    
+
     Returns:
         Updated LeaveRequest instance
-    
+
     Raises:
         ValidationError: If request cannot be approved
         PermissionDenied: If user lacks permission
@@ -394,18 +389,14 @@ Use pytest for backend testing:
 import pytest
 from employees.models import Employee
 
+
 @pytest.mark.django_db
 class TestEmployeeModel:
-    
     def test_employee_creation(self, user):
-        employee = Employee.objects.create(
-            user=user,
-            full_name="Test User",
-            position="Developer"
-        )
+        employee = Employee.objects.create(user=user, full_name="Test User", position="Developer")
         assert employee.employee_id is not None
         assert employee.employee_id.startswith("EMP-")
-    
+
     def test_employee_str_representation(self, employee):
         expected = f"{employee.full_name} - {employee.employee_id}"
         assert str(employee) == expected
@@ -470,7 +461,7 @@ npm test -- --coverage
 ```python
 # Good - explains why
 # Using select_related to avoid N+1 query problem
-employees = Employee.objects.select_related('user', 'department').all()
+employees = Employee.objects.select_related("user", "department").all()
 
 # Bad - states the obvious
 # Get all employees
@@ -543,9 +534,9 @@ def protected_view(request):
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ['id', 'full_name', 'email', 'position']
+        fields = ["id", "full_name", "email", "position"]
         # Exclude sensitive fields
-        read_only_fields = ['user', 'created_at']
+        read_only_fields = ["user", "created_at"]
 ```
 
 ### Password Handling
@@ -570,21 +561,21 @@ for emp in employees:
     print(emp.user.email)
 
 # Good - 2 queries
-employees = Employee.objects.select_related('user').all()
+employees = Employee.objects.select_related("user").all()
 ```
 
 **Use prefetch_related for many-to-many:**
 
 ```python
 # Good for M2M
-employees = Employee.objects.prefetch_related('documents').all()
+employees = Employee.objects.prefetch_related("documents").all()
 ```
 
 **Use only() and defer():**
 
 ```python
 # Only fetch needed fields
-employees = Employee.objects.only('id', 'full_name', 'email').all()
+employees = Employee.objects.only("id", "full_name", "email").all()
 ```
 
 ### Pagination
@@ -594,9 +585,10 @@ Always paginate large datasets:
 ```python
 from rest_framework.pagination import PageNumberPagination
 
+
 class StandardPagination(PageNumberPagination):
     page_size = 20
-    page_size_query_param = 'page_size'
+    page_size_query_param = "page_size"
     max_page_size = 100
 ```
 
@@ -607,14 +599,15 @@ Use Django's cache framework:
 ```python
 from django.core.cache import cache
 
+
 def get_employee_data(employee_id):
-    cache_key = f'employee_{employee_id}'
+    cache_key = f"employee_{employee_id}"
     data = cache.get(cache_key)
-    
+
     if not data:
         data = fetch_from_db(employee_id)
         cache.set(cache_key, data, timeout=300)
-    
+
     return data
 ```
 

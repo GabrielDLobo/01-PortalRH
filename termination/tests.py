@@ -14,21 +14,25 @@ User = get_user_model()
 
 class TerminationReasonModelTestCase(TestCase):
     def test_string_representation(self):
-        reason = TerminationReason.objects.create(nome='Pedido de Demissão', codigo='PD')
-        self.assertEqual(str(reason), 'PD - Pedido de Demissão')
+        reason = TerminationReason.objects.create(nome="Pedido de Demissão", codigo="PD")
+        self.assertEqual(str(reason), "PD - Pedido de Demissão")
 
 
 class TerminationRequestModelTestCase(TestCase):
     def setUp(self):
         self.manager = User.objects.create_user(
-            username='manager@test.com', email='manager@test.com',
-            password='testpass123', role='admin_rh'
+            username="manager@test.com",
+            email="manager@test.com",
+            password="testpass123",
+            role="admin_rh",
         )
         self.employee = User.objects.create_user(
-            username='employee@test.com', email='employee@test.com',
-            password='testpass123', role='funcionario'
+            username="employee@test.com",
+            email="employee@test.com",
+            password="testpass123",
+            role="funcionario",
         )
-        self.reason = TerminationReason.objects.create(nome='Justa Causa', codigo='JC')
+        self.reason = TerminationReason.objects.create(nome="Justa Causa", codigo="JC")
 
     def _build_request(self, **overrides):
         defaults = dict(
@@ -37,7 +41,7 @@ class TerminationRequestModelTestCase(TestCase):
             motivo=self.reason,
             data_ultimo_dia=date.today() + timedelta(days=10),
             data_desligamento=date.today() + timedelta(days=15),
-            justificativa='Justificativa detalhada de teste.',
+            justificativa="Justificativa detalhada de teste.",
         )
         defaults.update(overrides)
         return TerminationRequest.objects.create(**defaults)
@@ -63,15 +67,15 @@ class TerminationRequestModelTestCase(TestCase):
 
     def test_approve_by_hr_sets_approver_and_status(self):
         request = self._build_request(status=TerminationRequest.StatusChoices.PENDENTE_RH)
-        request.approve_by_hr(self.manager, comentario='Aprovado.')
+        request.approve_by_hr(self.manager, comentario="Aprovado.")
 
         self.assertTrue(request.is_approved)
         self.assertEqual(request.aprovador_rh, self.manager)
-        self.assertEqual(request.comentario_aprovacao_rh, 'Aprovado.')
+        self.assertEqual(request.comentario_aprovacao_rh, "Aprovado.")
 
     def test_reject_by_hr_sets_status(self):
         request = self._build_request(status=TerminationRequest.StatusChoices.PENDENTE_RH)
-        request.reject_by_hr(self.manager, comentario='Faltou documentação.')
+        request.reject_by_hr(self.manager, comentario="Faltou documentação.")
 
         self.assertEqual(request.status, TerminationRequest.StatusChoices.REJEITADA_RH)
         self.assertTrue(request.can_be_edited)
@@ -83,23 +87,24 @@ class TerminationRequestAPITestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.hr_user = User.objects.create_user(
-            username='hr@test.com', email='hr@test.com',
-            password='testpass123', role='admin_rh'
+            username="hr@test.com", email="hr@test.com", password="testpass123", role="admin_rh"
         )
         self.employee_user = User.objects.create_user(
-            username='funcionario@test.com', email='funcionario@test.com',
-            password='testpass123', role='funcionario'
+            username="funcionario@test.com",
+            email="funcionario@test.com",
+            password="testpass123",
+            role="funcionario",
         )
-        self.reason = TerminationReason.objects.create(nome='Pedido de Demissão', codigo='PD')
-        self.list_url = reverse('termination:termination-request-list')
+        self.reason = TerminationReason.objects.create(nome="Pedido de Demissão", codigo="PD")
+        self.list_url = reverse("termination:termination-request-list")
 
     def _payload(self):
         return {
-            'funcionario': self.employee_user.id,
-            'motivo': self.reason.id,
-            'data_ultimo_dia': str(date.today() + timedelta(days=10)),
-            'data_desligamento': str(date.today() + timedelta(days=15)),
-            'justificativa': 'Justificativa detalhada de teste com mais de vinte caracteres.',
+            "funcionario": self.employee_user.id,
+            "motivo": self.reason.id,
+            "data_ultimo_dia": str(date.today() + timedelta(days=10)),
+            "data_desligamento": str(date.today() + timedelta(days=15)),
+            "justificativa": "Justificativa detalhada de teste com mais de vinte caracteres.",
         }
 
     def test_list_requires_authentication(self):
@@ -123,11 +128,11 @@ class TerminationRequestAPITestCase(TestCase):
             motivo=self.reason,
             data_ultimo_dia=date.today() + timedelta(days=10),
             data_desligamento=date.today() + timedelta(days=15),
-            justificativa='Justificativa detalhada de teste.',
+            justificativa="Justificativa detalhada de teste.",
             status=TerminationRequest.StatusChoices.PENDENTE_RH,
         )
         self.client.force_authenticate(user=self.employee_user)
-        url = reverse('termination:termination-request-approve', args=[termination_request.pk])
+        url = reverse("termination:termination-request-approve", args=[termination_request.pk])
 
-        response = self.client.post(url, {'comentario': 'ok'}, secure=True)
+        response = self.client.post(url, {"comentario": "ok"}, secure=True)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

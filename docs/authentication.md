@@ -176,12 +176,12 @@ graph TB
 ```python
 # Django default settings
 PASSWORD_HASHERS = [
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
 ]
 
 PASSWORD_HASHERS_SETTINGS = {
-    'iterations': 600000,  # Default for Django 5.2
-    'salt': 'random-salt',
+    "iterations": 600000,  # Default for Django 5.2
+    "salt": "random-salt",
 }
 ```
 
@@ -190,17 +190,17 @@ PASSWORD_HASHERS_SETTINGS = {
 ```python
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-        'OPTIONS': {'min_length': 8}
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "OPTIONS": {"min_length": 8},
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 ```
@@ -223,12 +223,12 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_HEADERS = [
-    'accept',
-    'authorization',
-    'content-type',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
 ]
 ```
 
@@ -236,13 +236,13 @@ CORS_ALLOW_HEADERS = [
 
 ```python
 MIDDLEWARE = [
-    'django.middleware.csrf.CsrfViewMiddleware',
+    "django.middleware.csrf.CsrfViewMiddleware",
     # ... other middleware
 ]
 
 # For API endpoints using JWT
 CSRF_TRUSTED_ORIGINS = [
-    'https://portalrh.example.com',
+    "https://portalrh.example.com",
 ]
 ```
 
@@ -254,11 +254,11 @@ CSRF_TRUSTED_ORIGINS = [
 
 ```python
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
     ],
 }
 ```
@@ -281,14 +281,15 @@ from rest_framework.permissions import (
 ```python
 from rest_framework import permissions
 
+
 class IsAdminRH(permissions.BasePermission):
     """
     Custom permission to allow only Admin RH users
     """
-    
+
     def has_permission(self, request, view):
         return request.user.is_authenticated and request.user.is_admin_rh
-    
+
     def has_object_permission(self, request, view, obj):
         return request.user.is_admin_rh
 
@@ -297,14 +298,14 @@ class IsOwnerOrAdminRH(permissions.BasePermission):
     """
     Custom permission to allow owners or Admin RH
     """
-    
+
     def has_object_permission(self, request, view, obj):
         # Admin RH can access everything
         if request.user.is_admin_rh:
             return True
-        
+
         # Check if user owns the object
-        return hasattr(obj, 'user') and obj.user == request.user
+        return hasattr(obj, "user") and obj.user == request.user
 ```
 
 ### Usage in Views
@@ -314,9 +315,10 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
+
 class EmployeeDetailView(APIView):
     permission_classes = [IsAuthenticated, IsOwnerOrAdminRH]
-    
+
     def get(self, request, pk):
         # Only accessible by authenticated users
         # with appropriate permissions
@@ -335,35 +337,28 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class EmployeeSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True)
     cpf = serializers.CharField(max_length=14, required=True)
-    salary = serializers.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        min_value=0
-    )
-    
+    salary = serializers.DecimalField(max_digits=10, decimal_places=2, min_value=0)
+
     class Meta:
         model = Employee
-        fields = ['id', 'email', 'cpf', 'full_name', 'salary']
-    
+        fields = ["id", "email", "cpf", "full_name", "salary"]
+
     def validate_email(self, value):
         # Check email uniqueness
         if User.objects.filter(email=value).exists():
-            raise serializers.ValidationError(
-                "Email already registered"
-            )
+            raise serializers.ValidationError("Email already registered")
         return value.lower()
-    
+
     def validate_cpf(self, value):
         # Validate CPF format
         if not self._is_valid_cpf(value):
-            raise serializers.ValidationError(
-                "Invalid CPF format"
-            )
+            raise serializers.ValidationError("Invalid CPF format")
         return value
-    
+
     def _is_valid_cpf(self, cpf: str) -> bool:
         # CPF validation logic
         pass
@@ -375,29 +370,24 @@ class EmployeeSerializer(serializers.ModelSerializer):
 from django.core.exceptions import ValidationError
 from django.db import models
 
+
 class LeaveRequest(models.Model):
     # ... fields ...
-    
+
     def clean(self):
         super().clean()
-        
+
         # Validate dates
         if self.data_fim < self.data_inicio:
-            raise ValidationError({
-                'data_fim': 'End date must be after start date'
-            })
-        
+            raise ValidationError({"data_fim": "End date must be after start date"})
+
         # Validate future dates
         if self.data_inicio < date.today():
-            raise ValidationError({
-                'data_inicio': 'Start date cannot be in the past'
-            })
-        
+            raise ValidationError({"data_inicio": "Start date cannot be in the past"})
+
         # Validate leave balance
         if not self.can_request_leave():
-            raise ValidationError({
-                'tipo': 'Insufficient leave balance'
-            })
+            raise ValidationError({"tipo": "Insufficient leave balance"})
 ```
 
 ---
@@ -413,16 +403,16 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'id',
-            'email',
-            'username',
-            'first_name',
-            'last_name',
-            'role',
+            "id",
+            "email",
+            "username",
+            "first_name",
+            "last_name",
+            "role",
             # EXCLUDE: password, is_staff, is_superuser
         ]
         extra_kwargs = {
-            'password': {'write_only': True},
+            "password": {"write_only": True},
         }
 ```
 
@@ -432,27 +422,23 @@ class UserSerializer(serializers.ModelSerializer):
 class EmployeeDocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmployeeDocument
-        fields = ['id', 'document_type', 'file', 'is_required']
-    
+        fields = ["id", "document_type", "file", "is_required"]
+
     def validate_file(self, value):
         # Validate file size (max 10MB)
         max_size = 10 * 1024 * 1024  # 10MB
         if value.size > max_size:
-            raise serializers.ValidationError(
-                'File size cannot exceed 10MB'
-            )
-        
+            raise serializers.ValidationError("File size cannot exceed 10MB")
+
         # Validate file type
         allowed_types = [
-            'application/pdf',
-            'image/jpeg',
-            'image/png',
+            "application/pdf",
+            "image/jpeg",
+            "image/png",
         ]
         if value.content_type not in allowed_types:
-            raise serializers.ValidationError(
-                'Only PDF, JPEG, and PNG files are allowed'
-            )
-        
+            raise serializers.ValidationError("Only PDF, JPEG, and PNG files are allowed")
+
         return value
 ```
 
@@ -492,22 +478,20 @@ server {
 ```python
 import logging
 
-logger = logging.getLogger('security')
+logger = logging.getLogger("security")
+
 
 class SecurityAuditMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
-    
+
     def __call__(self, request):
         response = self.get_response(request)
-        
+
         # Log sensitive operations
-        if request.method in ['POST', 'PUT', 'DELETE']:
-            logger.info(
-                f"User {request.user.email} performed {request.method} "
-                f"on {request.path}"
-            )
-        
+        if request.method in ["POST", "PUT", "DELETE"]:
+            logger.info(f"User {request.user.email} performed {request.method} on {request.path}")
+
         return response
 ```
 
@@ -518,21 +502,22 @@ from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 import logging
 
-logger = logging.getLogger('auth')
+logger = logging.getLogger("auth")
+
 
 def login_user(email, password, request):
     user = authenticate(username=email, password=password)
-    
+
     if user is not None:
         logger.info(f"Successful login: {email}")
         refresh = RefreshToken.for_user(user)
         return {
-            'access': str(refresh.access_token),
-            'refresh': str(refresh),
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
         }
     else:
         logger.warning(f"Failed login attempt: {email}")
-        raise AuthenticationFailed('Invalid credentials')
+        raise AuthenticationFailed("Invalid credentials")
 ```
 
 ---
@@ -586,19 +571,19 @@ SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = True
 
 SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = 'DENY'
+X_FRAME_OPTIONS = "DENY"
 
 # JWT Settings
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    'ROTATE_REFRESH_TOKENS': True,
-    'BLACKLIST_AFTER_ROTATION': True,
-    'ALGORITHM': 'HS256',
-    'SIGNING_KEY': SECRET_KEY,
-    'AUTH_HEADER_TYPES': ('Bearer',),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
+    "AUTH_HEADER_TYPES": ("Bearer",),
 }
 ```
 

@@ -4,23 +4,26 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('termination', '0002_remove_terminationreason_direito_seguro_desemprego_and_more'),
+        ("termination", "0002_remove_terminationreason_direito_seguro_desemprego_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='terminationrequest',
-            name='urgencia',
+            model_name="terminationrequest",
+            name="urgencia",
         ),
         migrations.RemoveField(
-            model_name='terminationrequest',
-            name='valor_rescisao',
+            model_name="terminationrequest",
+            name="valor_rescisao",
         ),
         migrations.AlterField(
-            model_name='terminationdocument',
-            name='tipo_documento',
-            field=models.CharField(choices=[('outros', 'Kit Demissional')], max_length=20, verbose_name='Tipo de Documento'),
+            model_name="terminationdocument",
+            name="tipo_documento",
+            field=models.CharField(
+                choices=[("outros", "Kit Demissional")],
+                max_length=20,
+                verbose_name="Tipo de Documento",
+            ),
         ),
     ]

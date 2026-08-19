@@ -4,15 +4,29 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('employees', '0005_preadmissionrh_department_and_more'),
+        ("employees", "0005_preadmissionrh_department_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='employeedocument',
-            name='document_type',
-            field=models.CharField(choices=[('rg', 'RG'), ('birth_certificate', 'Certidão de Nascimento'), ('marriage_certificate', 'Certidão de Casamento'), ('education_certificate', 'Comprovante de Escolaridade'), ('work_card', 'Carteira de Trabalho'), ('work_contract', 'Contrato de Trabalho'), ('medical_exam', 'Exame Admissional'), ('bank_document', 'Comprovante Bancário'), ('address_proof', 'Comprovante de Endereço'), ('other', 'Outros')], max_length=30, verbose_name='Tipo de Documento'),
+            model_name="employeedocument",
+            name="document_type",
+            field=models.CharField(
+                choices=[
+                    ("rg", "RG"),
+                    ("birth_certificate", "Certidão de Nascimento"),
+                    ("marriage_certificate", "Certidão de Casamento"),
+                    ("education_certificate", "Comprovante de Escolaridade"),
+                    ("work_card", "Carteira de Trabalho"),
+                    ("work_contract", "Contrato de Trabalho"),
+                    ("medical_exam", "Exame Admissional"),
+                    ("bank_document", "Comprovante Bancário"),
+                    ("address_proof", "Comprovante de Endereço"),
+                    ("other", "Outros"),
+                ],
+                max_length=30,
+                verbose_name="Tipo de Documento",
+            ),
         ),
     ]

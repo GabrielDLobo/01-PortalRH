@@ -11,6 +11,25 @@ extend-exclude = [
 select = ["E", "F", "I", "W"]
 ignore = ["E501"]
 
+[tool.bandit]
+exclude_dirs = ["venv", "frontend", "site", "test", "migrations"]
+# B105/B106 (hardcoded_password_string/_funcarg): every occurrence in this
+# codebase is a test fixture password (Django test users need a literal
+# password) or a Portuguese validation-error string containing "senha"/
+# "password"-like substrings; audited on 2026-08-19, no real credentials
+# found. Genuine secrets still fail via SECRET_KEY/.env checks and
+# pip-audit/CI review.
+skips = ["B105", "B106"]
+
+# pip-audit has no native pyproject.toml config; documented here and applied
+# via --ignore-vuln flags in CI.
+# PYSEC-2026-3609 / PYSEC-2026-3654 (pymdown-extensions, requirements-dev.txt):
+# fixed only in pymdown-extensions>=11, which mkdocs-material==9.5.34 does not
+# support (pins pymdown-extensions~=10.2). pymdown-extensions only renders this
+# repository's own trusted docs/ content at build time and is never installed
+# or reachable in the running application; upgrading mkdocs-material to lift
+# the constraint was judged out of scope for this pass.
+
 [tool.taskipy.tasks]
 run = "python manage.py runserver"
 migrate = "python manage.py migrate"

@@ -1,81 +1,63 @@
+from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
-from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
 
 class UserModelTestCase(TestCase):
     """Test cases for User model"""
-    
+
     def test_user_creation(self):
         """Test basic user creation"""
         user = User.objects.create_user(
-            username='testuser',
-            email='test@test.com',
-            password='testpass123',
-            role='funcionario'
+            username="testuser", email="test@test.com", password="testpass123", role="funcionario"
         )
-        
-        self.assertEqual(user.username, 'testuser')
-        self.assertEqual(user.email, 'test@test.com')
-        self.assertEqual(user.role, 'funcionario')
-        self.assertTrue(user.check_password('testpass123'))
-    
+
+        self.assertEqual(user.username, "testuser")
+        self.assertEqual(user.email, "test@test.com")
+        self.assertEqual(user.role, "funcionario")
+        self.assertTrue(user.check_password("testpass123"))
+
     def test_user_email_uniqueness(self):
         """Test user email uniqueness"""
-        User.objects.create_user(
-            username='user1',
-            email='same@test.com',
-            password='testpass123'
-        )
-        
+        User.objects.create_user(username="user1", email="same@test.com", password="testpass123")
+
         with self.assertRaises(Exception):  # IntegrityError
             User.objects.create_user(
-                username='user2',
-                email='same@test.com',
-                password='testpass123'
+                username="user2", email="same@test.com", password="testpass123"
             )
-    
+
     def test_user_username_uniqueness(self):
         """Test user username uniqueness"""
         User.objects.create_user(
-            username='sameuser',
-            email='email1@test.com',
-            password='testpass123'
+            username="sameuser", email="email1@test.com", password="testpass123"
         )
-        
+
         with self.assertRaises(Exception):  # IntegrityError
             User.objects.create_user(
-                username='sameuser',
-                email='email2@test.com',
-                password='testpass123'
+                username="sameuser", email="email2@test.com", password="testpass123"
             )
-    
+
     def test_superuser_creation(self):
         """Test superuser creation"""
         admin = User.objects.create_superuser(
-            username='admin',
-            email='admin@test.com',
-            password='adminpass123'
+            username="admin", email="admin@test.com", password="adminpass123"
         )
-        
+
         self.assertTrue(admin.is_staff)
         self.assertTrue(admin.is_superuser)
-    
+
     def test_user_role_choices(self):
         """Test user role choices"""
-        roles = ['funcionario', 'gerente', 'rh', 'admin']
-        
+        roles = ["funcionario", "gerente", "rh", "admin"]
+
         for role in roles:
             user = User.objects.create_user(
-                username=f'user_{role}',
-                email=f'{role}@test.com',
-                password='testpass123',
-                role=role
+                username=f"user_{role}", email=f"{role}@test.com", password="testpass123", role=role
             )
             self.assertEqual(user.role, role)
 
@@ -87,16 +69,16 @@ class LoginThrottleTestCase(TestCase):
         cache.clear()
         self.client = APIClient()
         User.objects.create_user(
-            username='throttle@test.com',
-            email='throttle@test.com',
-            password='testpass123',
-            role='funcionario'
+            username="throttle@test.com",
+            email="throttle@test.com",
+            password="testpass123",
+            role="funcionario",
         )
 
     def test_login_is_throttled_after_configured_rate(self):
         """The 'login' throttle scope is configured for 5 requests per minute"""
-        url = reverse('token_obtain_pair')
-        payload = {'email': 'throttle@test.com', 'password': 'wrong-password'}
+        url = reverse("token_obtain_pair")
+        payload = {"email": "throttle@test.com", "password": "wrong-password"}
 
         # secure=True avoids SecurityMiddleware's SSL redirect, which applies
         # whenever DEBUG=False (see SECURE_SSL_REDIRECT in settings.py).
@@ -113,18 +95,24 @@ class UserViewSetAuthorizationTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.hr_user = User.objects.create_user(
-            username='userhr@test.com', email='userhr@test.com',
-            password='testpass123', role='admin_rh'
+            username="userhr@test.com",
+            email="userhr@test.com",
+            password="testpass123",
+            role="admin_rh",
         )
         self.employee_a = User.objects.create_user(
-            username='usera@test.com', email='usera@test.com',
-            password='testpass123', role='funcionario'
+            username="usera@test.com",
+            email="usera@test.com",
+            password="testpass123",
+            role="funcionario",
         )
         self.employee_b = User.objects.create_user(
-            username='userb@test.com', email='userb@test.com',
-            password='testpass123', role='funcionario'
+            username="userb@test.com",
+            email="userb@test.com",
+            password="testpass123",
+            role="funcionario",
         )
-        self.list_url = reverse('user-list')
+        self.list_url = reverse("user-list")
 
     def test_list_requires_authentication(self):
         response = self.client.get(self.list_url, secure=True)
@@ -137,17 +125,17 @@ class UserViewSetAuthorizationTestCase(TestCase):
 
     def test_user_cannot_retrieve_another_users_detail(self):
         self.client.force_authenticate(user=self.employee_a)
-        url = reverse('user-detail', args=[self.employee_b.id])
+        url = reverse("user-detail", args=[self.employee_b.id])
         response = self.client.get(url, secure=True)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_user_can_retrieve_own_detail(self):
         self.client.force_authenticate(user=self.employee_a)
-        url = reverse('user-detail', args=[self.employee_a.id])
+        url = reverse("user-detail", args=[self.employee_a.id])
         response = self.client.get(url, secure=True)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_regular_user_cannot_access_stats(self):
         self.client.force_authenticate(user=self.employee_a)
-        response = self.client.get(reverse('user-stats'), secure=True)
+        response = self.client.get(reverse("user-stats"), secure=True)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

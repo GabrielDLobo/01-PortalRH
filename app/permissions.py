@@ -1,5 +1,4 @@
 from rest_framework.permissions import BasePermission
-from typing import Any
 
 
 class IsAdminRH(BasePermission):
@@ -8,11 +7,7 @@ class IsAdminRH(BasePermission):
     """
 
     def has_permission(self, request, view) -> bool:
-        return (
-            request.user and
-            request.user.is_authenticated and
-            request.user.is_admin_rh
-        )
+        return request.user and request.user.is_authenticated and request.user.is_admin_rh
 
 
 class IsOwnerOrAdminRH(BasePermission):
@@ -26,13 +21,13 @@ class IsOwnerOrAdminRH(BasePermission):
             return True
 
         # Check if user owns the object
-        if hasattr(obj, 'user'):
+        if hasattr(obj, "user"):
             return obj.user == request.user
-        elif hasattr(obj, 'solicitante'):
+        elif hasattr(obj, "solicitante"):
             return obj.solicitante == request.user
-        elif hasattr(obj, 'avaliado'):
+        elif hasattr(obj, "avaliado"):
             return obj.avaliado == request.user or obj.avaliador == request.user
-        elif hasattr(obj, 'employee'):
+        elif hasattr(obj, "employee"):
             return obj.employee.user == request.user
 
         return False
@@ -51,7 +46,7 @@ class CanViewEmployee(BasePermission):
             return True
 
         # Employees can view their own data
-        if hasattr(obj, 'user') and obj.user == user:
+        if hasattr(obj, "user") and obj.user == user:
             return True
 
         return False
@@ -63,11 +58,7 @@ class CanManageEmployee(BasePermission):
     """
 
     def has_permission(self, request, view) -> bool:
-        return (
-            request.user and
-            request.user.is_authenticated and
-            request.user.is_admin_rh
-        )
+        return request.user and request.user.is_authenticated and request.user.is_admin_rh
 
     def has_object_permission(self, request, view, obj) -> bool:
         user = request.user
@@ -85,11 +76,7 @@ class CanApproveLeaveRequest(BasePermission):
     """
 
     def has_permission(self, request, view) -> bool:
-        return (
-            request.user and
-            request.user.is_authenticated and
-            request.user.is_admin_rh
-        )
+        return request.user and request.user.is_authenticated and request.user.is_admin_rh
 
     def has_object_permission(self, request, view, obj) -> bool:
         user = request.user
@@ -126,11 +113,7 @@ class CanManageEvaluation(BasePermission):
     """
 
     def has_permission(self, request, view) -> bool:
-        return (
-            request.user and
-            request.user.is_authenticated and
-            request.user.is_admin_rh
-        )
+        return request.user and request.user.is_authenticated and request.user.is_admin_rh
 
     def has_object_permission(self, request, view, obj) -> bool:
         user = request.user
@@ -172,15 +155,15 @@ class IsOwnerOrReadOnly(BasePermission):
 
     def has_object_permission(self, request, view, obj) -> bool:
         # Read permissions for any request
-        if request.method in ['GET', 'HEAD', 'OPTIONS']:
+        if request.method in ["GET", "HEAD", "OPTIONS"]:
             return True
 
         # Write permissions only to the owner of the object
-        if hasattr(obj, 'user'):
+        if hasattr(obj, "user"):
             return obj.user == request.user
-        elif hasattr(obj, 'solicitante'):
+        elif hasattr(obj, "solicitante"):
             return obj.solicitante == request.user
-        elif hasattr(obj, 'created_by'):
+        elif hasattr(obj, "created_by"):
             return obj.created_by == request.user
 
         return False
@@ -203,8 +186,4 @@ class IsStaffOrAdminRH(BasePermission):
     """
 
     def has_permission(self, request, view) -> bool:
-        return (
-            request.user and
-            request.user.is_authenticated and
-            request.user.is_admin_rh
-        )
+        return request.user and request.user.is_authenticated and request.user.is_admin_rh

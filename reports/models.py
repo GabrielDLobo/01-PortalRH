@@ -1,9 +1,10 @@
-from django.db import models
-from django.contrib.auth import get_user_model
-from django.utils import timezone
-from typing import Dict, Any, List, Optional
 import uuid
 from datetime import timedelta
+from typing import Any, Dict, Optional
+
+from django.contrib.auth import get_user_model
+from django.db import models
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -12,6 +13,7 @@ class ReportCategory(models.Model):
     """
     Categories for organizing reports
     """
+
     name = models.CharField(max_length=100, unique=True, verbose_name="Nome")
     description = models.TextField(blank=True, verbose_name="Descrição")
     icon = models.CharField(max_length=50, blank=True, verbose_name="Ícone")
@@ -24,7 +26,7 @@ class ReportCategory(models.Model):
     class Meta:
         verbose_name = "Categoria de Relatório"
         verbose_name_plural = "Categorias de Relatórios"
-        ordering = ['name']
+        ordering = ["name"]
 
     def __str__(self) -> str:
         return self.name
@@ -36,85 +38,76 @@ class ReportTemplate(models.Model):
     """
 
     class ReportTypeChoices(models.TextChoices):
-        EMPLOYEES = 'employees', 'Relatório de Funcionários'
-        TERMINATIONS = 'terminations', 'Relatório de Desligamentos'
-        EVALUATIONS = 'evaluations', 'Relatório de Avaliações'
-        LEAVE_REQUESTS = 'leave_requests', 'Relatório de Solicitações de Férias'
-        ADMISSIONS = 'admissions', 'Relatório de Admissões'
-        DASHBOARD = 'dashboard', 'Dashboard Resumo'
-        CUSTOM = 'custom', 'Relatório Personalizado'
+        EMPLOYEES = "employees", "Relatório de Funcionários"
+        TERMINATIONS = "terminations", "Relatório de Desligamentos"
+        EVALUATIONS = "evaluations", "Relatório de Avaliações"
+        LEAVE_REQUESTS = "leave_requests", "Relatório de Solicitações de Férias"
+        ADMISSIONS = "admissions", "Relatório de Admissões"
+        DASHBOARD = "dashboard", "Dashboard Resumo"
+        CUSTOM = "custom", "Relatório Personalizado"
 
     class OutputFormatChoices(models.TextChoices):
-        JSON = 'json', 'JSON'
-        PDF = 'pdf', 'PDF'
-        EXCEL = 'excel', 'Excel'
-        CSV = 'csv', 'CSV'
+        JSON = "json", "JSON"
+        PDF = "pdf", "PDF"
+        EXCEL = "excel", "Excel"
+        CSV = "csv", "CSV"
 
     # Basic Information
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, verbose_name="Nome do Relatório")
     description = models.TextField(blank=True, verbose_name="Descrição")
     report_type = models.CharField(
-        max_length=20,
-        choices=ReportTypeChoices.choices,
-        verbose_name="Tipo de Relatório"
+        max_length=20, choices=ReportTypeChoices.choices, verbose_name="Tipo de Relatório"
     )
     category = models.ForeignKey(
-        ReportCategory,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        verbose_name="Categoria"
+        ReportCategory, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Categoria"
     )
 
     # Configuration
     query_config = models.JSONField(
         default=dict,
         verbose_name="Configuração da Query",
-        help_text="Configurações para filtros, ordenação e campos"
+        help_text="Configurações para filtros, ordenação e campos",
     )
     output_formats = models.JSONField(
         default=list,
         verbose_name="Formatos de Saída",
-        help_text="Lista de formatos suportados: ['json', 'pdf', 'excel', 'csv']"
+        help_text="Lista de formatos suportados: ['json', 'pdf', 'excel', 'csv']",
     )
     default_format = models.CharField(
         max_length=10,
         choices=OutputFormatChoices.choices,
         default=OutputFormatChoices.JSON,
-        verbose_name="Formato Padrão"
+        verbose_name="Formato Padrão",
     )
 
     # Display Configuration
     columns_config = models.JSONField(
         default=dict,
         verbose_name="Configuração de Colunas",
-        help_text="Configuração de quais colunas exibir e como formatá-las"
+        help_text="Configuração de quais colunas exibir e como formatá-las",
     )
     chart_config = models.JSONField(
         default=dict,
         verbose_name="Configuração de Gráficos",
-        help_text="Configurações para gráficos e visualizações"
+        help_text="Configurações para gráficos e visualizações",
     )
 
     # Permissions and Access
     is_public = models.BooleanField(default=False, verbose_name="Público")
     allowed_users = models.ManyToManyField(
-        User,
-        blank=True,
-        related_name='allowed_reports',
-        verbose_name="Usuários Permitidos"
+        User, blank=True, related_name="allowed_reports", verbose_name="Usuários Permitidos"
     )
     allowed_roles = models.JSONField(
         default=list,
         verbose_name="Perfis Permitidos",
-        help_text="Lista de perfis que podem acessar este relatório"
+        help_text="Lista de perfis que podem acessar este relatório",
     )
 
     # Cache Configuration
     cache_duration = models.IntegerField(
         default=300,  # 5 minutes
-        verbose_name="Duração do Cache (segundos)"
+        verbose_name="Duração do Cache (segundos)",
     )
     enable_cache = models.BooleanField(default=True, verbose_name="Habilitar Cache")
 
@@ -122,8 +115,8 @@ class ReportTemplate(models.Model):
     created_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='created_report_templates',
-        verbose_name="Criado por"
+        related_name="created_report_templates",
+        verbose_name="Criado por",
     )
     is_active = models.BooleanField(default=True, verbose_name="Ativo")
     version = models.IntegerField(default=1, verbose_name="Versão")
@@ -134,10 +127,10 @@ class ReportTemplate(models.Model):
     class Meta:
         verbose_name = "Template de Relatório"
         verbose_name_plural = "Templates de Relatórios"
-        ordering = ['-updated_at']
+        ordering = ["-updated_at"]
         indexes = [
-            models.Index(fields=['report_type', 'is_active']),
-            models.Index(fields=['created_by', 'is_active']),
+            models.Index(fields=["report_type", "is_active"]),
+            models.Index(fields=["created_by", "is_active"]),
         ]
 
     def __str__(self) -> str:
@@ -171,37 +164,32 @@ class ReportExecution(models.Model):
     """
 
     class StatusChoices(models.TextChoices):
-        PENDING = 'pending', 'Pendente'
-        RUNNING = 'running', 'Executando'
-        COMPLETED = 'completed', 'Concluído'
-        FAILED = 'failed', 'Falhou'
-        CANCELLED = 'cancelled', 'Cancelado'
+        PENDING = "pending", "Pendente"
+        RUNNING = "running", "Executando"
+        COMPLETED = "completed", "Concluído"
+        FAILED = "failed", "Falhou"
+        CANCELLED = "cancelled", "Cancelado"
 
     # Basic Information
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     template = models.ForeignKey(
-        ReportTemplate,
-        on_delete=models.CASCADE,
-        related_name='executions',
-        verbose_name="Template"
+        ReportTemplate, on_delete=models.CASCADE, related_name="executions", verbose_name="Template"
     )
     executed_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='report_executions',
-        verbose_name="Executado por"
+        related_name="report_executions",
+        verbose_name="Executado por",
     )
 
     # Execution Configuration
     parameters = models.JSONField(
-        default=dict,
-        verbose_name="Parâmetros",
-        help_text="Parâmetros específicos desta execução"
+        default=dict, verbose_name="Parâmetros", help_text="Parâmetros específicos desta execução"
     )
     output_format = models.CharField(
         max_length=10,
         choices=ReportTemplate.OutputFormatChoices.choices,
-        verbose_name="Formato de Saída"
+        verbose_name="Formato de Saída",
     )
 
     # Status and Results
@@ -209,35 +197,26 @@ class ReportExecution(models.Model):
         max_length=15,
         choices=StatusChoices.choices,
         default=StatusChoices.PENDING,
-        verbose_name="Status"
+        verbose_name="Status",
     )
     result_data = models.JSONField(
         default=dict,
         verbose_name="Dados do Resultado",
-        help_text="Resultado da execução em formato JSON"
+        help_text="Resultado da execução em formato JSON",
     )
     file_path = models.CharField(
         max_length=500,
         blank=True,
         verbose_name="Caminho do Arquivo",
-        help_text="Caminho para arquivo gerado (PDF, Excel, etc.)"
+        help_text="Caminho para arquivo gerado (PDF, Excel, etc.)",
     )
 
     # Execution Metrics
     execution_time_seconds = models.FloatField(
-        null=True,
-        blank=True,
-        verbose_name="Tempo de Execução (segundos)"
+        null=True, blank=True, verbose_name="Tempo de Execução (segundos)"
     )
-    rows_processed = models.IntegerField(
-        null=True,
-        blank=True,
-        verbose_name="Linhas Processadas"
-    )
-    error_message = models.TextField(
-        blank=True,
-        verbose_name="Mensagem de Erro"
-    )
+    rows_processed = models.IntegerField(null=True, blank=True, verbose_name="Linhas Processadas")
+    error_message = models.TextField(blank=True, verbose_name="Mensagem de Erro")
 
     # Timestamps
     started_at = models.DateTimeField(null=True, blank=True)
@@ -250,17 +229,17 @@ class ReportExecution(models.Model):
         null=True,
         blank=True,
         verbose_name="Expira em",
-        help_text="Data de expiração do arquivo gerado"
+        help_text="Data de expiração do arquivo gerado",
     )
 
     class Meta:
         verbose_name = "Execução de Relatório"
         verbose_name_plural = "Execuções de Relatórios"
-        ordering = ['-created_at']
+        ordering = ["-created_at"]
         indexes = [
-            models.Index(fields=['template', 'status']),
-            models.Index(fields=['executed_by', 'created_at']),
-            models.Index(fields=['status', 'created_at']),
+            models.Index(fields=["template", "status"]),
+            models.Index(fields=["executed_by", "created_at"]),
+            models.Index(fields=["status", "created_at"]),
         ]
 
     def __str__(self) -> str:
@@ -270,13 +249,10 @@ class ReportExecution(models.Model):
         """Mark execution as started"""
         self.status = self.StatusChoices.RUNNING
         self.started_at = timezone.now()
-        self.save(update_fields=['status', 'started_at', 'updated_at'])
+        self.save(update_fields=["status", "started_at", "updated_at"])
 
     def complete_execution(
-        self,
-        result_data: Dict[str, Any] = None,
-        file_path: str = None,
-        rows_processed: int = None
+        self, result_data: Dict[str, Any] = None, file_path: str = None, rows_processed: int = None
     ) -> None:
         """Mark execution as completed"""
         self.status = self.StatusChoices.COMPLETED
@@ -294,9 +270,7 @@ class ReportExecution(models.Model):
             self.rows_processed = rows_processed
 
         if self.started_at:
-            self.execution_time_seconds = (
-                self.completed_at - self.started_at
-            ).total_seconds()
+            self.execution_time_seconds = (self.completed_at - self.started_at).total_seconds()
 
         self.save()
 
@@ -307,9 +281,7 @@ class ReportExecution(models.Model):
         self.error_message = error_message
 
         if self.started_at:
-            self.execution_time_seconds = (
-                self.completed_at - self.started_at
-            ).total_seconds()
+            self.execution_time_seconds = (self.completed_at - self.started_at).total_seconds()
 
         self.save()
 
@@ -330,106 +302,80 @@ class ReportSchedule(models.Model):
     """
 
     class FrequencyChoices(models.TextChoices):
-        DAILY = 'daily', 'Diário'
-        WEEKLY = 'weekly', 'Semanal'
-        MONTHLY = 'monthly', 'Mensal'
-        QUARTERLY = 'quarterly', 'Trimestral'
-        YEARLY = 'yearly', 'Anual'
-        CUSTOM = 'custom', 'Personalizado'
+        DAILY = "daily", "Diário"
+        WEEKLY = "weekly", "Semanal"
+        MONTHLY = "monthly", "Mensal"
+        QUARTERLY = "quarterly", "Trimestral"
+        YEARLY = "yearly", "Anual"
+        CUSTOM = "custom", "Personalizado"
 
     class StatusChoices(models.TextChoices):
-        ACTIVE = 'active', 'Ativo'
-        PAUSED = 'paused', 'Pausado'
-        DISABLED = 'disabled', 'Desabilitado'
+        ACTIVE = "active", "Ativo"
+        PAUSED = "paused", "Pausado"
+        DISABLED = "disabled", "Desabilitado"
 
     # Basic Information
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, verbose_name="Nome do Agendamento")
     template = models.ForeignKey(
-        ReportTemplate,
-        on_delete=models.CASCADE,
-        related_name='schedules',
-        verbose_name="Template"
+        ReportTemplate, on_delete=models.CASCADE, related_name="schedules", verbose_name="Template"
     )
 
     # Schedule Configuration
     frequency = models.CharField(
-        max_length=15,
-        choices=FrequencyChoices.choices,
-        verbose_name="Frequência"
+        max_length=15, choices=FrequencyChoices.choices, verbose_name="Frequência"
     )
     cron_expression = models.CharField(
         max_length=100,
         blank=True,
         verbose_name="Expressão Cron",
-        help_text="Para frequência personalizada (formato: min hour day month weekday)"
+        help_text="Para frequência personalizada (formato: min hour day month weekday)",
     )
 
     # Execution Configuration
     output_format = models.CharField(
         max_length=10,
         choices=ReportTemplate.OutputFormatChoices.choices,
-        verbose_name="Formato de Saída"
+        verbose_name="Formato de Saída",
     )
     parameters = models.JSONField(
         default=dict,
         verbose_name="Parâmetros",
-        help_text="Parâmetros fixos para execução automática"
+        help_text="Parâmetros fixos para execução automática",
     )
 
     # Notification Configuration
     email_recipients = models.JSONField(
         default=list,
         verbose_name="Destinatários de Email",
-        help_text="Lista de emails para envio do relatório"
+        help_text="Lista de emails para envio do relatório",
     )
     send_email_on_success = models.BooleanField(
-        default=True,
-        verbose_name="Enviar Email em Sucesso"
+        default=True, verbose_name="Enviar Email em Sucesso"
     )
-    send_email_on_failure = models.BooleanField(
-        default=True,
-        verbose_name="Enviar Email em Falha"
-    )
+    send_email_on_failure = models.BooleanField(default=True, verbose_name="Enviar Email em Falha")
 
     # Status and Control
     status = models.CharField(
         max_length=15,
         choices=StatusChoices.choices,
         default=StatusChoices.ACTIVE,
-        verbose_name="Status"
+        verbose_name="Status",
     )
 
     # Schedule Tracking
-    last_execution = models.DateTimeField(
-        null=True,
-        blank=True,
-        verbose_name="Última Execução"
-    )
-    next_execution = models.DateTimeField(
-        null=True,
-        blank=True,
-        verbose_name="Próxima Execução"
-    )
-    execution_count = models.IntegerField(
-        default=0,
-        verbose_name="Contagem de Execuções"
-    )
-    success_count = models.IntegerField(
-        default=0,
-        verbose_name="Sucessos"
-    )
-    failure_count = models.IntegerField(
-        default=0,
-        verbose_name="Falhas"
-    )
+    last_execution = models.DateTimeField(null=True, blank=True, verbose_name="Última Execução")
+    next_execution = models.DateTimeField(null=True, blank=True, verbose_name="Próxima Execução")
+    execution_count = models.IntegerField(default=0, verbose_name="Contagem de Execuções")
+    success_count = models.IntegerField(default=0, verbose_name="Sucessos")
+    failure_count = models.IntegerField(default=0, verbose_name="Falhas")
 
     # Metadata
     created_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='created_report_schedules',
-        verbose_name="Criado por"
+        related_name="created_report_schedules",
+        verbose_name="Criado por",
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -437,10 +383,10 @@ class ReportSchedule(models.Model):
     class Meta:
         verbose_name = "Agendamento de Relatório"
         verbose_name_plural = "Agendamentos de Relatórios"
-        ordering = ['-created_at']
+        ordering = ["-created_at"]
         indexes = [
-            models.Index(fields=['status', 'next_execution']),
-            models.Index(fields=['template', 'status']),
+            models.Index(fields=["status", "next_execution"]),
+            models.Index(fields=["template", "status"]),
         ]
 
     def __str__(self) -> str:
@@ -448,7 +394,7 @@ class ReportSchedule(models.Model):
 
     def calculate_next_execution(self) -> Optional[timezone.datetime]:
         """Calculate next execution time based on frequency"""
-        from datetime import datetime, timedelta
+        from datetime import timedelta
 
         now = timezone.now()
 
@@ -482,10 +428,16 @@ class ReportSchedule(models.Model):
         # Calculate next execution
         self.next_execution = self.calculate_next_execution()
 
-        self.save(update_fields=[
-            'last_execution', 'execution_count', 'success_count',
-            'failure_count', 'next_execution', 'updated_at'
-        ])
+        self.save(
+            update_fields=[
+                "last_execution",
+                "execution_count",
+                "success_count",
+                "failure_count",
+                "next_execution",
+                "updated_at",
+            ]
+        )
 
     @property
     def success_rate(self) -> float:
@@ -499,27 +451,15 @@ class ReportBookmark(models.Model):
     """
     Model for users to bookmark frequently used reports
     """
+
     user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='report_bookmarks',
-        verbose_name="Usuário"
+        User, on_delete=models.CASCADE, related_name="report_bookmarks", verbose_name="Usuário"
     )
     template = models.ForeignKey(
-        ReportTemplate,
-        on_delete=models.CASCADE,
-        related_name='bookmarks',
-        verbose_name="Template"
+        ReportTemplate, on_delete=models.CASCADE, related_name="bookmarks", verbose_name="Template"
     )
-    name = models.CharField(
-        max_length=200,
-        blank=True,
-        verbose_name="Nome Personalizado"
-    )
-    parameters = models.JSONField(
-        default=dict,
-        verbose_name="Parâmetros Salvos"
-    )
+    name = models.CharField(max_length=200, blank=True, verbose_name="Nome Personalizado")
+    parameters = models.JSONField(default=dict, verbose_name="Parâmetros Salvos")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -527,8 +467,8 @@ class ReportBookmark(models.Model):
     class Meta:
         verbose_name = "Favorito de Relatório"
         verbose_name_plural = "Favoritos de Relatórios"
-        unique_together = ['user', 'template']
-        ordering = ['-updated_at']
+        unique_together = ["user", "template"]
+        ordering = ["-updated_at"]
 
     def __str__(self) -> str:
         display_name = self.name or self.template.name

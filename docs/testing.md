@@ -81,29 +81,28 @@ from rest_framework.test import APIClient
 
 User = get_user_model()
 
+
 @pytest.fixture
 def api_client():
     """API client for testing"""
     return APIClient()
 
+
 @pytest.fixture
 def user():
     """Create a test user"""
     return User.objects.create_user(
-        email='test@example.com',
-        password='testpass123',
-        username='testuser'
+        email="test@example.com", password="testpass123", username="testuser"
     )
+
 
 @pytest.fixture
 def admin_rh_user():
     """Create an admin RH user"""
     return User.objects.create_user(
-        email='admin@example.com',
-        password='adminpass123',
-        username='admin',
-        role='admin_rh'
+        email="admin@example.com", password="adminpass123", username="admin", role="admin_rh"
     )
+
 
 @pytest.fixture
 def authenticated_client(api_client, user):
@@ -111,15 +110,14 @@ def authenticated_client(api_client, user):
     api_client.force_authenticate(user=user)
     return api_client
 
+
 @pytest.fixture
 def employee(user):
     """Create a test employee"""
     from employees.models import Employee
+
     return Employee.objects.create(
-        user=user,
-        full_name='Test User',
-        position='Developer',
-        department='Engineering'
+        user=user, full_name="Test User", position="Developer", department="Engineering"
     )
 ```
 
@@ -132,72 +130,45 @@ import pytest
 from django.db.utils import IntegrityError
 from employees.models import Employee
 
+
 @pytest.mark.django_db
 class TestEmployeeModel:
-    
     def test_employee_creation(self, user):
         """Test creating an employee"""
-        employee = Employee.objects.create(
-            user=user,
-            full_name='John Doe',
-            position='Developer'
-        )
-        
+        employee = Employee.objects.create(user=user, full_name="John Doe", position="Developer")
+
         assert employee.id is not None
         assert employee.employee_id is not None
-        assert employee.employee_id.startswith('EMP-')
-        assert str(employee) == f'{employee.full_name} - {employee.employee_id}'
-    
+        assert employee.employee_id.startswith("EMP-")
+        assert str(employee) == f"{employee.full_name} - {employee.employee_id}"
+
     def test_employee_id_auto_generation(self, user):
         """Test employee ID is auto-generated"""
-        employee1 = Employee.objects.create(
-            user=user,
-            full_name='John Doe'
-        )
-        
-        user2 = User.objects.create_user(
-            email='test2@example.com',
-            password='testpass'
-        )
-        employee2 = Employee.objects.create(
-            user=user2,
-            full_name='Jane Doe'
-        )
-        
+        employee1 = Employee.objects.create(user=user, full_name="John Doe")
+
+        user2 = User.objects.create_user(email="test2@example.com", password="testpass")
+        employee2 = Employee.objects.create(user=user2, full_name="Jane Doe")
+
         assert employee1.employee_id != employee2.employee_id
-    
+
     def test_unique_cpf(self, user):
         """Test CPF uniqueness"""
-        Employee.objects.create(
-            user=user,
-            full_name='John Doe',
-            cpf='123.456.789-00'
-        )
-        
-        user2 = User.objects.create_user(
-            email='test2@example.com',
-            password='testpass'
-        )
-        
+        Employee.objects.create(user=user, full_name="John Doe", cpf="123.456.789-00")
+
+        user2 = User.objects.create_user(email="test2@example.com", password="testpass")
+
         with pytest.raises(IntegrityError):
-            Employee.objects.create(
-                user=user2,
-                full_name='Jane Doe',
-                cpf='123.456.789-00'
-            )
-    
+            Employee.objects.create(user=user2, full_name="Jane Doe", cpf="123.456.789-00")
+
     def test_employee_status_default(self, user):
         """Test default status"""
-        employee = Employee.objects.create(
-            user=user,
-            full_name='John Doe'
-        )
-        
-        assert employee.status == 'pending'
-    
+        employee = Employee.objects.create(user=user, full_name="John Doe")
+
+        assert employee.status == "pending"
+
     def test_employee_str_representation(self, employee):
         """Test string representation"""
-        expected = f'{employee.full_name} - {employee.employee_id}'
+        expected = f"{employee.full_name} - {employee.employee_id}"
         assert str(employee) == expected
 ```
 
@@ -209,48 +180,48 @@ class TestEmployeeModel:
 import pytest
 from employees.serializers import EmployeeSerializer
 
+
 @pytest.mark.django_db
 class TestEmployeeSerializer:
-    
     def test_serializer_fields(self, employee):
         """Test serializer includes correct fields"""
         serializer = EmployeeSerializer(employee)
-        
-        assert 'id' in serializer.data
-        assert 'employee_id' in serializer.data
-        assert 'full_name' in serializer.data
-        assert 'position' in serializer.data
-        assert 'email' not in serializer.data  # Nested
-    
+
+        assert "id" in serializer.data
+        assert "employee_id" in serializer.data
+        assert "full_name" in serializer.data
+        assert "position" in serializer.data
+        assert "email" not in serializer.data  # Nested
+
     def test_serializer_validation(self, user):
         """Test serializer validation"""
         data = {
-            'full_name': 'Test User',
-            'position': 'Developer',
-            'department': 'Engineering',
+            "full_name": "Test User",
+            "position": "Developer",
+            "department": "Engineering",
         }
-        
+
         serializer = EmployeeSerializer(data=data)
-        
+
         # Should fail - missing required fields
         assert not serializer.is_valid()
-        assert 'user' in serializer.errors
-    
+        assert "user" in serializer.errors
+
     def test_serializer_create(self, user):
         """Test serializer create"""
         data = {
-            'user': user.id,
-            'full_name': 'Test User',
-            'position': 'Developer',
-            'department': 'Engineering',
-            'salary': '5000.00',
+            "user": user.id,
+            "full_name": "Test User",
+            "position": "Developer",
+            "department": "Engineering",
+            "salary": "5000.00",
         }
-        
+
         serializer = EmployeeSerializer(data=data)
         assert serializer.is_valid()
-        
+
         employee = serializer.save()
-        assert employee.full_name == data['full_name']
+        assert employee.full_name == data["full_name"]
 ```
 
 ### View/API Tests
@@ -262,81 +233,81 @@ import pytest
 from rest_framework import status
 from employees.models import Employee
 
+
 @pytest.mark.django_db
 class TestEmployeeAPI:
-    
     def test_list_employees_authenticated(self, authenticated_client, employee):
         """Test listing employees requires authentication"""
-        url = '/api/v1/employees/'
+        url = "/api/v1/employees/"
         response = authenticated_client.get(url)
-        
+
         assert response.status_code == status.HTTP_200_OK
-        assert response.data['count'] >= 1
-    
+        assert response.data["count"] >= 1
+
     def test_list_employees_unauthenticated(self, api_client):
         """Test listing employees requires authentication"""
-        url = '/api/v1/employees/'
+        url = "/api/v1/employees/"
         response = api_client.get(url)
-        
+
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
-    
+
     def test_create_employee_admin_rh(self, api_client, admin_rh_user):
         """Test creating employee - admin RH only"""
         api_client.force_authenticate(user=admin_rh_user)
-        
-        url = '/api/v1/employees/'
+
+        url = "/api/v1/employees/"
         data = {
-            'full_name': 'New Employee',
-            'position': 'Developer',
-            'department': 'Engineering',
+            "full_name": "New Employee",
+            "position": "Developer",
+            "department": "Engineering",
         }
-        
+
         response = api_client.post(url, data)
         assert response.status_code == status.HTTP_201_CREATED
-        assert Employee.objects.filter(full_name='New Employee').exists()
-    
+        assert Employee.objects.filter(full_name="New Employee").exists()
+
     def test_create_employee_funcionario(self, api_client, user):
         """Test funcionario cannot create employee"""
         api_client.force_authenticate(user=user)
-        
-        url = '/api/v1/employees/'
+
+        url = "/api/v1/employees/"
         data = {
-            'full_name': 'New Employee',
-            'position': 'Developer',
+            "full_name": "New Employee",
+            "position": "Developer",
         }
-        
+
         response = api_client.post(url, data)
         assert response.status_code == status.HTTP_403_FORBIDDEN
-    
+
     def test_retrieve_employee(self, authenticated_client, employee):
         """Test retrieving single employee"""
-        url = f'/api/v1/employees/{employee.id}/'
+        url = f"/api/v1/employees/{employee.id}/"
         response = authenticated_client.get(url)
-        
+
         assert response.status_code == status.HTTP_200_OK
-        assert response.data['id'] == employee.id
-    
+        assert response.data["id"] == employee.id
+
     def test_update_employee(self, authenticated_client, employee):
         """Test updating employee"""
-        url = f'/api/v1/employees/{employee.id}/'
+        url = f"/api/v1/employees/{employee.id}/"
         data = {
-            'position': 'Senior Developer',
-            'salary': '6000.00',
+            "position": "Senior Developer",
+            "salary": "6000.00",
         }
-        
+
         response = authenticated_client.patch(url, data)
         assert response.status_code == status.HTTP_200_OK
-        
+
         employee.refresh_from_db()
-        assert employee.position == 'Senior Developer'
-    
+        assert employee.position == "Senior Developer"
+
     def test_delete_employee(self, api_client, admin_rh_user, employee):
         """Test deleting employee"""
         api_client.force_authenticate(user=admin_rh_user)
-        
-        url = f'/api/v1/employees/{employee.id}/'
+
+        url = f"/api/v1/employees/{employee.id}/"
         response = api_client.delete(url)
-        
+
         assert response.status_code == status.HTTP_204_NO_CONTENT
         assert not Employee.objects.filter(id=employee.id).exists()
 ```
@@ -350,23 +321,23 @@ import pytest
 from datetime import date, timedelta
 from leave_requests.services import calculate_leave_balance
 
+
 @pytest.mark.django_db
 class TestLeaveServices:
-    
     def test_calculate_leave_balance(self, user):
         """Test leave balance calculation"""
         balance = calculate_leave_balance(user, year=2024)
-        
-        assert balance['available_days'] == 30
-        assert balance['used_days'] == 0
-        assert balance['remaining_days'] == 30
-    
+
+        assert balance["available_days"] == 30
+        assert balance["used_days"] == 0
+        assert balance["remaining_days"] == 30
+
     def test_calculate_leave_balance_with_used_days(self, user, leave_request):
         """Test balance with used days"""
         balance = calculate_leave_balance(user, year=2024)
-        
-        assert balance['used_days'] == leave_request.dias_solicitados
-        assert balance['remaining_days'] == 30 - leave_request.dias_solicitados
+
+        assert balance["used_days"] == leave_request.dias_solicitados
+        assert balance["remaining_days"] == 30 - leave_request.dias_solicitados
 ```
 
 ---
@@ -645,57 +616,49 @@ import pytest
 from rest_framework import status
 from datetime import date, timedelta
 
+
 @pytest.mark.django_db
 class TestLeaveRequestWorkflow:
-    
-    def test_complete_leave_request_workflow(
-        self,
-        api_client,
-        user,
-        admin_rh_user,
-        leave_type
-    ):
+    def test_complete_leave_request_workflow(self, api_client, user, admin_rh_user, leave_type):
         """Test complete leave request workflow"""
-        
+
         # 1. Employee submits leave request
         api_client.force_authenticate(user=user)
-        
-        url = '/api/v1/leave-requests/'
+
+        url = "/api/v1/leave-requests/"
         data = {
-            'tipo': leave_type.id,
-            'data_inicio': (date.today() + timedelta(days=30)).isoformat(),
-            'data_fim': (date.today() + timedelta(days=44)).isoformat(),
-            'motivo': 'Annual vacation',
-            'prioridade': 'media',
+            "tipo": leave_type.id,
+            "data_inicio": (date.today() + timedelta(days=30)).isoformat(),
+            "data_fim": (date.today() + timedelta(days=44)).isoformat(),
+            "motivo": "Annual vacation",
+            "prioridade": "media",
         }
-        
+
         response = api_client.post(url, data)
         assert response.status_code == status.HTTP_201_CREATED
-        leave_request_id = response.data['id']
-        
+        leave_request_id = response.data["id"]
+
         # 2. Verify status is pending
-        response = api_client.get(f'/api/v1/leave-requests/{leave_request_id}/')
-        assert response.data['status'] == 'pendente'
-        
+        response = api_client.get(f"/api/v1/leave-requests/{leave_request_id}/")
+        assert response.data["status"] == "pendente"
+
         # 3. Admin approves request
         api_client.force_authenticate(user=admin_rh_user)
-        
-        url = f'/api/v1/leave-requests/{leave_request_id}/approve/'
-        data = {'comentario': 'Approved!'}
-        
+
+        url = f"/api/v1/leave-requests/{leave_request_id}/approve/"
+        data = {"comentario": "Approved!"}
+
         response = api_client.post(url, data)
         assert response.status_code == status.HTTP_200_OK
-        
+
         # 4. Verify status is approved
-        response = api_client.get(f'/api/v1/leave-requests/{leave_request_id}/')
-        assert response.data['status'] == 'aprovada'
-        
+        response = api_client.get(f"/api/v1/leave-requests/{leave_request_id}/")
+        assert response.data["status"] == "aprovada"
+
         # 5. Verify leave balance updated
-        response = api_client.get('/api/v1/leave-requests/balances/')
-        balance = next(
-            b for b in response.data if b['tipo'] == leave_type.id
-        )
-        assert balance['dias_utilizados'] == 14
+        response = api_client.get("/api/v1/leave-requests/balances/")
+        balance = next(b for b in response.data if b["tipo"] == leave_type.id)
+        assert balance["dias_utilizados"] == 14
 ```
 
 ---

@@ -276,20 +276,14 @@ from employees.models import Employee
 
 # Create user
 user = User.objects.create_user(
-    email='test@example.com',
-    password='testpass123',
-    username='testuser'
+    email="test@example.com", password="testpass123", username="testuser"
 )
 
 # Create employee
-employee = Employee.objects.create(
-    user=user,
-    full_name='Test User',
-    position='Developer'
-)
+employee = Employee.objects.create(user=user, full_name="Test User", position="Developer")
 
 # Query
-Employee.objects.filter(status='active')
+Employee.objects.filter(status="active")
 ```
 
 ### Load Initial Data
@@ -397,22 +391,20 @@ git commit
 from django.db import models
 from django.conf import settings
 
+
 class NewFeature(models.Model):
     """Model for new feature"""
-    
+
     name = models.CharField(max_length=100)
     description = models.TextField()
-    created_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
-    )
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
-        db_table = 'employees_new_feature'
-        verbose_name = 'New Feature'
-        verbose_name_plural = 'New Features'
-    
+        db_table = "employees_new_feature"
+        verbose_name = "New Feature"
+        verbose_name_plural = "New Features"
+
     def __str__(self):
         return self.name
 ```
@@ -423,11 +415,12 @@ class NewFeature(models.Model):
 from rest_framework import serializers
 from .models import NewFeature
 
+
 class NewFeatureSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewFeature
-        fields = ['id', 'name', 'description', 'created_by', 'created_at']
-        read_only_fields = ['created_by', 'created_at']
+        fields = ["id", "name", "description", "created_by", "created_at"]
+        read_only_fields = ["created_by", "created_at"]
 ```
 
 **3. Create View** (`employees/views.py`):
@@ -437,11 +430,12 @@ from rest_framework import viewsets, permissions
 from .models import NewFeature
 from .serializers import NewFeatureSerializer
 
+
 class NewFeatureViewSet(viewsets.ModelViewSet):
     queryset = NewFeature.objects.all()
     serializer_class = NewFeatureSerializer
     permission_classes = [permissions.IsAuthenticated]
-    
+
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
 ```
@@ -453,7 +447,7 @@ from rest_framework.routers import DefaultRouter
 from .views import NewFeatureViewSet
 
 router = DefaultRouter()
-router.register(r'new-features', NewFeatureViewSet)
+router.register(r"new-features", NewFeatureViewSet)
 
 urlpatterns = router.urls
 ```
@@ -464,14 +458,12 @@ urlpatterns = router.urls
 import pytest
 from employees.models import NewFeature
 
+
 @pytest.mark.django_db
 class TestNewFeature:
-    
     def test_create_feature(self, user):
         feature = NewFeature.objects.create(
-            name='Test',
-            description='Test description',
-            created_by=user
+            name="Test", description="Test description", created_by=user
         )
         assert feature.id is not None
 ```
@@ -570,11 +562,12 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def my_function():
-    logger.debug('Debug message')
-    logger.info('Info message')
-    logger.warning('Warning message')
-    logger.error('Error message')
+    logger.debug("Debug message")
+    logger.info("Info message")
+    logger.warning("Warning message")
+    logger.error("Error message")
 ```
 
 **Using Django Debug Toolbar:**
@@ -585,17 +578,19 @@ pip install django-debug-toolbar
 
 ```python
 # settings.py
-INSTALLED_APPS += ['debug_toolbar']
-MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+INSTALLED_APPS += ["debug_toolbar"]
+MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 
-INTERNAL_IPS = ['127.0.0.1']
+INTERNAL_IPS = ["127.0.0.1"]
 ```
 
 **Using pdb:**
 
 ```python
 def problematic_function():
-    import pdb; pdb.set_trace()
+    import pdb
+
+    pdb.set_trace()
     # Code execution pauses here
 ```
 
@@ -639,10 +634,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-@api_view(['GET'])
+
+@api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def custom_endpoint(request):
-    return Response({'message': 'Hello!'})
+    return Response({"message": "Hello!"})
 ```
 
 **2. Add URL:**
@@ -653,7 +649,7 @@ from django.urls import path
 from .views import custom_endpoint
 
 urlpatterns = [
-    path('custom-endpoint/', custom_endpoint),
+    path("custom-endpoint/", custom_endpoint),
 ]
 ```
 

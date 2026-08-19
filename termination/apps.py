@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class TerminationConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'termination'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "termination"

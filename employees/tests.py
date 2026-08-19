@@ -1,13 +1,13 @@
-from django.test import TestCase
-from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
-from django.core.files.uploadedfile import SimpleUploadedFile
 from datetime import date, timedelta
 from decimal import Decimal
+
+from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from .models import Employee, PreAdmissionRH, EmployeeDocument, AdmissionProcess
+from .models import AdmissionProcess, Employee, EmployeeDocument, PreAdmissionRH
 from .serializers import DocumentUploadSerializer
 
 User = get_user_model()
@@ -16,172 +16,157 @@ User = get_user_model()
 # the 'employee-list'/'employee-detail' url names collide with the staff app
 # (registered later in app/urls.py, so it wins reverse() lookups). Use literal
 # paths here instead of reverse() to target this app's endpoints reliably.
-EMPLOYEES_LIST_PATH = '/api/v1/employees/employees/'
+EMPLOYEES_LIST_PATH = "/api/v1/employees/employees/"
 
 
 class EmployeeModelTestCase(TestCase):
     """Test cases for Employee model"""
-    
+
     def setUp(self):
         """Set up test fixtures"""
         self.user = User.objects.create_user(
-            username='employee@test.com',
-            email='employee@test.com',
-            password='testpass123',
-            role='funcionario'
+            username="employee@test.com",
+            email="employee@test.com",
+            password="testpass123",
+            role="funcionario",
         )
-    
+
     def test_employee_creation(self):
         """Test basic employee creation"""
         employee = Employee.objects.create(
             user=self.user,
-            full_name='João Silva',
-            email='joao@test.com',
-            position='Desenvolvedor',
+            full_name="João Silva",
+            email="joao@test.com",
+            position="Desenvolvedor",
             hire_date=date.today(),
-            salary=Decimal('5000.00'),
-            status='active'
+            salary=Decimal("5000.00"),
+            status="active",
         )
-        
-        self.assertEqual(employee.full_name, 'João Silva')
-        self.assertEqual(employee.position, 'Desenvolvedor')
-        self.assertTrue(employee.employee_id.startswith('EMP-'))
-    
+
+        self.assertEqual(employee.full_name, "João Silva")
+        self.assertEqual(employee.position, "Desenvolvedor")
+        self.assertTrue(employee.employee_id.startswith("EMP-"))
+
     def test_employee_id_auto_generation(self):
         """Test automatic employee ID generation"""
         emp1 = Employee.objects.create(
-            user=self.user,
-            full_name='Employee 1',
-            position='Dev',
-            hire_date=date.today()
+            user=self.user, full_name="Employee 1", position="Dev", hire_date=date.today()
         )
-        
+
         user2 = User.objects.create_user(
-            username='emp2@test.com',
-            email='emp2@test.com',
-            password='testpass123',
-            role='funcionario'
+            username="emp2@test.com",
+            email="emp2@test.com",
+            password="testpass123",
+            role="funcionario",
         )
-        
+
         emp2 = Employee.objects.create(
-            user=user2,
-            full_name='Employee 2',
-            position='Dev',
-            hire_date=date.today()
+            user=user2, full_name="Employee 2", position="Dev", hire_date=date.today()
         )
-        
-        self.assertEqual(emp1.employee_id, 'EMP-0001')
-        self.assertEqual(emp2.employee_id, 'EMP-0002')
-    
+
+        self.assertEqual(emp1.employee_id, "EMP-0001")
+        self.assertEqual(emp2.employee_id, "EMP-0002")
+
     def test_employee_string_representation(self):
         """Test employee __str__ method"""
         employee = Employee.objects.create(
-            user=self.user,
-            full_name='Maria Santos',
-            position='Analista',
-            hire_date=date.today()
+            user=self.user, full_name="Maria Santos", position="Analista", hire_date=date.today()
         )
-        
-        self.assertIn('Maria Santos', str(employee))
-        self.assertIn('EMP-', str(employee))
+
+        self.assertIn("Maria Santos", str(employee))
+        self.assertIn("EMP-", str(employee))
 
 
 class PreAdmissionRHModelTestCase(TestCase):
     """Test cases for PreAdmissionRH model"""
-    
+
     def setUp(self):
         """Set up test fixtures"""
         self.rh_user = User.objects.create_user(
-            username='rh@test.com',
-            email='rh@test.com',
-            password='testpass123',
-            role='rh'
+            username="rh@test.com", email="rh@test.com", password="testpass123", role="rh"
         )
-    
+
     def test_pre_admission_creation(self):
         """Test pre-admission creation"""
         pre_admission = PreAdmissionRH.objects.create(
-            personal_email='novo.funcionario@test.com',
-            full_name='Novo Funcionário',
-            position='Gerente',
-            department='TI',
-            job_description='Gerenciar equipe de desenvolvimento',
-            work_schedule='08:00 - 18:00',
-            weekly_workload='40h',
-            contract_type='clt',
-            salary=Decimal('8000.00'),
+            personal_email="novo.funcionario@test.com",
+            full_name="Novo Funcionário",
+            position="Gerente",
+            department="TI",
+            job_description="Gerenciar equipe de desenvolvimento",
+            work_schedule="08:00 - 18:00",
+            weekly_workload="40h",
+            contract_type="clt",
+            salary=Decimal("8000.00"),
             start_date=date.today() + timedelta(days=30),
-            direct_manager='João Manager',
-            created_by=self.rh_user
+            direct_manager="João Manager",
+            created_by=self.rh_user,
         )
-        
-        self.assertEqual(pre_admission.full_name, 'Novo Funcionário')
-        self.assertEqual(pre_admission.position, 'Gerente')
+
+        self.assertEqual(pre_admission.full_name, "Novo Funcionário")
+        self.assertEqual(pre_admission.position, "Gerente")
         self.assertFalse(pre_admission.employee_user_created)
-    
+
     def test_generate_temporary_password(self):
         """Test temporary password generation"""
         pre_admission = PreAdmissionRH.objects.create(
-            personal_email='test.user@test.com',
-            full_name='Test User',
-            position='Dev',
-            work_schedule='08:00 - 18:00',
-            weekly_workload='40h',
-            contract_type='clt',
-            salary=Decimal('5000.00'),
+            personal_email="test.user@test.com",
+            full_name="Test User",
+            position="Dev",
+            work_schedule="08:00 - 18:00",
+            weekly_workload="40h",
+            contract_type="clt",
+            salary=Decimal("5000.00"),
             start_date=date.today() + timedelta(days=30),
-            direct_manager='Manager',
-            created_by=self.rh_user
+            direct_manager="Manager",
+            created_by=self.rh_user,
         )
-        
+
         password1 = pre_admission.generate_temporary_password()
         password2 = pre_admission.generate_temporary_password()
-        
+
         self.assertEqual(password1, password2)
         self.assertEqual(len(password1), 12)
 
 
 class EmployeeDocumentModelTestCase(TestCase):
     """Test cases for EmployeeDocument model"""
-    
+
     def setUp(self):
         """Set up test fixtures"""
         self.user = User.objects.create_user(
-            username='emp@test.com',
-            email='emp@test.com',
-            password='testpass123',
-            role='funcionario'
+            username="emp@test.com",
+            email="emp@test.com",
+            password="testpass123",
+            role="funcionario",
         )
-        
+
         self.employee = Employee.objects.create(
-            user=self.user,
-            full_name='Employee With Docs',
-            position='Dev',
-            hire_date=date.today()
+            user=self.user, full_name="Employee With Docs", position="Dev", hire_date=date.today()
         )
-    
+
     def test_document_creation(self):
         """Test employee document creation"""
         doc = EmployeeDocument.objects.create(
             employee=self.employee,
-            document_type='rg',
-            document_name='RG - 123456789',
-            file_size=1024*512,  # 512KB
-            is_required=True
+            document_type="rg",
+            document_name="RG - 123456789",
+            file_size=1024 * 512,  # 512KB
+            is_required=True,
         )
-        
-        self.assertEqual(doc.document_type, 'rg')
+
+        self.assertEqual(doc.document_type, "rg")
         self.assertFalse(doc.is_verified)
-    
+
     def test_file_size_mb_property(self):
         """Test file size in MB calculation"""
         doc = EmployeeDocument.objects.create(
             employee=self.employee,
-            document_type='work_contract',
-            document_name='Contract.pdf',
-            file_size=1024*1024*2,  # 2MB
+            document_type="work_contract",
+            document_name="Contract.pdf",
+            file_size=1024 * 1024 * 2,  # 2MB
         )
-        
+
         self.assertEqual(doc.file_size_mb, 2.0)
 
 
@@ -189,44 +174,46 @@ class DocumentUploadValidationTestCase(TestCase):
     """Test cases for DocumentUploadSerializer file validation"""
 
     def _serializer_for(self, uploaded_file):
-        return DocumentUploadSerializer(data={
-            'document_type': 'other',
-            'document_name': uploaded_file.name,
-            'file': uploaded_file,
-            'is_required': True,
-        })
+        return DocumentUploadSerializer(
+            data={
+                "document_type": "other",
+                "document_name": uploaded_file.name,
+                "file": uploaded_file,
+                "is_required": True,
+            }
+        )
 
     def test_rejects_extension_not_in_whitelist(self):
         uploaded_file = SimpleUploadedFile(
-            'malware.exe', b'MZ\x90\x00', content_type='application/octet-stream'
+            "malware.exe", b"MZ\x90\x00", content_type="application/octet-stream"
         )
         serializer = self._serializer_for(uploaded_file)
 
         self.assertFalse(serializer.is_valid())
-        self.assertIn('file', serializer.errors)
+        self.assertIn("file", serializer.errors)
 
     def test_rejects_content_not_matching_declared_extension(self):
         uploaded_file = SimpleUploadedFile(
-            'fake.pdf', b'this is not really a pdf', content_type='application/pdf'
+            "fake.pdf", b"this is not really a pdf", content_type="application/pdf"
         )
         serializer = self._serializer_for(uploaded_file)
 
         self.assertFalse(serializer.is_valid())
-        self.assertIn('file', serializer.errors)
+        self.assertIn("file", serializer.errors)
 
     def test_rejects_file_exceeding_size_limit(self):
-        oversized_content = b'%PDF-1.4\n' + b'0' * (10 * 1024 * 1024 + 1)
+        oversized_content = b"%PDF-1.4\n" + b"0" * (10 * 1024 * 1024 + 1)
         uploaded_file = SimpleUploadedFile(
-            'big.pdf', oversized_content, content_type='application/pdf'
+            "big.pdf", oversized_content, content_type="application/pdf"
         )
         serializer = self._serializer_for(uploaded_file)
 
         self.assertFalse(serializer.is_valid())
-        self.assertIn('file', serializer.errors)
+        self.assertIn("file", serializer.errors)
 
     def test_accepts_genuine_pdf_content(self):
         uploaded_file = SimpleUploadedFile(
-            'real.pdf', b'%PDF-1.4\n%some pdf bytes', content_type='application/pdf'
+            "real.pdf", b"%PDF-1.4\n%some pdf bytes", content_type="application/pdf"
         )
         serializer = self._serializer_for(uploaded_file)
 
@@ -235,43 +222,40 @@ class DocumentUploadValidationTestCase(TestCase):
 
 class AdmissionProcessModelTestCase(TestCase):
     """Test cases for AdmissionProcess model"""
-    
+
     def setUp(self):
         """Set up test fixtures"""
         self.user = User.objects.create_user(
-            username='admission@test.com',
-            email='admission@test.com',
-            password='testpass123',
-            role='funcionario'
+            username="admission@test.com",
+            email="admission@test.com",
+            password="testpass123",
+            role="funcionario",
         )
-        
+
         self.employee = Employee.objects.create(
             user=self.user,
-            full_name='Employee Under Admission',
-            position='Dev',
-            hire_date=date.today()
+            full_name="Employee Under Admission",
+            position="Dev",
+            hire_date=date.today(),
         )
-    
+
     def test_admission_process_creation(self):
         """Test admission process creation"""
-        process = AdmissionProcess.objects.create(
-            employee=self.employee,
-            status='started'
-        )
-        
-        self.assertEqual(process.status, 'started')
+        process = AdmissionProcess.objects.create(employee=self.employee, status="started")
+
+        self.assertEqual(process.status, "started")
         self.assertEqual(process.completion_percentage, 0.0)
-    
+
     def test_completion_percentage_calculation(self):
         """Test completion percentage calculation"""
         process = AdmissionProcess.objects.create(
             employee=self.employee,
-            status='started',
+            status="started",
             personal_info_completed=True,
             documents_uploaded=False,
-            hr_review_completed=False
+            hr_review_completed=False,
         )
-        
+
         self.assertEqual(process.completion_percentage, 33.33333333333333)
 
 
@@ -281,20 +265,22 @@ class EmployeeViewSetAuthorizationTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.user_a = User.objects.create_user(
-            username='empauth_a@test.com', email='empauth_a@test.com',
-            password='testpass123', role='funcionario'
+            username="empauth_a@test.com",
+            email="empauth_a@test.com",
+            password="testpass123",
+            role="funcionario",
         )
         self.user_b = User.objects.create_user(
-            username='empauth_b@test.com', email='empauth_b@test.com',
-            password='testpass123', role='funcionario'
+            username="empauth_b@test.com",
+            email="empauth_b@test.com",
+            password="testpass123",
+            role="funcionario",
         )
         self.employee_a = Employee.objects.create(
-            user=self.user_a, full_name='Funcionário A', position='Dev',
-            hire_date=date.today()
+            user=self.user_a, full_name="Funcionário A", position="Dev", hire_date=date.today()
         )
         self.employee_b = Employee.objects.create(
-            user=self.user_b, full_name='Funcionário B', position='Dev',
-            hire_date=date.today()
+            user=self.user_b, full_name="Funcionário B", position="Dev", hire_date=date.today()
         )
 
     def test_list_requires_authentication(self):
@@ -303,12 +289,12 @@ class EmployeeViewSetAuthorizationTestCase(TestCase):
 
     def test_employee_cannot_retrieve_another_employees_record(self):
         self.client.force_authenticate(user=self.user_a)
-        response = self.client.get(f'{EMPLOYEES_LIST_PATH}{self.employee_b.id}/', secure=True)
+        response = self.client.get(f"{EMPLOYEES_LIST_PATH}{self.employee_b.id}/", secure=True)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_employee_can_retrieve_own_record(self):
         self.client.force_authenticate(user=self.user_a)
-        response = self.client.get(f'{EMPLOYEES_LIST_PATH}{self.employee_a.id}/', secure=True)
+        response = self.client.get(f"{EMPLOYEES_LIST_PATH}{self.employee_a.id}/", secure=True)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
@@ -318,35 +304,42 @@ class EmployeeDocumentUploadAuthorizationTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.user_a = User.objects.create_user(
-            username='docauth_a@test.com', email='docauth_a@test.com',
-            password='testpass123', role='funcionario'
+            username="docauth_a@test.com",
+            email="docauth_a@test.com",
+            password="testpass123",
+            role="funcionario",
         )
         self.user_b = User.objects.create_user(
-            username='docauth_b@test.com', email='docauth_b@test.com',
-            password='testpass123', role='funcionario'
+            username="docauth_b@test.com",
+            email="docauth_b@test.com",
+            password="testpass123",
+            role="funcionario",
         )
         self.employee_a = Employee.objects.create(
-            user=self.user_a, full_name='Doc Owner A', position='Dev',
-            hire_date=date.today()
+            user=self.user_a, full_name="Doc Owner A", position="Dev", hire_date=date.today()
         )
         self.employee_b = Employee.objects.create(
-            user=self.user_b, full_name='Doc Owner B', position='Dev',
-            hire_date=date.today()
+            user=self.user_b, full_name="Doc Owner B", position="Dev", hire_date=date.today()
         )
 
     def test_upload_targeting_another_employee_is_attached_to_requester_instead(self):
         self.client.force_authenticate(user=self.user_a)
-        upload_url = f'{EMPLOYEES_LIST_PATH}{self.employee_b.id}/documents/'
+        upload_url = f"{EMPLOYEES_LIST_PATH}{self.employee_b.id}/documents/"
         uploaded_file = SimpleUploadedFile(
-            'doc.pdf', b'%PDF-1.4\n%test content', content_type='application/pdf'
+            "doc.pdf", b"%PDF-1.4\n%test content", content_type="application/pdf"
         )
 
-        response = self.client.post(upload_url, {
-            'document_type': 'other',
-            'document_name': 'doc.pdf',
-            'file': uploaded_file,
-            'is_required': True,
-        }, format='multipart', secure=True)
+        response = self.client.post(
+            upload_url,
+            {
+                "document_type": "other",
+                "document_name": "doc.pdf",
+                "file": uploaded_file,
+                "is_required": True,
+            },
+            format="multipart",
+            secure=True,
+        )
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(EmployeeDocument.objects.filter(employee=self.employee_a).count(), 1)

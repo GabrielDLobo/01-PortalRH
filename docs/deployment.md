@@ -147,10 +147,10 @@ SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = True
 
 SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = 'DENY'
+X_FRAME_OPTIONS = "DENY"
 
 # Allowed hosts
-ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')
+ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
 ```
 
 ---
@@ -609,36 +609,36 @@ option_settings:
 # app/settings.py
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
-            'style': '{',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {message}",
+            "style": "{",
         },
     },
-    'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': '/var/log/portalrh/django.log',
-            'formatter': 'verbose',
+    "handlers": {
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": "/var/log/portalrh/django.log",
+            "formatter": "verbose",
         },
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose',
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
         },
     },
-    'loggers': {
-        'django': {
-            'handlers': ['file', 'console'],
-            'level': 'INFO',
-            'propagate': True,
+    "loggers": {
+        "django": {
+            "handlers": ["file", "console"],
+            "level": "INFO",
+            "propagate": True,
         },
-        'portalrh': {
-            'handlers': ['file', 'console'],
-            'level': 'DEBUG',
-            'propagate': False,
+        "portalrh": {
+            "handlers": ["file", "console"],
+            "level": "DEBUG",
+            "propagate": False,
         },
     },
 }
@@ -658,7 +658,7 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 sentry_sdk.init(
-    dsn=config('SENTRY_DSN'),
+    dsn=config("SENTRY_DSN"),
     integrations=[DjangoIntegration()],
     traces_sample_rate=1.0,
     send_default_pii=True,
@@ -672,18 +672,21 @@ sentry_sdk.init(
 from django.http import JsonResponse
 from django.db import connection
 
+
 def health_check(request):
     try:
         connection.ensure_connection()
-        db_status = 'healthy'
+        db_status = "healthy"
     except Exception:
-        db_status = 'unhealthy'
-    
-    return JsonResponse({
-        'status': 'healthy' if db_status == 'healthy' else 'unhealthy',
-        'database': db_status,
-        'timestamp': timezone.now().isoformat(),
-    })
+        db_status = "unhealthy"
+
+    return JsonResponse(
+        {
+            "status": "healthy" if db_status == "healthy" else "unhealthy",
+            "database": db_status,
+            "timestamp": timezone.now().isoformat(),
+        }
+    )
 ```
 
 ---

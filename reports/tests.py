@@ -13,17 +13,21 @@ User = get_user_model()
 class ReportTemplateModelTestCase(TestCase):
     def setUp(self):
         self.owner = User.objects.create_user(
-            username='owner@test.com', email='owner@test.com',
-            password='testpass123', role='funcionario'
+            username="owner@test.com",
+            email="owner@test.com",
+            password="testpass123",
+            role="funcionario",
         )
         self.other_user = User.objects.create_user(
-            username='other@test.com', email='other@test.com',
-            password='testpass123', role='funcionario'
+            username="other@test.com",
+            email="other@test.com",
+            password="testpass123",
+            role="funcionario",
         )
 
     def _build_template(self, **overrides):
         defaults = dict(
-            name='Relatório de Teste',
+            name="Relatório de Teste",
             report_type=ReportTemplate.ReportTypeChoices.EMPLOYEES,
             created_by=self.owner,
         )
@@ -51,38 +55,42 @@ class ReportTemplateModelTestCase(TestCase):
 class ReportExecutionModelTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
-            username='exec@test.com', email='exec@test.com',
-            password='testpass123', role='funcionario'
+            username="exec@test.com",
+            email="exec@test.com",
+            password="testpass123",
+            role="funcionario",
         )
         self.template = ReportTemplate.objects.create(
-            name='Template Execução',
+            name="Template Execução",
             report_type=ReportTemplate.ReportTypeChoices.EMPLOYEES,
             created_by=self.user,
         )
 
     def test_complete_execution_sets_status_and_result(self):
         execution = ReportExecution.objects.create(
-            template=self.template, executed_by=self.user, output_format='json'
+            template=self.template, executed_by=self.user, output_format="json"
         )
         execution.start_execution()
-        execution.complete_execution(result_data={'total': 1}, rows_processed=1)
+        execution.complete_execution(result_data={"total": 1}, rows_processed=1)
 
         self.assertEqual(execution.status, ReportExecution.StatusChoices.COMPLETED)
-        self.assertEqual(execution.result_data, {'total': 1})
+        self.assertEqual(execution.result_data, {"total": 1})
         self.assertIsNotNone(execution.execution_time_seconds)
 
     def test_fail_execution_sets_error_message(self):
         execution = ReportExecution.objects.create(
-            template=self.template, executed_by=self.user, output_format='json'
+            template=self.template, executed_by=self.user, output_format="json"
         )
-        execution.fail_execution('boom')
+        execution.fail_execution("boom")
 
         self.assertEqual(execution.status, ReportExecution.StatusChoices.FAILED)
-        self.assertEqual(execution.error_message, 'boom')
+        self.assertEqual(execution.error_message, "boom")
 
     def test_is_expired(self):
         execution = ReportExecution.objects.create(
-            template=self.template, executed_by=self.user, output_format='json',
+            template=self.template,
+            executed_by=self.user,
+            output_format="json",
             expires_at=timezone.now() - timezone.timedelta(days=1),
         )
         self.assertTrue(execution.is_expired)
@@ -91,18 +99,22 @@ class ReportExecutionModelTestCase(TestCase):
 class ReportScheduleModelTestCase(TestCase):
     def test_success_rate_calculation(self):
         user = User.objects.create_user(
-            username='sched@test.com', email='sched@test.com',
-            password='testpass123', role='funcionario'
+            username="sched@test.com",
+            email="sched@test.com",
+            password="testpass123",
+            role="funcionario",
         )
         template = ReportTemplate.objects.create(
-            name='Template Agendado',
+            name="Template Agendado",
             report_type=ReportTemplate.ReportTypeChoices.EMPLOYEES,
             created_by=user,
         )
         schedule = ReportSchedule.objects.create(
-            name='Agendamento Semanal', template=template,
+            name="Agendamento Semanal",
+            template=template,
             frequency=ReportSchedule.FrequencyChoices.WEEKLY,
-            output_format='json', created_by=user,
+            output_format="json",
+            created_by=user,
         )
         schedule.record_execution(success=True)
         schedule.record_execution(success=False)
@@ -117,21 +129,25 @@ class ReportTemplateAPIPermissionTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.owner = User.objects.create_user(
-            username='apiowner@test.com', email='apiowner@test.com',
-            password='testpass123', role='funcionario'
+            username="apiowner@test.com",
+            email="apiowner@test.com",
+            password="testpass123",
+            role="funcionario",
         )
         self.other_user = User.objects.create_user(
-            username='apiother@test.com', email='apiother@test.com',
-            password='testpass123', role='funcionario'
+            username="apiother@test.com",
+            email="apiother@test.com",
+            password="testpass123",
+            role="funcionario",
         )
         self.private_template = ReportTemplate.objects.create(
-            name='Relatório Privado',
+            name="Relatório Privado",
             report_type=ReportTemplate.ReportTypeChoices.EMPLOYEES,
             created_by=self.owner,
             is_public=False,
         )
-        self.list_url = reverse('reports:reporttemplate-list')
-        self.detail_url = reverse('reports:reporttemplate-detail', args=[self.private_template.id])
+        self.list_url = reverse("reports:reporttemplate-list")
+        self.detail_url = reverse("reports:reporttemplate-detail", args=[self.private_template.id])
 
     def test_list_requires_authentication(self):
         response = self.client.get(self.list_url, secure=True)
@@ -142,7 +158,7 @@ class ReportTemplateAPIPermissionTestCase(TestCase):
         response = self.client.get(self.list_url, secure=True)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        returned_ids = [str(item['id']) for item in response.data['results']]
+        returned_ids = [str(item["id"]) for item in response.data["results"]]
         self.assertNotIn(str(self.private_template.id), returned_ids)
 
     def test_user_cannot_retrieve_other_users_private_template(self):
