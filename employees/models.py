@@ -1,10 +1,14 @@
+import logging
+import os
+
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
 from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
-import os
+
+logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
@@ -229,7 +233,7 @@ Equipe de Recursos Humanos
                 self.save()
                 return True
             except Exception as e:
-                print(f"Erro ao enviar email: {e}")
+                logger.error("Failed to send admission email: %s", e)
                 return False
         return False
 
@@ -431,7 +435,7 @@ class EmployeeDocument(models.Model):
                 
             super().save(*args, **kwargs)
         except Exception as e:
-            print(f"Error saving document: {e}")
+            logger.error("Failed to save employee document: %s", e)
             raise
     
     @property

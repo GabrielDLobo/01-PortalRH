@@ -1,3 +1,5 @@
+import logging
+
 from rest_framework import viewsets, status, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -16,6 +18,8 @@ from .serializers import (
     AdmissionProcessSerializer, PreAdmissionRHSerializer
 )
 from .services import CEPService
+
+logger = logging.getLogger(__name__)
 
 
 class EmployeeViewSet(viewsets.ModelViewSet):
@@ -194,14 +198,12 @@ class EmployeeDocumentViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         """Enhanced create method with better error handling"""
         try:
-            # Log incoming request data for debugging
-            print(f"Document upload request: {request.data}")
-            print(f"Files: {request.FILES}")
-            
+            logger.debug("Document upload request: data=%s files=%s", request.data, request.FILES)
+
             # Call parent create method
             return super().create(request, *args, **kwargs)
         except Exception as e:
-            print(f"Error in document upload: {e}")
+            logger.error("Error in document upload: %s", e)
             return Response(
                 {'error': f'Erro ao fazer upload do documento: {str(e)}'},
                 status=status.HTTP_400_BAD_REQUEST
@@ -235,7 +237,7 @@ class EmployeeDocumentViewSet(viewsets.ModelViewSet):
                 )
         except Exception as e:
             # Log error but don't fail document upload
-            print(f"Error updating admission process: {e}")
+            logger.warning("Error updating admission process: %s", e)
         
         return document
     
@@ -292,11 +294,11 @@ class EmployeeDocumentViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'], url_path='debug-upload')
     def debug_upload(self, request, employee_pk=None):
         """Debug endpoint for testing file uploads"""
-        print(f"DEBUG UPLOAD - Request data: {request.data}")
-        print(f"DEBUG UPLOAD - Files: {request.FILES}")
-        print(f"DEBUG UPLOAD - Content type: {request.content_type}")
-        print(f"DEBUG UPLOAD - Method: {request.method}")
-        
+        logger.debug(
+            "debug_upload - data=%s files=%s content_type=%s method=%s",
+            request.data, request.FILES, request.content_type, request.method,
+        )
+
         employee_id = self.kwargs.get('employee_pk')
         if not employee_id:
             return Response({'error': 'employee_pk is required'}, status=400)
