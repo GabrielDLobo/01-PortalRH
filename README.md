@@ -2,6 +2,8 @@
 
 # PortalRH — Human Resources Management System
 
+[![CI](https://github.com/GabrielDLobo/01-PortalRH/actions/workflows/ci.yml/badge.svg)](https://github.com/GabrielDLobo/01-PortalRH/actions/workflows/ci.yml)
+
 A Django-based Human Resources Management System that centralizes employee lifecycle operations, including admissions, leave requests, evaluations, reports, and termination workflows.
 
 ## Documentation

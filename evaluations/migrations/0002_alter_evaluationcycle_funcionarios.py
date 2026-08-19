@@ -5,16 +5,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('evaluations', '0001_initial'),
+        ("evaluations", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='evaluationcycle',
-            name='funcionarios',
-            field=models.ManyToManyField(through='evaluations.EvaluationCycleParticipant', through_fields=('cycle', 'funcionario'), to=settings.AUTH_USER_MODEL, verbose_name='Funcionários'),
+            model_name="evaluationcycle",
+            name="funcionarios",
+            field=models.ManyToManyField(
+                through="evaluations.EvaluationCycleParticipant",
+                through_fields=("cycle", "funcionario"),
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Funcionários",
+            ),
         ),
     ]
