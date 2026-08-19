@@ -19,7 +19,7 @@
 <a id=__codelineno-2-2 name=__codelineno-2-2 href=#__codelineno-2-2></a>cp<span class=w> </span>.env.example<span class=w> </span>.env
 <a id=__codelineno-2-3 name=__codelineno-2-3 href=#__codelineno-2-3></a>
 <a id=__codelineno-2-4 name=__codelineno-2-4 href=#__codelineno-2-4></a><span class=c1># Generate secret key (Python)</span>
-<a id=__codelineno-2-5 name=__codelineno-2-5 href=#__codelineno-2-5></a>python<span class=w> </span>-c<span class=w> </span><span class=s2>&quot;from django.core.management.utils import get_random_secret_key; print(f&#39;SECRET_KEY={get_random_secret_key()}&#39;)&quot;</span>
+<a id=__codelineno-2-5 name=__codelineno-2-5 href=#__codelineno-2-5></a>python<span class=w> </span>-c<span class=w> </span><span class=s2>"from django.core.management.utils import get_random_secret_key; print(f'SECRET_KEY={get_random_secret_key()}')"</span>
 </code></pre></div> <p>Edit <code>.env</code> and add the generated secret key.</p> <h3 id=4-initialize-database>4. Initialize Database<a class=headerlink href=#4-initialize-database title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1 href=#__codelineno-3-1></a><span class=c1># Run migrations</span>
 <a id=__codelineno-3-2 name=__codelineno-3-2 href=#__codelineno-3-2></a>python<span class=w> </span>manage.py<span class=w> </span>migrate
 <a id=__codelineno-3-3 name=__codelineno-3-3 href=#__codelineno-3-3></a>
@@ -30,15 +30,15 @@
 <a id=__codelineno-5-2 name=__codelineno-5-2 href=#__codelineno-5-2></a>npm<span class=w> </span>run<span class=w> </span>dev
 </code></pre></div> <p>Frontend running at: http://localhost:3000/</p> <hr> <h2 id=first-steps>🎯 First Steps<a class=headerlink href=#first-steps title="Permanent link">&para;</a></h2> <h3 id=1-access-django-admin>1. Access Django Admin<a class=headerlink href=#1-access-django-admin title="Permanent link">&para;</a></h3> <p>Visit: http://127.0.0.1:8000/admin/</p> <p>Login with the superuser credentials you created.</p> <h3 id=2-access-api-documentation>2. Access API Documentation<a class=headerlink href=#2-access-api-documentation title="Permanent link">&para;</a></h3> <ul> <li><strong>Swagger UI:</strong> http://127.0.0.1:8000/api/docs/</li> <li><strong>ReDoc:</strong> http://127.0.0.1:8000/api/redoc/</li> </ul> <h3 id=3-access-the-application>3. Access the Application<a class=headerlink href=#3-access-the-application title="Permanent link">&para;</a></h3> <p>Visit: http://localhost:3000/</p> <p>Login with your admin credentials.</p> <h3 id=4-create-initial-data>4. Create Initial Data<a class=headerlink href=#4-create-initial-data title="Permanent link">&para;</a></h3> <p><strong>Via Admin Panel:</strong></p> <ol> <li>Go to <code>/admin/</code></li> <li>Create leave types (Férias, Licença Médica, etc.)</li> <li>Create evaluation templates</li> <li>Create termination reasons</li> </ol> <p><strong>Via API:</strong></p> <div class=highlight><pre><span></span><code><a id=__codelineno-6-1 name=__codelineno-6-1 href=#__codelineno-6-1></a><span class=c1># Create leave type</span>
 <a id=__codelineno-6-2 name=__codelineno-6-2 href=#__codelineno-6-2></a>curl<span class=w> </span>-X<span class=w> </span>POST<span class=w> </span>http://127.0.0.1:8000/api/v1/leave-requests/types/<span class=w> </span><span class=se>\</span>
-<a id=__codelineno-6-3 name=__codelineno-6-3 href=#__codelineno-6-3></a><span class=w>  </span>-H<span class=w> </span><span class=s2>&quot;Authorization: Bearer YOUR_TOKEN&quot;</span><span class=w> </span><span class=se>\</span>
-<a id=__codelineno-6-4 name=__codelineno-6-4 href=#__codelineno-6-4></a><span class=w>  </span>-H<span class=w> </span><span class=s2>&quot;Content-Type: application/json&quot;</span><span class=w> </span><span class=se>\</span>
-<a id=__codelineno-6-5 name=__codelineno-6-5 href=#__codelineno-6-5></a><span class=w>  </span>-d<span class=w> </span><span class=s1>&#39;{</span>
-<a id=__codelineno-6-6 name=__codelineno-6-6 href=#__codelineno-6-6></a><span class=s1>    &quot;nome&quot;: &quot;Férias&quot;,</span>
-<a id=__codelineno-6-7 name=__codelineno-6-7 href=#__codelineno-6-7></a><span class=s1>    &quot;descricao&quot;: &quot;Annual vacation&quot;,</span>
-<a id=__codelineno-6-8 name=__codelineno-6-8 href=#__codelineno-6-8></a><span class=s1>    &quot;max_dias_ano&quot;: 30,</span>
-<a id=__codelineno-6-9 name=__codelineno-6-9 href=#__codelineno-6-9></a><span class=s1>    &quot;requer_aprovacao&quot;: true,</span>
-<a id=__codelineno-6-10 name=__codelineno-6-10 href=#__codelineno-6-10></a><span class=s1>    &quot;antecedencia_minima&quot;: 15</span>
-<a id=__codelineno-6-11 name=__codelineno-6-11 href=#__codelineno-6-11></a><span class=s1>  }&#39;</span>
+<a id=__codelineno-6-3 name=__codelineno-6-3 href=#__codelineno-6-3></a><span class=w>  </span>-H<span class=w> </span><span class=s2>"Authorization: Bearer YOUR_TOKEN"</span><span class=w> </span><span class=se>\</span>
+<a id=__codelineno-6-4 name=__codelineno-6-4 href=#__codelineno-6-4></a><span class=w>  </span>-H<span class=w> </span><span class=s2>"Content-Type: application/json"</span><span class=w> </span><span class=se>\</span>
+<a id=__codelineno-6-5 name=__codelineno-6-5 href=#__codelineno-6-5></a><span class=w>  </span>-d<span class=w> </span><span class=s1>'{</span>
+<a id=__codelineno-6-6 name=__codelineno-6-6 href=#__codelineno-6-6></a><span class=s1>    "nome": "Férias",</span>
+<a id=__codelineno-6-7 name=__codelineno-6-7 href=#__codelineno-6-7></a><span class=s1>    "descricao": "Annual vacation",</span>
+<a id=__codelineno-6-8 name=__codelineno-6-8 href=#__codelineno-6-8></a><span class=s1>    "max_dias_ano": 30,</span>
+<a id=__codelineno-6-9 name=__codelineno-6-9 href=#__codelineno-6-9></a><span class=s1>    "requer_aprovacao": true,</span>
+<a id=__codelineno-6-10 name=__codelineno-6-10 href=#__codelineno-6-10></a><span class=s1>    "antecedencia_minima": 15</span>
+<a id=__codelineno-6-11 name=__codelineno-6-11 href=#__codelineno-6-11></a><span class=s1>  }'</span>
 </code></pre></div> <hr> <h2 id=project-structure>📁 Project Structure<a class=headerlink href=#project-structure title="Permanent link">&para;</a></h2> <div class=highlight><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1 href=#__codelineno-7-1></a>01-PortalRH/
 <a id=__codelineno-7-2 name=__codelineno-7-2 href=#__codelineno-7-2></a>├── app/              # Django settings
 <a id=__codelineno-7-3 name=__codelineno-7-3 href=#__codelineno-7-3></a>├── accounts/         # Authentication
@@ -51,26 +51,26 @@
 <a id=__codelineno-7-10 name=__codelineno-7-10 href=#__codelineno-7-10></a>├── frontend/         # React application
 <a id=__codelineno-7-11 name=__codelineno-7-11 href=#__codelineno-7-11></a>└── docs/             # Documentation
 </code></pre></div> <hr> <h2 id=key-features-to-explore>🔑 Key Features to Explore<a class=headerlink href=#key-features-to-explore title="Permanent link">&para;</a></h2> <h3 id=employee-management>Employee Management<a class=headerlink href=#employee-management title="Permanent link">&para;</a></h3> <ul> <li>Create employee profiles</li> <li>Upload documents</li> <li>Track admission process</li> <li>Manage employee data</li> </ul> <h3 id=leave-requests>Leave Requests<a class=headerlink href=#leave-requests title="Permanent link">&para;</a></h3> <ul> <li>Submit leave requests</li> <li>Approve/reject requests</li> <li>Track leave balances</li> <li>Manage leave types</li> </ul> <h3 id=performance-evaluations>Performance Evaluations<a class=headerlink href=#performance-evaluations title="Permanent link">&para;</a></h3> <ul> <li>Create evaluation templates</li> <li>Conduct evaluations</li> <li>Track evaluation cycles</li> <li>View evaluation scores</li> </ul> <h3 id=reports>Reports<a class=headerlink href=#reports title="Permanent link">&para;</a></h3> <ul> <li>Generate employee reports</li> <li>Export to PDF/Excel</li> <li>Schedule reports</li> <li>Bookmark favorites</li> </ul> <hr> <h2 id=common-tasks>🛠️ Common Tasks<a class=headerlink href=#common-tasks title="Permanent link">&para;</a></h2> <h3 id=create-employee>Create Employee<a class=headerlink href=#create-employee title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-8-1 name=__codelineno-8-1 href=#__codelineno-8-1></a>curl<span class=w> </span>-X<span class=w> </span>POST<span class=w> </span>http://127.0.0.1:8000/api/v1/employees/<span class=w> </span><span class=se>\</span>
-<a id=__codelineno-8-2 name=__codelineno-8-2 href=#__codelineno-8-2></a><span class=w>  </span>-H<span class=w> </span><span class=s2>&quot;Authorization: Bearer YOUR_TOKEN&quot;</span><span class=w> </span><span class=se>\</span>
-<a id=__codelineno-8-3 name=__codelineno-8-3 href=#__codelineno-8-3></a><span class=w>  </span>-H<span class=w> </span><span class=s2>&quot;Content-Type: application/json&quot;</span><span class=w> </span><span class=se>\</span>
-<a id=__codelineno-8-4 name=__codelineno-8-4 href=#__codelineno-8-4></a><span class=w>  </span>-d<span class=w> </span><span class=s1>&#39;{</span>
-<a id=__codelineno-8-5 name=__codelineno-8-5 href=#__codelineno-8-5></a><span class=s1>    &quot;full_name&quot;: &quot;John Doe&quot;,</span>
-<a id=__codelineno-8-6 name=__codelineno-8-6 href=#__codelineno-8-6></a><span class=s1>    &quot;email&quot;: &quot;john@example.com&quot;,</span>
-<a id=__codelineno-8-7 name=__codelineno-8-7 href=#__codelineno-8-7></a><span class=s1>    &quot;position&quot;: &quot;Developer&quot;,</span>
-<a id=__codelineno-8-8 name=__codelineno-8-8 href=#__codelineno-8-8></a><span class=s1>    &quot;department&quot;: &quot;Engineering&quot;,</span>
-<a id=__codelineno-8-9 name=__codelineno-8-9 href=#__codelineno-8-9></a><span class=s1>    &quot;hire_date&quot;: &quot;2024-01-01&quot;,</span>
-<a id=__codelineno-8-10 name=__codelineno-8-10 href=#__codelineno-8-10></a><span class=s1>    &quot;salary&quot;: &quot;5000.00&quot;</span>
-<a id=__codelineno-8-11 name=__codelineno-8-11 href=#__codelineno-8-11></a><span class=s1>  }&#39;</span>
+<a id=__codelineno-8-2 name=__codelineno-8-2 href=#__codelineno-8-2></a><span class=w>  </span>-H<span class=w> </span><span class=s2>"Authorization: Bearer YOUR_TOKEN"</span><span class=w> </span><span class=se>\</span>
+<a id=__codelineno-8-3 name=__codelineno-8-3 href=#__codelineno-8-3></a><span class=w>  </span>-H<span class=w> </span><span class=s2>"Content-Type: application/json"</span><span class=w> </span><span class=se>\</span>
+<a id=__codelineno-8-4 name=__codelineno-8-4 href=#__codelineno-8-4></a><span class=w>  </span>-d<span class=w> </span><span class=s1>'{</span>
+<a id=__codelineno-8-5 name=__codelineno-8-5 href=#__codelineno-8-5></a><span class=s1>    "full_name": "John Doe",</span>
+<a id=__codelineno-8-6 name=__codelineno-8-6 href=#__codelineno-8-6></a><span class=s1>    "email": "john@example.com",</span>
+<a id=__codelineno-8-7 name=__codelineno-8-7 href=#__codelineno-8-7></a><span class=s1>    "position": "Developer",</span>
+<a id=__codelineno-8-8 name=__codelineno-8-8 href=#__codelineno-8-8></a><span class=s1>    "department": "Engineering",</span>
+<a id=__codelineno-8-9 name=__codelineno-8-9 href=#__codelineno-8-9></a><span class=s1>    "hire_date": "2024-01-01",</span>
+<a id=__codelineno-8-10 name=__codelineno-8-10 href=#__codelineno-8-10></a><span class=s1>    "salary": "5000.00"</span>
+<a id=__codelineno-8-11 name=__codelineno-8-11 href=#__codelineno-8-11></a><span class=s1>  }'</span>
 </code></pre></div> <h3 id=submit-leave-request>Submit Leave Request<a class=headerlink href=#submit-leave-request title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-9-1 name=__codelineno-9-1 href=#__codelineno-9-1></a>curl<span class=w> </span>-X<span class=w> </span>POST<span class=w> </span>http://127.0.0.1:8000/api/v1/leave-requests/<span class=w> </span><span class=se>\</span>
-<a id=__codelineno-9-2 name=__codelineno-9-2 href=#__codelineno-9-2></a><span class=w>  </span>-H<span class=w> </span><span class=s2>&quot;Authorization: Bearer YOUR_TOKEN&quot;</span><span class=w> </span><span class=se>\</span>
-<a id=__codelineno-9-3 name=__codelineno-9-3 href=#__codelineno-9-3></a><span class=w>  </span>-H<span class=w> </span><span class=s2>&quot;Content-Type: application/json&quot;</span><span class=w> </span><span class=se>\</span>
-<a id=__codelineno-9-4 name=__codelineno-9-4 href=#__codelineno-9-4></a><span class=w>  </span>-d<span class=w> </span><span class=s1>&#39;{</span>
-<a id=__codelineno-9-5 name=__codelineno-9-5 href=#__codelineno-9-5></a><span class=s1>    &quot;tipo&quot;: 1,</span>
-<a id=__codelineno-9-6 name=__codelineno-9-6 href=#__codelineno-9-6></a><span class=s1>    &quot;data_inicio&quot;: &quot;2024-06-01&quot;,</span>
-<a id=__codelineno-9-7 name=__codelineno-9-7 href=#__codelineno-9-7></a><span class=s1>    &quot;data_fim&quot;: &quot;2024-06-30&quot;,</span>
-<a id=__codelineno-9-8 name=__codelineno-9-8 href=#__codelineno-9-8></a><span class=s1>    &quot;motivo&quot;: &quot;Annual vacation&quot;,</span>
-<a id=__codelineno-9-9 name=__codelineno-9-9 href=#__codelineno-9-9></a><span class=s1>    &quot;prioridade&quot;: &quot;media&quot;</span>
-<a id=__codelineno-9-10 name=__codelineno-9-10 href=#__codelineno-9-10></a><span class=s1>  }&#39;</span>
+<a id=__codelineno-9-2 name=__codelineno-9-2 href=#__codelineno-9-2></a><span class=w>  </span>-H<span class=w> </span><span class=s2>"Authorization: Bearer YOUR_TOKEN"</span><span class=w> </span><span class=se>\</span>
+<a id=__codelineno-9-3 name=__codelineno-9-3 href=#__codelineno-9-3></a><span class=w>  </span>-H<span class=w> </span><span class=s2>"Content-Type: application/json"</span><span class=w> </span><span class=se>\</span>
+<a id=__codelineno-9-4 name=__codelineno-9-4 href=#__codelineno-9-4></a><span class=w>  </span>-d<span class=w> </span><span class=s1>'{</span>
+<a id=__codelineno-9-5 name=__codelineno-9-5 href=#__codelineno-9-5></a><span class=s1>    "tipo": 1,</span>
+<a id=__codelineno-9-6 name=__codelineno-9-6 href=#__codelineno-9-6></a><span class=s1>    "data_inicio": "2024-06-01",</span>
+<a id=__codelineno-9-7 name=__codelineno-9-7 href=#__codelineno-9-7></a><span class=s1>    "data_fim": "2024-06-30",</span>
+<a id=__codelineno-9-8 name=__codelineno-9-8 href=#__codelineno-9-8></a><span class=s1>    "motivo": "Annual vacation",</span>
+<a id=__codelineno-9-9 name=__codelineno-9-9 href=#__codelineno-9-9></a><span class=s1>    "prioridade": "media"</span>
+<a id=__codelineno-9-10 name=__codelineno-9-10 href=#__codelineno-9-10></a><span class=s1>  }'</span>
 </code></pre></div> <hr> <h2 id=next-steps>📚 Next Steps<a class=headerlink href=#next-steps title="Permanent link">&para;</a></h2> <ul> <li>Read the <a href=../installation/ >Installation Guide</a> for detailed setup</li> <li>Check <a href=../configuration/ >Configuration Guide</a> for environment settings</li> <li>Explore <a href=../api-endpoints/ >API Endpoints</a> for integration</li> <li>Review <a href=../development/ >Development Guide</a> for contributing</li> </ul> <hr> <h2 id=troubleshooting>🆘 Troubleshooting<a class=headerlink href=#troubleshooting title="Permanent link">&para;</a></h2> <h3 id=port-already-in-use>Port Already in Use<a class=headerlink href=#port-already-in-use title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-10-1 name=__codelineno-10-1 href=#__codelineno-10-1></a><span class=c1># Use different port for backend</span>
 <a id=__codelineno-10-2 name=__codelineno-10-2 href=#__codelineno-10-2></a>python<span class=w> </span>manage.py<span class=w> </span>runserver<span class=w> </span><span class=m>8001</span>
 <a id=__codelineno-10-3 name=__codelineno-10-3 href=#__codelineno-10-3></a>
