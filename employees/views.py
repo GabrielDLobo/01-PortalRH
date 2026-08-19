@@ -18,30 +18,29 @@ from .serializers import (
     AdmissionProcessSerializer, PreAdmissionRHSerializer
 )
 from .services import CEPService
+from app.permissions import CanViewEmployee, IsOwnerOrAdminRH
 
 logger = logging.getLogger(__name__)
 
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     """ViewSet for managing employee data and admission process"""
-    
+
     queryset = Employee.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
-    
+    permission_classes = [permissions.IsAuthenticated, CanViewEmployee]
+
     def get_serializer_class(self):
         if self.action in ['create', 'update', 'partial_update']:
             return EmployeeCreateSerializer
         return EmployeeSerializer
-    
+
     def get_queryset(self):
         """Filter employees based on user role"""
         user = self.request.user
-        if hasattr(user, 'employee_profile'):
-            # Regular employees can only see their own data
-            return Employee.objects.filter(user=user)
-        else:
-            # HR/Admin can see all employees
+        if user.is_admin_rh:
             return Employee.objects.all()
+        # Regular employees can only see their own data
+        return Employee.objects.filter(user=user)
     
     @transaction.atomic
     def create(self, request, *args, **kwargs):
@@ -172,23 +171,24 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
 class EmployeeDocumentViewSet(viewsets.ModelViewSet):
     """ViewSet for managing employee documents"""
-    
+
     serializer_class = EmployeeDocumentSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrAdminRH]
     parser_classes = [MultiPartParser, FormParser]
-    
+
     def get_queryset(self):
-        """Filter documents based on employee"""
+        """Filter documents to the requester's own employee record, unless HR"""
+        user = self.request.user
+        if user.is_admin_rh:
+            queryset = EmployeeDocument.objects.all()
+        else:
+            queryset = EmployeeDocument.objects.filter(employee__user=user)
+
         employee_id = self.kwargs.get('employee_pk')
         if employee_id:
-            return EmployeeDocument.objects.filter(employee_id=employee_id)
-        
-        # For regular users, only show their own documents
-        user = self.request.user
-        if hasattr(user, 'employee_profile'):
-            return EmployeeDocument.objects.filter(employee=user.employee_profile)
-        
-        return EmployeeDocument.objects.none()
+            queryset = queryset.filter(employee_id=employee_id)
+
+        return queryset
     
     def get_serializer_class(self):
         if self.action == 'create':
@@ -211,13 +211,19 @@ class EmployeeDocumentViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         """Create document for specific employee"""
+        user = self.request.user
         employee_id = self.kwargs.get('employee_pk')
-        if employee_id:
-            employee = get_object_or_404(Employee, id=employee_id)
+
+        if user.is_admin_rh:
+            if employee_id:
+                employee = get_object_or_404(Employee, id=employee_id)
+            else:
+                employee = get_object_or_404(Employee, user=user)
         else:
-            # For regular users, use their own employee record
-            employee = get_object_or_404(Employee, user=self.request.user)
-        
+            # Regular users may only upload documents to their own record,
+            # regardless of which employee_pk was requested in the URL.
+            employee = get_object_or_404(Employee, user=user)
+
         # Save document with employee
         document = serializer.save(employee=employee)
         
@@ -244,6 +250,12 @@ class EmployeeDocumentViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['patch'])
     def verify(self, request, pk=None, employee_pk=None):
         """Verify a document (HR only)"""
+        if not request.user.is_admin_rh:
+            return Response(
+                {'detail': 'Permissão negada.'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
         document = self.get_object()
         document.is_verified = request.data.get('is_verified', False)
         document.save()
@@ -272,25 +284,23 @@ class AdmissionProcessViewSet(viewsets.ReadOnlyModelViewSet):
     
     queryset = AdmissionProcess.objects.all()
     serializer_class = AdmissionProcessSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrAdminRH]
+
     def get_queryset(self):
         """Filter based on user permissions"""
         user = self.request.user
-        if hasattr(user, 'employee_profile'):
-            # Regular employees can only see their own process
-            return AdmissionProcess.objects.filter(employee__user=user)
-        else:
-            # HR/Admin can see all processes
+        if user.is_admin_rh:
             return AdmissionProcess.objects.all()
-    
+        # Regular employees can only see their own process
+        return AdmissionProcess.objects.filter(employee__user=user)
+
     @action(detail=True, methods=['patch'])
     def update_status(self, request, pk=None):
         """Update admission process status (HR only)"""
         process = self.get_object()
-        
+
         # Only HR can update status
-        if not request.user.is_staff:
+        if not request.user.is_admin_rh:
             return Response(
                 {'detail': 'Permissão negada.'},
                 status=status.HTTP_403_FORBIDDEN
@@ -321,7 +331,7 @@ class AdmissionProcessViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=False, methods=['get'])
     def statistics(self, request):
         """Get admission process statistics (HR only)"""
-        if not request.user.is_staff:
+        if not request.user.is_admin_rh:
             return Response(
                 {'detail': 'Permissão negada.'},
                 status=status.HTTP_403_FORBIDDEN

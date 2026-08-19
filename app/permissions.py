@@ -32,6 +32,8 @@ class IsOwnerOrAdminRH(BasePermission):
             return obj.solicitante == request.user
         elif hasattr(obj, 'avaliado'):
             return obj.avaliado == request.user or obj.avaliador == request.user
+        elif hasattr(obj, 'employee'):
+            return obj.employee.user == request.user
 
         return False
 
