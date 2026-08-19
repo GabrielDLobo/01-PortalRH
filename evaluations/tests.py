@@ -1,7 +1,10 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 from datetime import date, timedelta
 from decimal import Decimal
+from rest_framework import status
+from rest_framework.test import APIClient
 
 from .models import EvaluationTemplate, EvaluationCriteria, Evaluation
 
@@ -156,3 +159,53 @@ class EvaluationTestCase(TestCase):
         evaluation.status = 'concluida'
         evaluation.save()
         self.assertEqual(evaluation.status, 'concluida')
+
+
+class EvaluationAuthorizationTestCase(TestCase):
+    """Authorization tests for the evaluations endpoint"""
+
+    def setUp(self):
+        self.client = APIClient()
+        self.evaluator = User.objects.create_user(
+            username='evalauth_manager@test.com', email='evalauth_manager@test.com',
+            password='testpass123', role='funcionario'
+        )
+        self.evaluated = User.objects.create_user(
+            username='evalauth_employee@test.com', email='evalauth_employee@test.com',
+            password='testpass123', role='funcionario'
+        )
+        self.uninvolved_user = User.objects.create_user(
+            username='evalauth_outsider@test.com', email='evalauth_outsider@test.com',
+            password='testpass123', role='funcionario'
+        )
+        self.template = EvaluationTemplate.objects.create(nome='Template Auth', ativo=True)
+        self.evaluation = Evaluation.objects.create(
+            template=self.template,
+            avaliado=self.evaluated,
+            avaliador=self.evaluator,
+            periodo_inicio=date.today() - timedelta(days=30),
+            periodo_fim=date.today(),
+        )
+        self.list_url = reverse('evaluation-list')
+
+    def test_list_requires_authentication(self):
+        response = self.client.get(self.list_url, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_uninvolved_user_cannot_retrieve_evaluation(self):
+        self.client.force_authenticate(user=self.uninvolved_user)
+        url = reverse('evaluation-detail', args=[self.evaluation.id])
+        response = self.client.get(url, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_evaluated_user_can_retrieve_own_evaluation(self):
+        self.client.force_authenticate(user=self.evaluated)
+        url = reverse('evaluation-detail', args=[self.evaluation.id])
+        response = self.client.get(url, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_regular_user_cannot_call_evaluate_action(self):
+        self.client.force_authenticate(user=self.evaluator)
+        url = reverse('evaluation-evaluate', args=[self.evaluation.id])
+        response = self.client.post(url, {}, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

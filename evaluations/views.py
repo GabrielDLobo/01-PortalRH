@@ -90,7 +90,7 @@ class EvaluationViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         """Return appropriate permissions based on action"""
         if self.action in ['list', 'retrieve']:
-            permission_classes = [CanViewEvaluation]
+            permission_classes = [permissions.IsAuthenticated, CanViewEvaluation]
         elif self.action in ['create', 'update', 'partial_update']:
             permission_classes = [CanManageEvaluation]
         elif self.action in ['evaluate', 'stats']:
@@ -111,7 +111,7 @@ class EvaluationViewSet(viewsets.ModelViewSet):
         else:
             # Regular employees can only see evaluations where they are involved
             return self.queryset.filter(
-                models.Q(avaliado=user) | models.Q(avaliador=user)
+                Q(avaliado=user) | Q(avaliador=user)
             )
     
     @action(detail=False, methods=['get'])

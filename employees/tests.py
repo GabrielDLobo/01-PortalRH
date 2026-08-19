@@ -4,11 +4,19 @@ from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from datetime import date, timedelta
 from decimal import Decimal
+from rest_framework import status
+from rest_framework.test import APIClient
 
 from .models import Employee, PreAdmissionRH, EmployeeDocument, AdmissionProcess
 from .serializers import DocumentUploadSerializer
 
 User = get_user_model()
+
+# employees.urls registers EmployeeViewSet without an explicit basename, and
+# the 'employee-list'/'employee-detail' url names collide with the staff app
+# (registered later in app/urls.py, so it wins reverse() lookups). Use literal
+# paths here instead of reverse() to target this app's endpoints reliably.
+EMPLOYEES_LIST_PATH = '/api/v1/employees/employees/'
 
 
 class EmployeeModelTestCase(TestCase):
@@ -265,3 +273,81 @@ class AdmissionProcessModelTestCase(TestCase):
         )
         
         self.assertEqual(process.completion_percentage, 33.33333333333333)
+
+
+class EmployeeViewSetAuthorizationTestCase(TestCase):
+    """Authorization tests for the employees app's employee endpoint"""
+
+    def setUp(self):
+        self.client = APIClient()
+        self.user_a = User.objects.create_user(
+            username='empauth_a@test.com', email='empauth_a@test.com',
+            password='testpass123', role='funcionario'
+        )
+        self.user_b = User.objects.create_user(
+            username='empauth_b@test.com', email='empauth_b@test.com',
+            password='testpass123', role='funcionario'
+        )
+        self.employee_a = Employee.objects.create(
+            user=self.user_a, full_name='Funcionário A', position='Dev',
+            hire_date=date.today()
+        )
+        self.employee_b = Employee.objects.create(
+            user=self.user_b, full_name='Funcionário B', position='Dev',
+            hire_date=date.today()
+        )
+
+    def test_list_requires_authentication(self):
+        response = self.client.get(EMPLOYEES_LIST_PATH, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_employee_cannot_retrieve_another_employees_record(self):
+        self.client.force_authenticate(user=self.user_a)
+        response = self.client.get(f'{EMPLOYEES_LIST_PATH}{self.employee_b.id}/', secure=True)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_employee_can_retrieve_own_record(self):
+        self.client.force_authenticate(user=self.user_a)
+        response = self.client.get(f'{EMPLOYEES_LIST_PATH}{self.employee_a.id}/', secure=True)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class EmployeeDocumentUploadAuthorizationTestCase(TestCase):
+    """Confirms a regular user cannot upload a document to another employee's record"""
+
+    def setUp(self):
+        self.client = APIClient()
+        self.user_a = User.objects.create_user(
+            username='docauth_a@test.com', email='docauth_a@test.com',
+            password='testpass123', role='funcionario'
+        )
+        self.user_b = User.objects.create_user(
+            username='docauth_b@test.com', email='docauth_b@test.com',
+            password='testpass123', role='funcionario'
+        )
+        self.employee_a = Employee.objects.create(
+            user=self.user_a, full_name='Doc Owner A', position='Dev',
+            hire_date=date.today()
+        )
+        self.employee_b = Employee.objects.create(
+            user=self.user_b, full_name='Doc Owner B', position='Dev',
+            hire_date=date.today()
+        )
+
+    def test_upload_targeting_another_employee_is_attached_to_requester_instead(self):
+        self.client.force_authenticate(user=self.user_a)
+        upload_url = f'{EMPLOYEES_LIST_PATH}{self.employee_b.id}/documents/'
+        uploaded_file = SimpleUploadedFile(
+            'doc.pdf', b'%PDF-1.4\n%test content', content_type='application/pdf'
+        )
+
+        response = self.client.post(upload_url, {
+            'document_type': 'other',
+            'document_name': 'doc.pdf',
+            'file': uploaded_file,
+            'is_required': True,
+        }, format='multipart', secure=True)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(EmployeeDocument.objects.filter(employee=self.employee_a).count(), 1)
+        self.assertEqual(EmployeeDocument.objects.filter(employee=self.employee_b).count(), 0)

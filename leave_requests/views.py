@@ -78,7 +78,7 @@ class LeaveRequestViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         """Return appropriate permissions based on action"""
         if self.action in ['list', 'retrieve']:
-            permission_classes = [CanViewLeaveRequest]
+            permission_classes = [permissions.IsAuthenticated, CanViewLeaveRequest]
         elif self.action in ['create']:
             permission_classes = [permissions.IsAuthenticated]  # Allow all authenticated users to create
         elif self.action in ['update', 'partial_update']:

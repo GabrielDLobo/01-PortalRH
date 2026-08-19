@@ -105,3 +105,49 @@ class LoginThrottleTestCase(TestCase):
         for response in responses[:5]:
             self.assertNotEqual(response.status_code, status.HTTP_429_TOO_MANY_REQUESTS)
         self.assertEqual(responses[5].status_code, status.HTTP_429_TOO_MANY_REQUESTS)
+
+
+class UserViewSetAuthorizationTestCase(TestCase):
+    """Authorization tests for the user management endpoint"""
+
+    def setUp(self):
+        self.client = APIClient()
+        self.hr_user = User.objects.create_user(
+            username='userhr@test.com', email='userhr@test.com',
+            password='testpass123', role='admin_rh'
+        )
+        self.employee_a = User.objects.create_user(
+            username='usera@test.com', email='usera@test.com',
+            password='testpass123', role='funcionario'
+        )
+        self.employee_b = User.objects.create_user(
+            username='userb@test.com', email='userb@test.com',
+            password='testpass123', role='funcionario'
+        )
+        self.list_url = reverse('user-list')
+
+    def test_list_requires_authentication(self):
+        response = self.client.get(self.list_url, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_regular_user_cannot_list_users(self):
+        self.client.force_authenticate(user=self.employee_a)
+        response = self.client.get(self.list_url, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_user_cannot_retrieve_another_users_detail(self):
+        self.client.force_authenticate(user=self.employee_a)
+        url = reverse('user-detail', args=[self.employee_b.id])
+        response = self.client.get(url, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_user_can_retrieve_own_detail(self):
+        self.client.force_authenticate(user=self.employee_a)
+        url = reverse('user-detail', args=[self.employee_a.id])
+        response = self.client.get(url, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_regular_user_cannot_access_stats(self):
+        self.client.force_authenticate(user=self.employee_a)
+        response = self.client.get(reverse('user-stats'), secure=True)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

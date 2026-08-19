@@ -1,7 +1,10 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 from datetime import date, timedelta
+from rest_framework import status
+from rest_framework.test import APIClient
 
 from .models import LeaveType, LeaveRequest
 
@@ -130,7 +133,7 @@ class LeaveRequestModelTestCase(TestCase):
         
         with self.assertRaises(ValidationError):
             request.full_clean()
-    
+
     def test_leave_request_dias_solicitados(self):
         """Test calculation of requested days"""
         start = date.today() + timedelta(days=45)
@@ -181,6 +184,65 @@ class LeaveRequestModelTestCase(TestCase):
             tem_abono_pecuniario=True,
             dias_abono_pecuniario=15  # Exceeds 10 day limit
         )
-        
+
         with self.assertRaises(ValidationError):
             request.full_clean()
+
+
+class LeaveRequestAuthorizationTestCase(TestCase):
+    """Authorization tests for the leave request endpoint"""
+
+    def setUp(self):
+        self.client = APIClient()
+        self.hr_user = User.objects.create_user(
+            username='leavehr@test.com', email='leavehr@test.com',
+            password='testpass123', role='admin_rh'
+        )
+        self.employee_a = User.objects.create_user(
+            username='leavea@test.com', email='leavea@test.com',
+            password='testpass123', role='funcionario'
+        )
+        self.employee_b = User.objects.create_user(
+            username='leaveb@test.com', email='leaveb@test.com',
+            password='testpass123', role='funcionario'
+        )
+        self.leave_type = LeaveType.objects.create(
+            nome='Férias Auth', max_dias_ano=30, antecedencia_minima=0
+        )
+        self.request_a = LeaveRequest.objects.create(
+            solicitante=self.employee_a,
+            tipo=self.leave_type,
+            data_inicio=date.today() + timedelta(days=10),
+            data_fim=date.today() + timedelta(days=15),
+            motivo='Descanso',
+            dias_gozo=5,
+            status='pendente',
+        )
+        self.list_url = reverse('leave-request-list')
+
+    def test_list_requires_authentication(self):
+        response = self.client.get(self.list_url, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_employee_cannot_retrieve_another_employees_request(self):
+        self.client.force_authenticate(user=self.employee_b)
+        url = reverse('leave-request-detail', args=[self.request_a.id])
+        response = self.client.get(url, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_owner_can_retrieve_own_request(self):
+        self.client.force_authenticate(user=self.employee_a)
+        url = reverse('leave-request-detail', args=[self.request_a.id])
+        response = self.client.get(url, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_employee_cannot_approve_requests(self):
+        self.client.force_authenticate(user=self.employee_a)
+        url = reverse('leave-request-approve', args=[self.request_a.id])
+        response = self.client.post(url, {'action': 'approve'}, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_employee_cannot_access_stats(self):
+        self.client.force_authenticate(user=self.employee_a)
+        response = self.client.get(reverse('leave-request-stats'), secure=True)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
