@@ -4,7 +4,7 @@ This guide provides step-by-step instructions for installing PortalRH on your lo
 
 ---
 
-## 📋 Overview
+## Overview
 
 The installation process involves:
 
@@ -17,7 +17,7 @@ The installation process involves:
 
 ---
 
-## 🔧 Step 1: Clone the Repository
+## Step 1: Clone the Repository
 
 Clone the PortalRH repository to your local machine:
 
@@ -28,7 +28,7 @@ cd 01-PortalRH
 
 ---
 
-## 🐍 Step 2: Backend Setup
+## Step 2: Backend Setup
 
 ### 2.1 Create Virtual Environment
 
@@ -74,7 +74,7 @@ Should output: `5.2.6` or similar.
 
 ---
 
-## 📦 Step 3: Frontend Setup
+## Step 3: Frontend Setup
 
 ### 3.1 Navigate to Frontend Directory
 
@@ -112,7 +112,7 @@ cd ..
 
 ---
 
-## 🗄️ Step 4: Database Setup
+## Step 4: Database Setup
 
 ### Option A: SQLite (Development - Default)
 
@@ -143,7 +143,7 @@ DATABASE_URL=postgres://portalrh_user:your_secure_password@localhost:5432/portal
 
 ---
 
-## ⚙️ Step 5: Environment Configuration
+## Step 5: Environment Configuration
 
 ### 5.1 Create .env File
 
@@ -175,7 +175,7 @@ REACT_APP_API_URL=http://localhost:8000/api/v1
 
 ---
 
-## 🔄 Step 6: Run Migrations
+## Step 6: Run Migrations
 
 Apply database migrations:
 
@@ -200,7 +200,7 @@ Follow the prompts:
 
 ---
 
-## 🚀 Step 7: Start Development Servers
+## Step 7: Start Development Servers
 
 ### 7.1 Start Backend Server
 
@@ -225,7 +225,7 @@ The frontend will be available at: http://localhost:3000/
 
 ---
 
-## ✅ Step 8: Verify Installation
+## Step 8: Verify Installation
 
 ### Backend Verification
 
@@ -244,7 +244,7 @@ You should see the PortalRH login page.
 
 ---
 
-## 🐳 Alternative: Docker Installation
+## Alternative: Docker Installation
 
 For containerized setup using Docker Compose:
 
@@ -274,7 +274,7 @@ docker compose down
 
 ---
 
-## 📁 Project Structure After Installation
+## Project Structure After Installation
 
 ```
 01-PortalRH/
@@ -289,7 +289,7 @@ docker compose down
 
 ---
 
-## ⚠️ Troubleshooting
+## Troubleshooting
 
 ### Port Already in Use
 
@@ -338,7 +338,7 @@ pip install -r requirements.txt
 
 ---
 
-## 📚 Next Steps
+## Next Steps
 
 After successful installation:
 

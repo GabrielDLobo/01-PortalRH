@@ -4,7 +4,7 @@ This document covers authentication mechanisms, authorization, security measures
 
 ---
 
-## 🔐 Overview
+## Overview
 
 PortalRH implements a comprehensive security architecture including:
 
@@ -17,7 +17,7 @@ PortalRH implements a comprehensive security architecture including:
 
 ---
 
-## 🔑 Authentication System
+## Authentication System
 
 ### JWT Token Structure
 
@@ -53,7 +53,7 @@ HMACSHA256(base64(header) + "." + base64(payload), secret_key)
 
 ---
 
-## 📝 Authentication Flow
+## Authentication Flow
 
 ### Login Process
 
@@ -123,7 +123,7 @@ sequenceDiagram
 
 ---
 
-## 👥 User Roles and Permissions
+## User Roles and Permissions
 
 ### Role Hierarchy
 
@@ -153,21 +153,21 @@ graph TB
 
 | Feature | Admin RH | Funcionário |
 |---------|----------|-------------|
-| **View All Employees** | ✅ | ❌ |
-| **View Own Profile** | ✅ | ✅ |
-| **Create Employee** | ✅ | ❌ |
-| **Edit Employee** | ✅ | Own only |
-| **Delete Employee** | ✅ | ❌ |
-| **Submit Leave Request** | ✅ | ✅ |
-| **Approve Leave Request** | ✅ | ❌ |
-| **Create Evaluation** | ✅ | ❌ |
-| **Submit Evaluation** | ✅ | ✅ (self) |
-| **Process Termination** | ✅ | ❌ |
+| **View All Employees** | Yes | No |
+| **View Own Profile** | Yes | Yes |
+| **Create Employee** | Yes | No |
+| **Edit Employee** | Yes | Own only |
+| **Delete Employee** | Yes | No |
+| **Submit Leave Request** | Yes | Yes |
+| **Approve Leave Request** | Yes | No |
+| **Create Evaluation** | Yes | No |
+| **Submit Evaluation** | Yes | Yes (self) |
+| **Process Termination** | Yes | No |
 | **Generate Reports** | All | Own only |
 
 ---
 
-## 🛡️ Security Measures
+## Security Measures
 
 ### Password Security
 
@@ -248,7 +248,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 ---
 
-## 🔒 API Security
+## API Security
 
 ### Authentication Classes
 
@@ -327,7 +327,7 @@ class EmployeeDetailView(APIView):
 
 ---
 
-## 📊 Input Validation
+## Input Validation
 
 ### Serializer Validation
 
@@ -392,7 +392,7 @@ class LeaveRequest(models.Model):
 
 ---
 
-## 🔐 Data Protection
+## Data Protection
 
 ### Sensitive Data Handling
 
@@ -444,7 +444,7 @@ class EmployeeDocumentSerializer(serializers.ModelSerializer):
 
 ---
 
-## 📋 Security Headers
+## Security Headers
 
 ### Nginx Configuration
 
@@ -471,7 +471,7 @@ server {
 
 ---
 
-## 🔍 Audit Logging
+## Audit Logging
 
 ### Activity Logging
 
@@ -522,9 +522,9 @@ def login_user(email, password, request):
 
 ---
 
-## 🚨 Security Best Practices
+## Security Best Practices
 
-### DO ✅
+### DO
 
 - Use HTTPS in production
 - Rotate SECRET_KEY periodically
@@ -537,7 +537,7 @@ def login_user(email, password, request):
 - Set secure cookie flags
 - Implement token expiration
 
-### DON'T ❌
+### DON'T
 
 - Hardcode credentials
 - Log sensitive data
@@ -552,7 +552,7 @@ def login_user(email, password, request):
 
 ---
 
-## 🔧 Security Configuration
+## Security Configuration
 
 ### Django Settings
 
@@ -589,7 +589,7 @@ SIMPLE_JWT = {
 
 ---
 
-## 🧪 Security Testing
+## Security Testing
 
 ### Penetration Testing Checklist
 
@@ -621,7 +621,7 @@ python manage.py check --deploy
 
 ---
 
-## 📚 Related Documentation
+## Related Documentation
 
 - [API Endpoints](api-endpoints.md) - API reference
 - [System Modeling](system-modeling.md) - Architecture diagrams
@@ -648,7 +648,7 @@ python manage.py check --deploy
 
 ---
 
-## 📖 Resources
+## Resources
 
 - [Django Security](https://docs.djangoproject.com/en/stable/topics/security/)
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)

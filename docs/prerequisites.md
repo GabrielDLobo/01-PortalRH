@@ -4,7 +4,7 @@ Before installing and running PortalRH, ensure you have the following software a
 
 ---
 
-## 🖥️ System Requirements
+## System Requirements
 
 ### Operating System
 
@@ -23,7 +23,7 @@ Before installing and running PortalRH, ensure you have the following software a
 
 ---
 
-## 📦 Required Software
+## Required Software
 
 ### 1. Python
 
@@ -154,7 +154,7 @@ git --version
 
 ---
 
-## 🛠️ Recommended Tools
+## Recommended Tools
 
 ### Code Editor / IDE
 
@@ -182,7 +182,7 @@ GitLens (eamodio.gitlens)
 
 ---
 
-## 🐳 Optional: Docker & Docker Compose
+## Optional: Docker & Docker Compose
 
 **Version:** Docker 24.x, Docker Compose 2.x
 
@@ -213,7 +213,7 @@ docker compose version
 
 ---
 
-## 📋 Pre-Installation Checklist
+## Pre-Installation Checklist
 
 Before proceeding with installation, verify:
 
@@ -227,7 +227,7 @@ Before proceeding with installation, verify:
 
 ---
 
-## 🔧 Environment Setup Verification
+## Environment Setup Verification
 
 Run these commands to verify your setup:
 
@@ -251,7 +251,7 @@ All commands should return version numbers without errors.
 
 ---
 
-## ⚠️ Common Issues
+## Common Issues
 
 ### Python Not Found
 
@@ -281,7 +281,7 @@ lsof -i :3000
 
 ---
 
-## 📚 Next Steps
+## Next Steps
 
 Once all prerequisites are installed:
 

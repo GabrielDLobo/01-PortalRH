@@ -9,7 +9,7 @@ Welcome to the **PortalRH** documentation portal. This comprehensive guide cover
 
 ---
 
-## 📋 Quick Navigation
+## Quick Navigation
 
 | Section | Description |
 |---------|-------------|
@@ -30,7 +30,7 @@ Welcome to the **PortalRH** documentation portal. This comprehensive guide cover
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 For developers getting started quickly:
 
@@ -60,7 +60,7 @@ python manage.py runserver
 
 ---
 
-## 📌 Key Features
+## Key Features
 
 - **Employee Management** - Complete employee profiles and document management
 - **Leave Management** - Leave request submission and approval workflow
@@ -72,7 +72,7 @@ python manage.py runserver
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |-------|------------|
@@ -85,7 +85,7 @@ python manage.py runserver
 
 ---
 
-## 📞 Support
+## Support
 
 For issues, questions, or contributions:
 
@@ -95,7 +95,7 @@ For issues, questions, or contributions:
 
 ---
 
-## 📄 License
+## License
 
 Private repository for internal use.
 

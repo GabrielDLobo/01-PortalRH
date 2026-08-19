@@ -4,7 +4,7 @@ Get PortalRH up and running quickly with this quick start guide.
 
 ---
 
-## ⚡ Quick Installation
+## Quick Installation
 
 ### 1. Clone and Setup
 
@@ -76,7 +76,7 @@ Frontend running at: http://localhost:3000/
 
 ---
 
-## 🎯 First Steps
+## First Steps
 
 ### 1. Access Django Admin
 
@@ -122,7 +122,7 @@ curl -X POST http://127.0.0.1:8000/api/v1/leave-requests/types/ \
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 01-PortalRH/
@@ -140,7 +140,7 @@ curl -X POST http://127.0.0.1:8000/api/v1/leave-requests/types/ \
 
 ---
 
-## 🔑 Key Features to Explore
+## Key Features to Explore
 
 ### Employee Management
 
@@ -172,7 +172,7 @@ curl -X POST http://127.0.0.1:8000/api/v1/leave-requests/types/ \
 
 ---
 
-## 🛠️ Common Tasks
+## Common Tasks
 
 ### Create Employee
 
@@ -207,7 +207,7 @@ curl -X POST http://127.0.0.1:8000/api/v1/leave-requests/ \
 
 ---
 
-## 📚 Next Steps
+## Next Steps
 
 - Read the [Installation Guide](installation.md) for detailed setup
 - Check [Configuration Guide](configuration.md) for environment settings
@@ -248,7 +248,7 @@ npm install
 
 ---
 
-## 📞 Getting Help
+## Getting Help
 
 - **Documentation:** Browse the [docs](index.md)
 - **Issues:** Report on [GitHub Issues](https://github.com/GabrielDLobo/01-PortalRH/issues)
@@ -256,4 +256,4 @@ npm install
 
 ---
 
-**Happy coding! 🚀**
+**Happy coding! **

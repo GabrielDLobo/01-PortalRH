@@ -70,50 +70,32 @@ mkdocs gh-deploy --clean
 
 ## Getting Started
 
-### 1. Clone and use the existing virtual environment
+Backend setup, from a clean clone, in five commands (Windows):
 
 ```bash
-git clone https://github.com/GabrielDLobo/01-PortalRH.git
-cd 01-PortalRH
-```
-
-Activate the existing environment already used in this project:
-
-```bash
-venv\Scripts\activate
-```
-
-### 2. Install dependencies
-
-```bash
+git clone https://github.com/GabrielDLobo/01-PortalRH.git && cd 01-PortalRH
+python -m venv venv && venv\Scripts\activate
 pip install -r requirements.txt
+python -c "import secrets; print(f'SECRET_KEY={secrets.token_urlsafe(50)}')" > .env
+python manage.py migrate && python manage.py runserver
+```
+
+`SECRET_KEY` is required — the app will not start without it (see [Security](#security)).
+For a real deployment, start from `.env.example` instead, which documents every
+supported variable (database, email, CORS, etc.).
+
+### Frontend (optional)
+
+```bash
 cd frontend
 npm install
-cd ..
-```
-
-### 3. Apply database migrations
-
-```bash
-python manage.py migrate
-```
-
-### 4. Start backend and frontend
-
-```bash
-python manage.py runserver
-```
-
-In another terminal:
-
-```bash
-cd frontend
 npm run dev
 ```
 
-### 5. Start local documentation
+### Documentation site (optional)
 
 ```bash
+pip install -r requirements-dev.txt
 mkdocs serve -a 127.0.0.1:8001
 ```
 
@@ -121,9 +103,22 @@ mkdocs serve -a 127.0.0.1:8001
 
 ```bash
 python manage.py test
-mkdocs build --clean
+ruff check . && ruff format --check .
+bandit -r . -c pyproject.toml
+pip-audit -r requirements.txt
 mkdocs gh-deploy --clean
 ```
+
+## Security
+
+- `SECRET_KEY` is required from the environment; the app fails to start without it. `DEBUG` defaults to `False`.
+- Login and token refresh are rate-limited; JWT refresh tokens rotate and are blacklisted on rotation.
+- Permissions are enforced by role (HR vs. employee) at both the queryset and object level.
+- Employee document uploads are checked against an extension whitelist, a size limit, and a content-signature match.
+- `ruff`, `bandit`, and `pip-audit` run in CI on every push.
+- Swagger (`/api/docs/`) and Redoc (`/api/redoc/`) are left public as a portfolio decision, so the API surface can be reviewed without authenticating.
+
+Full details and how to report a vulnerability: [SECURITY.md](SECURITY.md).
 
 ## Support
 
@@ -138,18 +133,18 @@ All current interface components are listed in the documentation page below:
 
 ### Component Gallery
 
-![Login](media/projecting/1.png)
-![Dashboard](media/projecting/2.png)
-![Employees](media/projecting/3.png)
-![Admission Process](media/projecting/4.png)
-![ ](media/projecting/5.png)
-![ ](media/projecting/6.png)
-![ ](media/projecting/7.png)
-![Leave Requests](media/projecting/8.png)
-![ ](media/projecting/9.png)
-![Performance Evaluations](media/projecting/10.png)
-![ ](media/projecting/11.png)
-![Terminations](media/projecting/12.png)
-![ ](media/projecting/13.png)
-![Reports](media/projecting/14.png)
-![Profile](media/projecting/15.png)
+![Login](docs/assets/projecting/1.png)
+![Dashboard](docs/assets/projecting/2.png)
+![Employees](docs/assets/projecting/3.png)
+![Admission Process](docs/assets/projecting/4.png)
+![ ](docs/assets/projecting/5.png)
+![ ](docs/assets/projecting/6.png)
+![ ](docs/assets/projecting/7.png)
+![Leave Requests](docs/assets/projecting/8.png)
+![ ](docs/assets/projecting/9.png)
+![Performance Evaluations](docs/assets/projecting/10.png)
+![ ](docs/assets/projecting/11.png)
+![Terminations](docs/assets/projecting/12.png)
+![ ](docs/assets/projecting/13.png)
+![Reports](docs/assets/projecting/14.png)
+![Profile](docs/assets/projecting/15.png)

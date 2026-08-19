@@ -4,7 +4,7 @@ This guide covers the development workflow, tools, and best practices for contri
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Development Environment Setup](#development-environment-setup)
 - [Running the Application](#running-the-application)
@@ -17,7 +17,7 @@ This guide covers the development workflow, tools, and best practices for contri
 
 ---
 
-## 🖥️ Development Environment Setup
+## Development Environment Setup
 
 ### Prerequisites
 
@@ -68,7 +68,7 @@ Create `.vscode/settings.json`:
 
 ---
 
-## 🚀 Running the Application
+## Running the Application
 
 ### Backend Server
 
@@ -124,7 +124,7 @@ task run
 
 ---
 
-## 📏 Code Style and Linting
+## Code Style and Linting
 
 ### Python (Backend)
 
@@ -212,7 +212,7 @@ npm run type-check
 
 ---
 
-## 🗄️ Database Management
+## Database Management
 
 ### Migrations
 
@@ -301,7 +301,7 @@ python manage.py setup_initial_data
 
 ---
 
-## 🌿 Working with Git
+## Working with Git
 
 ### Branch Strategy
 
@@ -381,7 +381,7 @@ git commit
 
 ---
 
-## ✨ Creating New Features
+## Creating New Features
 
 ### Backend Feature Template
 
@@ -551,7 +551,7 @@ function App() {
 
 ---
 
-## 🐛 Debugging
+## Debugging
 
 ### Backend Debugging
 
@@ -622,7 +622,7 @@ const problematicFunction = () => {
 
 ---
 
-## 📝 Common Development Tasks
+## Common Development Tasks
 
 ### Adding a New API Endpoint
 
@@ -701,7 +701,7 @@ python manage.py collectstatic --clear
 
 ---
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -746,7 +746,7 @@ pip install -r requirements.txt --force-reinstall
 
 ---
 
-## 📚 Related Documentation
+## Related Documentation
 
 - [Testing Guide](testing.md) - Testing strategies
 - [API Endpoints](api-endpoints.md) - API reference

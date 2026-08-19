@@ -4,7 +4,7 @@ This guide covers testing strategies, frameworks, and best practices for PortalR
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Testing Overview](#testing-overview)
 - [Backend Testing](#backend-testing)
@@ -17,7 +17,7 @@ This guide covers testing strategies, frameworks, and best practices for PortalR
 
 ---
 
-## 🎯 Testing Overview
+## Testing Overview
 
 ### Testing Pyramid
 
@@ -44,7 +44,7 @@ This guide covers testing strategies, frameworks, and best practices for PortalR
 
 ---
 
-## 🐍 Backend Testing
+## Backend Testing
 
 ### Pytest Configuration
 
@@ -342,7 +342,7 @@ class TestLeaveServices:
 
 ---
 
-## ⚛️ Frontend Testing
+## Frontend Testing
 
 ### Jest Configuration
 
@@ -605,7 +605,7 @@ describe('LoginPage', () => {
 
 ---
 
-## 🔗 Integration Testing
+## Integration Testing
 
 ### API Integration Tests
 
@@ -663,7 +663,7 @@ class TestLeaveRequestWorkflow:
 
 ---
 
-## 🎭 End-to-End Testing
+## End-to-End Testing
 
 ### Playwright Setup
 
@@ -735,7 +735,7 @@ test.describe('Employee Management', () => {
 
 ---
 
-## 📊 Test Coverage
+## Test Coverage
 
 ### Running Coverage Reports
 
@@ -779,7 +779,7 @@ start coverage/index.html  # Windows
 
 ---
 
-## 🔄 Continuous Integration
+## Continuous Integration
 
 ### GitHub Actions Example
 
@@ -864,9 +864,9 @@ jobs:
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
-### DO ✅
+### DO
 
 - Write tests before fixing bugs (TDD)
 - Use descriptive test names
@@ -879,7 +879,7 @@ jobs:
 - Keep tests fast
 - Document complex tests
 
-### DON'T ❌
+### DON'T
 
 - Test implementation details
 - Write tests that depend on each other
@@ -892,7 +892,7 @@ jobs:
 
 ---
 
-## 📚 Related Documentation
+## Related Documentation
 
 - [Development Guide](development.md) - Development workflow
 - [API Endpoints](api-endpoints.md) - API reference
@@ -933,7 +933,7 @@ pip install pytest pytest-django pytest-cov
 
 ---
 
-## 📖 Resources
+## Resources
 
 - [pytest Documentation](https://docs.pytest.org/)
 - [Django Testing](https://docs.djangoproject.com/en/stable/topics/testing/)

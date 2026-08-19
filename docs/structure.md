@@ -4,7 +4,7 @@ This document provides a comprehensive overview of the PortalRH project director
 
 ---
 
-## 📁 Root Directory Structure
+## Root Directory Structure
 
 ```
 01-PortalRH/
@@ -35,7 +35,7 @@ This document provides a comprehensive overview of the PortalRH project director
 
 ---
 
-## 📂 Core Directories
+## Core Directories
 
 ### `/app` - Django Project Configuration
 
@@ -353,7 +353,7 @@ media/
 
 ---
 
-## 📄 Configuration Files
+## Configuration Files
 
 ### Root Configuration
 
@@ -381,7 +381,7 @@ media/
 
 ---
 
-## 🔗 URL Structure
+## URL Structure
 
 ### Backend API Routes
 
@@ -453,7 +453,7 @@ media/
 
 ---
 
-## 🗂️ Database Structure
+## Database Structure
 
 ### SQLite (Development)
 
@@ -492,7 +492,7 @@ reports_report_bookmark          # Report bookmarks
 
 ---
 
-## 📊 File Statistics
+## File Statistics
 
 | Category | Count |
 |----------|-------|
@@ -504,7 +504,7 @@ reports_report_bookmark          # Report bookmarks
 
 ---
 
-## 🔄 Data Flow
+## Data Flow
 
 ```
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
@@ -521,7 +521,7 @@ reports_report_bookmark          # Report bookmarks
 
 ---
 
-## 📚 Related Documentation
+## Related Documentation
 
 - [API Endpoints](api-endpoints.md) - Detailed API reference
 - [System Modeling](system-modeling.md) - Data models and architecture

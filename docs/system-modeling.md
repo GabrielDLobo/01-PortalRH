@@ -4,7 +4,7 @@ This document provides comprehensive system modeling including data models, arch
 
 ---
 
-## 📊 Entity Relationship Diagram (ERD)
+## Entity Relationship Diagram (ERD)
 
 ```mermaid
 erDiagram
@@ -38,7 +38,7 @@ erDiagram
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 ```mermaid
 graph TB
@@ -84,7 +84,7 @@ graph TB
 
 ---
 
-## 🔐 Authentication Flow
+## Authentication Flow
 
 ```mermaid
 sequenceDiagram
@@ -118,7 +118,7 @@ sequenceDiagram
 
 ---
 
-## 📝 CRUD Operations Flow
+## CRUD Operations Flow
 
 ### Employee Management CRUD
 
@@ -222,7 +222,7 @@ flowchart LR
 
 ---
 
-## 🔒 Security Architecture
+## Security Architecture
 
 ```mermaid
 flowchart TB
@@ -255,7 +255,7 @@ flowchart TB
 
 ---
 
-## 📦 Component Architecture
+## Component Architecture
 
 ### Backend Component Diagram
 
@@ -336,7 +336,7 @@ graph TD
 
 ---
 
-## 🔄 State Management
+## State Management
 
 ### Frontend State Flow
 
@@ -362,7 +362,7 @@ stateDiagram-v2
 
 ---
 
-## 📊 Database Schema Details
+## Database Schema Details
 
 ### User & Authentication
 
@@ -496,7 +496,7 @@ classDiagram
 
 ---
 
-## 🌐 Deployment Architecture
+## Deployment Architecture
 
 ```mermaid
 graph TB
@@ -543,7 +543,7 @@ graph TB
 
 ---
 
-## 📈 Performance Architecture
+## Performance Architecture
 
 ```mermaid
 flowchart LR
@@ -585,7 +585,7 @@ flowchart LR
 
 ---
 
-## 🔄 Integration Points
+## Integration Points
 
 ```mermaid
 flowchart TB
@@ -616,7 +616,7 @@ flowchart TB
 
 ---
 
-## 📱 User Interface Flow
+## User Interface Flow
 
 ```mermaid
 flowchart LR
@@ -646,7 +646,7 @@ flowchart LR
 
 ---
 
-## 📚 Related Documentation
+## Related Documentation
 
 - [API Endpoints](api-endpoints.md) - API reference
 - [Authentication](authentication.md) - Security details
@@ -654,7 +654,7 @@ flowchart LR
 
 ---
 
-## 🎯 Key Design Decisions
+## Key Design Decisions
 
 ### Database Design
 

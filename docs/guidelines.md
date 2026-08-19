@@ -4,7 +4,7 @@ This document outlines the coding standards, best practices, and guidelines for 
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Python Code Style](#python-code-style)
 - [JavaScript/TypeScript Code Style](#javascripttypescript-code-style)
@@ -18,7 +18,7 @@ This document outlines the coding standards, best practices, and guidelines for 
 
 ---
 
-## 🐍 Python Code Style
+## Python Code Style
 
 ### General Guidelines
 
@@ -122,7 +122,7 @@ from employees.services import get_employee_profile
 
 ---
 
-## 📜 JavaScript/TypeScript Code Style
+## JavaScript/TypeScript Code Style
 
 ### General Guidelines
 
@@ -248,7 +248,7 @@ export const EmployeeList: React.FC<EmployeeListProps> = ({
 
 ---
 
-## 🌿 Git Workflow
+## Git Workflow
 
 ### Branch Naming
 
@@ -285,7 +285,7 @@ git push origin feature/employee-crud
 
 ---
 
-## 📝 Commit Message Guidelines
+## Commit Message Guidelines
 
 Follow [Conventional Commits](https://www.conventionalcommits.org/) specification:
 
@@ -336,7 +336,7 @@ BREAKING CHANGE: API v1 endpoints are deprecated
 
 ---
 
-## 🔍 Code Review Process
+## Code Review Process
 
 ### Review Checklist
 
@@ -378,7 +378,7 @@ BREAKING CHANGE: API v1 endpoints are deprecated
 
 ---
 
-## 🧪 Testing Guidelines
+## Testing Guidelines
 
 ### Python Testing
 
@@ -444,7 +444,7 @@ npm test -- --coverage
 
 ---
 
-## 📚 Documentation Standards
+## Documentation Standards
 
 ### Code Comments
 
@@ -497,7 +497,7 @@ Description...
 
 ---
 
-## 🔒 Security Best Practices
+## Security Best Practices
 
 ### Authentication
 
@@ -548,7 +548,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
 ---
 
-## ⚡ Performance Guidelines
+## Performance Guidelines
 
 ### Database Queries
 
@@ -621,7 +621,7 @@ def get_employee_data(employee_id):
 
 ---
 
-## 📁 File Organization
+## File Organization
 
 ### Backend
 
@@ -659,9 +659,9 @@ src/
 
 ---
 
-## 🎯 Best Practices Summary
+## Best Practices Summary
 
-### DO ✅
+### DO
 
 - Write tests for new features
 - Use type hints
@@ -674,7 +674,7 @@ src/
 - Review your own code first
 - Keep PRs small and focused
 
-### DON'T ❌
+### DON'T
 
 - Commit .env files
 - Hardcode credentials
@@ -689,7 +689,7 @@ src/
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [PEP 8 Style Guide](https://pep8.org/)
 - [Django Style Guide](https://docs.djangoproject.com/en/stable/internals/contributing/writing-code/coding-style/)

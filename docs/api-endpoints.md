@@ -4,7 +4,7 @@ Complete API reference documentation for PortalRH REST API.
 
 ---
 
-## 📋 Overview
+## Overview
 
 - **Base URL:** `/api/v1/`
 - **Authentication:** JWT Bearer Token
@@ -13,7 +13,7 @@ Complete API reference documentation for PortalRH REST API.
 
 ---
 
-## 🔐 Authentication
+## Authentication
 
 ### Obtain Token
 
@@ -124,7 +124,7 @@ Update current user profile.
 
 ---
 
-## 👥 Employees API
+## Employees API
 
 ### List Employees
 
@@ -301,7 +301,7 @@ Upload a new document for an employee.
 
 ---
 
-## 🏖️ Leave Requests API
+## Leave Requests API
 
 ### List Leave Types
 
@@ -462,7 +462,7 @@ Get current user's leave balances.
 
 ---
 
-## 📊 Evaluations API
+## Evaluations API
 
 ### List Evaluation Templates
 
@@ -571,7 +571,7 @@ Finalize an evaluation and calculate final score.
 
 ---
 
-## 📄 Termination API
+## Termination API
 
 ### List Termination Reasons
 
@@ -675,7 +675,7 @@ Mark termination as completed.
 
 ---
 
-## 👔 Staff API
+## Staff API
 
 ### List Staff Employees
 
@@ -739,7 +739,7 @@ Get all departments.
 
 ---
 
-## 📈 Reports API
+## Reports API
 
 ### List Report Templates
 
@@ -856,7 +856,7 @@ Bookmark a report for quick access.
 
 ---
 
-## 📝 Admission API
+## Admission API
 
 ### Get Pre-Admission
 
@@ -924,7 +924,7 @@ Update admission process progress.
 
 ---
 
-## 🔍 Filter & Search Parameters
+## Filter & Search Parameters
 
 ### Common Filters
 
@@ -947,7 +947,7 @@ Prefix with `-` for descending order:
 
 ---
 
-## ⚠️ Error Responses
+## Error Responses
 
 ### Standard Error Format
 
@@ -986,7 +986,7 @@ Prefix with `-` for descending order:
 
 ---
 
-## 🔒 Permissions
+## Permissions
 
 | Endpoint | Permission Required |
 |----------|---------------------|
@@ -1002,7 +1002,7 @@ Prefix with `-` for descending order:
 
 ---
 
-## 📚 Related Documentation
+## Related Documentation
 
 - [System Modeling](system-modeling.md) - Data models
 - [Authentication](authentication.md) - Security details
@@ -1034,7 +1034,7 @@ curl http://localhost:8000/api/v1/employees/ \
 
 ---
 
-## 🌐 Interactive Documentation
+## Interactive Documentation
 
 Visit the following URLs for interactive API documentation:
 

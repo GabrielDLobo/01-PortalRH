@@ -4,7 +4,7 @@ This guide covers deployment strategies, configurations, and best practices for 
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Deployment Overview](#deployment-overview)
 - [Production Requirements](#production-requirements)
@@ -19,7 +19,7 @@ This guide covers deployment strategies, configurations, and best practices for 
 
 ---
 
-## 🎯 Deployment Overview
+## Deployment Overview
 
 ### Architecture
 
@@ -56,7 +56,7 @@ This guide covers deployment strategies, configurations, and best practices for 
 
 ---
 
-## 🖥️ Production Requirements
+## Production Requirements
 
 ### Server Requirements
 
@@ -78,7 +78,7 @@ This guide covers deployment strategies, configurations, and best practices for 
 
 ---
 
-## ⚙️ Environment Configuration
+## Environment Configuration
 
 ### Production .env
 
@@ -155,7 +155,7 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
 
 ---
 
-## 🗄️ Database Setup
+## Database Setup
 
 ### PostgreSQL Installation
 
@@ -206,7 +206,7 @@ SELECT pg_reload_conf();
 
 ---
 
-## 🐍 Backend Deployment
+## Backend Deployment
 
 ### 1. Clone Repository
 
@@ -288,7 +288,7 @@ sudo systemctl status portalrh
 
 ---
 
-## 🌐 Frontend Deployment
+## Frontend Deployment
 
 ### Option 1: Build and Serve with Nginx
 
@@ -384,7 +384,7 @@ sudo systemctl reload nginx
 
 ---
 
-## 🐳 Docker Deployment
+## Docker Deployment
 
 ### docker-compose.yml (Production)
 
@@ -504,7 +504,7 @@ docker compose up -d
 
 ---
 
-## ☁️ Cloud Platform Deployment
+## Cloud Platform Deployment
 
 ### Vercel (Frontend)
 
@@ -601,7 +601,7 @@ option_settings:
 
 ---
 
-## 📊 Monitoring and Logging
+## Monitoring and Logging
 
 ### Django Logging Configuration
 
@@ -691,7 +691,7 @@ def health_check(request):
 
 ---
 
-## 💾 Backup and Recovery
+## Backup and Recovery
 
 ### Database Backup Script
 
@@ -742,7 +742,7 @@ tar -xzf media_20240101_020000.tar.gz -C /var/www/portalrh/
 
 ---
 
-## 🔒 Security Hardening
+## Security Hardening
 
 ### Firewall Configuration
 
@@ -792,7 +792,7 @@ sudo systemctl restart fail2ban
 
 ---
 
-## ✅ Deployment Verification
+## Deployment Verification
 
 ### Post-Deployment Checklist
 
@@ -821,7 +821,7 @@ curl https://portalrh.example.com/health/
 
 ---
 
-## 📚 Related Documentation
+## Related Documentation
 
 - [Configuration Guide](configuration.md) - Environment settings
 - [Authentication](authentication.md) - Security configuration
@@ -866,7 +866,7 @@ psql -U portalrh_user -d portalrh
 
 ---
 
-## 📖 Resources
+## Resources
 
 - [Django Deployment](https://docs.djangoproject.com/en/stable/howto/deployment/)
 - [Gunicorn Documentation](https://docs.gunicorn.org/)

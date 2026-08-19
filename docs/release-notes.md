@@ -4,7 +4,7 @@ This document contains release notes and changelog for PortalRH.
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Version 1.0.0](#version-100---2026-04-01)
 - [Version 0.9.0](#version-090---2026-03-01)
@@ -16,11 +16,11 @@ This document contains release notes and changelog for PortalRH.
 
 ## Version 1.0.0 - 2026-04-01
 
-### 🎉 Major Release
+### Major Release
 
 The first stable release of PortalRH - Human Resources Management System.
 
-### ✨ New Features
+### New Features
 
 #### Employee Management
 - Complete employee profile management
@@ -71,7 +71,7 @@ The first stable release of PortalRH - Human Resources Management System.
 - CORS protection
 - Input validation
 
-### 🔧 Technical Features
+### Technical Features
 
 #### Backend
 - Django 5.2.6
@@ -96,7 +96,7 @@ The first stable release of PortalRH - Human Resources Management System.
 - Gunicorn application server
 - CI/CD ready
 
-### 📦 Database Models
+### Database Models
 
 **Accounts:**
 - User (custom model with roles)
@@ -136,7 +136,7 @@ The first stable release of PortalRH - Human Resources Management System.
 - ReportSchedule
 - ReportBookmark
 
-### 🔗 API Endpoints
+### API Endpoints
 
 **Authentication:**
 - POST `/api/v1/accounts/login/`
@@ -176,7 +176,7 @@ The first stable release of PortalRH - Human Resources Management System.
 - Schedules `/api/v1/reports/schedules/`
 - Bookmarks `/api/v1/reports/bookmarks/`
 
-### 🐛 Bug Fixes
+### Bug Fixes
 
 - Fixed leave balance calculation for edge cases
 - Corrected employee ID generation sequence
@@ -184,7 +184,7 @@ The first stable release of PortalRH - Human Resources Management System.
 - Resolved CORS issues in development
 - Fixed date formatting in reports
 
-### ⚡ Performance Improvements
+### Performance Improvements
 
 - Added select_related/prefetch_related optimizations
 - Implemented database indexing
@@ -192,7 +192,7 @@ The first stable release of PortalRH - Human Resources Management System.
 - Optimized bundle size for frontend
 - Implemented lazy loading for components
 
-### 🔒 Security
+### Security
 
 - Implemented JWT authentication
 - Added role-based permissions
@@ -201,7 +201,7 @@ The first stable release of PortalRH - Human Resources Management System.
 - Implemented CSRF protection
 - Added security headers
 
-### 📚 Documentation
+### Documentation
 
 - Complete API documentation
 - System architecture diagrams
@@ -212,7 +212,7 @@ The first stable release of PortalRH - Human Resources Management System.
 - Deployment guide
 - Contributing guide
 
-### 🧪 Testing
+### Testing
 
 - Model unit tests
 - Serializer tests
@@ -224,11 +224,11 @@ The first stable release of PortalRH - Human Resources Management System.
 
 ## Version 0.9.0 - 2026-03-01
 
-### 🎯 Release Candidate
+### Release Candidate
 
 Final testing before stable release.
 
-### ✨ New Features
+### New Features
 
 - Complete reports module
 - Scheduled report generation
@@ -236,14 +236,14 @@ Final testing before stable release.
 - Email notifications
 - Document export (PDF, Excel)
 
-### 🔧 Changes
+### Changes
 
 - Updated to Django 5.2.6
 - Updated to React 19
 - Improved error handling
 - Better validation messages
 
-### 🐛 Bug Fixes
+### Bug Fixes
 
 - Fixed timezone issues
 - Corrected report generation errors
@@ -253,24 +253,24 @@ Final testing before stable release.
 
 ## Version 0.8.0 - 2026-02-01
 
-### 🎯 Beta Release
+### Beta Release
 
 Core features complete, testing phase.
 
-### ✨ New Features
+### New Features
 
 - Termination management module
 - Evaluation cycles
 - 360° feedback support
 - Advanced filtering
 
-### 🔧 Changes
+### Changes
 
 - Improved API structure
 - Better error responses
 - Enhanced security
 
-### 🐛 Bug Fixes
+### Bug Fixes
 
 - Fixed authentication edge cases
 - Corrected permission issues
@@ -280,18 +280,18 @@ Core features complete, testing phase.
 
 ## Version 0.7.0 - 2026-01-01
 
-### 🎯 Alpha Release
+### Alpha Release
 
 Initial feature set available.
 
-### ✨ New Features
+### New Features
 
 - Employee management
 - Leave requests
 - Basic evaluations
 - User authentication
 
-### 🔧 Changes
+### Changes
 
 - Initial project structure
 - Basic API endpoints
@@ -301,11 +301,11 @@ Initial feature set available.
 
 ## Version 0.6.0 - 2025-12-01
 
-### 🎯 Pre-Alpha
+### Pre-Alpha
 
 Initial development.
 
-### ✨ New Features
+### New Features
 
 - Project setup
 - Database models
@@ -313,7 +313,7 @@ Initial development.
 
 ---
 
-## 📊 Version History Summary
+## Version History Summary
 
 | Version | Date | Status | Key Features |
 |---------|------|--------|--------------|
@@ -325,7 +325,7 @@ Initial development.
 
 ---
 
-## 🔄 Upgrade Guide
+## Upgrade Guide
 
 ### From 0.9.0 to 1.0.0
 
@@ -367,7 +367,7 @@ python manage.py migrate
 
 ---
 
-## 📅 Release Schedule
+## Release Schedule
 
 | Version | Planned Date | Focus |
 |---------|--------------|-------|
@@ -377,7 +377,7 @@ python manage.py migrate
 
 ---
 
-## 🐛 Known Issues
+## Known Issues
 
 ### Version 1.0.0
 
@@ -387,7 +387,7 @@ python manage.py migrate
 
 ---
 
-## 📞 Support
+## Support
 
 ### Getting Help
 
@@ -408,13 +408,13 @@ When reporting issues, please include:
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 Thank you to all contributors who made this release possible!
 
 ---
 
-## 📚 Related Documentation
+## Related Documentation
 
 - [Installation Guide](installation.md)
 - [API Endpoints](api-endpoints.md)

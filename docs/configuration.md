@@ -4,7 +4,7 @@ This guide covers all configuration options for PortalRH, including environment 
 
 ---
 
-## 📁 Environment Files
+## Environment Files
 
 ### Backend: `.env`
 
@@ -16,7 +16,7 @@ Located in the `frontend/` directory. Controls React frontend settings.
 
 ---
 
-## ⚙️ Backend Configuration (.env)
+## Backend Configuration (.env)
 
 ### Django Settings
 
@@ -61,7 +61,7 @@ Located in the `frontend/` directory. Controls React frontend settings.
 
 ---
 
-## 🎨 Frontend Configuration (frontend/.env)
+## Frontend Configuration (frontend/.env)
 
 | Variable | Description | Default | Example |
 |----------|-------------|---------|---------|
@@ -70,7 +70,7 @@ Located in the `frontend/` directory. Controls React frontend settings.
 
 ---
 
-## 📝 Example .env Files
+## Example .env Files
 
 ### Development (.env)
 
@@ -155,7 +155,7 @@ REACT_APP_ENV=development
 
 ---
 
-## 🔐 Security Configuration
+## Security Configuration
 
 ### Secret Key Generation
 
@@ -194,7 +194,7 @@ ALLOWED_HOSTS=localhost,127.0.0.1,backend,127.0.0.1:8000
 
 ---
 
-## 🗄️ Database Configuration
+## Database Configuration
 
 ### SQLite (Development)
 
@@ -221,7 +221,7 @@ DATABASE_URL=postgres://portalrh_user:password@db:5432/portalrh
 
 ---
 
-## 📧 Email Configuration
+## Email Configuration
 
 ### Console Backend (Development)
 
@@ -261,7 +261,7 @@ EMAIL_HOST_PASSWORD=your-password
 
 ---
 
-## 🌐 CORS Configuration
+## CORS Configuration
 
 ### Development
 
@@ -286,7 +286,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 ---
 
-## 📊 Django Settings Reference
+## Django Settings Reference
 
 ### Key Settings in `app/settings.py`
 
@@ -332,7 +332,7 @@ REST_FRAMEWORK = {
 
 ---
 
-## 🔄 Environment-Specific Settings
+## Environment-Specific Settings
 
 ### Development
 
@@ -360,7 +360,7 @@ REST_FRAMEWORK = {
 
 ---
 
-## 🐳 Docker Configuration
+## Docker Configuration
 
 ### docker-compose.yml Environment Variables
 
@@ -381,7 +381,7 @@ services:
 
 ---
 
-## ✅ Configuration Verification
+## Configuration Verification
 
 ### Backend
 
@@ -412,7 +412,7 @@ npm run serve
 
 ---
 
-## ⚠️ Common Configuration Issues
+## Common Configuration Issues
 
 ### SECRET_KEY Errors
 
@@ -444,7 +444,7 @@ npm run serve
 
 ---
 
-## 📚 Related Documentation
+## Related Documentation
 
 - [Installation Guide](installation.md) - Initial setup
 - [Development Guide](development.md) - Development workflow

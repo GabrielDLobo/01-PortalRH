@@ -4,7 +4,7 @@ Thank you for your interest in contributing to PortalRH! This guide provides gui
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
 - [Getting Started](#getting-started)
@@ -17,7 +17,7 @@ Thank you for your interest in contributing to PortalRH! This guide provides gui
 
 ---
 
-## 🤝 Code of Conduct
+## Code of Conduct
 
 ### Our Pledge
 
@@ -39,7 +39,7 @@ We pledge to make participation in PortalRH a harassment-free experience for eve
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Fork the Repository
 
@@ -81,7 +81,7 @@ git checkout -b feature/your-feature-name
 
 ---
 
-## 📝 How to Contribute
+## How to Contribute
 
 ### Types of Contributions
 
@@ -123,7 +123,7 @@ git checkout -b feature/your-feature-name
 
 ---
 
-## 🔀 Pull Request Guidelines
+## Pull Request Guidelines
 
 ### PR Checklist
 
@@ -185,7 +185,7 @@ flowchart LR
 
 ---
 
-## 📏 Coding Standards
+## Coding Standards
 
 ### Python Guidelines
 
@@ -284,7 +284,7 @@ try {
 
 ---
 
-## 🐛 Issue Reporting
+## Issue Reporting
 
 ### Bug Report Template
 
@@ -336,7 +336,7 @@ Mockups, examples, etc.
 
 ---
 
-## 🌿 Development Workflow
+## Development Workflow
 
 ### Branch Naming
 
@@ -394,7 +394,7 @@ chore(deps): update django version
 
 ---
 
-## 🧪 Testing Requirements
+## Testing Requirements
 
 ### Backend Tests
 
@@ -445,7 +445,7 @@ npm test -- --coverage
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 ### Code Comments
 
@@ -470,7 +470,7 @@ When adding new features:
 
 ---
 
-## 🎯 Recognition
+## Recognition
 
 ### Contributors
 
@@ -491,7 +491,7 @@ Active contributors may be invited to become maintainers:
 
 ---
 
-## 📞 Communication
+## Communication
 
 ### Getting Help
 
@@ -507,7 +507,7 @@ Active contributors may be invited to become maintainers:
 
 ---
 
-## ⚖️ Legal
+## Legal
 
 ### License
 
@@ -519,7 +519,7 @@ All contributions are subject to the project's copyright.
 
 ---
 
-## 📊 Contribution Stats
+## Contribution Stats
 
 ### Where to Contribute
 
@@ -535,19 +535,19 @@ All contributions are subject to the project's copyright.
 
 | Level | Description | Good For |
 |-------|-------------|----------|
-| 🟢 Easy | Small changes, docs | Beginners |
-| 🟡 Medium | Features, refactoring | Intermediate |
-| 🔴 Hard | Architecture, optimization | Advanced |
+| Easy | Small changes, docs | Beginners |
+| Medium | Features, refactoring | Intermediate |
+| Hard | Architecture, optimization | Advanced |
 
 ---
 
-## 🙏 Thank You!
+## Thank You!
 
 Your contributions make PortalRH better for everyone. We appreciate your time and effort!
 
 ---
 
-## 📚 Related Documentation
+## Related Documentation
 
 - [Development Guide](development.md) - Development setup
 - [Guidelines](guidelines.md) - Coding standards
@@ -555,7 +555,7 @@ Your contributions make PortalRH better for everyone. We appreciate your time an
 
 ---
 
-## 🔗 Resources
+## Resources
 
 - [First Contributions Guide](https://github.com/firstcontributions/first-contributions)
 - [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/)
