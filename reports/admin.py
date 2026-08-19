@@ -6,8 +6,6 @@ from .models import ReportBookmark, ReportCategory, ReportExecution, ReportSched
 
 @admin.register(ReportCategory)
 class ReportCategoryAdmin(admin.ModelAdmin):
-    """Admin interface for ReportCategory"""
-
     list_display = ["name", "description", "color_badge", "is_active", "created_at"]
     list_filter = ["is_active", "created_at"]
     search_fields = ["name", "description"]
@@ -15,7 +13,6 @@ class ReportCategoryAdmin(admin.ModelAdmin):
     ordering = ["name"]
 
     def color_badge(self, obj):
-        """Display color as badge"""
         return format_html(
             '<span style="background-color: {}; color: white; padding: 2px 8px; border-radius: 3px;">{}</span>',
             obj.color,
@@ -27,8 +24,6 @@ class ReportCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(ReportTemplate)
 class ReportTemplateAdmin(admin.ModelAdmin):
-    """Admin interface for ReportTemplate"""
-
     list_display = [
         "name",
         "report_type",
@@ -78,7 +73,6 @@ class ReportTemplateAdmin(admin.ModelAdmin):
     )
 
     def save_model(self, request, obj, form, change):
-        """Set created_by when creating new template"""
         if not change:  # Only on creation
             obj.created_by = request.user
         super().save_model(request, obj, form, change)
@@ -86,8 +80,6 @@ class ReportTemplateAdmin(admin.ModelAdmin):
 
 @admin.register(ReportExecution)
 class ReportExecutionAdmin(admin.ModelAdmin):
-    """Admin interface for ReportExecution"""
-
     list_display = [
         "template",
         "executed_by",
@@ -139,7 +131,6 @@ class ReportExecutionAdmin(admin.ModelAdmin):
     )
 
     def has_add_permission(self, request):
-        """Disable manual creation of executions"""
         return False
 
     def has_change_permission(self, request, obj=None):
@@ -149,8 +140,6 @@ class ReportExecutionAdmin(admin.ModelAdmin):
 
 @admin.register(ReportSchedule)
 class ReportScheduleAdmin(admin.ModelAdmin):
-    """Admin interface for ReportSchedule"""
-
     list_display = [
         "name",
         "template",
@@ -205,7 +194,6 @@ class ReportScheduleAdmin(admin.ModelAdmin):
     )
 
     def success_rate_display(self, obj):
-        """Display success rate as percentage"""
         rate = obj.success_rate
         if rate >= 90:
             color = "green"
@@ -221,7 +209,6 @@ class ReportScheduleAdmin(admin.ModelAdmin):
     success_rate_display.short_description = "Success Rate"
 
     def save_model(self, request, obj, form, change):
-        """Set created_by when creating new schedule"""
         if not change:  # Only on creation
             obj.created_by = request.user
         super().save_model(request, obj, form, change)
@@ -229,8 +216,6 @@ class ReportScheduleAdmin(admin.ModelAdmin):
 
 @admin.register(ReportBookmark)
 class ReportBookmarkAdmin(admin.ModelAdmin):
-    """Admin interface for ReportBookmark"""
-
     list_display = ["display_name", "user", "template", "template_type", "created_at", "updated_at"]
     list_filter = ["template__report_type", "created_at", "user"]
     search_fields = [
@@ -243,13 +228,11 @@ class ReportBookmarkAdmin(admin.ModelAdmin):
     readonly_fields = ["created_at", "updated_at"]
 
     def display_name(self, obj):
-        """Display bookmark name or template name"""
         return obj.name or obj.template.name
 
     display_name.short_description = "Bookmark Name"
 
     def template_type(self, obj):
-        """Display template type"""
         return obj.template.get_report_type_display()
 
     template_type.short_description = "Report Type"

@@ -32,10 +32,6 @@ from .serializers import (
 
 
 class EvaluationTemplateViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing evaluation templates
-    """
-
     queryset = EvaluationTemplate.objects.prefetch_related("criteria")
     permission_classes = [IsStaffOrAdminRH]
     filter_backends = [SearchFilter, OrderingFilter]
@@ -44,13 +40,11 @@ class EvaluationTemplateViewSet(viewsets.ModelViewSet):
     ordering = ["nome"]
 
     def get_serializer_class(self):
-        """Return appropriate serializer based on action"""
         if self.action == "list":
             return EvaluationTemplateListSerializer
         return EvaluationTemplateSerializer
 
     def get_permissions(self):
-        """Return appropriate permissions based on action"""
         if self.action in ["create", "update", "partial_update", "destroy"]:
             permission_classes = [IsAdminRH]
         else:
@@ -66,10 +60,6 @@ class EvaluationTemplateViewSet(viewsets.ModelViewSet):
 
 
 class EvaluationViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing evaluations
-    """
-
     queryset = Evaluation.objects.select_related(
         "template", "avaliado", "avaliador"
     ).prefetch_related("scores__criterio")
@@ -89,7 +79,6 @@ class EvaluationViewSet(viewsets.ModelViewSet):
     ordering = ["-created_at"]
 
     def get_serializer_class(self):
-        """Return appropriate serializer based on action"""
         if self.action == "list":
             return EvaluationListSerializer
         elif self.action == "retrieve":
@@ -103,7 +92,6 @@ class EvaluationViewSet(viewsets.ModelViewSet):
         return EvaluationDetailSerializer
 
     def get_permissions(self):
-        """Return appropriate permissions based on action"""
         if self.action in ["list", "retrieve"]:
             permission_classes = [permissions.IsAuthenticated, CanViewEvaluation]
         elif self.action in ["create", "update", "partial_update"]:
@@ -118,7 +106,6 @@ class EvaluationViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        """Filter queryset based on user role"""
         user = self.request.user
 
         if user.is_admin_rh:
@@ -129,7 +116,6 @@ class EvaluationViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def my_evaluations(self, request):
-        """Get evaluations where current user is involved"""
         user = request.user
 
         # Evaluations where user is being evaluated
@@ -147,7 +133,6 @@ class EvaluationViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def evaluate(self, request, pk=None):
-        """Perform evaluation actions (finalize, approve, reject)"""
         evaluation = self.get_object()
         serializer = self.get_serializer(data=request.data, context={"evaluation": evaluation})
 
@@ -176,7 +161,6 @@ class EvaluationViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def stats(self, request):
-        """Get evaluation statistics"""
         evaluations = Evaluation.objects.all()
 
         # Basic counts
@@ -238,10 +222,6 @@ class EvaluationViewSet(viewsets.ModelViewSet):
 
 
 class EvaluationScoreViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing evaluation scores
-    """
-
     queryset = EvaluationScore.objects.select_related("avaliacao", "criterio")
     serializer_class = EvaluationScoreSerializer
     permission_classes = [IsStaffOrAdminRH, CanManageEvaluation]
@@ -251,13 +231,11 @@ class EvaluationScoreViewSet(viewsets.ModelViewSet):
     ordering = ["criterio__ordem"]
 
     def get_serializer_class(self):
-        """Return appropriate serializer based on action"""
         if self.action == "create":
             return EvaluationScoreCreateSerializer
         return EvaluationScoreSerializer
 
     def get_queryset(self):
-        """Filter queryset based on user role and evaluation access"""
         user = self.request.user
 
         if user.is_admin_rh:
@@ -271,7 +249,6 @@ class EvaluationScoreViewSet(viewsets.ModelViewSet):
             )
 
     def get_serializer_context(self):
-        """Add evaluation to context if provided in URL"""
         context = super().get_serializer_context()
 
         # If evaluation_pk is in the URL, add it to context
@@ -289,10 +266,6 @@ class EvaluationScoreViewSet(viewsets.ModelViewSet):
 
 
 class EvaluationCycleViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing evaluation cycles
-    """
-
     queryset = EvaluationCycle.objects.select_related("template", "created_by").prefetch_related(
         "participants"
     )
@@ -305,18 +278,15 @@ class EvaluationCycleViewSet(viewsets.ModelViewSet):
     ordering = ["-created_at"]
 
     def get_serializer_class(self):
-        """Return appropriate serializer based on action"""
         if self.action == "list":
             return EvaluationCycleListSerializer
         return EvaluationCycleSerializer
 
     def perform_create(self, serializer):
-        """Set created_by to current user"""
         serializer.save(created_by=self.request.user)
 
     @action(detail=True, methods=["post"])
     def start(self, request, pk=None):
-        """Start an evaluation cycle"""
         cycle = self.get_object()
 
         if cycle.status != "planejado":
@@ -333,7 +303,6 @@ class EvaluationCycleViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def complete(self, request, pk=None):
-        """Complete an evaluation cycle"""
         cycle = self.get_object()
 
         if cycle.status != "ativo":

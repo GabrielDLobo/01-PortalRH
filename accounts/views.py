@@ -20,14 +20,9 @@ from .serializers import (
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing users
-    """
-
     queryset = User.objects.all()
 
     def get_serializer_class(self):
-        """Return appropriate serializer based on action"""
         if self.action == "create":
             return UserCreateSerializer
         elif self.action in ["update", "partial_update"]:
@@ -39,7 +34,6 @@ class UserViewSet(viewsets.ModelViewSet):
         return UserSerializer
 
     def get_permissions(self):
-        """Return appropriate permissions based on action"""
         if self.action in ["create", "list", "destroy"]:
             permission_classes = [IsAdminRH]
         elif self.action in ["retrieve", "update", "partial_update"]:
@@ -52,7 +46,6 @@ class UserViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        """Filter queryset based on user role"""
         user = self.request.user
 
         if user.is_admin_rh:
@@ -63,13 +56,11 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def profile(self, request):
-        """Get current user profile"""
         serializer = self.get_serializer(request.user)
         return Response(serializer.data)
 
     @action(detail=False, methods=["post"])
     def change_password(self, request):
-        """Change user password"""
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -94,10 +85,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
-    """
-    Custom JWT token obtain view with additional user data
-    """
-
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "login"
 
@@ -132,8 +119,6 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 
 class ThrottledTokenRefreshView(TokenRefreshView):
-    """Token refresh view with rate limiting to slow down refresh-token brute-forcing"""
-
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "token_refresh"
 
@@ -161,9 +146,6 @@ class RegisterView(generics.CreateAPIView):
 @api_view(["POST"])
 @permission_classes([permissions.IsAuthenticated])
 def first_login_password_change(request):
-    """
-    Change password for first login users
-    """
     # Check if user needs to change password
     if not hasattr(request.user, "employee_profile"):
         return Response(
@@ -201,9 +183,6 @@ def first_login_password_change(request):
 @api_view(["GET"])
 @permission_classes([permissions.IsAuthenticated])
 def check_password_change_required(request):
-    """
-    Check if user needs to change password on first login
-    """
     requires_password_change = False
     if hasattr(request.user, "employee_profile"):
         requires_password_change = request.user.employee_profile.requires_password_change

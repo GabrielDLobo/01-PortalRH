@@ -9,8 +9,6 @@ User = get_user_model()
 
 
 class ReportCategorySerializer(serializers.ModelSerializer):
-    """Serializer for ReportCategory model"""
-
     class Meta:
         model = ReportCategory
         fields = [
@@ -27,8 +25,6 @@ class ReportCategorySerializer(serializers.ModelSerializer):
 
 
 class ReportTemplateListSerializer(serializers.ModelSerializer):
-    """Simplified serializer for listing report templates"""
-
     category_name = serializers.CharField(source="category.name", read_only=True)
     created_by_name = serializers.CharField(source="created_by.get_full_name", read_only=True)
     report_type_display = serializers.CharField(source="get_report_type_display", read_only=True)
@@ -65,13 +61,10 @@ class ReportTemplateListSerializer(serializers.ModelSerializer):
         ]
 
     def get_execution_count(self, obj) -> int:
-        """Get the number of executions for this template"""
         return obj.executions.count()
 
 
 class ReportTemplateDetailSerializer(serializers.ModelSerializer):
-    """Detailed serializer for report templates"""
-
     category_name = serializers.CharField(source="category.name", read_only=True)
     created_by_name = serializers.CharField(source="created_by.get_full_name", read_only=True)
     report_type_display = serializers.CharField(source="get_report_type_display", read_only=True)
@@ -119,7 +112,6 @@ class ReportTemplateDetailSerializer(serializers.ModelSerializer):
         ]
 
     def get_allowed_users_details(self, obj) -> List[Dict[str, Any]]:
-        """Get details of allowed users"""
         return [
             {
                 "id": user.id,
@@ -131,7 +123,6 @@ class ReportTemplateDetailSerializer(serializers.ModelSerializer):
         ]
 
     def get_recent_executions(self, obj) -> List[Dict[str, Any]]:
-        """Get recent executions for this template"""
         recent = obj.executions.all()[:5]
         return [
             {
@@ -146,8 +137,6 @@ class ReportTemplateDetailSerializer(serializers.ModelSerializer):
 
 
 class ReportTemplateCreateUpdateSerializer(serializers.ModelSerializer):
-    """Serializer for creating and updating report templates"""
-
     class Meta:
         model = ReportTemplate
         fields = [
@@ -169,7 +158,6 @@ class ReportTemplateCreateUpdateSerializer(serializers.ModelSerializer):
         ]
 
     def validate_output_formats(self, value):
-        """Validate output formats"""
         valid_formats = ["json", "pdf", "excel", "csv"]
         if not isinstance(value, list):
             raise serializers.ValidationError("Output formats must be a list")
@@ -181,7 +169,6 @@ class ReportTemplateCreateUpdateSerializer(serializers.ModelSerializer):
         return value
 
     def validate_allowed_roles(self, value):
-        """Validate allowed roles"""
         valid_roles = ["admin", "rh", "gestor", "funcionario"]
         if not isinstance(value, list):
             raise serializers.ValidationError("Allowed roles must be a list")
@@ -193,14 +180,11 @@ class ReportTemplateCreateUpdateSerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
-        """Create a new report template"""
         validated_data["created_by"] = self.context["request"].user
         return super().create(validated_data)
 
 
 class ReportExecutionSerializer(serializers.ModelSerializer):
-    """Serializer for ReportExecution model"""
-
     template_name = serializers.CharField(source="template.name", read_only=True)
     executed_by_name = serializers.CharField(source="executed_by.get_full_name", read_only=True)
     status_display = serializers.CharField(source="get_status_display", read_only=True)
@@ -252,21 +236,16 @@ class ReportExecutionSerializer(serializers.ModelSerializer):
 
 
 class ReportExecutionCreateSerializer(serializers.ModelSerializer):
-    """Serializer for creating new report executions"""
-
     class Meta:
         model = ReportExecution
         fields = ["template", "parameters", "output_format"]
 
     def create(self, validated_data):
-        """Create a new report execution"""
         validated_data["executed_by"] = self.context["request"].user
         return super().create(validated_data)
 
 
 class ReportScheduleSerializer(serializers.ModelSerializer):
-    """Serializer for ReportSchedule model"""
-
     template_name = serializers.CharField(source="template.name", read_only=True)
     created_by_name = serializers.CharField(source="created_by.get_full_name", read_only=True)
     frequency_display = serializers.CharField(source="get_frequency_display", read_only=True)
@@ -323,7 +302,6 @@ class ReportScheduleSerializer(serializers.ModelSerializer):
         ]
 
     def validate_email_recipients(self, value):
-        """Validate email recipients"""
         if not isinstance(value, list):
             raise serializers.ValidationError("Email recipients must be a list")
 
@@ -338,7 +316,6 @@ class ReportScheduleSerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
-        """Create a new report schedule"""
         validated_data["created_by"] = self.context["request"].user
         schedule = super().create(validated_data)
 
@@ -350,8 +327,6 @@ class ReportScheduleSerializer(serializers.ModelSerializer):
 
 
 class ReportBookmarkSerializer(serializers.ModelSerializer):
-    """Serializer for ReportBookmark model"""
-
     template_name = serializers.CharField(source="template.name", read_only=True)
     template_type = serializers.CharField(source="template.report_type", read_only=True)
     user_name = serializers.CharField(source="user.get_full_name", read_only=True)
@@ -381,14 +356,11 @@ class ReportBookmarkSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
-        """Create a new report bookmark"""
         validated_data["user"] = self.context["request"].user
         return super().create(validated_data)
 
 
 class DashboardSummarySerializer(serializers.Serializer):
-    """Serializer for dashboard summary data"""
-
     total_employees = serializers.IntegerField()
     active_employees = serializers.IntegerField()
     pending_admissions = serializers.IntegerField()
@@ -406,8 +378,6 @@ class DashboardSummarySerializer(serializers.Serializer):
 
 
 class ReportFilterSerializer(serializers.Serializer):
-    """Serializer for report filters"""
-
     # Date filters
     start_date = serializers.DateField(required=False)
     end_date = serializers.DateField(required=False)
@@ -430,7 +400,6 @@ class ReportFilterSerializer(serializers.Serializer):
     )
 
     def validate(self, data):
-        """Validate date range"""
         start_date = data.get("start_date")
         end_date = data.get("end_date")
 
@@ -441,15 +410,12 @@ class ReportFilterSerializer(serializers.Serializer):
 
 
 class ReportExportSerializer(serializers.Serializer):
-    """Serializer for report export requests"""
-
     format = serializers.ChoiceField(choices=["pdf", "excel", "csv"], required=True)
     include_charts = serializers.BooleanField(default=False)
     email_to = serializers.EmailField(required=False)
     filename = serializers.CharField(required=False, max_length=255)
 
     def validate_filename(self, value):
-        """Validate filename"""
         if value:
             # Remove potentially dangerous characters
             import re

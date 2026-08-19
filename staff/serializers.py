@@ -8,10 +8,6 @@ from .models import Department, Employee, EmployeeDocument
 
 
 class DepartmentSerializer(serializers.ModelSerializer):
-    """
-    Department serializer
-    """
-
     employee_count = serializers.ReadOnlyField()
 
     class Meta:
@@ -21,10 +17,6 @@ class DepartmentSerializer(serializers.ModelSerializer):
 
 
 class EmployeeDocumentSerializer(serializers.ModelSerializer):
-    """
-    Employee document serializer
-    """
-
     uploaded_by_name = serializers.CharField(source="uploaded_by.get_full_name", read_only=True)
     tipo_display = serializers.CharField(source="get_tipo_display", read_only=True)
 
@@ -46,10 +38,6 @@ class EmployeeDocumentSerializer(serializers.ModelSerializer):
 
 
 class EmployeeListSerializer(serializers.ModelSerializer):
-    """
-    Employee list serializer - minimal fields for list views
-    """
-
     user_email = serializers.CharField(source="user.email", read_only=True)
     status_display = serializers.CharField(source="get_status_display", read_only=True)
     salario_display = serializers.CharField(source="get_salary_display", read_only=True)
@@ -73,10 +61,6 @@ class EmployeeListSerializer(serializers.ModelSerializer):
 
 
 class EmployeeDetailSerializer(serializers.ModelSerializer):
-    """
-    Employee detail serializer - complete information
-    """
-
     user = UserSerializer(read_only=True)
     status_display = serializers.CharField(source="get_status_display", read_only=True)
     salario_display = serializers.CharField(source="get_salary_display", read_only=True)
@@ -123,10 +107,6 @@ class EmployeeDetailSerializer(serializers.ModelSerializer):
 
 
 class EmployeeCreateSerializer(serializers.ModelSerializer):
-    """
-    Employee creation serializer
-    """
-
     class Meta:
         model = Employee
         fields = [
@@ -148,7 +128,6 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
         ]
 
     def validate_cpf(self, value):
-        """Validate CPF uniqueness"""
         if self.instance:
             # Update case - exclude current instance
             if Employee.objects.exclude(pk=self.instance.pk).filter(cpf=value).exists():
@@ -160,7 +139,6 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
         return value
 
     def validate(self, attrs):
-        """Additional validations"""
         # Check if user already has an employee record
         user = attrs.get("user")
         if user and not self.instance:
@@ -183,10 +161,6 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
 
 
 class EmployeeUpdateSerializer(serializers.ModelSerializer):
-    """
-    Employee update serializer
-    """
-
     class Meta:
         model = Employee
         fields = [
@@ -207,17 +181,12 @@ class EmployeeUpdateSerializer(serializers.ModelSerializer):
         ]
 
     def validate_cpf(self, value):
-        """Validate CPF uniqueness"""
         if Employee.objects.exclude(pk=self.instance.pk).filter(cpf=value).exists():
             raise serializers.ValidationError("CPF já cadastrado.")
         return value
 
 
 class EmployeeStatsSerializer(serializers.Serializer):
-    """
-    Employee statistics serializer
-    """
-
     total_employees = serializers.IntegerField()
     active_employees = serializers.IntegerField()
     inactive_employees = serializers.IntegerField()
@@ -228,10 +197,6 @@ class EmployeeStatsSerializer(serializers.Serializer):
 
 
 class EmployeeSalaryUpdateSerializer(serializers.Serializer):
-    """
-    Serializer for updating employee salary
-    """
-
     new_salary = serializers.DecimalField(
         max_digits=10, decimal_places=2, min_value=Decimal("0.01")
     )
@@ -239,17 +204,12 @@ class EmployeeSalaryUpdateSerializer(serializers.Serializer):
     effective_date = serializers.DateField(required=False)
 
     def validate_new_salary(self, value):
-        """Validate salary value"""
         if value <= 0:
             raise serializers.ValidationError("Salário deve ser maior que zero.")
         return value
 
 
 class EmployeeStatusUpdateSerializer(serializers.Serializer):
-    """
-    Serializer for updating employee status
-    """
-
     new_status = serializers.ChoiceField(choices=Employee.StatusChoices.choices)
     reason = serializers.CharField(max_length=500, required=False, allow_blank=True)
     effective_date = serializers.DateField(required=False)

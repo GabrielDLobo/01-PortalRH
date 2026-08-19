@@ -15,10 +15,6 @@ from .models import (
 
 
 class EvaluationCriteriaSerializer(serializers.ModelSerializer):
-    """
-    Evaluation criteria serializer
-    """
-
     class Meta:
         model = EvaluationCriteria
         fields = ["id", "template", "nome", "descricao", "peso", "ordem", "created_at"]
@@ -26,10 +22,6 @@ class EvaluationCriteriaSerializer(serializers.ModelSerializer):
 
 
 class EvaluationTemplateSerializer(serializers.ModelSerializer):
-    """
-    Evaluation template serializer
-    """
-
     criteria = EvaluationCriteriaSerializer(many=True, read_only=True)
     criteria_count = serializers.SerializerMethodField()
 
@@ -48,15 +40,10 @@ class EvaluationTemplateSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "criteria_count", "created_at", "updated_at"]
 
     def get_criteria_count(self, obj):
-        """Get number of criteria"""
         return obj.criteria.count()
 
 
 class EvaluationTemplateListSerializer(serializers.ModelSerializer):
-    """
-    Evaluation template list serializer - minimal fields
-    """
-
     criteria_count = serializers.SerializerMethodField()
 
     class Meta:
@@ -64,15 +51,10 @@ class EvaluationTemplateListSerializer(serializers.ModelSerializer):
         fields = ["id", "nome", "descricao", "ativo", "criteria_count", "created_at"]
 
     def get_criteria_count(self, obj):
-        """Get number of criteria"""
         return obj.criteria.count()
 
 
 class EvaluationScoreSerializer(serializers.ModelSerializer):
-    """
-    Evaluation score serializer
-    """
-
     criterio_info = EvaluationCriteriaSerializer(source="criterio", read_only=True)
     weighted_score = serializers.ReadOnlyField()
 
@@ -93,10 +75,6 @@ class EvaluationScoreSerializer(serializers.ModelSerializer):
 
 
 class EvaluationListSerializer(serializers.ModelSerializer):
-    """
-    Evaluation list serializer - minimal fields for list views
-    """
-
     avaliado_name = serializers.CharField(source="avaliado.get_full_name", read_only=True)
     avaliador_name = serializers.CharField(source="avaliador.get_full_name", read_only=True)
     template_name = serializers.CharField(source="template.nome", read_only=True)
@@ -131,10 +109,6 @@ class EvaluationListSerializer(serializers.ModelSerializer):
 
 
 class EvaluationDetailSerializer(serializers.ModelSerializer):
-    """
-    Evaluation detail serializer - complete information
-    """
-
     template_info = EvaluationTemplateSerializer(source="template", read_only=True)
     avaliado_info = UserSerializer(source="avaliado", read_only=True)
     avaliador_info = UserSerializer(source="avaliador", read_only=True)
@@ -191,16 +165,11 @@ class EvaluationDetailSerializer(serializers.ModelSerializer):
 
 
 class EvaluationCreateSerializer(serializers.ModelSerializer):
-    """
-    Evaluation creation serializer
-    """
-
     class Meta:
         model = Evaluation
         fields = ["template", "avaliado", "tipo", "periodo_inicio", "periodo_fim", "data_limite"]
 
     def validate(self, attrs):
-        """Validate evaluation creation"""
         periodo_inicio = attrs.get("periodo_inicio")
         periodo_fim = attrs.get("periodo_fim")
 
@@ -213,16 +182,11 @@ class EvaluationCreateSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        """Create evaluation with current user as evaluator"""
         validated_data["avaliador"] = self.context["request"].user
         return super().create(validated_data)
 
 
 class EvaluationUpdateSerializer(serializers.ModelSerializer):
-    """
-    Evaluation update serializer
-    """
-
     class Meta:
         model = Evaluation
         fields = [
@@ -234,7 +198,6 @@ class EvaluationUpdateSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, attrs):
-        """Validate evaluation update"""
         instance = self.instance
 
         # Only allow updates for evaluations that are not completed/approved
@@ -245,31 +208,21 @@ class EvaluationUpdateSerializer(serializers.ModelSerializer):
 
 
 class EvaluationScoreCreateSerializer(serializers.ModelSerializer):
-    """
-    Evaluation score creation serializer
-    """
-
     class Meta:
         model = EvaluationScore
         fields = ["criterio", "nota", "comentario"]
 
     def validate_nota(self, value):
-        """Validate score value"""
         if not (Decimal("0.00") <= value <= Decimal("10.00")):
             raise serializers.ValidationError("Nota deve estar entre 0.00 e 10.00.")
         return value
 
     def create(self, validated_data):
-        """Create score with evaluation from context"""
         validated_data["avaliacao"] = self.context["evaluation"]
         return super().create(validated_data)
 
 
 class EvaluationCycleParticipantSerializer(serializers.ModelSerializer):
-    """
-    Evaluation cycle participant serializer
-    """
-
     funcionario_info = UserSerializer(source="funcionario", read_only=True)
     avaliador_info = UserSerializer(source="avaliador", read_only=True)
 
@@ -290,10 +243,6 @@ class EvaluationCycleParticipantSerializer(serializers.ModelSerializer):
 
 
 class EvaluationCycleSerializer(serializers.ModelSerializer):
-    """
-    Evaluation cycle serializer
-    """
-
     template_info = EvaluationTemplateSerializer(source="template", read_only=True)
     created_by_info = UserSerializer(source="created_by", read_only=True)
     participants = EvaluationCycleParticipantSerializer(many=True, read_only=True)
@@ -335,10 +284,6 @@ class EvaluationCycleSerializer(serializers.ModelSerializer):
 
 
 class EvaluationCycleListSerializer(serializers.ModelSerializer):
-    """
-    Evaluation cycle list serializer - minimal fields
-    """
-
     template_name = serializers.CharField(source="template.nome", read_only=True)
     created_by_name = serializers.CharField(source="created_by.get_full_name", read_only=True)
     status_display = serializers.CharField(source="get_status_display", read_only=True)
@@ -365,10 +310,6 @@ class EvaluationCycleListSerializer(serializers.ModelSerializer):
 
 
 class EvaluationStatsSerializer(serializers.Serializer):
-    """
-    Evaluation statistics serializer
-    """
-
     total_evaluations = serializers.IntegerField()
     pending_evaluations = serializers.IntegerField()
     completed_evaluations = serializers.IntegerField()
@@ -381,10 +322,6 @@ class EvaluationStatsSerializer(serializers.Serializer):
 
 
 class EvaluationReportSerializer(serializers.Serializer):
-    """
-    Evaluation report serializer
-    """
-
     employee_name = serializers.CharField()
     evaluation_period = serializers.CharField()
     template_name = serializers.CharField()
@@ -399,15 +336,10 @@ class EvaluationReportSerializer(serializers.Serializer):
 
 
 class EvaluationActionSerializer(serializers.Serializer):
-    """
-    Serializer for evaluation actions (finalize, approve, reject)
-    """
-
     action = serializers.ChoiceField(choices=["finalize", "approve", "reject"])
     comentario = serializers.CharField(max_length=1000, required=False, allow_blank=True)
 
     def validate(self, attrs):
-        """Validate action based on evaluation state"""
         evaluation = self.context.get("evaluation")
         action = attrs.get("action")
 

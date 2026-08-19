@@ -6,10 +6,6 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
-    """
-    User serializer for general user information
-    """
-
     class Meta:
         model = User
         fields = [
@@ -27,10 +23,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
-    """
-    Serializer for user creation
-    """
-
     password = serializers.CharField(write_only=True, validators=[validate_password])
     password_confirm = serializers.CharField(write_only=True)
 
@@ -47,13 +39,11 @@ class UserCreateSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, attrs):
-        """Validate password confirmation"""
         if attrs["password"] != attrs["password_confirm"]:
             raise serializers.ValidationError({"password_confirm": "As senhas não coincidem."})
         return attrs
 
     def create(self, validated_data):
-        """Create user with hashed password"""
         validated_data.pop("password_confirm", None)
         password = validated_data.pop("password")
 
@@ -65,26 +55,17 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
-    """
-    Serializer for user updates
-    """
-
     class Meta:
         model = User
         fields = ["username", "email", "first_name", "last_name", "role"]
 
 
 class PasswordChangeSerializer(serializers.Serializer):
-    """
-    Serializer for password changes
-    """
-
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True, validators=[validate_password])
     new_password_confirm = serializers.CharField(required=True)
 
     def validate(self, attrs):
-        """Validate password change"""
         user = self.context["request"].user
 
         # Check old password
@@ -98,7 +79,6 @@ class PasswordChangeSerializer(serializers.Serializer):
         return attrs
 
     def save(self):
-        """Save new password"""
         user = self.context["request"].user
         user.set_password(self.validated_data["new_password"])
         user.save()
@@ -106,15 +86,10 @@ class PasswordChangeSerializer(serializers.Serializer):
 
 
 class LoginSerializer(serializers.Serializer):
-    """
-    Serializer for user login
-    """
-
     email = serializers.EmailField(required=True)
     password = serializers.CharField(required=True)
 
     def validate(self, attrs):
-        """Validate login credentials"""
         email = attrs.get("email")
         password = attrs.get("password")
 
@@ -138,10 +113,6 @@ class LoginSerializer(serializers.Serializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    """
-    Serializer for user profile with additional information
-    """
-
     full_name = serializers.CharField(source="get_full_name", read_only=True)
     role_display = serializers.CharField(source="get_role_display", read_only=True)
 
@@ -180,7 +151,6 @@ class FirstLoginPasswordChangeSerializer(serializers.Serializer):
     new_password_confirm = serializers.CharField(required=True)
 
     def validate(self, attrs):
-        """Validate password change for first login"""
         user = self.context["request"].user
 
         # Check if user actually needs to change password

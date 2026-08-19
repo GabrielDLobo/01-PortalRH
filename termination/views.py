@@ -26,10 +26,6 @@ User = get_user_model()
 
 
 class TerminationReasonViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing termination reasons
-    """
-
     queryset = TerminationReason.objects.filter(ativo=True)
     serializer_class = TerminationReasonSerializer
     permission_classes = [IsStaffOrAdminRH]
@@ -39,7 +35,6 @@ class TerminationReasonViewSet(viewsets.ModelViewSet):
     ordering = ["nome"]
 
     def get_permissions(self):
-        """Return appropriate permissions based on action"""
         if self.action in ["create", "update", "partial_update", "destroy"]:
             permission_classes = [IsAdminRH]
         else:
@@ -49,10 +44,6 @@ class TerminationReasonViewSet(viewsets.ModelViewSet):
 
 
 class TerminationRequestViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing termination requests
-    """
-
     queryset = (
         TerminationRequest.objects.select_related(
             "funcionario", "solicitante", "motivo", "aprovador_rh"
@@ -80,7 +71,6 @@ class TerminationRequestViewSet(viewsets.ModelViewSet):
     ordering = ["-created_at"]
 
     def get_serializer_class(self):
-        """Return appropriate serializer based on action"""
         if self.action == "list":
             return TerminationRequestListSerializer
         elif self.action in ["create"]:
@@ -91,7 +81,6 @@ class TerminationRequestViewSet(viewsets.ModelViewSet):
             return TerminationRequestDetailSerializer
 
     def get_permissions(self):
-        """Return appropriate permissions based on action"""
         if self.action in ["create"]:
             permission_classes = [IsAdminRH]
         elif self.action in ["update", "partial_update", "destroy"]:
@@ -104,7 +93,6 @@ class TerminationRequestViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        """Filter queryset based on user permissions and role"""
         user = self.request.user
         queryset = super().get_queryset()
 
@@ -116,12 +104,10 @@ class TerminationRequestViewSet(viewsets.ModelViewSet):
         return queryset.filter(solicitante=user)
 
     def perform_create(self, serializer):
-        """Set the requesting user as solicitante"""
         serializer.save(solicitante=self.request.user)
 
     @action(detail=True, methods=["post"], permission_classes=[IsAdminRH])
     def approve(self, request, pk=None):
-        """Approve termination request"""
         termination_request = self.get_object()
 
         if not termination_request.is_pending_hr:
@@ -146,7 +132,6 @@ class TerminationRequestViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"], permission_classes=[IsAdminRH])
     def reject(self, request, pk=None):
-        """Reject termination request"""
         termination_request = self.get_object()
 
         if not termination_request.is_pending_hr:
@@ -174,7 +159,6 @@ class TerminationRequestViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"], permission_classes=[IsAdminRH])
     def submit_for_approval(self, request, pk=None):
-        """Submit termination request for HR approval"""
         termination_request = self.get_object()
 
         if not termination_request.is_draft:
@@ -194,7 +178,6 @@ class TerminationRequestViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"], permission_classes=[IsAdminRH])
     def start_processing(self, request, pk=None):
-        """Start processing the termination (calculations, documents)"""
         termination_request = self.get_object()
 
         if not termination_request.is_approved:
@@ -211,7 +194,6 @@ class TerminationRequestViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"], permission_classes=[IsAdminRH])
     def complete(self, request, pk=None):
-        """Complete the termination process"""
         termination_request = self.get_object()
 
         if termination_request.status != TerminationRequest.StatusChoices.PROCESSANDO:
@@ -228,7 +210,6 @@ class TerminationRequestViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["delete"], permission_classes=[IsAdminRH])
     def cancel(self, request, pk=None):
-        """Cancel termination request"""
         termination_request = self.get_object()
 
         # Check permissions - only creator or HR can cancel
@@ -252,7 +233,6 @@ class TerminationRequestViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"], permission_classes=[IsStaffOrAdminRH])
     def stats(self, request):
-        """Get termination statistics"""
         # Filter queryset based on user permissions
         queryset = self.get_queryset()
 
@@ -294,7 +274,6 @@ class TerminationRequestViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"], permission_classes=[IsAdminRH])
     def my_requests(self, request):
-        """Get current user's termination requests"""
         queryset = self.get_queryset().filter(solicitante=request.user)
 
         page = self.paginate_queryset(queryset)
@@ -307,10 +286,6 @@ class TerminationRequestViewSet(viewsets.ModelViewSet):
 
 
 class TerminationDocumentViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing termination documents
-    """
-
     serializer_class = TerminationDocumentSerializer
     permission_classes = [IsAdminRH]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
@@ -320,9 +295,7 @@ class TerminationDocumentViewSet(viewsets.ModelViewSet):
     ordering = ["-created_at"]
 
     def get_queryset(self):
-        """Return termination documents"""
         return TerminationDocument.objects.select_related("termination_request", "gerado_por").all()
 
     def perform_create(self, serializer):
-        """Set the uploading user"""
         serializer.save(gerado_por=self.request.user)

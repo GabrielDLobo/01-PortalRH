@@ -28,7 +28,6 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("Initial data setup completed successfully!"))
 
     def create_users(self, create_superuser):
-        """Create initial users"""
         self.stdout.write("Creating users...")
 
         # Create superuser if requested
@@ -68,7 +67,6 @@ class Command(BaseCommand):
             self.stdout.write("  - Employee created: funcionario@portalrh.com / func123")
 
     def create_leave_types(self):
-        """Create initial leave types"""
         self.stdout.write("Creating leave types...")
 
         from leave_requests.models import LeaveType
@@ -119,7 +117,6 @@ class Command(BaseCommand):
                 self.stdout.write(f"  - Leave type created: {leave_type.nome}")
 
     def create_evaluation_templates(self):
-        """Create initial evaluation templates"""
         self.stdout.write("Creating evaluation templates...")
 
         from evaluations.models import EvaluationCriteria, EvaluationTemplate

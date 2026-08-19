@@ -192,7 +192,6 @@ class PreAdmissionRHAdmin(admin.ModelAdmin):
     actions = ["create_employee_accounts", "resend_emails"]
 
     def create_employee_accounts(self, request, queryset):
-        """Action to create employee accounts for selected pre-admissions"""
         created_count = 0
         for pre_admission in queryset:
             if not pre_admission.employee_user_created:
@@ -212,7 +211,6 @@ class PreAdmissionRHAdmin(admin.ModelAdmin):
     create_employee_accounts.short_description = "Criar contas de funcionário selecionadas"
 
     def resend_emails(self, request, queryset):
-        """Action to resend emails for selected pre-admissions"""
         sent_count = 0
         for pre_admission in queryset:
             if pre_admission.employee_user_created:

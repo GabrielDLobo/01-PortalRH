@@ -7,10 +7,6 @@ from django.db import models
 
 
 class EvaluationTemplate(models.Model):
-    """
-    Template for performance evaluations
-    """
-
     nome = models.CharField(max_length=200, unique=True, verbose_name="Nome")
     descricao = models.TextField(blank=True, verbose_name="Descrição")
     ativo = models.BooleanField(default=True, verbose_name="Ativo")
@@ -29,10 +25,6 @@ class EvaluationTemplate(models.Model):
 
 
 class EvaluationCriteria(models.Model):
-    """
-    Criteria for evaluations within a template
-    """
-
     template = models.ForeignKey(
         EvaluationTemplate,
         on_delete=models.CASCADE,
@@ -69,10 +61,6 @@ class EvaluationCriteria(models.Model):
 
 
 class Evaluation(models.Model):
-    """
-    Performance evaluation model
-    """
-
     class StatusChoices(models.TextChoices):
         RASCUNHO = "rascunho", "Rascunho"
         PENDENTE = "pendente", "Pendente"
@@ -165,16 +153,13 @@ class Evaluation(models.Model):
 
     @property
     def is_completed(self) -> bool:
-        """Check if evaluation is completed"""
         return self.status in [self.StatusChoices.CONCLUIDA, self.StatusChoices.APROVADA]
 
     @property
     def is_pending(self) -> bool:
-        """Check if evaluation is pending"""
         return self.status == self.StatusChoices.PENDENTE
 
     def calculate_final_score(self) -> Optional[Decimal]:
-        """Calculate final score based on criteria scores"""
         scores = self.scores.all()
         if not scores:
             return None
@@ -193,7 +178,6 @@ class Evaluation(models.Model):
         return None
 
     def finalize_evaluation(self) -> None:
-        """Finalize the evaluation by calculating final score"""
         from django.utils import timezone
 
         self.nota_final = self.calculate_final_score()
@@ -202,21 +186,15 @@ class Evaluation(models.Model):
         self.save(update_fields=["nota_final", "status", "data_conclusao", "updated_at"])
 
     def approve(self) -> None:
-        """Approve the evaluation"""
         self.status = self.StatusChoices.APROVADA
         self.save(update_fields=["status", "updated_at"])
 
     def reject(self) -> None:
-        """Reject the evaluation"""
         self.status = self.StatusChoices.REJEITADA
         self.save(update_fields=["status", "updated_at"])
 
 
 class EvaluationScore(models.Model):
-    """
-    Individual criterion score within an evaluation
-    """
-
     avaliacao = models.ForeignKey(
         Evaluation, on_delete=models.CASCADE, related_name="scores", verbose_name="Avaliação"
     )
@@ -249,15 +227,10 @@ class EvaluationScore(models.Model):
 
     @property
     def weighted_score(self) -> Decimal:
-        """Calculate weighted score"""
         return self.nota * self.criterio.peso
 
 
 class EvaluationCycle(models.Model):
-    """
-    Evaluation cycles for organizing periodic evaluations
-    """
-
     class StatusChoices(models.TextChoices):
         PLANEJADO = "planejado", "Planejado"
         ATIVO = "ativo", "Ativo"
@@ -311,30 +284,22 @@ class EvaluationCycle(models.Model):
 
     @property
     def is_active(self) -> bool:
-        """Check if cycle is active"""
         return self.status == self.StatusChoices.ATIVO
 
     @property
     def participation_count(self) -> int:
-        """Get number of participants"""
         return self.participants.count()
 
     def start_cycle(self) -> None:
-        """Start the evaluation cycle"""
         self.status = self.StatusChoices.ATIVO
         self.save(update_fields=["status", "updated_at"])
 
     def complete_cycle(self) -> None:
-        """Complete the evaluation cycle"""
         self.status = self.StatusChoices.CONCLUIDO
         self.save(update_fields=["status", "updated_at"])
 
 
 class EvaluationCycleParticipant(models.Model):
-    """
-    Through model for evaluation cycle participants
-    """
-
     cycle = models.ForeignKey(
         EvaluationCycle, on_delete=models.CASCADE, related_name="participants", verbose_name="Ciclo"
     )

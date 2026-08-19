@@ -25,8 +25,6 @@ logger = logging.getLogger(__name__)
 
 
 class EmployeeViewSet(viewsets.ModelViewSet):
-    """ViewSet for managing employee data and admission process"""
-
     queryset = Employee.objects.all()
     permission_classes = [permissions.IsAuthenticated, CanViewEmployee]
 
@@ -36,7 +34,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
         return EmployeeSerializer
 
     def get_queryset(self):
-        """Filter employees based on user role"""
         user = self.request.user
         if user.is_admin_rh:
             return Employee.objects.all()
@@ -45,7 +42,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
     @transaction.atomic
     def create(self, request, *args, **kwargs):
-        """Create employee record during admission process"""
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -58,7 +54,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
         return Response(EmployeeSerializer(employee).data, status=status.HTTP_201_CREATED)
 
     def update(self, request, *args, **kwargs):
-        """Update employee with proper response serialization"""
         partial = kwargs.pop("partial", False)
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
@@ -71,13 +66,11 @@ class EmployeeViewSet(viewsets.ModelViewSet):
         return Response(EmployeeSerializer(employee).data)
 
     def partial_update(self, request, *args, **kwargs):
-        """Partial update employee with proper response serialization"""
         kwargs["partial"] = True
         return self.update(request, *args, **kwargs)
 
     @action(detail=True, methods=["patch"])
     def update_personal_info(self, request, pk=None):
-        """Update personal information"""
         employee = self.get_object()
         serializer = EmployeeCreateSerializer(employee, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
@@ -92,7 +85,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["get"])
     def admission_status(self, request, pk=None):
-        """Get admission process status"""
         employee = self.get_object()
         if hasattr(employee, "admission_process"):
             return Response(AdmissionProcessSerializer(employee.admission_process).data)
@@ -103,7 +95,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def my_profile(self, request):
-        """Get current user's employee profile"""
         try:
             employee = Employee.objects.get(user=request.user)
             return Response(EmployeeSerializer(employee).data)
@@ -115,7 +106,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["post"])
     def create_profile(self, request):
-        """Create employee profile for current user"""
         if Employee.objects.filter(user=request.user).exists():
             return Response(
                 {"detail": "Perfil já existe para este usuário."},
@@ -126,7 +116,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["post"])
     def lookup_cep(self, request):
-        """Lookup address information from CEP"""
         cep = request.data.get("cep")
 
         if not cep:
@@ -158,8 +147,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
 
 class EmployeeDocumentViewSet(viewsets.ModelViewSet):
-    """ViewSet for managing employee documents"""
-
     serializer_class = EmployeeDocumentSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrAdminRH]
     parser_classes = [MultiPartParser, FormParser]
@@ -184,7 +171,6 @@ class EmployeeDocumentViewSet(viewsets.ModelViewSet):
         return EmployeeDocumentSerializer
 
     def create(self, request, *args, **kwargs):
-        """Enhanced create method with better error handling"""
         try:
             logger.debug("Document upload request: data=%s files=%s", request.data, request.FILES)
 
@@ -198,7 +184,6 @@ class EmployeeDocumentViewSet(viewsets.ModelViewSet):
             )
 
     def perform_create(self, serializer):
-        """Create document for specific employee"""
         user = self.request.user
         employee_id = self.kwargs.get("employee_pk")
 
@@ -251,7 +236,6 @@ class EmployeeDocumentViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def required_documents(self, request, employee_pk=None):
-        """Get list of required document types"""
         required_docs = [
             {"type": "rg", "name": "RG", "required": True},
             {"type": "birth_certificate", "name": "Certidão de Nascimento", "required": True},
@@ -272,14 +256,11 @@ class EmployeeDocumentViewSet(viewsets.ModelViewSet):
 
 
 class AdmissionProcessViewSet(viewsets.ReadOnlyModelViewSet):
-    """ViewSet for tracking admission processes"""
-
     queryset = AdmissionProcess.objects.all()
     serializer_class = AdmissionProcessSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrAdminRH]
 
     def get_queryset(self):
-        """Filter based on user permissions"""
         user = self.request.user
         if user.is_admin_rh:
             return AdmissionProcess.objects.all()
@@ -335,8 +316,6 @@ class AdmissionProcessViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class PreAdmissionRHViewSet(viewsets.ModelViewSet):
-    """ViewSet for managing HR pre-admission process"""
-
     queryset = PreAdmissionRH.objects.all()
     serializer_class = PreAdmissionRHSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -351,13 +330,11 @@ class PreAdmissionRHViewSet(viewsets.ModelViewSet):
             return PreAdmissionRH.objects.none()
 
     def perform_create(self, serializer):
-        """Create pre-admission record with creator info"""
         pre_admission = serializer.save(created_by=self.request.user)
         return pre_admission
 
     @action(detail=True, methods=["post"])
     def create_employee_account(self, request, pk=None):
-        """Create employee user account and send email"""
         pre_admission = self.get_object()
 
         # Check permissions
@@ -404,7 +381,6 @@ class PreAdmissionRHViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def resend_email(self, request, pk=None):
-        """Resend admission email to employee"""
         pre_admission = self.get_object()
 
         # Check permissions
@@ -433,7 +409,6 @@ class PreAdmissionRHViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def pending_accounts(self, request):
-        """Get list of pre-admissions that need account creation"""
         if not request.user.is_admin_rh:
             return Response({"detail": "Permissão negada."}, status=status.HTTP_403_FORBIDDEN)
 
@@ -443,7 +418,6 @@ class PreAdmissionRHViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def statistics(self, request):
-        """Get pre-admission statistics"""
         if not request.user.is_admin_rh:
             return Response({"detail": "Permissão negada."}, status=status.HTTP_403_FORBIDDEN)
 

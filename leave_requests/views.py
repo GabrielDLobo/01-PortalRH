@@ -31,10 +31,6 @@ from .serializers import (
 
 
 class LeaveTypeViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing leave types
-    """
-
     queryset = LeaveType.objects.filter(ativo=True)
     serializer_class = LeaveTypeSerializer
     permission_classes = [IsStaffOrAdminRH]
@@ -44,7 +40,6 @@ class LeaveTypeViewSet(viewsets.ModelViewSet):
     ordering = ["nome"]
 
     def get_permissions(self):
-        """Return appropriate permissions based on action"""
         if self.action in ["create", "update", "partial_update", "destroy"]:
             permission_classes = [IsAdminRH]
         else:
@@ -54,10 +49,6 @@ class LeaveTypeViewSet(viewsets.ModelViewSet):
 
 
 class LeaveRequestViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing leave requests
-    """
-
     queryset = LeaveRequest.objects.select_related("solicitante", "tipo", "aprovador").order_by(
         "-created_at"
     )
@@ -75,7 +66,6 @@ class LeaveRequestViewSet(viewsets.ModelViewSet):
     ordering = ["-created_at"]
 
     def get_serializer_class(self):
-        """Return appropriate serializer based on action"""
         if self.action == "list":
             return LeaveRequestListSerializer
         elif self.action == "retrieve":
@@ -91,7 +81,6 @@ class LeaveRequestViewSet(viewsets.ModelViewSet):
         return LeaveRequestDetailSerializer
 
     def get_permissions(self):
-        """Return appropriate permissions based on action"""
         if self.action in ["list", "retrieve"]:
             permission_classes = [permissions.IsAuthenticated, CanViewLeaveRequest]
         elif self.action in ["create"]:
@@ -112,7 +101,6 @@ class LeaveRequestViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        """Filter queryset based on user role"""
         user = self.request.user
 
         if user.is_admin_rh:
@@ -123,14 +111,12 @@ class LeaveRequestViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def my_requests(self, request):
-        """Get current user's leave requests"""
         requests = self.queryset.filter(solicitante=request.user)
         serializer = LeaveRequestListSerializer(requests, many=True)
         return Response(serializer.data)
 
     @action(detail=True, methods=["post"])
     def approve(self, request, pk=None):
-        """Approve or reject a leave request"""
         leave_request = self.get_object()
         serializer = self.get_serializer(
             data=request.data, context={"request": request, "leave_request": leave_request}
@@ -153,7 +139,6 @@ class LeaveRequestViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def cancel(self, request, pk=None):
-        """Cancel a leave request"""
         leave_request = self.get_object()
 
         # Only the requester can cancel their own request
@@ -175,7 +160,6 @@ class LeaveRequestViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def stats(self, request):
-        """Get leave request statistics"""
         requests = LeaveRequest.objects.all()
 
         # Basic counts
@@ -211,7 +195,6 @@ class LeaveRequestViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def calendar(self, request):
-        """Get leave requests for calendar view"""
         # Filter approved requests by date range if provided
         start_date = request.query_params.get("start")
         end_date = request.query_params.get("end")
@@ -228,10 +211,6 @@ class LeaveRequestViewSet(viewsets.ModelViewSet):
 
 
 class LeaveBalanceViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing leave balances
-    """
-
     queryset = LeaveBalance.objects.select_related("funcionario", "tipo")
     serializer_class = LeaveBalanceSerializer
     permission_classes = [IsStaffOrAdminRH]
@@ -247,7 +226,6 @@ class LeaveBalanceViewSet(viewsets.ModelViewSet):
     ordering = ["-ano", "funcionario__first_name"]
 
     def get_permissions(self):
-        """Return appropriate permissions based on action"""
         if self.action in ["create", "update", "partial_update", "destroy"]:
             permission_classes = [IsAdminRH]
         else:
@@ -256,7 +234,6 @@ class LeaveBalanceViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        """Filter queryset based on user role"""
         user = self.request.user
 
         if user.is_admin_rh:
@@ -267,7 +244,6 @@ class LeaveBalanceViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def my_balances(self, request):
-        """Get current user's leave balances"""
         current_year = date.today().year
         balances = self.queryset.filter(funcionario=request.user, ano=current_year)
 

@@ -14,13 +14,10 @@ User = get_user_model()
 
 
 def employee_documents_upload_path(instance, filename):
-    """Upload path for employee documents"""
     return f"employee_documents/{instance.employee.id}/{filename}"
 
 
 class PreAdmissionRH(models.Model):
-    """Model for HR pre-admission information"""
-
     CONTRACT_TYPE_CHOICES = [
         ("clt", "CLT"),
         ("temporary", "Temporário"),
@@ -218,8 +215,6 @@ Equipe de Recursos Humanos
 
 
 class Employee(models.Model):
-    """Extended employee model with admission information"""
-
     MARITAL_STATUS_CHOICES = [
         ("single", "Solteiro(a)"),
         ("married", "Casado(a)"),
@@ -364,8 +359,6 @@ class Employee(models.Model):
 
 
 class EmployeeDocument(models.Model):
-    """Model for storing employee documents"""
-
     DOCUMENT_TYPE_CHOICES = [
         ("rg", "RG"),
         ("birth_certificate", "Certidão de Nascimento"),
@@ -430,28 +423,22 @@ class EmployeeDocument(models.Model):
 
     @property
     def file_extension(self):
-        """Get file extension"""
         return os.path.splitext(self.file.name)[1].lower()
 
     @property
     def is_pdf(self):
-        """Check if file is PDF"""
         return self.file_extension == ".pdf"
 
     @property
     def is_excel(self):
-        """Check if file is Excel"""
         return self.file_extension in [".xls", ".xlsx"]
 
     @property
     def file_size_mb(self):
-        """Get file size in MB"""
         return round(self.file_size / (1024 * 1024), 2) if self.file_size else 0
 
 
 class AdmissionProcess(models.Model):
-    """Model to track the admission process"""
-
     PROCESS_STATUS_CHOICES = [
         ("started", "Iniciado"),
         ("documents_uploaded", "Documentos Enviados"),

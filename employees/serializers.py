@@ -155,8 +155,6 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
 
 class EmployeeCreateSerializer(serializers.ModelSerializer):
-    """Serializer for creating new employee records during admission"""
-
     # Add optional CPF and RG fields that can be combined from frontend rg_cpf
     rg_cpf = serializers.CharField(write_only=True, required=False, allow_blank=True)
 
@@ -216,7 +214,6 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, attrs):
-        """Custom validation to handle rg_cpf field and other requirements"""
 
         # Handle rg_cpf field - split into cpf and rg if provided
         rg_cpf = attrs.pop("rg_cpf", None)
@@ -252,7 +249,6 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
         return attrs
 
     def validate_cpf(self, value):
-        """Validate CPF format and uniqueness"""
         if value and value.strip():
             # Check if already exists (exclude current instance if updating)
             queryset = Employee.objects.filter(cpf=value.strip())
@@ -263,7 +259,6 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
         return value
 
     def validate_email(self, value):
-        """Validate email uniqueness"""
         if value and value.strip():
             # Check if already exists (exclude current instance if updating)
             queryset = Employee.objects.filter(email=value.strip())
@@ -275,8 +270,6 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
 
 
 class DocumentUploadSerializer(serializers.ModelSerializer):
-    """Serializer specifically for document uploads"""
-
     class Meta:
         model = EmployeeDocument
         fields = ["document_type", "document_name", "file", "is_required"]
@@ -288,7 +281,6 @@ class DocumentUploadSerializer(serializers.ModelSerializer):
         }
 
     def validate_file(self, value):
-        """Validate file type and size"""
         if not value:
             raise serializers.ValidationError("Arquivo é obrigatório.")
 
@@ -316,8 +308,6 @@ class DocumentUploadSerializer(serializers.ModelSerializer):
 
 
 class PreAdmissionRHSerializer(serializers.ModelSerializer):
-    """Serializer for HR pre-admission process"""
-
     created_by_name = serializers.CharField(source="created_by.get_full_name", read_only=True)
     contract_type_display = serializers.CharField(
         source="get_contract_type_display", read_only=True
@@ -371,7 +361,6 @@ class PreAdmissionRHSerializer(serializers.ModelSerializer):
         ]
 
     def validate_personal_email(self, value):
-        """Validate email uniqueness in pre-admission and user systems"""
         # Check if email already exists in pre-admission
         if self.instance:
             # For updates, exclude current instance
@@ -397,7 +386,6 @@ class PreAdmissionRHSerializer(serializers.ModelSerializer):
         return value
 
     def validate_salary(self, value):
-        """Validate salary is positive"""
         if value <= 0:
             raise serializers.ValidationError("O salário deve ser maior que zero.")
         return value

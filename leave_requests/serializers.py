@@ -8,10 +8,6 @@ from .models import LeaveBalance, LeaveRequest, LeaveType
 
 
 class LeaveTypeSerializer(serializers.ModelSerializer):
-    """
-    Leave type serializer
-    """
-
     class Meta:
         model = LeaveType
         fields = [
@@ -29,10 +25,6 @@ class LeaveTypeSerializer(serializers.ModelSerializer):
 
 
 class LeaveBalanceSerializer(serializers.ModelSerializer):
-    """
-    Leave balance serializer
-    """
-
     funcionario_name = serializers.CharField(source="funcionario.get_full_name", read_only=True)
     tipo_name = serializers.CharField(source="tipo.nome", read_only=True)
     dias_restantes = serializers.ReadOnlyField()
@@ -56,10 +48,6 @@ class LeaveBalanceSerializer(serializers.ModelSerializer):
 
 
 class LeaveRequestListSerializer(serializers.ModelSerializer):
-    """
-    Leave request list serializer - minimal fields for list views
-    """
-
     solicitante_name = serializers.CharField(source="solicitante.get_full_name", read_only=True)
     tipo_name = serializers.CharField(source="tipo.nome", read_only=True)
     aprovador_name = serializers.CharField(source="aprovador.get_full_name", read_only=True)
@@ -93,10 +81,6 @@ class LeaveRequestListSerializer(serializers.ModelSerializer):
 
 
 class LeaveRequestDetailSerializer(serializers.ModelSerializer):
-    """
-    Leave request detail serializer - complete information
-    """
-
     solicitante_info = UserSerializer(source="solicitante", read_only=True)
     tipo_info = LeaveTypeSerializer(source="tipo", read_only=True)
     aprovador_info = UserSerializer(source="aprovador", read_only=True)
@@ -158,10 +142,6 @@ class LeaveRequestDetailSerializer(serializers.ModelSerializer):
 
 
 class LeaveRequestCreateSerializer(serializers.ModelSerializer):
-    """
-    Leave request creation serializer
-    """
-
     class Meta:
         model = LeaveRequest
         fields = [
@@ -178,7 +158,6 @@ class LeaveRequestCreateSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, attrs):
-        """Validate leave request"""
         data_inicio = attrs.get("data_inicio")
         data_fim = attrs.get("data_fim")
         tipo = attrs.get("tipo")
@@ -275,7 +254,6 @@ class LeaveRequestCreateSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        """Create leave request with current user as requester"""
         validated_data["solicitante"] = self.context["request"].user
         return super().create(validated_data)
 
@@ -290,7 +268,6 @@ class LeaveRequestUpdateSerializer(serializers.ModelSerializer):
         fields = ["data_inicio", "data_fim", "motivo", "observacoes", "prioridade", "anexo"]
 
     def validate(self, attrs):
-        """Validate leave request update"""
         instance = self.instance
 
         # Only allow updates for pending requests
@@ -326,15 +303,10 @@ class LeaveRequestUpdateSerializer(serializers.ModelSerializer):
 
 
 class LeaveRequestApprovalSerializer(serializers.Serializer):
-    """
-    Serializer for approving/rejecting leave requests
-    """
-
     action = serializers.ChoiceField(choices=["approve", "reject"])
     comentario = serializers.CharField(max_length=1000, required=False, allow_blank=True)
 
     def validate(self, attrs):
-        """Validate approval action"""
         request = self.context.get("request")
         leave_request = self.context.get("leave_request")
 
@@ -354,10 +326,6 @@ class LeaveRequestApprovalSerializer(serializers.Serializer):
 
 
 class LeaveRequestStatsSerializer(serializers.Serializer):
-    """
-    Leave request statistics serializer
-    """
-
     total_requests = serializers.IntegerField()
     pending_requests = serializers.IntegerField()
     approved_requests = serializers.IntegerField()
@@ -368,10 +336,6 @@ class LeaveRequestStatsSerializer(serializers.Serializer):
 
 
 class LeaveBalanceStatsSerializer(serializers.Serializer):
-    """
-    Leave balance statistics serializer
-    """
-
     funcionario = serializers.CharField()
     balances = LeaveBalanceSerializer(many=True)
     total_available = serializers.IntegerField()
@@ -380,10 +344,6 @@ class LeaveBalanceStatsSerializer(serializers.Serializer):
 
 
 class LeaveRequestCalendarSerializer(serializers.ModelSerializer):
-    """
-    Leave request serializer for calendar views
-    """
-
     title = serializers.SerializerMethodField()
     start = serializers.DateField(source="data_inicio")
     end = serializers.DateField(source="data_fim")
@@ -394,11 +354,9 @@ class LeaveRequestCalendarSerializer(serializers.ModelSerializer):
         fields = ["id", "title", "start", "end", "color", "status"]
 
     def get_title(self, obj):
-        """Get event title for calendar"""
         return f"{obj.solicitante.get_full_name()} - {obj.tipo.nome}"
 
     def get_color(self, obj):
-        """Get color based on status"""
         colors = {
             "pendente": "#ffa500",  # orange
             "aprovada": "#28a745",  # green

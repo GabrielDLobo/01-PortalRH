@@ -10,10 +10,6 @@ User = get_user_model()
 
 
 class ReportCategory(models.Model):
-    """
-    Categories for organizing reports
-    """
-
     name = models.CharField(max_length=100, unique=True, verbose_name="Nome")
     description = models.TextField(blank=True, verbose_name="Descrição")
     icon = models.CharField(max_length=50, blank=True, verbose_name="Ícone")
@@ -33,10 +29,6 @@ class ReportCategory(models.Model):
 
 
 class ReportTemplate(models.Model):
-    """
-    Template model for creating customizable reports
-    """
-
     class ReportTypeChoices(models.TextChoices):
         EMPLOYEES = "employees", "Relatório de Funcionários"
         TERMINATIONS = "terminations", "Relatório de Desligamentos"
@@ -137,7 +129,6 @@ class ReportTemplate(models.Model):
         return f"{self.name} ({self.get_report_type_display()})"
 
     def can_access(self, user: User) -> bool:
-        """Check if user can access this report template"""
         if self.is_public:
             return True
 
@@ -154,15 +145,10 @@ class ReportTemplate(models.Model):
 
     @property
     def cache_key(self) -> str:
-        """Generate cache key for this template"""
         return f"report_template_{self.id}_v{self.version}"
 
 
 class ReportExecution(models.Model):
-    """
-    Model to track report executions and store results
-    """
-
     class StatusChoices(models.TextChoices):
         PENDING = "pending", "Pendente"
         RUNNING = "running", "Executando"
@@ -246,7 +232,6 @@ class ReportExecution(models.Model):
         return f"{self.template.name} - {self.get_status_display()} ({self.created_at.strftime('%d/%m/%Y %H:%M')})"
 
     def start_execution(self) -> None:
-        """Mark execution as started"""
         self.status = self.StatusChoices.RUNNING
         self.started_at = timezone.now()
         self.save(update_fields=["status", "started_at", "updated_at"])
@@ -254,7 +239,6 @@ class ReportExecution(models.Model):
     def complete_execution(
         self, result_data: Dict[str, Any] = None, file_path: str = None, rows_processed: int = None
     ) -> None:
-        """Mark execution as completed"""
         self.status = self.StatusChoices.COMPLETED
         self.completed_at = timezone.now()
 
@@ -275,7 +259,6 @@ class ReportExecution(models.Model):
         self.save()
 
     def fail_execution(self, error_message: str) -> None:
-        """Mark execution as failed"""
         self.status = self.StatusChoices.FAILED
         self.completed_at = timezone.now()
         self.error_message = error_message
@@ -287,20 +270,14 @@ class ReportExecution(models.Model):
 
     @property
     def is_expired(self) -> bool:
-        """Check if execution result has expired"""
         return self.expires_at and timezone.now() > self.expires_at
 
     @property
     def cache_key(self) -> str:
-        """Generate cache key for this execution"""
         return f"report_execution_{self.id}"
 
 
 class ReportSchedule(models.Model):
-    """
-    Model for scheduling automatic report generation
-    """
-
     class FrequencyChoices(models.TextChoices):
         DAILY = "daily", "Diário"
         WEEKLY = "weekly", "Semanal"
@@ -393,7 +370,6 @@ class ReportSchedule(models.Model):
         return f"{self.name} - {self.get_frequency_display()}"
 
     def calculate_next_execution(self) -> Optional[timezone.datetime]:
-        """Calculate next execution time based on frequency"""
         from datetime import timedelta
 
         now = timezone.now()
@@ -416,7 +392,6 @@ class ReportSchedule(models.Model):
         return None
 
     def record_execution(self, success: bool = True) -> None:
-        """Record an execution and update counters"""
         self.last_execution = timezone.now()
         self.execution_count += 1
 
@@ -441,17 +416,12 @@ class ReportSchedule(models.Model):
 
     @property
     def success_rate(self) -> float:
-        """Calculate success rate percentage"""
         if self.execution_count == 0:
             return 0.0
         return (self.success_count / self.execution_count) * 100
 
 
 class ReportBookmark(models.Model):
-    """
-    Model for users to bookmark frequently used reports
-    """
-
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="report_bookmarks", verbose_name="Usuário"
     )

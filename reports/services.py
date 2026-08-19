@@ -41,10 +41,7 @@ User = get_user_model()
 
 
 class CacheService:
-    """Service for managing report caching"""
-
     def generate_cache_key(self, report_type: str, filters: Dict[str, Any], user_id: int) -> str:
-        """Generate a unique cache key for report data"""
         # Create a hash of the filters for uniqueness
         filters_str = json.dumps(filters, sort_keys=True, default=str)
         filters_hash = hashlib.md5(filters_str.encode(), usedforsecurity=False).hexdigest()[:8]
@@ -52,25 +49,19 @@ class CacheService:
         return f"report_{report_type}_{user_id}_{filters_hash}"
 
     def get_cached_report(self, cache_key: str) -> Optional[Dict[str, Any]]:
-        """Get cached report data"""
         return cache.get(cache_key)
 
     def cache_report(self, cache_key: str, data: Dict[str, Any], timeout: int = 300) -> None:
-        """Cache report data"""
         cache.set(cache_key, data, timeout)
 
     def invalidate_report_cache(self, report_type: str) -> None:
-        """Invalidate all cached reports of a specific type"""
         # In a real implementation, you might use cache versioning or tags
         # For now, we'll rely on TTL
         pass
 
 
 class ReportService:
-    """Service for generating reports"""
-
     def execute_report(self, execution: ReportExecution) -> Dict[str, Any]:
-        """Execute a report and return results"""
         execution.start_execution()
 
         try:
@@ -92,7 +83,6 @@ class ReportService:
     def generate_report(
         self, report_type: str, filters: Dict[str, Any], user: User
     ) -> Dict[str, Any]:
-        """Generate report data based on type"""
         if report_type == "employees":
             return self._generate_employees_report(filters, user)
         elif report_type == "terminations":
@@ -107,7 +97,6 @@ class ReportService:
             raise ValueError(f"Unknown report type: {report_type}")
 
     def _generate_employees_report(self, filters: Dict[str, Any], user: User) -> Dict[str, Any]:
-        """Generate employees report"""
         try:
             from employees.models import Employee
 
@@ -184,7 +173,6 @@ class ReportService:
             raise Exception(f"Error generating employees report: {str(e)}")
 
     def _generate_terminations_report(self, filters: Dict[str, Any], user: User) -> Dict[str, Any]:
-        """Generate terminations report"""
         try:
             from termination.models import TerminationRequest
 
@@ -260,7 +248,6 @@ class ReportService:
             raise Exception(f"Error generating terminations report: {str(e)}")
 
     def _generate_evaluations_report(self, filters: Dict[str, Any], user: User) -> Dict[str, Any]:
-        """Generate evaluations report"""
         try:
             from evaluations.models import PerformanceEvaluation
 
@@ -338,7 +325,6 @@ class ReportService:
     def _generate_leave_requests_report(
         self, filters: Dict[str, Any], user: User
     ) -> Dict[str, Any]:
-        """Generate leave requests report"""
         try:
             from leave_requests.models import LeaveRequest
 
@@ -403,7 +389,6 @@ class ReportService:
             raise Exception(f"Error generating leave requests report: {str(e)}")
 
     def _generate_admissions_report(self, filters: Dict[str, Any], user: User) -> Dict[str, Any]:
-        """Generate admissions report"""
         try:
             from employees.models import AdmissionProcess, Employee
 
@@ -487,12 +472,9 @@ class ReportService:
 
 
 class ExportService:
-    """Service for exporting reports to different formats"""
-
     def export_to_pdf(
         self, data: Dict[str, Any], report_type: str, include_charts: bool = False
     ) -> bytes:
-        """Export report data to PDF"""
         if not REPORTLAB_AVAILABLE:
             raise Exception(
                 "ReportLab library is not installed. Please install it to export PDF reports."
@@ -622,7 +604,6 @@ class ExportService:
         return buffer.getvalue()
 
     def export_to_excel(self, data: Dict[str, Any], report_type: str) -> bytes:
-        """Export report data to Excel"""
         if not OPENPYXL_AVAILABLE:
             raise Exception(
                 "OpenPyXL library is not installed. Please install it to export Excel reports."
@@ -713,7 +694,6 @@ class ExportService:
         return buffer.getvalue()
 
     def export_to_csv(self, data: Dict[str, Any], report_type: str) -> bytes:
-        """Export report data to CSV"""
         if "data" not in data or not data["data"]:
             return b"No data available\n"
 

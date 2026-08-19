@@ -30,23 +30,18 @@ User = get_user_model()
 
 
 class StandardResultsSetPagination(PageNumberPagination):
-    """Standard pagination for report views"""
-
     page_size = 20
     page_size_query_param = "page_size"
     max_page_size = 100
 
 
 class ReportCategoryViewSet(viewsets.ModelViewSet):
-    """ViewSet for managing report categories"""
-
     queryset = ReportCategory.objects.filter(is_active=True)
     serializer_class = ReportCategorySerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
-        """Filter categories based on user permissions"""
         queryset = super().get_queryset()
 
         # Only RH and Admin can see all categories
@@ -62,14 +57,11 @@ class ReportCategoryViewSet(viewsets.ModelViewSet):
 
 
 class ReportTemplateViewSet(viewsets.ModelViewSet):
-    """ViewSet for managing report templates"""
-
     queryset = ReportTemplate.objects.filter(is_active=True)
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = StandardResultsSetPagination
 
     def get_serializer_class(self):
-        """Return appropriate serializer based on action"""
         if self.action == "list":
             return ReportTemplateListSerializer
         elif self.action in ["create", "update", "partial_update"]:
@@ -78,7 +70,6 @@ class ReportTemplateViewSet(viewsets.ModelViewSet):
             return ReportTemplateDetailSerializer
 
     def get_queryset(self):
-        """Filter templates based on user permissions"""
         queryset = super().get_queryset()
 
         # Filter based on user access
@@ -107,12 +98,10 @@ class ReportTemplateViewSet(viewsets.ModelViewSet):
         return queryset
 
     def perform_create(self, serializer):
-        """Set created_by when creating template"""
         serializer.save(created_by=self.request.user)
 
     @action(detail=True, methods=["post"])
     def execute(self, request, pk=None):
-        """Execute a report template"""
         template = self.get_object()
 
         # Check if user can access this template
@@ -161,7 +150,6 @@ class ReportTemplateViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def bookmark(self, request, pk=None):
-        """Bookmark a report template"""
         template = self.get_object()
 
         bookmark_data = {
@@ -182,15 +170,12 @@ class ReportTemplateViewSet(viewsets.ModelViewSet):
 
 
 class ReportExecutionViewSet(viewsets.ReadOnlyModelViewSet):
-    """ViewSet for viewing report executions"""
-
     queryset = ReportExecution.objects.all()
     serializer_class = ReportExecutionSerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
-        """Filter executions based on user permissions"""
         queryset = super().get_queryset()
 
         user = self.request.user
@@ -212,7 +197,6 @@ class ReportExecutionViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(detail=True, methods=["get"])
     def download(self, request, pk=None):
-        """Download execution result file"""
         execution = self.get_object()
 
         # Check permissions
@@ -245,7 +229,6 @@ class ReportExecutionViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(detail=True, methods=["post"])
     def cancel(self, request, pk=None):
-        """Cancel a running execution"""
         execution = self.get_object()
 
         # Check permissions
@@ -268,15 +251,12 @@ class ReportExecutionViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class ReportScheduleViewSet(viewsets.ModelViewSet):
-    """ViewSet for managing report schedules"""
-
     queryset = ReportSchedule.objects.all()
     serializer_class = ReportScheduleSerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
-        """Filter schedules based on user permissions"""
         queryset = super().get_queryset()
 
         user = self.request.user
@@ -288,7 +268,6 @@ class ReportScheduleViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def pause(self, request, pk=None):
-        """Pause a schedule"""
         schedule = self.get_object()
 
         if schedule.status == ReportSchedule.StatusChoices.ACTIVE:
@@ -303,7 +282,6 @@ class ReportScheduleViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def resume(self, request, pk=None):
-        """Resume a paused schedule"""
         schedule = self.get_object()
 
         if schedule.status == ReportSchedule.StatusChoices.PAUSED:
@@ -317,26 +295,20 @@ class ReportScheduleViewSet(viewsets.ModelViewSet):
 
 
 class ReportBookmarkViewSet(viewsets.ModelViewSet):
-    """ViewSet for managing report bookmarks"""
-
     queryset = ReportBookmark.objects.all()
     serializer_class = ReportBookmarkSerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
-        """Get user's bookmarks"""
         return super().get_queryset().filter(user=self.request.user)
 
 
 class DashboardViewSet(viewsets.GenericViewSet):
-    """ViewSet for dashboard data and summary reports"""
-
     permission_classes = [permissions.IsAuthenticated]
 
     @action(detail=False, methods=["get"])
     def summary(self, request):
-        """Get dashboard summary data"""
         cache_key = f"dashboard_summary_{request.user.id}"
         cached_data = cache.get(cache_key)
 
@@ -412,31 +384,25 @@ class DashboardViewSet(viewsets.GenericViewSet):
 
     @action(detail=False, methods=["get"])
     def employees_report(self, request):
-        """Generate employees report"""
         return self._generate_report("employees", request)
 
     @action(detail=False, methods=["get"])
     def terminations_report(self, request):
-        """Generate terminations report"""
         return self._generate_report("terminations", request)
 
     @action(detail=False, methods=["get"])
     def evaluations_report(self, request):
-        """Generate evaluations report"""
         return self._generate_report("evaluations", request)
 
     @action(detail=False, methods=["get"])
     def leave_requests_report(self, request):
-        """Generate leave requests report"""
         return self._generate_report("leave_requests", request)
 
     @action(detail=False, methods=["get"])
     def admissions_report(self, request):
-        """Generate admissions report"""
         return self._generate_report("admissions", request)
 
     def _generate_report(self, report_type: str, request):
-        """Generic method to generate reports"""
         # Validate filters
         filter_serializer = ReportFilterSerializer(data=request.query_params)
         if not filter_serializer.is_valid():
@@ -498,7 +464,6 @@ class DashboardViewSet(viewsets.GenericViewSet):
 
     @action(detail=False, methods=["post"])
     def export_report(self, request):
-        """Export report with custom parameters"""
         export_serializer = ReportExportSerializer(data=request.data)
         if not export_serializer.is_valid():
             return Response(export_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

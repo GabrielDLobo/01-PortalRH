@@ -6,15 +6,10 @@ from django.db import models
 
 
 def employee_document_upload_path(instance: "Employee", filename: str) -> str:
-    """Generate upload path for employee documents"""
     return f"employees/{instance.id}/documents/{filename}"
 
 
 class Employee(models.Model):
-    """
-    Employee model for managing staff information
-    """
-
     class StatusChoices(models.TextChoices):
         ATIVO = "ativo", "Ativo"
         INATIVO = "inativo", "Inativo"
@@ -77,27 +72,20 @@ class Employee(models.Model):
 
     @property
     def is_active(self) -> bool:
-        """Check if employee is active"""
         return self.status == self.StatusChoices.ATIVO
 
     @property
     def years_of_service(self) -> int:
-        """Calculate years of service"""
         from datetime import date
 
         end_date = self.data_demissao or date.today()
         return (end_date - self.data_admissao).days // 365
 
     def get_salary_display(self) -> str:
-        """Get formatted salary display"""
         return f"R$ {self.salario:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
 
 class EmployeeDocument(models.Model):
-    """
-    Model for storing employee documents
-    """
-
     class DocumentType(models.TextChoices):
         CONTRATO = "contrato", "Contrato de Trabalho"
         RG = "rg", "RG"
@@ -138,10 +126,6 @@ class EmployeeDocument(models.Model):
 
 
 class Department(models.Model):
-    """
-    Department model for organizing employees
-    """
-
     nome = models.CharField(max_length=100, unique=True, verbose_name="Nome")
     descricao = models.TextField(blank=True, verbose_name="Descrição")
 
@@ -159,5 +143,4 @@ class Department(models.Model):
 
     @property
     def employee_count(self) -> int:
-        """Get number of employees in this department"""
         return Employee.objects.filter(setor=self.nome).count()

@@ -8,10 +8,6 @@ from django.db import models
 
 
 class LeaveType(models.Model):
-    """
-    Model for different types of leave requests
-    """
-
     nome = models.CharField(max_length=100, unique=True, verbose_name="Nome")
     descricao = models.TextField(blank=True, verbose_name="Descrição")
     max_dias_ano = models.PositiveIntegerField(
@@ -41,10 +37,6 @@ class LeaveType(models.Model):
 
 
 class LeaveRequest(models.Model):
-    """
-    Model for leave requests with approval workflow
-    """
-
     class StatusChoices(models.TextChoices):
         PENDENTE = "pendente", "Pendente"
         APROVADA = "aprovada", "Aprovada"
@@ -139,7 +131,6 @@ class LeaveRequest(models.Model):
         return f"{self.solicitante} - {self.tipo.nome} ({self.data_inicio} a {self.data_fim})"
 
     def clean(self) -> None:
-        """Validate the leave request"""
         super().clean()
 
         if self.data_inicio and self.data_fim:
@@ -202,13 +193,11 @@ class LeaveRequest(models.Model):
 
     @property
     def dias_solicitados(self) -> int:
-        """Calculate number of days requested"""
         if self.data_inicio and self.data_fim:
             return (self.data_fim - self.data_inicio).days + 1
         return 0
 
     def calcular_data_fim_automatica(self) -> Optional[date]:
-        """Calculate end date based on dias_gozo (for vacation requests)"""
         if not self.data_inicio or not self.dias_gozo:
             return None
 
@@ -223,7 +212,6 @@ class LeaveRequest(models.Model):
         return self.data_inicio + timedelta(days=self.dias_gozo - 1)
 
     def save(self, *args, **kwargs):
-        """Override save to auto-calculate end date for vacation requests"""
         # Auto-calculate end date for vacation requests if not manually set
         if (
             self.tipo
@@ -240,21 +228,17 @@ class LeaveRequest(models.Model):
 
     @property
     def is_pending(self) -> bool:
-        """Check if request is pending"""
         return self.status == self.StatusChoices.PENDENTE
 
     @property
     def is_approved(self) -> bool:
-        """Check if request is approved"""
         return self.status == self.StatusChoices.APROVADA
 
     @property
     def is_rejected(self) -> bool:
-        """Check if request is rejected"""
         return self.status == self.StatusChoices.REJEITADA
 
     def approve(self, aprovador, comentario: str = "") -> None:
-        """Approve the leave request"""
         from django.utils import timezone
 
         self.status = self.StatusChoices.APROVADA
@@ -272,7 +256,6 @@ class LeaveRequest(models.Model):
         )
 
     def reject(self, aprovador, comentario: str = "") -> None:
-        """Reject the leave request"""
         from django.utils import timezone
 
         self.status = self.StatusChoices.REJEITADA
@@ -290,16 +273,11 @@ class LeaveRequest(models.Model):
         )
 
     def cancel(self) -> None:
-        """Cancel the leave request"""
         self.status = self.StatusChoices.CANCELADA
         self.save(update_fields=["status", "updated_at"])
 
 
 class LeaveBalance(models.Model):
-    """
-    Model to track employee leave balances by type
-    """
-
     funcionario = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -330,15 +308,12 @@ class LeaveBalance(models.Model):
 
     @property
     def dias_restantes(self) -> int:
-        """Calculate remaining days"""
         return max(0, self.dias_disponiveis - self.dias_utilizados)
 
     def can_request_days(self, dias: int) -> bool:
-        """Check if user can request specific number of days"""
         return self.dias_restantes >= dias
 
     def use_days(self, dias: int) -> None:
-        """Use days from balance"""
         if self.can_request_days(dias):
             self.dias_utilizados += dias
             self.save(update_fields=["dias_utilizados", "updated_at"])
@@ -348,6 +323,5 @@ class LeaveBalance(models.Model):
             )
 
     def return_days(self, dias: int) -> None:
-        """Return days to balance (when request is cancelled/rejected)"""
         self.dias_utilizados = max(0, self.dias_utilizados - dias)
         self.save(update_fields=["dias_utilizados", "updated_at"])

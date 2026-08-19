@@ -24,10 +24,6 @@ from .serializers import (
 
 
 class DepartmentViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing departments
-    """
-
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
     permission_classes = [IsStaffOrAdminRH]
@@ -37,7 +33,6 @@ class DepartmentViewSet(viewsets.ModelViewSet):
     ordering = ["nome"]
 
     def get_permissions(self):
-        """Return appropriate permissions based on action"""
         if self.action in ["create", "update", "partial_update", "destroy"]:
             permission_classes = [IsAdminRH]
         else:
@@ -47,10 +42,6 @@ class DepartmentViewSet(viewsets.ModelViewSet):
 
 
 class EmployeeViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing employees
-    """
-
     queryset = Employee.objects.select_related("user").prefetch_related("documents")
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ["status", "setor", "cargo"]
@@ -59,7 +50,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     ordering = ["nome"]
 
     def get_serializer_class(self):
-        """Return appropriate serializer based on action"""
         if self.action == "list":
             return EmployeeListSerializer
         elif self.action in ["retrieve"]:
@@ -75,7 +65,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
         return EmployeeDetailSerializer
 
     def get_permissions(self):
-        """Return appropriate permissions based on action"""
         # First check if user has basic staff access
         base_permissions = [IsStaffOrAdminRH]
 
@@ -91,7 +80,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        """Filter queryset based on user role"""
         user = self.request.user
 
         if user.is_admin_rh:
@@ -129,7 +117,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def update_salary(self, request, pk=None):
-        """Update employee salary"""
         employee = self.get_object()
         serializer = self.get_serializer(data=request.data)
 
@@ -155,7 +142,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def update_status(self, request, pk=None):
-        """Update employee status"""
         employee = self.get_object()
         serializer = self.get_serializer(data=request.data)
 
@@ -181,7 +167,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def my_info(self, request):
-        """Get current user's employee information"""
         try:
             employee = Employee.objects.get(user=request.user)
             serializer = EmployeeDetailSerializer(employee)
@@ -194,10 +179,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
 
 class EmployeeDocumentViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing employee documents
-    """
-
     queryset = EmployeeDocument.objects.select_related("employee", "uploaded_by")
     serializer_class = EmployeeDocumentSerializer
     permission_classes = [IsStaffOrAdminRH]
@@ -208,7 +189,6 @@ class EmployeeDocumentViewSet(viewsets.ModelViewSet):
     ordering = ["-created_at"]
 
     def get_permissions(self):
-        """Return appropriate permissions based on action"""
         # First check if user has basic staff access
         base_permissions = [IsStaffOrAdminRH]
 
@@ -220,7 +200,6 @@ class EmployeeDocumentViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        """Filter queryset based on user role"""
         user = self.request.user
 
         if user.is_admin_rh:
@@ -230,5 +209,4 @@ class EmployeeDocumentViewSet(viewsets.ModelViewSet):
             return self.queryset.filter(employee__user=user)
 
     def perform_create(self, serializer):
-        """Set uploaded_by to current user"""
         serializer.save(uploaded_by=self.request.user)

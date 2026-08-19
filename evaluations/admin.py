@@ -12,8 +12,6 @@ from .models import (
 
 
 class EvaluationCriteriaInline(admin.TabularInline):
-    """Inline admin for evaluation criteria"""
-
     model = EvaluationCriteria
     extra = 1
     fields = ("nome", "descricao", "peso", "ordem")
@@ -22,8 +20,6 @@ class EvaluationCriteriaInline(admin.TabularInline):
 
 @admin.register(EvaluationTemplate)
 class EvaluationTemplateAdmin(admin.ModelAdmin):
-    """Evaluation Template Admin"""
-
     list_display = ("nome", "criteria_count", "ativo", "created_at")
     list_filter = ("ativo", "created_at")
     search_fields = ("nome", "descricao")
@@ -32,7 +28,6 @@ class EvaluationTemplateAdmin(admin.ModelAdmin):
     inlines = [EvaluationCriteriaInline]
 
     def criteria_count(self, obj):
-        """Display number of criteria"""
         count = obj.criteria.count()
         return format_html(
             '<span style="color: {};">{} critérios</span>', "green" if count > 0 else "red", count
@@ -42,8 +37,6 @@ class EvaluationTemplateAdmin(admin.ModelAdmin):
 
 
 class EvaluationScoreInline(admin.TabularInline):
-    """Inline admin for evaluation scores"""
-
     model = EvaluationScore
     extra = 0
     fields = ("criterio", "nota", "comentario")
@@ -53,8 +46,6 @@ class EvaluationScoreInline(admin.TabularInline):
 
 @admin.register(Evaluation)
 class EvaluationAdmin(admin.ModelAdmin):
-    """Evaluation Admin"""
-
     list_display = (
         "avaliado",
         "avaliador",
@@ -95,13 +86,11 @@ class EvaluationAdmin(admin.ModelAdmin):
     actions = ["finalize_evaluations", "approve_evaluations"]
 
     def periodo_display(self, obj):
-        """Display evaluation period"""
         return f"{obj.periodo_inicio} a {obj.periodo_fim}"
 
     periodo_display.short_description = "Período"
 
     def status_display(self, obj):
-        """Display colored status"""
         colors = {
             "rascunho": "gray",
             "pendente": "orange",
@@ -118,7 +107,6 @@ class EvaluationAdmin(admin.ModelAdmin):
     status_display.short_description = "Status"
 
     def finalize_evaluations(self, request, queryset):
-        """Action to finalize multiple evaluations"""
         finalized_count = 0
         for evaluation in queryset.filter(status="em_andamento"):
             evaluation.finalize_evaluation()
@@ -129,7 +117,6 @@ class EvaluationAdmin(admin.ModelAdmin):
     finalize_evaluations.short_description = "Finalizar avaliações selecionadas"
 
     def approve_evaluations(self, request, queryset):
-        """Action to approve multiple evaluations"""
         approved_count = 0
         for evaluation in queryset.filter(status="concluida"):
             evaluation.approve()
@@ -141,8 +128,6 @@ class EvaluationAdmin(admin.ModelAdmin):
 
 
 class EvaluationCycleParticipantInline(admin.TabularInline):
-    """Inline admin for cycle participants"""
-
     model = EvaluationCycleParticipant
     extra = 1
     fields = ("funcionario", "avaliador", "data_limite", "concluido")
@@ -152,8 +137,6 @@ class EvaluationCycleParticipantInline(admin.TabularInline):
 
 @admin.register(EvaluationCycle)
 class EvaluationCycleAdmin(admin.ModelAdmin):
-    """Evaluation Cycle Admin"""
-
     list_display = (
         "nome",
         "periodo_display",
@@ -185,13 +168,11 @@ class EvaluationCycleAdmin(admin.ModelAdmin):
     actions = ["start_cycles", "complete_cycles"]
 
     def periodo_display(self, obj):
-        """Display cycle period"""
         return f"{obj.data_inicio} a {obj.data_fim}"
 
     periodo_display.short_description = "Período"
 
     def status_display(self, obj):
-        """Display colored status"""
         colors = {"planejado": "gray", "ativo": "green", "concluido": "blue", "cancelado": "red"}
         color = colors.get(obj.status, "black")
         return format_html(
@@ -201,7 +182,6 @@ class EvaluationCycleAdmin(admin.ModelAdmin):
     status_display.short_description = "Status"
 
     def participants_count(self, obj):
-        """Display participants count"""
         count = obj.participation_count
         return format_html(
             '<span style="color: {};">{} participantes</span>',
@@ -212,7 +192,6 @@ class EvaluationCycleAdmin(admin.ModelAdmin):
     participants_count.short_description = "Participantes"
 
     def start_cycles(self, request, queryset):
-        """Action to start multiple cycles"""
         started_count = 0
         for cycle in queryset.filter(status="planejado"):
             cycle.start_cycle()
@@ -223,7 +202,6 @@ class EvaluationCycleAdmin(admin.ModelAdmin):
     start_cycles.short_description = "Iniciar ciclos selecionados"
 
     def complete_cycles(self, request, queryset):
-        """Action to complete multiple cycles"""
         completed_count = 0
         for cycle in queryset.filter(status="ativo"):
             cycle.complete_cycle()
@@ -234,7 +212,6 @@ class EvaluationCycleAdmin(admin.ModelAdmin):
     complete_cycles.short_description = "Concluir ciclos selecionados"
 
     def save_model(self, request, obj, form, change):
-        """Set created_by to current user"""
         if not change:
             obj.created_by = request.user
         super().save_model(request, obj, form, change)

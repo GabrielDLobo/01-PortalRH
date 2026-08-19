@@ -6,8 +6,6 @@ from .models import LeaveBalance, LeaveRequest, LeaveType
 
 @admin.register(LeaveType)
 class LeaveTypeAdmin(admin.ModelAdmin):
-    """Leave Type Admin"""
-
     list_display = ("nome", "max_dias_ano", "requer_aprovacao", "antecedencia_minima", "ativo")
     list_filter = ("requer_aprovacao", "ativo", "created_at")
     search_fields = ("nome", "descricao")
@@ -17,8 +15,6 @@ class LeaveTypeAdmin(admin.ModelAdmin):
 
 @admin.register(LeaveRequest)
 class LeaveRequestAdmin(admin.ModelAdmin):
-    """Leave Request Admin"""
-
     list_display = (
         "solicitante",
         "tipo",
@@ -67,7 +63,6 @@ class LeaveRequestAdmin(admin.ModelAdmin):
     actions = ["approve_requests", "reject_requests"]
 
     def status_display(self, obj):
-        """Display colored status"""
         colors = {
             "pendente": "orange",
             "aprovada": "green",
@@ -82,13 +77,11 @@ class LeaveRequestAdmin(admin.ModelAdmin):
     status_display.short_description = "Status"
 
     def dias_solicitados_display(self, obj):
-        """Display number of days requested"""
         return f"{obj.dias_solicitados} dias"
 
     dias_solicitados_display.short_description = "Dias Solicitados"
 
     def approve_requests(self, request, queryset):
-        """Action to approve multiple requests"""
         approved_count = 0
         for leave_request in queryset.filter(status="pendente"):
             leave_request.approve(request.user, "Aprovado em massa pelo admin")
@@ -99,7 +92,6 @@ class LeaveRequestAdmin(admin.ModelAdmin):
     approve_requests.short_description = "Aprovar solicitações selecionadas"
 
     def reject_requests(self, request, queryset):
-        """Action to reject multiple requests"""
         rejected_count = 0
         for leave_request in queryset.filter(status="pendente"):
             leave_request.reject(request.user, "Rejeitado em massa pelo admin")
@@ -112,8 +104,6 @@ class LeaveRequestAdmin(admin.ModelAdmin):
 
 @admin.register(LeaveBalance)
 class LeaveBalanceAdmin(admin.ModelAdmin):
-    """Leave Balance Admin"""
-
     list_display = (
         "funcionario",
         "tipo",
@@ -133,7 +123,6 @@ class LeaveBalanceAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "updated_at", "dias_restantes_display")
 
     def dias_restantes_display(self, obj):
-        """Display remaining days with color"""
         restantes = obj.dias_restantes
         if restantes == 0:
             color = "red"

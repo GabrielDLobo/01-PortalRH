@@ -86,7 +86,6 @@ class TerminationRequestAdmin(admin.ModelAdmin):
     )
 
     def get_readonly_fields(self, request, obj=None):
-        """Make certain fields readonly based on status"""
         readonly = list(self.readonly_fields)
 
         if obj and obj.status not in ["rascunho", "rejeitada_rh"]:
@@ -106,7 +105,6 @@ class TerminationRequestAdmin(admin.ModelAdmin):
     actions = ["approve_requests", "reject_requests"]
 
     def approve_requests(self, request, queryset):
-        """Bulk approve termination requests"""
         count = 0
         for termination_request in queryset.filter(status="pendente_rh"):
             termination_request.approve_by_hr(request.user)
@@ -117,7 +115,6 @@ class TerminationRequestAdmin(admin.ModelAdmin):
     approve_requests.short_description = "Aprovar solicitações selecionadas"
 
     def reject_requests(self, request, queryset):
-        """Bulk reject termination requests"""
         count = 0
         for termination_request in queryset.filter(status="pendente_rh"):
             termination_request.reject_by_hr(request.user, "Rejeitado em massa pelo admin")

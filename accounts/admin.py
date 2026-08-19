@@ -7,8 +7,6 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    """Custom User Admin"""
-
     list_display = ("email", "username", "role", "is_active", "is_staff", "created_at")
     list_filter = ("role", "is_active", "is_staff", "is_superuser", "created_at")
     search_fields = ("email", "username", "first_name", "last_name")
