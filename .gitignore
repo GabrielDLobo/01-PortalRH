@@ -10,5 +10,14 @@ env
 db.sqlite3
 .logs
 logs
+*.log
 
 .vercel
+
+__pycache__/
+*.pyc
+site/
+media/
+staticfiles/
+.pytest_cache/
+htmlcov/
