@@ -1,4 +1,8 @@
+from django.core.cache import cache
 from django.test import TestCase
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APIClient
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -74,3 +78,30 @@ class UserModelTestCase(TestCase):
                 role=role
             )
             self.assertEqual(user.role, role)
+
+
+class LoginThrottleTestCase(TestCase):
+    """Test cases for rate limiting on the login endpoint"""
+
+    def setUp(self):
+        cache.clear()
+        self.client = APIClient()
+        User.objects.create_user(
+            username='throttle@test.com',
+            email='throttle@test.com',
+            password='testpass123',
+            role='funcionario'
+        )
+
+    def test_login_is_throttled_after_configured_rate(self):
+        """The 'login' throttle scope is configured for 5 requests per minute"""
+        url = reverse('token_obtain_pair')
+        payload = {'email': 'throttle@test.com', 'password': 'wrong-password'}
+
+        # secure=True avoids SecurityMiddleware's SSL redirect, which applies
+        # whenever DEBUG=False (see SECURE_SSL_REDIRECT in settings.py).
+        responses = [self.client.post(url, payload, secure=True) for _ in range(6)]
+
+        for response in responses[:5]:
+            self.assertNotEqual(response.status_code, status.HTTP_429_TOO_MANY_REQUESTS)
+        self.assertEqual(responses[5].status_code, status.HTTP_429_TOO_MANY_REQUESTS)

@@ -149,6 +149,10 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_THROTTLE_RATES': {
+        'login': '5/min',
+        'token_refresh': '10/min',
+    },
 }
 
 # Simple JWT

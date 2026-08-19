@@ -1,8 +1,9 @@
 from rest_framework import generics, status, viewsets, permissions
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.throttling import ScopedRateThrottle
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.contrib.auth import authenticate
 from .models import User
 from .serializers import (
@@ -95,7 +96,10 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     """
     Custom JWT token obtain view with additional user data
     """
-    
+
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = 'login'
+
     def post(self, request, *args, **kwargs):
         serializer = LoginSerializer(data=request.data, context={'request': request})
         
@@ -122,6 +126,13 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             })
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ThrottledTokenRefreshView(TokenRefreshView):
+    """Token refresh view with rate limiting to slow down refresh-token brute-forcing"""
+
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = 'token_refresh'
 
 
 class RegisterView(generics.CreateAPIView):
