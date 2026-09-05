@@ -1,0 +1,17 @@
+name: Reset da demo
+
+on:
+  # Descomentar quando o backend estiver publicado e o secret
+  # DEMO_RESET_TOKEN estiver configurado em Settings → Secrets → Actions.
+  # schedule:
+  #   - cron: "0 */2 * * *"   # a cada 2 horas (UTC)
+  workflow_dispatch:
+
+jobs:
+  reset:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Chamar endpoint de reset
+        run: |
+          curl -fsS -X POST "https://<backend>/internal/reset-demo/" \
+            -H "X-Reset-Token: ${{ secrets.DEMO_RESET_TOKEN }}"
