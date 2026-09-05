@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Sidebar, Topbar } from '../ui';
@@ -28,6 +28,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { isLoading } = useAuth();
   const { pathname } = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   if (isLoading) {
     return (
@@ -39,9 +40,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="flex min-h-screen bg-bg">
-      <Sidebar />
+      <Sidebar isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
       <div className="min-w-0 flex-1">
-        <Topbar title={pageTitle(pathname)} />
+        <Topbar title={pageTitle(pathname)} onMenuClick={() => setIsMobileMenuOpen(true)} />
         <main className="mx-auto max-w-[1180px] px-4 py-[26px] sm:px-[30px] sm:pb-11">{children}</main>
       </div>
     </div>
