@@ -1,0 +1,258 @@
+/* Import Inter font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Basic reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fafafa;
+  color: #171717;
+  margin: 0;
+  padding: 0;
+  display: block;
+  text-align: left;
+}
+
+/* Layout fixes */
+#root {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  text-align: left !important;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.App {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  text-align: left !important;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Force all main containers to align top-left */
+main, .main-content {
+  display: block !important;
+  text-align: left !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Custom Components */
+@layer components {
+  /* Card components */
+  .card-glass {
+    @apply bg-white/80 backdrop-blur-sm border border-white/20 shadow-soft-lg;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-soft-xl hover:-translate-y-1;
+  }
+  
+  /* Button variants */
+  .btn-gradient-primary {
+    @apply bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-soft transition-all duration-300 hover:shadow-soft-lg;
+  }
+  
+  .btn-gradient-success {
+    @apply bg-gradient-to-r from-success-500 to-success-600 hover:from-success-600 hover:to-success-700 text-white shadow-soft transition-all duration-300 hover:shadow-soft-lg;
+  }
+  
+  /* Text gradients */
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-success {
+    @apply bg-gradient-to-r from-success-600 to-success-800 bg-clip-text text-transparent;
+  }
+  
+  /* Loading animations */
+  .animate-pulse-ring {
+    @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75;
+  }
+  
+  /* Modern scrollbars */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db #f3f4f6;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 10px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 10px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+  
+  /* Form focus styles */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-white;
+  }
+  
+  .focus-ring-inset {
+    @apply focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500;
+  }
+  
+  /* Modern table styles */
+  .table-modern {
+    @apply w-full border-collapse bg-white shadow-soft rounded-xl overflow-hidden;
+  }
+  
+  .table-modern th {
+    @apply bg-neutral-50 px-6 py-4 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider border-b border-neutral-200;
+  }
+  
+  .table-modern td {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-neutral-900 border-b border-neutral-100;
+  }
+  
+  .table-modern tr:hover {
+    @apply bg-neutral-50;
+  }
+  
+  /* Status badges */
+  .status-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  
+  .status-active {
+    @apply bg-success-100 text-success-800;
+  }
+  
+  .status-inactive {
+    @apply bg-neutral-100 text-neutral-800;
+  }
+  
+  .status-pending {
+    @apply bg-warning-100 text-warning-800;
+  }
+  
+  .status-approved {
+    @apply bg-success-100 text-success-800;
+  }
+  
+  .status-rejected {
+    @apply bg-danger-100 text-danger-800;
+  }
+  
+  /* Modern input styles */
+  .input-modern {
+    @apply block w-full px-3 py-2 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm transition-colors duration-200;
+  }
+  
+  .input-modern:focus {
+    @apply ring-2 ring-primary-500 border-transparent;
+  }
+  
+  /* Sidebar navigation styles */
+  .nav-link {
+    @apply flex items-center px-4 py-3 text-sm font-medium text-neutral-600 rounded-lg hover:bg-neutral-100 hover:text-neutral-900 transition-colors duration-200;
+  }
+  
+  .nav-link.active {
+    @apply bg-primary-100 text-primary-700 hover:bg-primary-200;
+  }
+  
+  /* Chart containers */
+  .chart-container {
+    @apply bg-white rounded-xl shadow-soft p-6 border border-neutral-200;
+  }
+  
+  /* Dashboard stat cards */
+  .stat-card {
+    @apply bg-white rounded-xl shadow-soft p-6 border border-neutral-200 hover:shadow-soft-lg transition-shadow duration-300;
+  }
+  
+  /* Modern alerts */
+  .alert {
+    @apply p-4 rounded-lg border-l-4;
+  }
+  
+  .alert-info {
+    @apply bg-primary-50 border-primary-500 text-primary-800;
+  }
+  
+  .alert-success {
+    @apply bg-success-50 border-success-500 text-success-800;
+  }
+  
+  .alert-warning {
+    @apply bg-warning-50 border-warning-500 text-warning-800;
+  }
+  
+  .alert-error {
+    @apply bg-danger-50 border-danger-500 text-danger-800;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  /* Text shadows */
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .text-shadow {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* Backdrop filters */
+  .backdrop-blur-xs {
+    backdrop-filter: blur(2px);
+  }
+  
+  /* Safe area insets for mobile */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-left {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .safe-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}
