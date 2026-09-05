@@ -21,6 +21,7 @@ import { Avatar, Button, Card, Input, Select, StatusPill, TableContainer, Th, Td
 import type { PillVariant } from '../components/ui';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { formatDate } from '../utils/formatters';
+import { parseISO } from 'date-fns';
 
 type TabId = 'dados' | 'documentos' | 'historico' | 'avaliacoes' | 'ferias';
 
@@ -233,7 +234,7 @@ const EmployeeDetail: React.FC = () => {
 
   const daysSinceAdmission = useMemo(() => {
     if (!employee) return 0;
-    return Math.floor((Date.now() - new Date(employee.data_admissao).getTime()) / (1000 * 60 * 60 * 24));
+    return Math.floor((Date.now() - parseISO(employee.data_admissao).getTime()) / (1000 * 60 * 60 * 24));
   }, [employee]);
 
   if (isLoading) {

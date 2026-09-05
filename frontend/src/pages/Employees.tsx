@@ -19,6 +19,7 @@ import {
 } from '../components/ui';
 import type { PillVariant } from '../components/ui';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+import { formatDate } from '../utils/formatters';
 
 const PAGE_SIZE = 20;
 
@@ -190,7 +191,7 @@ const Employees: React.FC = () => {
                     </Td>
                     <Td>{employee.setor}</Td>
                     <Td className="font-mono">
-                      {new Date(employee.data_admissao).toLocaleDateString('pt-BR')}
+                      {formatDate(employee.data_admissao)}
                     </Td>
                     <Td className="font-mono">
                       {employee.years_of_service} ano{employee.years_of_service === 1 ? '' : 's'}

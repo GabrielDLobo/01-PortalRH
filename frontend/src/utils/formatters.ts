@@ -1,9 +1,12 @@
-import { format, isValid } from 'date-fns';
+import { format, isValid, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 export const formatDate = (date: string | Date, formatString = 'dd/MM/yyyy'): string => {
   try {
-    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    // parseISO (not `new Date(...)`) so a date-only string like "2026-11-20"
+    // is read as local midnight instead of UTC midnight, which would render
+    // as the previous day in any timezone behind UTC (e.g. America/Sao_Paulo).
+    const dateObj = typeof date === 'string' ? parseISO(date) : date;
     if (!isValid(dateObj)) return 'Data inválida';
     return format(dateObj, formatString, { locale: ptBR });
   } catch (error) {

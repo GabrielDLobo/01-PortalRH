@@ -13,6 +13,7 @@ import { terminationService } from '../services/terminationService';
 import { Avatar, Card, StatKPI, StatusPill, TableContainer, Th, Td, Tr } from '../components/ui';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { formatDate, formatRelativeTime } from '../utils/formatters';
+import { parseISO } from 'date-fns';
 import type { PillVariant } from '../components/ui';
 
 interface PaginatedResponse<T> {
@@ -68,7 +69,7 @@ const LEAVE_PILL: Record<string, PillVariant> = {
 };
 
 function isCurrentMonth(dateIso: string): boolean {
-  const date = new Date(dateIso);
+  const date = parseISO(dateIso);
   const now = new Date();
   return date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth();
 }
