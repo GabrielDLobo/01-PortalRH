@@ -93,6 +93,18 @@ export interface StaffEmployeeStats {
   average_years_service: string;
 }
 
+export const DOCUMENT_TYPES: { value: string; label: string }[] = [
+  { value: 'contrato', label: 'Contrato de Trabalho' },
+  { value: 'rg', label: 'RG' },
+  { value: 'cpf', label: 'CPF' },
+  { value: 'titulo_eleitor', label: 'Título de Eleitor' },
+  { value: 'carteira_trabalho', label: 'Carteira de Trabalho' },
+  { value: 'comprovante_residencia', label: 'Comprovante de Residência' },
+  { value: 'diploma', label: 'Diploma' },
+  { value: 'certificado', label: 'Certificado' },
+  { value: 'outros', label: 'Outros' },
+];
+
 export interface Department {
   id: number;
   nome: string;

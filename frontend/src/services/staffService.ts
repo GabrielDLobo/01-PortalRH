@@ -2,6 +2,7 @@ import { apiService } from './api';
 import {
   Department,
   StaffEmployeeDetail,
+  StaffEmployeeDocument,
   StaffEmployeeListItem,
   StaffEmployeeStats,
   StaffEmployeeWriteRequest,
@@ -64,6 +65,32 @@ class StaffService {
 
   async getDepartments(): Promise<PaginatedResponse<Department>> {
     return apiService.get<PaginatedResponse<Department>>('/v1/staff/departments/');
+  }
+
+  async getDocuments(employeeId: number): Promise<PaginatedResponse<StaffEmployeeDocument>> {
+    return apiService.get<PaginatedResponse<StaffEmployeeDocument>>('/v1/staff/documents/', {
+      employee: employeeId,
+    });
+  }
+
+  async uploadDocument(data: {
+    employee: number;
+    tipo: string;
+    nome: string;
+    descricao?: string;
+    arquivo: File;
+  }): Promise<StaffEmployeeDocument> {
+    const formData = new FormData();
+    formData.append('employee', String(data.employee));
+    formData.append('tipo', data.tipo);
+    formData.append('nome', data.nome);
+    if (data.descricao) formData.append('descricao', data.descricao);
+    formData.append('arquivo', data.arquivo);
+    return apiService.upload<StaffEmployeeDocument>('/v1/staff/documents/', formData);
+  }
+
+  async deleteDocument(id: number): Promise<void> {
+    return apiService.delete(`/v1/staff/documents/${id}/`);
   }
 }
 
