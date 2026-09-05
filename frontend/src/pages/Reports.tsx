@@ -193,7 +193,7 @@ const Reports: React.FC = () => {
 
     setIsGenerating(true);
     try {
-      let data: any = {};
+      const data: any = {};
 
       switch (selectedReportType) {
         case 'employees':

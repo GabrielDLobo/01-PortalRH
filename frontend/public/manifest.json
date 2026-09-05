@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "PortalRH",
+  "name": "PortalRH - Gestão de Recursos Humanos",
   "icons": [
     {
       "src": "favicon.ico",

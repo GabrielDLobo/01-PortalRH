@@ -16,12 +16,14 @@ PortalRH frontend is a React + TypeScript SPA focused on HR workflows:
 ## Stack
 
 - React 19
-- TypeScript
+- TypeScript (strict)
+- Vite
 - React Router
 - Tailwind CSS
 - Axios
 - React Hook Form + Yup
 - Chart.js
+- Vitest + Testing Library
 
 ## Local Setup
 
@@ -32,6 +34,8 @@ npm run dev
 ```
 
 Default local URL: `http://localhost:3000`
+
+Import alias `@/` resolves to `src/` (configured in `vite.config.ts` and `tsconfig.json`).
 
 ## Main Scripts
 
@@ -55,7 +59,7 @@ src/
   App.test.tsx
   index.tsx
   index.css
-  react-app-env.d.ts
+  vite-env.d.ts
   reportWebVitals.ts
   setupTests.ts
   logo.svg
@@ -85,8 +89,6 @@ src/
     Employees.tsx
     Evaluations.tsx
     LeaveRequests.tsx
-    LeaveRequestsSimple.tsx
-    LeaveRequestsTest.tsx
     Profile.tsx
     Reports.tsx
     Terminations.tsx
@@ -216,27 +218,7 @@ Main dependencies:
 - Shared components (`StatCard`, `Modal`, `Input`, `Select`)
 - i18n and auth contexts
 
-### 7) LeaveRequestsSimple.tsx
-
-Responsibilities:
-
-- Minimal debug page used to validate layout/CSS behavior
-
-Status:
-
-- Support/testing artifact, not part of main route flow in `App.tsx`
-
-### 8) LeaveRequestsTest.tsx
-
-Responsibilities:
-
-- Alternative debug page with inline styles for render-position checks
-
-Status:
-
-- Support/testing artifact, not part of main route flow in `App.tsx`
-
-### 9) Profile.tsx
+### 7) Profile.tsx
 
 Responsibilities:
 
@@ -250,7 +232,7 @@ Main dependencies:
 - `AuthContext`, `LanguageContext`
 - Form components (`Input`, `Button`)
 
-### 10) Reports.tsx
+### 8) Reports.tsx
 
 Responsibilities:
 
@@ -263,7 +245,7 @@ Main dependencies:
 - `jspdf`, `jspdf-autotable`, `xlsx`
 - Domain types for employees, terminations, evaluations
 
-### 11) Terminations.tsx
+### 9) Terminations.tsx
 
 Responsibilities:
 
@@ -284,16 +266,16 @@ Create `.env` based on your environment and backend URL.
 Example:
 
 ```env
-REACT_APP_API_URL=http://localhost:8000/api
-NODE_ENV=development
-REACT_APP_APP_NAME=PortalRH
-REACT_APP_VERSION=1.0.0
+VITE_API_URL=http://localhost:8000/api/v1
+VITE_APP_NAME=PortalRH
+VITE_APP_VERSION=1.0.0
 ```
+
+Only variables prefixed with `VITE_` are exposed to the client (via `import.meta.env`).
 
 ## Notes
 
 - Keep API base URL aligned with backend settings.
 - Prefer typed service calls and centralized API helpers.
 - Keep labels in sync with `locales/en.json` and `locales/pt.json`.
-- Revisit `LeaveRequestsSimple.tsx` and `LeaveRequestsTest.tsx` before production release if they are no longer needed.
 
