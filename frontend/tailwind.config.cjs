@@ -6,7 +6,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Professional HR Brand Colors
+        // Ephyra design system (docs/design-system.md) — tokens exatos da marca.
+        bg: '#F7F9FC',
+        surface: '#FFFFFF',
+        'surface-2': '#FBFCFE',
+        ink: '#0B1220',
+        muted: '#5B6472',
+        line: '#E6EAF0',
+        'line-2': '#EFF2F7',
+        cyan: { DEFAULT: '#22D3EE', 600: '#06B6D4', 700: '#0E7490' },
+        human: '#FF9E7A',
+        violet: '#7C6FF0',
+        dark: { DEFAULT: '#04070D', 2: '#0A0F1A', line: '#16202E' },
+
+        // Professional HR Brand Colors (legado, telas ainda não migradas na Fase 3)
         primary: {
           50: '#f0f9ff',
           100: '#e0f2fe',
@@ -33,8 +46,10 @@ module.exports = {
           900: '#18181b',
           950: '#09090b',
         },
-        // HR Specific Colors
+        // HR Specific Colors (DEFAULT segue o tom exato do design-system;
+        // a escala numerada segue disponível para as telas ainda não migradas)
         success: {
+          DEFAULT: '#10B981',
           50: '#f0fdf4',
           100: '#dcfce7',
           200: '#bbf7d0',
@@ -47,6 +62,7 @@ module.exports = {
           900: '#14532d',
         },
         warning: {
+          DEFAULT: '#F59E0B',
           50: '#fffbeb',
           100: '#fef3c7',
           200: '#fed7aa',
@@ -59,6 +75,7 @@ module.exports = {
           900: '#7c2d12',
         },
         danger: {
+          DEFAULT: '#F43F5E',
           50: '#fef2f2',
           100: '#fee2e2',
           200: '#fecaca',
@@ -102,8 +119,11 @@ module.exports = {
         'soft-lg': '0 4px 12px 0 rgba(0, 0, 0, 0.08)',
         'soft-xl': '0 8px 25px 0 rgba(0, 0, 0, 0.1)',
         'inner-soft': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-        'glow': '0 0 20px 0 rgba(14, 165, 233, 0.15)',
         'glow-lg': '0 0 30px 0 rgba(14, 165, 233, 0.2)',
+        // design-system.md — glow cyan da marca Ephyra (substitui o glow azul-céu antigo)
+        'sm': '0 1px 2px rgba(11,18,32,.05)',
+        'card': '0 1px 2px rgba(11,18,32,.04), 0 8px 24px rgba(11,18,32,.06)',
+        'glow': '0 0 18px rgba(34,211,238,.4)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
@@ -190,8 +210,8 @@ module.exports = {
         },
       },
       borderRadius: {
-        'xl': '1rem',
-        '2xl': '1.5rem',
+        'xl': '16px',
+        '2xl': '20px',
         '3xl': '2rem',
       },
       fontSize: {
@@ -205,6 +225,11 @@ module.exports = {
         '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
         '5xl': ['3rem', { lineHeight: '1' }],
         '6xl': ['3.75rem', { lineHeight: '1' }],
+      },
+      fontFamily: {
+        display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
     },
   },
