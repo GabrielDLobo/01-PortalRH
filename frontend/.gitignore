@@ -26,3 +26,5 @@ dev.log
 # vite
 dist
 *.local
+.vercel
+.env*
