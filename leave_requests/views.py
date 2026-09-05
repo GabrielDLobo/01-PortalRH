@@ -43,7 +43,9 @@ class LeaveTypeViewSet(viewsets.ModelViewSet):
         if self.action in ["create", "update", "partial_update", "destroy"]:
             permission_classes = [IsAdminRH]
         else:
-            permission_classes = [IsStaffOrAdminRH]
+            # Any authenticated user needs to see the active leave types to
+            # file their own request (LeaveRequestViewSet.create allows it).
+            permission_classes = [permissions.IsAuthenticated]
 
         return [permission() for permission in permission_classes]
 

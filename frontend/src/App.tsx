@@ -88,7 +88,7 @@ const AppRoutes: React.FC = () => {
         <Route
           path="/leaves"
           element={
-            <ProtectedRoute requiredRoles={['admin_rh']}>
+            <ProtectedRoute requiredRoles={['admin_rh', 'funcionario']}>
               <LeaveRequests />
             </ProtectedRoute>
           }

@@ -1,5 +1,11 @@
 import { apiService } from './api';
-import { LeaveRequest, CreateLeaveRequest, UpdateLeaveRequest } from '../types/leave';
+import {
+  CreateLeaveRequest,
+  LeaveBalance,
+  LeaveRequestDetail,
+  LeaveRequestListItem,
+  LeaveType,
+} from '../types/leave';
 
 interface PaginatedResponse<T> {
   count: number;
@@ -8,75 +14,52 @@ interface PaginatedResponse<T> {
   results: T[];
 }
 
-interface LeaveFilters {
+export interface LeaveRequestFilters {
   status?: string;
-  leave_type?: string;
-  employee?: number;
-  start_date_from?: string;
-  start_date_to?: string;
+  tipo?: number;
+  prioridade?: string;
+  search?: string;
+  ordering?: string;
   page?: number;
-  page_size?: number;
 }
 
+const BASE = '/v1/leave-requests/requests';
+
 class LeaveService {
-  async getLeaveRequests(filters?: LeaveFilters): Promise<PaginatedResponse<LeaveRequest>> {
-    return await apiService.get<PaginatedResponse<LeaveRequest>>('/leaves/', filters);
+  async getLeaveRequests(filters?: LeaveRequestFilters): Promise<PaginatedResponse<LeaveRequestListItem>> {
+    return apiService.get<PaginatedResponse<LeaveRequestListItem>>(`${BASE}/`, filters);
   }
 
-  async getMyLeaveRequests(filters?: LeaveFilters): Promise<PaginatedResponse<LeaveRequest>> {
-    return await apiService.get<PaginatedResponse<LeaveRequest>>('/leaves/my-requests/', filters);
+  async getMyLeaveRequests(): Promise<LeaveRequestListItem[]> {
+    return apiService.get<LeaveRequestListItem[]>(`${BASE}/my_requests/`);
   }
 
-  async getLeaveRequest(id: number): Promise<LeaveRequest> {
-    return await apiService.get<LeaveRequest>(`/leaves/${id}/`);
+  async getLeaveRequest(id: number): Promise<LeaveRequestDetail> {
+    return apiService.get<LeaveRequestDetail>(`${BASE}/${id}/`);
   }
 
-  async createLeaveRequest(data: CreateLeaveRequest): Promise<LeaveRequest> {
-    return await apiService.post<LeaveRequest>('/leaves/', data);
+  async createLeaveRequest(data: CreateLeaveRequest): Promise<LeaveRequestDetail> {
+    return apiService.post<LeaveRequestDetail>(`${BASE}/`, data);
   }
 
-  async updateLeaveRequest(data: UpdateLeaveRequest): Promise<LeaveRequest> {
-    const { id, ...updateData } = data;
-    return await apiService.patch<LeaveRequest>(`/leaves/${id}/`, updateData);
+  async approveLeaveRequest(id: number, comentario?: string): Promise<{ message: string; status: string }> {
+    return apiService.post(`${BASE}/${id}/approve/`, { action: 'approve', comentario });
   }
 
-  async approveLeaveRequest(id: number, adminNotes?: string): Promise<LeaveRequest> {
-    return await apiService.patch<LeaveRequest>(`/leaves/${id}/`, {
-      status: 'approved',
-      admin_notes: adminNotes,
-    });
+  async rejectLeaveRequest(id: number, comentario?: string): Promise<{ message: string; status: string }> {
+    return apiService.post(`${BASE}/${id}/approve/`, { action: 'reject', comentario });
   }
 
-  async rejectLeaveRequest(id: number, adminNotes?: string): Promise<LeaveRequest> {
-    return await apiService.patch<LeaveRequest>(`/leaves/${id}/`, {
-      status: 'rejected',
-      admin_notes: adminNotes,
-    });
+  async cancelLeaveRequest(id: number): Promise<{ message: string }> {
+    return apiService.post(`${BASE}/${id}/cancel/`);
   }
 
-  async deleteLeaveRequest(id: number): Promise<void> {
-    await apiService.delete(`/leaves/${id}/`);
+  async getLeaveTypes(): Promise<PaginatedResponse<LeaveType>> {
+    return apiService.get<PaginatedResponse<LeaveType>>('/v1/leave-requests/types/');
   }
 
-  async getLeaveStats(): Promise<{
-    total: number;
-    pending: number;
-    approved: number;
-    rejected: number;
-    by_type: Record<string, number>;
-  }> {
-    return await apiService.get('/leaves/stats/');
-  }
-
-  async getLeaveBalance(employeeId?: number): Promise<{
-    annual_leave: number;
-    sick_leave: number;
-    personal_leave: number;
-  }> {
-    const endpoint = employeeId 
-      ? `/leaves/balance/${employeeId}/`
-      : '/leaves/balance/';
-    return await apiService.get(endpoint);
+  async getLeaveBalances(filters?: { funcionario?: number; ano?: number }): Promise<PaginatedResponse<LeaveBalance>> {
+    return apiService.get<PaginatedResponse<LeaveBalance>>('/v1/leave-requests/balances/', filters);
   }
 }
 

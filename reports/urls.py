@@ -22,5 +22,5 @@ router.register(r"dashboard", DashboardViewSet, basename="dashboard")
 app_name = "reports"
 
 urlpatterns = [
-    path("reports/", include(router.urls)),
+    path("", include(router.urls)),
 ]
