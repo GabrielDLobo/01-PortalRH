@@ -47,7 +47,7 @@ function NavGroup({
   if (visible.length === 0) return null;
   return (
     <>
-      <div className="px-2.5 pb-1 pt-2.5 text-[10px] font-semibold uppercase tracking-[.1em] text-muted">
+      <div className="px-3.5 pb-1.5 pt-3 text-[10.5px] font-semibold uppercase tracking-[.1em] text-muted">
         {label}
       </div>
       {visible.map((item) => (
@@ -58,14 +58,14 @@ function NavGroup({
           onClick={onNavigate}
           className={({ isActive }) =>
             clsx(
-              'flex items-center gap-[11px] rounded-[10px] px-[11px] py-[9px] text-[13.5px] font-medium transition-colors',
+              'flex items-center gap-3 rounded-xl px-3.5 py-[11px] text-[14px] font-medium transition-colors',
               isActive
                 ? 'bg-gradient-to-r from-cyan/[0.14] to-cyan/[0.04] font-semibold text-cyan-700'
                 : 'text-muted hover:bg-surface-2 hover:text-ink'
             )
           }
         >
-          <item.icon className="h-[18px] w-[18px] flex-none" />
+          <item.icon className="h-5 w-5 flex-none" />
           {item.label}
         </NavLink>
       ))}
@@ -93,7 +93,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
       )}
       <aside
         className={clsx(
-          'fixed inset-y-0 left-0 z-40 flex h-screen w-[248px] flex-none flex-col gap-1 border-r border-line bg-surface p-3.5 transition-transform duration-200',
+          'fixed inset-y-0 left-0 z-40 flex h-screen w-[288px] flex-none flex-col gap-1.5 border-r border-line bg-surface p-5 transition-transform duration-200',
           'lg:sticky lg:top-0 lg:z-auto lg:translate-x-0',
           isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
@@ -133,11 +133,11 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
           <NavGroup label="Conta" items={ACCOUNT_ITEMS} isAdmin={isAdmin} onNavigate={onClose} />
         </nav>
 
-        <div className="mt-auto flex items-center gap-2.5 rounded-[11px] border border-line bg-surface-2 p-2.5">
+        <div className="mt-auto flex items-center gap-3 rounded-xl border border-line bg-surface-2 p-3">
           <Avatar name={user?.full_name || user?.email || '?'} size="md" />
-          <span className="min-w-0 flex-1 text-[12.5px] leading-tight">
+          <span className="min-w-0 flex-1 text-[13px] leading-tight">
             <b className="block truncate font-semibold text-ink">{user?.full_name}</b>
-            <span className="text-[11px] text-muted">{user?.role_display}</span>
+            <span className="text-[11.5px] text-muted">{user?.role_display}</span>
           </span>
           <button
             type="button"
