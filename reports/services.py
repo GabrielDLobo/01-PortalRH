@@ -249,19 +249,20 @@ class ReportService:
 
     def _generate_evaluations_report(self, filters: Dict[str, Any], user: User) -> Dict[str, Any]:
         try:
-            from evaluations.models import PerformanceEvaluation
+            from evaluations.models import Evaluation
 
-            queryset = PerformanceEvaluation.objects.select_related("employee", "evaluator")
+            queryset = Evaluation.objects.select_related("avaliado", "avaliador")
 
-            # Apply filters
+            # Apply filters (against the evaluation period, since that's the
+            # date range that actually exists on this model)
             if filters.get("start_date"):
-                queryset = queryset.filter(evaluation_date__gte=filters["start_date"])
+                queryset = queryset.filter(periodo_inicio__gte=filters["start_date"])
 
             if filters.get("end_date"):
-                queryset = queryset.filter(evaluation_date__lte=filters["end_date"])
+                queryset = queryset.filter(periodo_fim__lte=filters["end_date"])
 
             # Ordering
-            ordering = filters.get("ordering", "-evaluation_date")
+            ordering = filters.get("ordering", "-created_at")
             queryset = queryset.order_by(ordering)
 
             # Convert to list
@@ -270,12 +271,10 @@ class ReportService:
                 evaluations_data.append(
                     {
                         "id": eval.id,
-                        "employee_name": eval.employee.get_full_name(),
-                        "employee_department": getattr(eval.employee, "department", ""),
-                        "evaluator_name": eval.evaluator.get_full_name(),
-                        "evaluation_date": eval.evaluation_date.isoformat(),
-                        "period": f"{eval.period_start.isoformat()} to {eval.period_end.isoformat()}",
-                        "overall_score": float(eval.overall_score) if eval.overall_score else None,
+                        "employee_name": eval.avaliado.get_full_name(),
+                        "evaluator_name": eval.avaliador.get_full_name(),
+                        "period": f"{eval.periodo_inicio.isoformat()} to {eval.periodo_fim.isoformat()}",
+                        "overall_score": float(eval.nota_final) if eval.nota_final else None,
                         "status": eval.get_status_display(),
                         "created_at": eval.created_at.isoformat(),
                     }
@@ -283,26 +282,17 @@ class ReportService:
 
             # Generate summary
             total_count = queryset.count()
-            avg_score = queryset.aggregate(avg_score=Avg("overall_score"))["avg_score"] or 0
+            avg_score = queryset.aggregate(avg_score=Avg("nota_final"))["avg_score"] or 0
 
             # Status breakdown
             status_breakdown = queryset.values("status").annotate(count=Count("id"))
 
-            # Score distribution
+            # Score distribution (nota_final is 0.00-10.00)
             score_ranges = [
-                ("Excelente (4.5-5.0)", queryset.filter(overall_score__gte=4.5).count()),
-                (
-                    "Bom (3.5-4.4)",
-                    queryset.filter(overall_score__gte=3.5, overall_score__lt=4.5).count(),
-                ),
-                (
-                    "Regular (2.5-3.4)",
-                    queryset.filter(overall_score__gte=2.5, overall_score__lt=3.5).count(),
-                ),
-                (
-                    "Ruim (1.0-2.4)",
-                    queryset.filter(overall_score__gte=1.0, overall_score__lt=2.5).count(),
-                ),
+                ("Excelente (9.0-10.0)", queryset.filter(nota_final__gte=9.0).count()),
+                ("Bom (7.0-8.9)", queryset.filter(nota_final__gte=7.0, nota_final__lt=9.0).count()),
+                ("Regular (5.0-6.9)", queryset.filter(nota_final__gte=5.0, nota_final__lt=7.0).count()),
+                ("Insuficiente (0.0-4.9)", queryset.filter(nota_final__lt=5.0, nota_final__isnull=False).count()),
             ]
 
             return {
@@ -328,14 +318,14 @@ class ReportService:
         try:
             from leave_requests.models import LeaveRequest
 
-            queryset = LeaveRequest.objects.select_related("employee")
+            queryset = LeaveRequest.objects.select_related("solicitante", "tipo")
 
             # Apply filters
             if filters.get("start_date"):
-                queryset = queryset.filter(start_date__gte=filters["start_date"])
+                queryset = queryset.filter(data_inicio__gte=filters["start_date"])
 
             if filters.get("end_date"):
-                queryset = queryset.filter(end_date__lte=filters["end_date"])
+                queryset = queryset.filter(data_fim__lte=filters["end_date"])
 
             # Ordering
             ordering = filters.get("ordering", "-created_at")
@@ -347,28 +337,29 @@ class ReportService:
                 leave_requests_data.append(
                     {
                         "id": leave.id,
-                        "employee_name": leave.employee.get_full_name(),
-                        "employee_department": getattr(leave.employee, "department", ""),
-                        "leave_type": leave.get_leave_type_display(),
-                        "start_date": leave.start_date.isoformat(),
-                        "end_date": leave.end_date.isoformat(),
-                        "days_requested": leave.days_requested,
+                        "employee_name": leave.solicitante.get_full_name(),
+                        "leave_type": leave.tipo.nome,
+                        "start_date": leave.data_inicio.isoformat(),
+                        "end_date": leave.data_fim.isoformat(),
+                        "days_requested": leave.dias_solicitados,
                         "status": leave.get_status_display(),
-                        "reason": leave.reason,
+                        "reason": leave.motivo,
                         "created_at": leave.created_at.isoformat(),
                     }
                 )
 
             # Generate summary
             total_count = queryset.count()
-            total_days = queryset.aggregate(total_days=Sum("days_requested"))["total_days"] or 0
+            # dias_solicitados is a Python property (computed from the date
+            # range), not a DB column, so it can't be summed in the query.
+            total_days = sum(leave.dias_solicitados for leave in queryset)
 
             # Status breakdown
             status_breakdown = queryset.values("status").annotate(count=Count("id"))
 
             # Type breakdown
             type_breakdown = (
-                queryset.values("leave_type").annotate(count=Count("id")).order_by("-count")
+                queryset.values("tipo__nome").annotate(count=Count("id")).order_by("-count")
             )
 
             return {
