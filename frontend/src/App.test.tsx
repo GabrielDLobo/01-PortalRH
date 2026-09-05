@@ -5,6 +5,6 @@ test('renderiza a tela de login quando não há sessão ativa', async () => {
   render(<App />);
 
   await waitFor(() => {
-    expect(screen.getByRole('button', { name: /entrar/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Entrar no sistema' })).toBeInTheDocument();
   });
 });

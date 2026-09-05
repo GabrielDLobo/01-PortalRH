@@ -1,230 +1,171 @@
-import React, { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { EnvelopeIcon, LockClosedIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { useAuth } from '../../contexts/AuthContext';
-import { useLanguage } from '../../contexts/LanguageContext';
-import Input from '../common/Input';
-import Button from '../common/Button';
-import LanguageToggle from '../common/LanguageToggle';
 import toast from 'react-hot-toast';
+import { useAuth } from '../../contexts/AuthContext';
+
+const LoginHero = lazy(() => import('../three/LoginHero'));
 
 interface LoginFormData {
   email: string;
   password: string;
-  rememberMe?: boolean;
 }
 
+interface DemoAccount {
+  role: string;
+  email: string;
+}
+
+const DEMO_ACCOUNTS: DemoAccount[] = [
+  { role: 'RH', email: 'rh.demo@portalrh.com.br' },
+  { role: 'Funcionário', email: 'demo@portalrh.com.br' },
+];
+const DEMO_PASSWORD = 'demo1234';
+
+const darkInputClass =
+  'w-full rounded-[11px] border border-[rgba(140,160,173,.25)] bg-[rgba(4,7,13,.6)] px-3.5 py-[11px] text-sm text-[#EAF2F6] ' +
+  'focus:border-cyan focus:outline-none focus:ring-[3px] focus:ring-cyan/[0.16]';
+
 const LoginForm: React.FC = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
-  const { t } = useLanguage();
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
-    defaultValues: {
-      email: '',
-      password: '',
-      rememberMe: false,
-    },
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    defaultValues: { email: 'rh.demo@portalrh.com.br', password: DEMO_PASSWORD },
   });
 
-  const onSubmit = async (data: LoginFormData) => {
+  const doLogin = async (email: string, password: string) => {
     try {
       setIsLoading(true);
-      await login(data.email, data.password);
-      toast.success(t('auth.loginSuccess'));
+      await login(email, password);
       navigate('/');
     } catch (error: any) {
-      const message = error.response?.data?.message || t('auth.invalidCredentials');
+      const message = error.response?.data?.detail || 'E-mail ou senha inválidos.';
       toast.error(message);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const onSubmit = (data: LoginFormData) => doLogin(data.email, data.password);
+
+  const quickAccess = (email: string) => {
+    setValue('email', email);
+    setValue('password', DEMO_PASSWORD);
+    doLogin(email, DEMO_PASSWORD);
   };
 
   return (
-    <div className="min-h-screen flex bg-neutral-50">
-      {/* Left side - Login Form */}
-      <div className="flex-1 flex flex-col justify-start pt-8 pb-12 px-4 sm:px-6 lg:px-20 xl:px-24 bg-white">
-        <div className="mx-auto w-full max-w-sm lg:w-96">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="mb-6">
-              <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-soft-lg">
-                <span className="text-2xl font-bold text-white">HR</span>
-              </div>
-            </div>
-            <h2 className="text-3xl font-bold text-gradient-primary">PortalRH</h2>
-            <p className="mt-3 text-lg text-neutral-600">{t('auth.welcomeBack')}</p>
-            <p className="text-sm text-neutral-500">{t('auth.pleaseSignIn')}</p>
-          </div>
+    <div className="fixed inset-0 overflow-hidden bg-dark">
+      <Suspense fallback={null}>
+        <LoginHero />
+      </Suspense>
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{ background: 'radial-gradient(60% 50% at 50% 42%, rgba(34,211,238,.16), transparent 70%)' }}
+      />
 
-          {/* Language Toggle */}
-          <div className="mb-8 flex justify-center">
-            <LanguageToggle />
-          </div>
-
-          {/* Login Form */}
-          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            <div className="space-y-5">
-              <div className="group">
-                <Input
-                  {...register('email', { 
-                    required: t('validation.required'),
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: t('validation.email')
-                    }
-                  })}
-                  type="email"
-                  label={t('auth.email')}
-                  placeholder={t('auth.enterEmail')}
-                  icon={<EnvelopeIcon />}
-                  error={errors.email?.message}
-                  required
-                  autoComplete="email"
-                />
-              </div>
-
-              <div className="group relative">
-                <Input
-                  {...register('password', { required: t('validation.required') })}
-                  type={showPassword ? 'text' : 'password'}
-                  label={t('auth.password')}
-                  placeholder={t('auth.enterPassword')}
-                  icon={<LockClosedIcon />}
-                  error={errors.password?.message}
-                  required
-                  autoComplete="current-password"
-                />
-                <button
-                  type="button"
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-primary-600 transition-colors duration-200 focus:outline-none z-10"
-                  onClick={togglePasswordVisibility}
-                  style={{ top: 'calc(50% + 12px)' }}
-                >
-                  {showPassword ? (
-                    <EyeSlashIcon className="h-5 w-5" />
-                  ) : (
-                    <EyeIcon className="h-5 w-5" />
-                  )}
-                </button>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  {...register('rememberMe')}
-                  id="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded transition-colors"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-neutral-700 font-medium">
-                  {t('auth.rememberMe')}
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a
-                  href="/forgot-password"
-                  className="font-semibold text-primary-600 hover:text-primary-700 transition-colors duration-200"
-                >
-                  {t('auth.forgotPassword')}
-                </a>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <Button
-                type="submit"
-                fullWidth
-                isLoading={isLoading}
-                disabled={isLoading}
-                className="btn-gradient-primary py-3 text-base font-semibold"
+      <div className="relative flex h-full items-center justify-center p-6">
+        <div className="w-full max-w-[410px] rounded-[20px] border border-cyan/[0.22] bg-[rgba(10,15,26,.62)] p-8 text-[#EAF2F6] shadow-[0_24px_70px_rgba(0,0,0,.55)] backdrop-blur-[14px]">
+          <div className="mb-1 flex items-center gap-[11px]">
+            <span className="grid h-[34px] w-[34px] flex-none place-items-center rounded-[9px] bg-gradient-to-br from-cyan to-violet shadow-[0_0_18px_rgba(34,211,238,.5)]">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#04070D"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-[19px] w-[19px]"
+                aria-hidden="true"
               >
-                {isLoading ? t('auth.signingIn') : t('auth.login')}
-              </Button>
+                <path d="M4 20v-1a5 5 0 0 1 5-5h1" />
+                <circle cx="10.5" cy="7.5" r="3.5" />
+                <path d="M15 12l2.2 2.2L21 10.4" />
+              </svg>
+            </span>
+            <span className="font-display text-xl font-bold tracking-[-.02em]">
+              Portal<b className="text-cyan">RH</b>
+            </span>
+          </div>
+          <p className="mb-[26px] mt-0.5 text-[13px] text-[#8CA0AD]">
+            Gestão de pessoas, admissão, férias e avaliações.
+          </p>
+
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <div className="mb-3.5">
+              <label
+                htmlFor="login-email"
+                className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[.09em] text-[#7F93A0]"
+              >
+                E-mail
+              </label>
+              <input
+                id="login-email"
+                type="email"
+                autoComplete="username"
+                className={darkInputClass}
+                {...register('email', { required: 'Informe o e-mail.' })}
+              />
+              {errors.email && <p className="mt-1.5 text-xs text-[#FF9E7A]">{errors.email.message}</p>}
             </div>
+
+            <div className="mb-3.5">
+              <label
+                htmlFor="login-password"
+                className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[.09em] text-[#7F93A0]"
+              >
+                Senha
+              </label>
+              <input
+                id="login-password"
+                type="password"
+                autoComplete="current-password"
+                className={darkInputClass}
+                {...register('password', { required: 'Informe a senha.' })}
+              />
+              {errors.password && <p className="mt-1.5 text-xs text-[#FF9E7A]">{errors.password.message}</p>}
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="mt-1.5 w-full rounded-[11px] bg-gradient-to-br from-cyan to-cyan-600 py-3 text-sm font-semibold text-dark shadow-[0_8px_22px_rgba(34,211,238,.28)] transition hover:-translate-y-px hover:shadow-[0_10px_28px_rgba(34,211,238,.4)] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {isLoading ? 'Entrando...' : 'Entrar no sistema'}
+            </button>
           </form>
 
-          {/* Footer */}
-          <div className="mt-8 text-center">
-            <p className="text-xs text-neutral-500">
-              {t('auth.terms')}
+          <div className="mt-[22px] rounded-[13px] border border-dashed border-cyan/30 bg-cyan/5 p-[15px]">
+            <span className="mb-[9px] inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[.08em] text-cyan">
+              <i
+                className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan shadow-[0_0_8px_#22D3EE]"
+                aria-hidden="true"
+              />
+              Ambiente de demonstração
+            </span>
+            <p className="mb-3 text-xs leading-relaxed text-[#9DB1BD]">
+              Dados fictícios, reiniciados periodicamente. Escolha um perfil para explorar:
             </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Right side - Enhanced Branding */}
-      <div className="hidden lg:block relative w-0 flex-1">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 flex items-center justify-center overflow-hidden">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-            <div className="absolute bottom-0 right-0 w-80 h-80 bg-white rounded-full translate-x-1/3 translate-y-1/3"></div>
-            <div className="absolute top-1/3 right-1/4 w-48 h-48 bg-white rounded-full"></div>
-          </div>
-          
-          <div className="relative text-center text-white z-10 max-w-lg px-8">
-            <div className="mb-8">
-              <h1 className="text-5xl font-bold mb-6 text-shadow-lg leading-tight">
-                {t('auth.welcomeTo')}
-                <span className="block text-primary-200">PortalRH</span>
-              </h1>
-              <p className="text-xl text-primary-100 font-medium leading-relaxed">
-                {t('auth.completeSolution')}
-              </p>
-            </div>
-            
-            {/* Feature Grid */}
-            <div className="grid grid-cols-2 gap-6 mt-12">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
-                <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">👥</div>
-                <h3 className="font-semibold mb-2">{t('auth.employeeManagement')}</h3>
-                <p className="text-sm text-primary-200">{t('auth.employeeManagementDesc')}</p>
-              </div>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
-                <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">📊</div>
-                <h3 className="font-semibold mb-2">{t('auth.analyticsDashboard')}</h3>
-                <p className="text-sm text-primary-200">{t('auth.analyticsDashboardDesc')}</p>
-              </div>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
-                <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">📅</div>
-                <h3 className="font-semibold mb-2">{t('auth.leaveManagement')}</h3>
-                <p className="text-sm text-primary-200">{t('auth.leaveManagementDesc')}</p>
-              </div>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
-                <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">⭐</div>
-                <h3 className="font-semibold mb-2">{t('auth.performanceReviews')}</h3>
-                <p className="text-sm text-primary-200">{t('auth.performanceReviewsDesc')}</p>
-              </div>
-            </div>
-            
-            {/* Stats */}
-            <div className="mt-12 flex justify-center space-x-8 text-sm">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary-200">500+</div>
-                <div className="text-primary-300">{t('auth.companies')}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary-200">50K+</div>
-                <div className="text-primary-300">{t('auth.employees')}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary-200">99.9%</div>
-                <div className="text-primary-300">{t('auth.uptime')}</div>
-              </div>
+            <div className="flex flex-col gap-2">
+              {DEMO_ACCOUNTS.map((account) => (
+                <button
+                  key={account.email}
+                  type="button"
+                  disabled={isLoading}
+                  onClick={() => quickAccess(account.email)}
+                  className="flex items-center justify-between gap-2.5 rounded-[10px] border border-[rgba(140,160,173,.2)] bg-[rgba(4,7,13,.5)] px-3 py-[9px] text-left text-[13px] text-[#DCE7ED] transition hover:border-cyan hover:bg-cyan/[0.08] disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  <span className="whitespace-nowrap font-semibold">Entrar como {account.role}</span>
+                  <span className="whitespace-nowrap font-mono text-[11px] text-[#7F93A0]">{account.email}</span>
+                </button>
+              ))}
             </div>
           </div>
         </div>

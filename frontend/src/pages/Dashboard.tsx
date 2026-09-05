@@ -1,400 +1,378 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-  PointElement,
-  LineElement,
-} from 'chart.js';
-import { Bar, Doughnut } from 'react-chartjs-2';
+import { useEffect, useMemo, useState } from 'react';
 import {
   UsersIcon,
   CalendarDaysIcon,
-  ChartBarIcon,
-  ClockIcon,
-  CurrencyDollarIcon,
-  AcademicCapIcon,
   TrophyIcon,
-  ExclamationTriangleIcon,
-  UserPlusIcon,
   UserMinusIcon,
+  CheckCircleIcon,
+  ClockIcon,
 } from '@heroicons/react/24/outline';
 import { useAuth } from '../contexts/AuthContext';
-import { useLanguage } from '../contexts/LanguageContext';
-import { employeeService } from '../services/employeeService';
+import { apiService } from '../services/api';
 import { terminationService } from '../services/terminationService';
-import { LoadingSpinner, StatCard, ResponsiveGrid } from '../components';
-import toast from 'react-hot-toast';
+import { Avatar, Card, StatKPI, StatusPill, TableContainer, Th, Td, Tr } from '../components/ui';
+import LoadingSpinner from '../components/common/LoadingSpinner';
+import { formatDate, formatRelativeTime } from '../utils/formatters';
+import type { PillVariant } from '../components/ui';
 
-// Register Chart.js components
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-  PointElement,
-  LineElement
-);
+interface PaginatedResponse<T> {
+  count: number;
+  results: T[];
+}
 
-interface DashboardStats {
-  totalEmployees: number;
-  newHires: number;
-  totalTerminations: number;
-  activeEmployees: number;
-  satisfactionRate: number;
-  employeesByDepartment: Record<string, number>;
-  terminationsByMonth: Record<string, number>;
-  recentActivity: any[];
+interface StaffEmployee {
+  id: number;
+  nome: string;
+  cargo: string;
+  setor: string;
+  status: string;
+  status_display: string;
+  data_admissao: string;
+}
+
+interface LeaveRequestItem {
+  id: number;
+  solicitante_name: string;
+  tipo_name: string;
+  data_inicio: string;
+  data_fim: string;
+  dias_solicitados: number;
+  status: string;
+  status_display: string;
+  created_at: string;
+}
+
+interface EvaluationItem {
+  id: number;
+  avaliado_name: string;
+  status: string;
+  status_display: string;
+  nota_final: string | null;
+  data_conclusao: string | null;
+  created_at: string;
+}
+
+interface ActivityEntry {
+  key: string;
+  timestamp: string;
+  icon: typeof CheckCircleIcon;
+  iconClass: string;
+  message: React.ReactNode;
+}
+
+const LEAVE_PILL: Record<string, PillVariant> = {
+  aprovada: 'ok',
+  pendente: 'pend',
+  rejeitada: 'rej',
+  cancelada: 'rej',
+};
+
+function isCurrentMonth(dateIso: string): boolean {
+  const date = new Date(dateIso);
+  const now = new Date();
+  return date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth();
 }
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
-  const { t } = useLanguage();
-  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [employees, setEmployees] = useState<StaffEmployee[]>([]);
+  const [leaveRequests, setLeaveRequests] = useState<LeaveRequestItem[]>([]);
+  const [evaluations, setEvaluations] = useState<EvaluationItem[]>([]);
+  const [terminationsThisMonth, setTerminationsThisMonth] = useState(0);
+  const [terminationsLastMonth, setTerminationsLastMonth] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchDashboardData = async () => {
-      try {
-        setIsLoading(true);
-        
-        // Get data from localStorage and APIs
-        const [employeesData, terminationsData] = await Promise.all([
-          getEmployeesData(),
-          getTerminationsData()
-        ]);
+    let mounted = true;
 
-        // Calculate stats
-        const totalEmployees = employeesData.length;
-        const activeEmployees = employeesData.filter((emp: any) => emp.status !== 'cancelled').length;
-        const newHires = employeesData.filter((emp: any) => {
-          const hireDate = new Date(emp.hire_date || emp.created_at);
-          const now = new Date();
-          const monthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
-          return hireDate >= monthAgo;
-        }).length;
+    const load = async () => {
+      const [employeesRes, leavesRes, evaluationsRes, terminationStats] = await Promise.allSettled([
+        apiService.get<PaginatedResponse<StaffEmployee>>('/v1/staff/employees/', { page_size: 100 }),
+        apiService.get<PaginatedResponse<LeaveRequestItem>>('/v1/leave-requests/requests/', { page_size: 100 }),
+        apiService.get<PaginatedResponse<EvaluationItem>>('/v1/evaluations/evaluations/', { page_size: 100 }),
+        terminationService.getTerminationStats(),
+      ]);
 
-        // Calculate satisfaction rate based on active employees vs total
-        const satisfactionRate = totalEmployees > 0
-          ? Math.round((activeEmployees / totalEmployees) * 100)
-          : 85; // Default satisfaction rate
+      if (!mounted) return;
 
-        // Group employees by department
-        const employeesByDepartment = employeesData.reduce((acc: Record<string, number>, emp: any) => {
-          const dept = emp.department || emp.departamento || 'Outros';
-          acc[dept] = (acc[dept] || 0) + 1;
-          return acc;
-        }, {});
-
-        // Calculate terminations by month
-        const terminationsByMonth = terminationsData.reduce((acc: Record<string, number>, term: any) => {
-          const date = new Date(term.created_at);
-          const monthKey = date.toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' });
-          acc[monthKey] = (acc[monthKey] || 0) + 1;
-          return acc;
-        }, {});
-
-        setStats({
-          totalEmployees,
-          newHires,
-          totalTerminations: terminationsData.length,
-          activeEmployees,
-          satisfactionRate,
-          employeesByDepartment,
-          terminationsByMonth,
-          recentActivity: [...employeesData.slice(0, 5), ...terminationsData.slice(0, 5)]
-        });
-      } catch (error) {
-        console.error('Error fetching dashboard data:', error);
-        toast.error(t('common.error'));
-
-        // Fallback to empty stats
-        setStats({
-          totalEmployees: 0,
-          newHires: 0,
-          totalTerminations: 0,
-          activeEmployees: 0,
-          satisfactionRate: 85,
-          employeesByDepartment: {},
-          terminationsByMonth: {},
-          recentActivity: []
-        });
-      } finally {
-        setIsLoading(false);
+      if (employeesRes.status === 'fulfilled') {
+        setEmployees(employeesRes.value.results);
+      } else {
+        console.error('Falha ao carregar funcionários', employeesRes.reason);
       }
+
+      if (leavesRes.status === 'fulfilled') {
+        setLeaveRequests(leavesRes.value.results);
+      } else {
+        console.error('Falha ao carregar solicitações de férias', leavesRes.reason);
+      }
+
+      if (evaluationsRes.status === 'fulfilled') {
+        setEvaluations(evaluationsRes.value.results);
+      } else {
+        console.error('Falha ao carregar avaliações', evaluationsRes.reason);
+      }
+
+      if (terminationStats.status === 'fulfilled') {
+        const porMes = terminationStats.value.por_mes ?? [];
+        setTerminationsThisMonth(porMes[porMes.length - 1]?.count ?? 0);
+        setTerminationsLastMonth(porMes[porMes.length - 2]?.count ?? 0);
+      } else {
+        console.error('Falha ao carregar estatísticas de desligamento', terminationStats.reason);
+      }
+
+      setIsLoading(false);
     };
 
-    fetchDashboardData();
+    load();
+    return () => {
+      mounted = false;
+    };
   }, []);
 
-  // Helper functions to get data
-  const getEmployeesData = async () => {
-    try {
-      // Try API first
-      const response = await employeeService.getEmployees();
-      if (response.results && response.results.length > 0) {
-        // Save to localStorage
-        const employeesForStorage = response.results.map(emp => ({
-          id: emp.id,
-          first_name: emp.user?.first_name || 'N/A',
-          last_name: emp.user?.last_name || 'N/A',
-          email: emp.user?.email || '',
-          department: emp.department || 'N/A',
-          status: emp.status || 'active',
-          hire_date: emp.hire_date,
-          created_at: emp.created_at || new Date().toISOString()
-        }));
-        localStorage.setItem('portalrh-employees', JSON.stringify(employeesForStorage));
-        return employeesForStorage;
-      }
-    } catch (error) {
-      console.error('Error fetching employees from API:', error);
-    }
+  const setorBySolicitante = useMemo(() => {
+    const map = new Map<string, string>();
+    employees.forEach((employee) => map.set(employee.nome, employee.setor));
+    return map;
+  }, [employees]);
 
-    // Fallback to localStorage
-    const saved = localStorage.getItem('portalrh-employees');
-    return saved ? JSON.parse(saved) : [];
-  };
+  const activeEmployees = employees.filter((employee) => employee.status === 'ativo');
+  const newHiresThisMonth = employees.filter((employee) => isCurrentMonth(employee.data_admissao));
 
-  const getTerminationsData = async () => {
-    try {
-      // Try API first
-      const response = await terminationService.getTerminationRequests();
-      if (response.results && response.results.length > 0) {
-        return response.results;
-      }
-    } catch (error) {
-      console.error('Error fetching terminations from API:', error);
-    }
+  const pendingLeaves = leaveRequests.filter((request) => request.status === 'pendente');
 
-    // Fallback to localStorage
-    const saved = localStorage.getItem('terminationRequests');
-    return saved ? JSON.parse(saved) : [];
-  };
+  const completedEvaluations = evaluations.filter((evaluation) => evaluation.status === 'concluida');
+  const evaluationRate =
+    evaluations.length > 0 ? Math.round((completedEvaluations.length / evaluations.length) * 100) : 0;
+
+  const bySetor = useMemo(() => {
+    const counts = new Map<string, number>();
+    employees.forEach((employee) => counts.set(employee.setor, (counts.get(employee.setor) ?? 0) + 1));
+    return Array.from(counts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 7);
+  }, [employees]);
+  const maxSetorCount = Math.max(1, ...bySetor.map(([, count]) => count));
+
+  const upcomingLeaves = useMemo(() => {
+    const todayIso = new Date().toISOString().slice(0, 10);
+    const upcoming = leaveRequests
+      .filter((request) => request.data_inicio >= todayIso)
+      .sort((a, b) => a.data_inicio.localeCompare(b.data_inicio));
+    if (upcoming.length >= 5) return upcoming.slice(0, 5);
+
+    const past = leaveRequests
+      .filter((request) => request.data_inicio < todayIso)
+      .sort((a, b) => b.data_inicio.localeCompare(a.data_inicio));
+    return [...upcoming, ...past].slice(0, 5);
+  }, [leaveRequests]);
+
+  const recentActivity = useMemo(() => {
+    const entries: ActivityEntry[] = [];
+
+    leaveRequests
+      .filter((request) => request.status === 'aprovada')
+      .forEach((request) =>
+        entries.push({
+          key: `leave-approved-${request.id}`,
+          timestamp: request.created_at,
+          icon: CheckCircleIcon,
+          iconClass: 'bg-success/10 text-[#047857]',
+          message: (
+            <>
+              <b className="font-semibold">{request.tipo_name} aprovada</b> para {request.solicitante_name}
+            </>
+          ),
+        })
+      );
+
+    completedEvaluations.forEach((evaluation) =>
+      entries.push({
+        key: `evaluation-${evaluation.id}`,
+        timestamp: evaluation.data_conclusao || evaluation.created_at,
+        icon: TrophyIcon,
+        iconClass: 'bg-violet/10 text-violet',
+        message: (
+          <>
+            <b className="font-semibold">Avaliação concluída</b>: nota {evaluation.nota_final} para{' '}
+            {evaluation.avaliado_name}
+          </>
+        ),
+      })
+    );
+
+    pendingLeaves.forEach((request) =>
+      entries.push({
+        key: `leave-pending-${request.id}`,
+        timestamp: request.created_at,
+        icon: ClockIcon,
+        iconClass: 'bg-warning/10 text-[#B45309]',
+        message: (
+          <>
+            <b className="font-semibold">Solicitação de {request.tipo_name}</b> de {request.solicitante_name}{' '}
+            aguardando aprovação
+          </>
+        ),
+      })
+    );
+
+    return entries.sort((a, b) => b.timestamp.localeCompare(a.timestamp)).slice(0, 4);
+  }, [leaveRequests, completedEvaluations, pendingLeaves]);
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-12">
+      <div className="flex items-center justify-center py-16">
         <LoadingSpinner size="lg" />
       </div>
     );
   }
 
-  if (!stats) {
-    return (
-      <div className="text-center py-12">
-        <p className="text-gray-500">{t('common.error')}</p>
-      </div>
-    );
-  }
-
-  // Chart data configurations
-  const departmentChartData = {
-    labels: Object.keys(stats.employeesByDepartment),
-    datasets: [
-      {
-        label: t('dashboard.totalEmployees'),
-        data: Object.values(stats.employeesByDepartment),
-        backgroundColor: [
-          '#3B82F6',
-          '#22C55E',
-          '#F59E0B',
-          '#EF4444',
-          '#8B5CF6',
-          '#06B6D4',
-          '#F97316',
-          '#10B981',
-        ],
-        borderWidth: 0,
-      },
-    ],
-  };
-
-  const terminationChartData = {
-    labels: Object.keys(stats.terminationsByMonth).slice(0, 6),
-    datasets: [
-      {
-        label: t('dashboard.exits'),
-        data: Object.values(stats.terminationsByMonth).slice(0, 6),
-        backgroundColor: ['#F59E0B', '#22C55E', '#EF4444', '#8B5CF6', '#06B6D4', '#F97316'],
-        borderWidth: 0,
-      },
-    ],
-  };
-
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'bottom' as const,
-      },
-    },
-  };
+  const firstName = user?.first_name || 'RH';
+  const terminationDelta =
+    terminationsThisMonth === terminationsLastMonth
+      ? { direction: 'flat' as const, label: 'mesmo nível do mês anterior' }
+      : terminationsThisMonth > terminationsLastMonth
+        ? { direction: 'up' as const, label: `${terminationsThisMonth - terminationsLastMonth} a mais que o mês anterior` }
+        : { direction: 'down' as const, label: `${terminationsLastMonth - terminationsThisMonth} a menos que o mês anterior` };
 
   return (
-    <div className="space-y-8 animate-fade-in">
-      {/* Welcome Section - Futuristic Design */}
-      <div className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white rounded-2xl p-8 shadow-glow relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full -translate-y-1/2 translate-x-1/3"></div>
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white rounded-full translate-y-1/3 -translate-x-1/4"></div>
-        </div>
-        
-        <div className="relative z-10">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold mb-3 text-shadow-lg">
-                {t('dashboard.welcome')}, {user?.first_name || user?.email}!
-                <span className="ml-3 inline-block animate-bounce-gentle">👋</span>
-              </h1>
-              <p className="text-primary-100 text-lg font-medium mb-2">
-                {t('dashboard.overview')}
-              </p>
-              <div className="flex items-center space-x-4 text-primary-200 text-sm">
-                <span>{t('dashboard.role')}: {user?.role_display}</span>
-                <span>•</span>
-                <span>{t('dashboard.today')}: {new Date().toLocaleDateString('pt-BR')}</span>
-              </div>
-            </div>
-            <div className="hidden md:block">
-              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-soft">
-                <ChartBarIcon className="w-10 h-10 text-white" />
-              </div>
-            </div>
-          </div>
-        </div>
+    <div>
+      <div className="mb-[22px]">
+        <h2 className="font-display text-[23px] font-semibold text-ink">Bom dia, {firstName}</h2>
+        <p className="mt-[5px] text-sm text-muted">
+          Panorama de pessoas da sua empresa hoje, {formatDate(new Date(), "EEEE, d 'de' MMMM")}.
+        </p>
       </div>
 
-      {/* Main Stats Cards */}
-      <ResponsiveGrid cols={{ sm: 1, md: 2, lg: 4 }}>
-        <StatCard
-          title={t('dashboard.totalEmployees')}
-          value={stats.totalEmployees}
-          icon={<UsersIcon className="h-full w-full" />}
-          color="primary"
+      <div className="mb-[22px] grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <StatKPI
+          icon={<UsersIcon />}
+          color="cyan"
+          label="Funcionários ativos"
+          value={activeEmployees.length}
+          delta={
+            newHiresThisMonth.length > 0
+              ? { direction: 'up', label: `${newHiresThisMonth.length} este mês` }
+              : undefined
+          }
         />
-        
-        <StatCard
-          title={t('dashboard.activeLeaves')}
-          value={stats.activeEmployees}
-          icon={<CalendarDaysIcon className="h-full w-full" />}
-          color="success"
-        />
-        
-        <StatCard
-          title={t('dashboard.pendingEvaluations')}
-          value={stats.totalTerminations}
-          icon={<ChartBarIcon className="h-full w-full" />}
+        <StatKPI
+          icon={<CalendarDaysIcon />}
           color="warning"
+          label="Férias pendentes"
+          value={pendingLeaves.length}
+          delta={{ direction: 'flat', label: 'aguardando aprovação' }}
         />
-        
-        <StatCard
-          title={t('dashboard.recentActivity')}
-          value={stats.recentActivity.length}
-          icon={<ClockIcon className="h-full w-full" />}
-          color="neutral"
+        <StatKPI
+          icon={<TrophyIcon />}
+          color="violet"
+          label="Avaliações do ciclo"
+          value={
+            <>
+              {completedEvaluations.length}
+              <span className="text-[15px] text-muted"> / {evaluations.length}</span>
+            </>
+          }
+          delta={evaluations.length > 0 ? { direction: 'up', label: `${evaluationRate}% concluídas` } : undefined}
         />
-      </ResponsiveGrid>
-
-      {/* Additional HR Metrics */}
-      <ResponsiveGrid cols={{ sm: 1, md: 2, lg: 3 }}>
-        <StatCard
-          title={t('dashboard.newHires')}
-          value={stats.newHires}
-          icon={<UserPlusIcon className="h-full w-full" />}
-          color="success"
+        <StatKPI
+          icon={<UserMinusIcon />}
+          color="human"
+          label="Desligamentos no mês"
+          value={terminationsThisMonth}
+          delta={terminationDelta}
         />
-        
-        <StatCard
-          title={t('dashboard.turnover')}
-          value={stats.totalTerminations}
-          icon={<UserMinusIcon className="h-full w-full" />}
-          color="danger"
-        />
-        
-      </ResponsiveGrid>
-
-
-      {/* Charts Section - Enhanced Design */}
-      <ResponsiveGrid cols={{ sm: 1, lg: 2 }}>
-        {/* Employees by Department */}
-        <div className="bg-white rounded-2xl shadow-soft-lg p-6 border border-neutral-200 hover:shadow-glow transition-all duration-300">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-neutral-900">
-              {t('dashboard.employeesByDepartment')}
-            </h3>
-            <div className="w-10 h-10 bg-primary-100 rounded-xl flex items-center justify-center">
-              <UsersIcon className="w-5 h-5 text-primary-600" />
-            </div>
-          </div>
-          <div style={{ height: '300px' }} className="rounded-lg overflow-hidden">
-            <Bar data={departmentChartData} options={chartOptions} />
-          </div>
-        </div>
-
-        {/* Leave Requests Status */}
-        <div className="bg-white rounded-2xl shadow-soft-lg p-6 border border-neutral-200 hover:shadow-glow transition-all duration-300">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-neutral-900">
-{t('dashboard.terminationsByMonth')}
-            </h3>
-            <div className="w-10 h-10 bg-success-100 rounded-xl flex items-center justify-center">
-              <CalendarDaysIcon className="w-5 h-5 text-success-600" />
-            </div>
-          </div>
-          <div style={{ height: '300px' }} className="rounded-lg overflow-hidden">
-            <Doughnut data={terminationChartData} options={chartOptions} />
-          </div>
-        </div>
-      </ResponsiveGrid>
-
-
-      {/* Recent Activity - Modern Design */}
-      <div className="bg-white rounded-2xl shadow-soft-lg p-6 border border-neutral-200">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-bold text-neutral-900">
-            {t('dashboard.recentActivity')}
-          </h3>
-          <div className="w-10 h-10 bg-warning-100 rounded-xl flex items-center justify-center">
-            <ClockIcon className="w-5 h-5 text-warning-600" />
-          </div>
-        </div>
-        <div className="space-y-3">
-          {[
-            { type: 'user', message: t('dashboard.recentActivities.newEmployeeJoined', { name: 'John Doe', department: 'HR' }), time: t('dashboard.timeAgo.hoursAgo', { hours: 2 }), color: 'primary' },
-            { type: 'leave', message: t('dashboard.recentActivities.leaveRequestApproved', { name: 'Maria Silva' }), time: t('dashboard.timeAgo.hoursAgo', { hours: 4 }), color: 'success' },
-            { type: 'evaluation', message: t('dashboard.recentActivities.performanceEvaluationCompleted'), time: t('dashboard.timeAgo.hoursAgo', { hours: 6 }), color: 'warning' },
-            { type: 'user', message: t('dashboard.recentActivities.employeeDataUpdated', { name: 'Pedro Santos' }), time: t('dashboard.timeAgo.dayAgo'), color: 'neutral' },
-            { type: 'system', message: t('dashboard.recentActivities.weeklyReportGenerated'), time: t('dashboard.timeAgo.daysAgo', { days: 2 }), color: 'info' }
-          ].map((activity, index) => (
-            <div key={index} className="flex items-start p-4 bg-neutral-50 rounded-xl hover:bg-neutral-100 transition-colors duration-200">
-              <div className={`w-3 h-3 rounded-full mr-4 mt-1 ${
-                activity.color === 'primary' ? 'bg-primary-500' :
-                activity.color === 'success' ? 'bg-success-500' :
-                activity.color === 'warning' ? 'bg-warning-500' :
-                activity.color === 'info' ? 'bg-accent-cyan' :
-                'bg-neutral-400'
-              }`}></div>
-              <div className="flex-1">
-                <p className="text-sm font-medium text-neutral-900 mb-1">
-                  {activity.message}
-                </p>
-                <p className="text-xs text-neutral-500">{activity.time}</p>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
+
+      <div className="mb-[22px] grid grid-cols-1 gap-4 lg:grid-cols-[1.35fr_1fr]">
+        <Card title="Funcionários por setor" subtitle={`${employees.length} no total`}>
+          <div className="flex flex-col gap-[11px]">
+            {bySetor.length === 0 && <p className="text-sm text-muted">Sem dados de funcionários ainda.</p>}
+            {bySetor.map(([setor, count]) => (
+              <div key={setor} className="grid grid-cols-[96px_1fr_34px] items-center gap-3">
+                <span className="truncate text-[12.5px] font-medium text-ink">{setor}</span>
+                <span className="h-3 overflow-hidden rounded-md bg-line-2">
+                  <span
+                    className="block h-full rounded-md bg-gradient-to-r from-cyan-600 to-cyan shadow-[0_0_10px_rgba(34,211,238,.4)]"
+                    style={{ width: `${(count / maxSetorCount) * 100}%` }}
+                  />
+                </span>
+                <span className="text-right font-mono text-[12.5px] font-semibold text-muted">{count}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card title="Atividade recente">
+          <div className="flex flex-col">
+            {recentActivity.length === 0 && <p className="text-sm text-muted">Nenhuma atividade recente.</p>}
+            {recentActivity.map((entry, index) => (
+              <div
+                key={entry.key}
+                className={
+                  index < recentActivity.length - 1
+                    ? 'flex gap-3 border-b border-line-2 py-[11px]'
+                    : 'flex gap-3 py-[11px]'
+                }
+              >
+                <span className={`grid h-8 w-8 flex-none place-items-center rounded-[9px] ${entry.iconClass}`}>
+                  <entry.icon className="h-4 w-4" />
+                </span>
+                <div className="text-[13px] leading-snug text-ink">
+                  {entry.message}
+                  <span className="mt-0.5 block text-[11.5px] text-muted">{formatRelativeTime(entry.timestamp)}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+
+      <Card title="Próximas férias e afastamentos" subtitle={formatDate(new Date(), 'MMMM')}>
+        <TableContainer>
+          <thead>
+            <tr>
+              <Th>Funcionário</Th>
+              <Th>Tipo</Th>
+              <Th>Período</Th>
+              <Th>Dias</Th>
+              <Th>Status</Th>
+            </tr>
+          </thead>
+          <tbody>
+            {upcomingLeaves.length === 0 && (
+              <Tr>
+                <Td colSpan={5} className="text-muted">
+                  Nenhuma solicitação de férias ou afastamento registrada.
+                </Td>
+              </Tr>
+            )}
+            {upcomingLeaves.map((request) => (
+              <Tr key={request.id}>
+                <Td>
+                  <div className="flex items-center gap-2.5">
+                    <Avatar name={request.solicitante_name} />
+                    <div>
+                      {request.solicitante_name}
+                      <div className="text-[11.5px] text-muted">
+                        {setorBySolicitante.get(request.solicitante_name) || 'Sem setor'}
+                      </div>
+                    </div>
+                  </div>
+                </Td>
+                <Td>{request.tipo_name}</Td>
+                <Td className="font-mono">
+                  {formatDate(request.data_inicio, 'dd/MM')} a {formatDate(request.data_fim, 'dd/MM')}
+                </Td>
+                <Td className="font-mono">{request.dias_solicitados}</Td>
+                <Td>
+                  <StatusPill variant={LEAVE_PILL[request.status] ?? 'pend'} label={request.status_display} />
+                </Td>
+              </Tr>
+            ))}
+          </tbody>
+        </TableContainer>
+      </Card>
     </div>
   );
 };

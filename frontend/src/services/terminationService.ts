@@ -29,7 +29,7 @@ interface TerminationFilters {
 }
 
 class TerminationService {
-  private readonly baseURL = '/api/v1/termination';
+  private readonly baseURL = '/v1/termination';
 
   // Termination Reasons
   async getTerminationReasons(): Promise<TerminationReason[]> {

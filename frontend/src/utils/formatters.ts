@@ -1,12 +1,13 @@
 import { format, isValid } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 export const formatDate = (date: string | Date, formatString = 'dd/MM/yyyy'): string => {
   try {
     const dateObj = typeof date === 'string' ? new Date(date) : date;
-    if (!isValid(dateObj)) return 'Invalid Date';
-    return format(dateObj, formatString);
+    if (!isValid(dateObj)) return 'Data inválida';
+    return format(dateObj, formatString, { locale: ptBR });
   } catch (error) {
-    return 'Invalid Date';
+    return 'Data inválida';
   }
 };
 
@@ -50,6 +51,22 @@ export const truncateText = (text: string, maxLength: number): string => {
 
 export const capitalize = (text: string): string => {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+};
+
+export const formatRelativeTime = (date: string | Date): string => {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  if (!isValid(dateObj)) return '';
+
+  const diffMs = Date.now() - dateObj.getTime();
+  const minutes = Math.round(diffMs / 60000);
+  if (minutes < 1) return 'agora mesmo';
+  if (minutes < 60) return `há ${minutes} minuto${minutes === 1 ? '' : 's'}`;
+
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `há ${hours} hora${hours === 1 ? '' : 's'}`;
+
+  const days = Math.round(hours / 24);
+  return `há ${days} dia${days === 1 ? '' : 's'}`;
 };
 
 export const formatFileSize = (bytes: number): string => {
