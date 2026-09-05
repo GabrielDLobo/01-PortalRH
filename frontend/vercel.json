@@ -1,7 +1,7 @@
 {
   "outputDirectory": "build",
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://portalrh-backend.vercel.app/api/:path*" },
+    { "source": "/api/(.*)", "destination": "https://portalrh-backend.vercel.app/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
