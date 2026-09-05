@@ -160,10 +160,10 @@ const LoginForm: React.FC = () => {
                   type="button"
                   disabled={isLoading}
                   onClick={() => quickAccess(account.email)}
-                  className="flex items-center justify-between gap-2.5 rounded-[10px] border border-[rgba(140,160,173,.2)] bg-[rgba(4,7,13,.5)] px-3 py-[9px] text-left text-[13px] text-[#DCE7ED] transition hover:border-cyan hover:bg-cyan/[0.08] disabled:cursor-not-allowed disabled:opacity-60"
+                  className="flex w-full min-w-0 flex-col gap-0.5 rounded-[10px] border border-[rgba(140,160,173,.2)] bg-[rgba(4,7,13,.5)] px-3 py-[9px] text-left text-[13px] text-[#DCE7ED] transition hover:border-cyan hover:bg-cyan/[0.08] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  <span className="whitespace-nowrap font-semibold">Entrar como {account.role}</span>
-                  <span className="whitespace-nowrap font-mono text-[11px] text-[#7F93A0]">{account.email}</span>
+                  <span className="font-semibold">Entrar como {account.role}</span>
+                  <span className="truncate font-mono text-[11px] text-[#7F93A0]">{account.email}</span>
                 </button>
               ))}
             </div>
