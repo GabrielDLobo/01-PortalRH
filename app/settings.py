@@ -5,6 +5,7 @@ Django settings for app project.
 from datetime import timedelta
 from pathlib import Path
 
+import dj_database_url
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -15,6 +16,10 @@ SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
+
+# Demo pública (ephyratecnologia.com.br) — ver app/demo_mode.py
+DEMO_MODE = config("DEMO_MODE", default=False, cast=bool)
+DEMO_RESET_TOKEN = config("DEMO_RESET_TOKEN", default="")
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".vercel.app", "zero1-portalrh.onrender.com"]
 
@@ -34,6 +39,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "django_filters",
     "drf_spectacular",
+    "axes",
 ]
 
 LOCAL_APPS = [
@@ -51,12 +57,15 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "app.demo_mode.DemoModeMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "axes.middleware.AxesMiddleware",
 ]
 
 ROOT_URLCONF = "app.urls"
@@ -80,15 +89,30 @@ TEMPLATES = [
 WSGI_APPLICATION = "app.wsgi.application"
 
 # Database
+# Em produção, DATABASE_URL aponta para o Neon (Postgres serverless). Em dev
+# sem essa variável, cai no SQLite local.
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.config(
+        default=config("DATABASE_URL", default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
+        conn_max_age=600,
+        ssl_require=not DEBUG,
+    )
 }
 
 # Custom User Model
 AUTH_USER_MODEL = "accounts.User"
+
+# django-axes — lockout de força bruta (cobre API e admin)
+AUTHENTICATION_BACKENDS = [
+    "axes.backends.AxesStandaloneBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+AXES_FAILURE_LIMIT = 5
+AXES_COOLOFF_TIME = 1  # horas de bloqueio
+AXES_RESET_ON_SUCCESS = True
+AXES_LOCKOUT_PARAMETERS = [["username", "ip_address"]]
+# Backend em banco (Neon) — funciona no serverless, diferente do cache em memória.
+AXES_HANDLER = "axes.handlers.database.AxesDatabaseHandler"
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -118,6 +142,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# WhiteNoise serve os estáticos sem depender de um servidor separado (serverless).
+STORAGES = {
+    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+}
 
 # Media files
 MEDIA_URL = "media/"
@@ -150,9 +180,15 @@ REST_FRAMEWORK = {
         "rest_framework.filters.OrderingFilter",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+    ],
     "DEFAULT_THROTTLE_RATES": {
         "login": "5/min",
         "token_refresh": "10/min",
+        "anon": "30/min",
+        "user": "120/min",
     },
 }
 
@@ -174,6 +210,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3001",
     "http://localhost:3002",
     "http://localhost:5173",  # Vite default
+]
+
+# Origens de produção (ex.: https://portalrh.ephyratecnologia.com.br), via env.
+CORS_ALLOWED_ORIGINS += [
+    o.strip() for o in config("CORS_EXTRA_ORIGINS", default="").split(",") if o.strip()
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -283,6 +324,10 @@ DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="noreply@app.com")
 # Frontend URL for email links
 FRONTEND_URL = config("FRONTEND_URL", default="http://localhost:3000")
 
+# No serverless, cache em memória zera a cada cold start — o throttle acima
+# (anon/user) e as sessões perdem efeito entre invocações. Para valer de
+# verdade em produção, apontar para um Redis compartilhado (ex.: Upstash).
+# O django-axes já está em banco (AXES_HANDLER acima) e não depende disso.
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
