@@ -43,15 +43,18 @@ class AuthService {
   async changePassword(
     currentPassword: string,
     newPassword: string
-  ): Promise<void> {
-    await apiService.post('/v1/accounts/users/change_password/', {
+  ): Promise<{ message: string }> {
+    return await apiService.post('/v1/accounts/users/change_password/', {
       old_password: currentPassword,
       new_password: newPassword,
+      new_password_confirm: newPassword,
     });
   }
 
-  async updateProfile(data: Partial<User>): Promise<User> {
-    return await apiService.patch<User>('/v1/accounts/users/profile/', data);
+  // A ação "profile" do UserViewSet só aceita GET; a atualização de fato
+  // passa pelo update/partial_update padrão em /users/{id}/.
+  async updateProfile(userId: number, data: Partial<Pick<User, 'first_name' | 'last_name'>>): Promise<User> {
+    return await apiService.patch<User>(`/v1/accounts/users/${userId}/`, data);
   }
 
   async checkPasswordChangeRequired(): Promise<{ requires_password_change: boolean }> {
