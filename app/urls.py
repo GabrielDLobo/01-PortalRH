@@ -21,9 +21,9 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
+from app.demo_mode import reset_demo
+
 urlpatterns = [
-    # Admin
-    path("admin/", admin.site.urls),
     # API Documentation
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
@@ -36,7 +36,13 @@ urlpatterns = [
     path("api/v1/reports/", include("reports.urls")),
     path("api/v1/termination/", include("termination.urls")),
     path("api/v1/staff/", include("staff.urls")),
+    # Reset da demo (agendado por cron externo) — só responde com DEMO_MODE=True
+    path("internal/reset-demo/", reset_demo, name="reset-demo"),
 ]
+
+# Admin só fica disponível fora do modo demo.
+if not settings.DEMO_MODE:
+    urlpatterns = [path("admin/", admin.site.urls)] + urlpatterns
 
 # Serve media files during development
 if settings.DEBUG:
