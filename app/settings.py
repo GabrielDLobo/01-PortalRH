@@ -270,6 +270,30 @@ if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Logging
+# Vercel's serverless functions run on a read-only filesystem (except /tmp),
+# so the file handler only gets wired in when running somewhere that can
+# actually write to BASE_DIR/logs (local dev, a regular server/container).
+IS_SERVERLESS = config("VERCEL", default=False, cast=bool)
+
+_log_handlers = ["console"]
+_handlers_config = {
+    "console": {
+        "level": "INFO",
+        "class": "logging.StreamHandler",
+        "formatter": "simple",
+    },
+}
+
+if not IS_SERVERLESS:
+    (BASE_DIR / "logs").mkdir(exist_ok=True)
+    _handlers_config["file"] = {
+        "level": "INFO",
+        "class": "logging.FileHandler",
+        "filename": BASE_DIR / "logs" / "django.log",
+        "formatter": "verbose",
+    }
+    _log_handlers.append("file")
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -283,34 +307,19 @@ LOGGING = {
             "style": "{",
         },
     },
-    "handlers": {
-        "file": {
-            "level": "INFO",
-            "class": "logging.FileHandler",
-            "filename": BASE_DIR / "logs" / "django.log",
-            "formatter": "verbose",
-        },
-        "console": {
-            "level": "INFO",
-            "class": "logging.StreamHandler",
-            "formatter": "simple",
-        },
-    },
+    "handlers": _handlers_config,
     "root": {
-        "handlers": ["console", "file"],
+        "handlers": _log_handlers,
         "level": "INFO",
     },
     "loggers": {
         "django": {
-            "handlers": ["console", "file"],
+            "handlers": _log_handlers,
             "level": "INFO",
             "propagate": False,
         },
     },
 }
-
-# Create logs directory
-(BASE_DIR / "logs").mkdir(exist_ok=True)
 
 # Email settings
 EMAIL_BACKEND = config("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
