@@ -6,7 +6,6 @@ import { staffService } from '../services/staffService';
 import { Department, EmployeeStatus, StaffEmployeeListItem } from '../types/staff';
 import {
   Avatar,
-  Button,
   Card,
   Input,
   Pagination,
@@ -16,6 +15,9 @@ import {
   Th,
   Td,
   Tr,
+  PageHero,
+  PageBody,
+  HeroButton,
 } from '../components/ui';
 import type { PillVariant } from '../components/ui';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -96,19 +98,18 @@ const Employees: React.FC = () => {
 
   return (
     <div>
-      <div className="mb-[18px] flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="font-display text-[23px] font-semibold text-ink">Funcionários</h2>
-          <p className="mt-[5px] text-sm text-muted">
-            {totalItems} funcionário{totalItems === 1 ? '' : 's'} cadastrado{totalItems === 1 ? '' : 's'}.
-          </p>
-        </div>
-        <Button onClick={() => navigate('/admission')}>
-          <UserPlusIcon className="h-4 w-4" />
-          Nova admissão
-        </Button>
-      </div>
-
+      <PageHero
+        crumb="Funcionários"
+        eyebrow="Pessoas"
+        title="Funcionários"
+        subtitle={`${totalItems} funcionário${totalItems === 1 ? '' : 's'} cadastrado${totalItems === 1 ? '' : 's'}.`}
+        actions={
+          <HeroButton variant="solid" icon={<UserPlusIcon />} onClick={() => navigate('/admission')}>
+            Nova admissão
+          </HeroButton>
+        }
+      />
+      <PageBody>
       <Card
         bodyClassName="p-0"
         className="mb-5"
@@ -207,6 +208,7 @@ const Employees: React.FC = () => {
           </>
         )}
       </Card>
+      </PageBody>
     </div>
   );
 };

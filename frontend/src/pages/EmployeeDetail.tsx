@@ -17,7 +17,20 @@ import {
   StaffEmployeeDocument,
   StaffEmployeeWriteRequest,
 } from '../types/staff';
-import { Avatar, Button, Card, Input, Select, StatusPill, TableContainer, Th, Td, Tr } from '../components/ui';
+import {
+  Button,
+  Card,
+  Input,
+  Select,
+  StatusPill,
+  TableContainer,
+  Th,
+  Td,
+  Tr,
+  PageHero,
+  PageBody,
+  HeroButton,
+} from '../components/ui';
 import type { PillVariant } from '../components/ui';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { formatDate } from '../utils/formatters';
@@ -258,26 +271,21 @@ const EmployeeDetail: React.FC = () => {
 
   return (
     <div>
-      <button
-        type="button"
-        onClick={() => navigate('/employees')}
-        className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-ink"
-      >
-        <ArrowLeftIcon className="h-4 w-4" />
-        Funcionários
-      </button>
-
-      <div className="mb-5 flex flex-wrap items-center gap-4">
-        <Avatar name={employee.nome} size="md" />
-        <div className="flex-1">
-          <h2 className="font-display text-[21px] font-semibold text-ink">{employee.nome}</h2>
-          <p className="text-sm text-muted">
-            {employee.cargo} · {employee.setor}
-          </p>
-        </div>
-        <StatusPill variant={STATUS_PILL[employee.status]} label={employee.status_display} />
-      </div>
-
+      <PageHero
+        crumb={`Funcionários / ${employee.nome}`}
+        eyebrow={employee.cargo}
+        title={employee.nome}
+        subtitle={employee.setor}
+        actions={
+          <>
+            <StatusPill variant={STATUS_PILL[employee.status]} label={employee.status_display} />
+            <HeroButton icon={<ArrowLeftIcon />} onClick={() => navigate('/employees')}>
+              Funcionários
+            </HeroButton>
+          </>
+        }
+      />
+      <PageBody>
       <div className="mb-5 flex gap-1 border-b border-line">
         {TABS.map((item) => (
           <button
@@ -549,6 +557,7 @@ const EmployeeDetail: React.FC = () => {
           )}
         </Card>
       )}
+      </PageBody>
     </div>
   );
 };
