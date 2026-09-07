@@ -58,9 +58,9 @@ function NavGroup({
           onClick={onNavigate}
           className={({ isActive }) =>
             clsx(
-              'flex items-center gap-3 rounded-xl px-3.5 py-[11px] text-[14px] font-medium transition-colors',
+              'relative flex items-center gap-3 rounded-xl px-3.5 py-[11px] text-[14px] font-medium transition-colors',
               isActive
-                ? 'bg-gradient-to-r from-cyan/[0.14] to-cyan/[0.04] font-semibold text-cyan-700'
+                ? "font-semibold text-cyan-700 bg-gradient-to-r from-cyan/[0.16] to-violet/[0.06] before:absolute before:-left-5 before:top-2 before:bottom-2 before:w-[3px] before:rounded-r before:bg-gradient-to-b before:from-cyan before:to-violet before:shadow-[0_0_10px_rgba(34,211,238,.6)] before:content-['']"
                 : 'text-muted hover:bg-surface-2 hover:text-ink'
             )
           }
@@ -93,7 +93,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
       )}
       <aside
         className={clsx(
-          'fixed inset-y-0 left-0 z-40 flex h-screen w-[288px] flex-none flex-col gap-1.5 border-r border-line bg-surface p-5 transition-transform duration-200',
+          'fixed inset-y-0 left-0 z-40 flex h-screen w-[264px] flex-none flex-col gap-1.5 border-r border-line bg-surface p-5 transition-transform duration-200',
           'lg:sticky lg:top-0 lg:z-auto lg:translate-x-0',
           isOpen ? 'translate-x-0' : '-translate-x-full'
         )}

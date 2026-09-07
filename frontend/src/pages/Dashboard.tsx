@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   UsersIcon,
   CalendarDaysIcon,
@@ -6,11 +7,26 @@ import {
   UserMinusIcon,
   CheckCircleIcon,
   ClockIcon,
+  DocumentChartBarIcon,
+  PlusIcon,
 } from '@heroicons/react/24/outline';
 import { useAuth } from '../contexts/AuthContext';
 import { apiService } from '../services/api';
 import { terminationService } from '../services/terminationService';
-import { Avatar, Card, StatKPI, StatusPill, TableContainer, Th, Td, Tr } from '../components/ui';
+import {
+  Avatar,
+  Card,
+  StatKPI,
+  StatusPill,
+  TableContainer,
+  Th,
+  Td,
+  Tr,
+  PageHero,
+  PageBody,
+  HeroButton,
+} from '../components/ui';
+import DashboardOrb from '../components/three/DashboardOrb';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { formatDate, formatRelativeTime } from '../utils/formatters';
 import { parseISO } from 'date-fns';
@@ -76,6 +92,7 @@ function isCurrentMonth(dateIso: string): boolean {
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [employees, setEmployees] = useState<StaffEmployee[]>([]);
   const [leaveRequests, setLeaveRequests] = useState<LeaveRequestItem[]>([]);
   const [evaluations, setEvaluations] = useState<EvaluationItem[]>([]);
@@ -220,14 +237,6 @@ const Dashboard: React.FC = () => {
     return entries.sort((a, b) => b.timestamp.localeCompare(a.timestamp)).slice(0, 4);
   }, [leaveRequests, completedEvaluations, pendingLeaves]);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-16">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
-  }
-
   const firstName = user?.first_name || 'RH';
   const terminationDelta =
     terminationsThisMonth === terminationsLastMonth
@@ -235,22 +244,43 @@ const Dashboard: React.FC = () => {
       : terminationsThisMonth > terminationsLastMonth
         ? { direction: 'up' as const, label: `${terminationsThisMonth - terminationsLastMonth} a mais que o mês anterior` }
         : { direction: 'down' as const, label: `${terminationsLastMonth - terminationsThisMonth} a menos que o mês anterior` };
+  const setorSparkline = bySetor.map(([, count]) => (count / maxSetorCount) * 100);
 
   return (
     <div>
-      <div className="mb-[22px]">
-        <h2 className="font-display text-[23px] font-semibold text-ink">Bom dia, {firstName}</h2>
-        <p className="mt-[5px] text-sm text-muted">
-          Panorama de pessoas da sua empresa hoje, {formatDate(new Date(), "EEEE, d 'de' MMMM")}.
-        </p>
-      </div>
+      <PageHero
+        crumb="Dashboard"
+        eyebrow="Visão geral"
+        title={`Bom dia, ${firstName}`}
+        subtitle={`Panorama de pessoas da sua empresa hoje, ${formatDate(new Date(), "EEEE, d 'de' MMMM")}.`}
+        object3d={<DashboardOrb />}
+        actions={
+          <>
+            <HeroButton icon={<DocumentChartBarIcon />} onClick={() => navigate('/reports')}>
+              Relatório
+            </HeroButton>
+            <HeroButton variant="solid" icon={<PlusIcon />} onClick={() => navigate('/admission')}>
+              Nova admissão
+            </HeroButton>
+          </>
+        }
+      />
 
-      <div className="mb-[22px] grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {isLoading ? (
+        <PageBody>
+          <div className="flex items-center justify-center py-16">
+            <LoadingSpinner size="lg" />
+          </div>
+        </PageBody>
+      ) : (
+      <PageBody>
+      <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatKPI
           icon={<UsersIcon />}
           color="cyan"
           label="Funcionários ativos"
           value={activeEmployees.length}
+          sparkline={setorSparkline.length > 0 ? setorSparkline : undefined}
           delta={
             newHiresThisMonth.length > 0
               ? { direction: 'up', label: `${newHiresThisMonth.length} este mês` }
@@ -285,7 +315,7 @@ const Dashboard: React.FC = () => {
         />
       </div>
 
-      <div className="mb-[22px] grid grid-cols-1 gap-4 lg:grid-cols-[1.35fr_1fr]">
+      <div className="mb-5 grid grid-cols-1 gap-4 lg:grid-cols-[1.35fr_1fr]">
         <Card title="Funcionários por setor" subtitle={`${employees.length} no total`}>
           <div className="flex flex-col gap-[11px]">
             {bySetor.length === 0 && <p className="text-sm text-muted">Sem dados de funcionários ainda.</p>}
@@ -374,6 +404,8 @@ const Dashboard: React.FC = () => {
           </tbody>
         </TableContainer>
       </Card>
+      </PageBody>
+      )}
     </div>
   );
 };
