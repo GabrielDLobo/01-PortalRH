@@ -11,7 +11,7 @@ import {
   MARITAL_STATUS_OPTIONS,
   REQUIRED_DOCUMENT_TYPES,
 } from '../../types/admission';
-import { Button, Card, Input, Select, CEPInput, StatusPill } from '../../components/ui';
+import { Button, Card, Input, Select, CEPInput, StatusPill, PageHero, PageBody } from '../../components/ui';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 
 const STEPS = ['Dados pessoais', 'Endereço', 'Bancário e CLT', 'Documentos'];
@@ -153,17 +153,22 @@ export default function SelfServiceWizard() {
 
   if (employee?.admission_completed) {
     return (
-      <Card title="Admissão concluída">
-        <div className="flex items-start gap-3 rounded-xl bg-success/10 p-4">
-          <CheckCircleIcon className="h-6 w-6 flex-none text-success" />
-          <div>
-            <p className="font-semibold text-ink">Seu cadastro está completo.</p>
-            <p className="mt-1 text-sm text-muted">
-              Seus dados pessoais, endereço, informações bancárias e documentos já foram enviados e aprovados pelo RH.
-            </p>
+      <div>
+        <PageHero crumb="Admissão" eyebrow="Onboarding" title="Admissão" subtitle="Seu cadastro na empresa." />
+        <PageBody>
+        <Card title="Admissão concluída">
+          <div className="flex items-start gap-3 rounded-xl bg-success/10 p-4">
+            <CheckCircleIcon className="h-6 w-6 flex-none text-success" />
+            <div>
+              <p className="font-semibold text-ink">Seu cadastro está completo.</p>
+              <p className="mt-1 text-sm text-muted">
+                Seus dados pessoais, endereço, informações bancárias e documentos já foram enviados e aprovados pelo RH.
+              </p>
+            </div>
           </div>
-        </div>
-      </Card>
+        </Card>
+        </PageBody>
+      </div>
     );
   }
 
@@ -173,7 +178,14 @@ export default function SelfServiceWizard() {
 
   return (
     <div>
-      <Card title="Complete sua admissão" subtitle={`Etapa ${step + 1} de ${STEPS.length}`}>
+      <PageHero
+        crumb="Admissão"
+        eyebrow="Onboarding"
+        title="Complete sua admissão"
+        subtitle={`Etapa ${step + 1} de ${STEPS.length}: ${STEPS[step]}.`}
+      />
+      <PageBody>
+      <Card>
         <div className="mb-6 flex gap-2">
           {STEPS.map((label, index) => (
             <div key={label} className="flex-1">
@@ -351,6 +363,7 @@ export default function SelfServiceWizard() {
           )}
         </div>
       </Card>
+      </PageBody>
     </div>
   );
 }
