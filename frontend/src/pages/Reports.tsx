@@ -3,10 +3,18 @@ import toast from 'react-hot-toast';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
-import { ArrowDownTrayIcon, DocumentChartBarIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowDownTrayIcon,
+  UsersIcon,
+  CalendarDaysIcon,
+  UserMinusIcon,
+  TrophyIcon,
+  UserPlusIcon,
+  ArrowRightIcon,
+} from '@heroicons/react/24/outline';
 import { reportService } from '../services/reportService';
 import { REPORT_TYPES, ReportResult, ReportType } from '../types/report';
-import { Button, Card, Select, TableContainer, Th, Td, Tr } from '../components/ui';
+import { Button, Card, TableContainer, Th, Td, Tr, PageHero, PageBody } from '../components/ui';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { formatDate } from '../utils/formatters';
 
@@ -80,15 +88,44 @@ function humanize(key: string): string {
   return LABELS[key] || key.replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase());
 }
 
+const REPORT_CARDS: Record<ReportType, { icon: typeof UsersIcon; iconClass: string; description: string }> = {
+  employees: {
+    icon: UsersIcon,
+    iconClass: 'bg-cyan/10 text-cyan-700',
+    description: 'Lista completa com cargo, setor, admissão e status.',
+  },
+  leave_requests: {
+    icon: CalendarDaysIcon,
+    iconClass: 'bg-warning/10 text-[#B45309]',
+    description: 'Movimentações de férias e afastamentos por período.',
+  },
+  terminations: {
+    icon: UserMinusIcon,
+    iconClass: 'bg-human/[0.16] text-[#E06A3C]',
+    description: 'Rescisões do período, com motivo e datas.',
+  },
+  evaluations: {
+    icon: TrophyIcon,
+    iconClass: 'bg-violet/10 text-violet',
+    description: 'Resultados do ciclo de desempenho por colaborador.',
+  },
+  admissions: {
+    icon: UserPlusIcon,
+    iconClass: 'bg-cyan/10 text-cyan-700',
+    description: 'Pipeline de admissões e conclusão do processo.',
+  },
+};
+
 const Reports: React.FC = () => {
-  const [type, setType] = useState<ReportType>('employees');
+  const [type, setType] = useState<ReportType | null>(null);
   const [result, setResult] = useState<ReportResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const generate = async () => {
+  const generate = async (reportType: ReportType) => {
     try {
+      setType(reportType);
       setIsLoading(true);
-      const data = await reportService.getReport(type);
+      const data = await reportService.getReport(reportType);
       setResult(data);
     } catch {
       toast.error('Não foi possível gerar o relatório.');
@@ -152,28 +189,40 @@ const Reports: React.FC = () => {
 
   return (
     <div>
-      <div className="mb-5">
-        <h2 className="font-display text-[23px] font-semibold text-ink">Relatórios</h2>
-        <p className="mt-[5px] text-sm text-muted">Gere relatórios com dados atualizados do sistema.</p>
+      <PageHero
+        crumb="Relatórios"
+        eyebrow="Exportações"
+        title="Relatórios"
+        subtitle="Gere relatórios em PDF, Excel ou CSV a partir dos dados do sistema."
+      />
+      <PageBody>
+      <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {REPORT_TYPES.map((option) => {
+          const meta = REPORT_CARDS[option.value];
+          const isActive = type === option.value;
+          return (
+            <button
+              key={option.value}
+              type="button"
+              onClick={() => generate(option.value)}
+              disabled={isLoading}
+              className={`flex flex-col gap-3 rounded-2xl border bg-surface p-5 text-left shadow-sm transition disabled:cursor-not-allowed disabled:opacity-60 ${
+                isActive ? 'border-cyan/50 ring-1 ring-cyan/30' : 'border-line hover:border-cyan/30'
+              }`}
+            >
+              <span className={`grid h-11 w-11 place-items-center rounded-xl ${meta.iconClass}`}>
+                <meta.icon className="h-[22px] w-[22px]" />
+              </span>
+              <h4 className="text-[15px] font-semibold text-ink">{option.label}</h4>
+              <p className="text-[12.5px] leading-relaxed text-muted">{meta.description}</p>
+              <span className="mt-auto inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-cyan-700">
+                {isActive && isLoading ? 'Gerando...' : 'Gerar relatório'}
+                <ArrowRightIcon className="h-3.5 w-3.5" />
+              </span>
+            </button>
+          );
+        })}
       </div>
-
-      <Card className="mb-5">
-        <div className="flex flex-wrap items-end gap-3">
-          <div className="w-full sm:w-72">
-            <Select label="Tipo de relatório" value={type} onChange={(e) => setType(e.target.value as ReportType)}>
-              {REPORT_TYPES.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </Select>
-          </div>
-          <Button onClick={generate} isLoading={isLoading}>
-            <DocumentChartBarIcon className="h-4 w-4" />
-            Gerar relatório
-          </Button>
-        </div>
-      </Card>
 
       {isLoading && (
         <div className="flex justify-center py-16">
@@ -263,6 +312,7 @@ const Reports: React.FC = () => {
           </Card>
         </>
       )}
+      </PageBody>
     </div>
   );
 };
