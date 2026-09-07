@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   UsersIcon,
@@ -26,11 +26,12 @@ import {
   PageBody,
   HeroButton,
 } from '../components/ui';
-import DashboardOrb from '../components/three/DashboardOrb';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { formatDate, formatRelativeTime } from '../utils/formatters';
 import { parseISO } from 'date-fns';
 import type { PillVariant } from '../components/ui';
+
+const DashboardOrb = lazy(() => import('../components/three/DashboardOrb'));
 
 interface PaginatedResponse<T> {
   count: number;
@@ -253,7 +254,11 @@ const Dashboard: React.FC = () => {
         eyebrow="Visão geral"
         title={`Bom dia, ${firstName}`}
         subtitle={`Panorama de pessoas da sua empresa hoje, ${formatDate(new Date(), "EEEE, d 'de' MMMM")}.`}
-        object3d={<DashboardOrb />}
+        object3d={
+          <Suspense fallback={null}>
+            <DashboardOrb />
+          </Suspense>
+        }
         actions={
           <>
             <HeroButton icon={<DocumentChartBarIcon />} onClick={() => navigate('/reports')}>
