@@ -1,21 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { useEffect, useMemo, useRef } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-
-function useReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  );
-
-  useEffect(() => {
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const handler = () => setReduced(query.matches);
-    query.addEventListener('change', handler);
-    return () => query.removeEventListener('change', handler);
-  }, []);
-
-  return reduced;
-}
+import Scene3D from './Scene3D';
 
 function useParticlePositions(count: number): Float32Array {
   return useMemo(() => {
@@ -32,7 +18,7 @@ function useParticlePositions(count: number): Float32Array {
   }, [count]);
 }
 
-function Scene({ reduced }: { reduced: boolean }) {
+function Scene() {
   const group = useRef<THREE.Group>(null);
   const inner = useRef<THREE.Mesh>(null);
   const ring1 = useRef<THREE.Mesh>(null);
@@ -43,17 +29,15 @@ function Scene({ reduced }: { reduced: boolean }) {
   const particlePositions = useParticlePositions(700);
 
   useEffect(() => {
-    if (reduced) return;
     const handler = (event: MouseEvent) => {
       mouse.current.x = event.clientX / window.innerWidth - 0.5;
       mouse.current.y = event.clientY / window.innerHeight - 0.5;
     };
     window.addEventListener('mousemove', handler);
     return () => window.removeEventListener('mousemove', handler);
-  }, [reduced]);
+  }, []);
 
   useFrame(() => {
-    if (reduced) return;
     if (group.current) {
       group.current.rotation.y += 0.0022;
       group.current.rotation.x += 0.0009;
@@ -99,17 +83,13 @@ function Scene({ reduced }: { reduced: boolean }) {
 }
 
 export default function LoginHero() {
-  const reduced = useReducedMotion();
-
   return (
-    <Canvas
+    <Scene3D
       style={{ position: 'absolute', inset: 0 }}
-      dpr={[1, 1.5]}
-      frameloop={reduced ? 'demand' : 'always'}
       camera={{ position: [0, 0, 6], fov: 55 }}
-      gl={{ alpha: true, antialias: true }}
+      pauseOffscreen={false}
     >
-      <Scene reduced={reduced} />
-    </Canvas>
+      <Scene />
+    </Scene3D>
   );
 }

@@ -2,6 +2,7 @@ import { Suspense, lazy, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { CheckIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '../../contexts/AuthContext';
 
 const LoginHero = lazy(() => import('../three/LoginHero'));
@@ -21,6 +22,12 @@ const DEMO_ACCOUNTS: DemoAccount[] = [
   { role: 'Funcionário', email: 'demo@portalrh.com.br' },
 ];
 const DEMO_PASSWORD = 'demo1234';
+
+const FEATURES = [
+  'Fluxo completo de admissão e onboarding',
+  'Férias e avaliações com aprovação em um clique',
+  'Relatórios prontos para exportar',
+];
 
 const darkInputClass =
   'w-full rounded-[11px] border border-[rgba(140,160,173,.25)] bg-[rgba(4,7,13,.6)] px-3.5 py-[11px] text-sm text-[#EAF2F6] ' +
@@ -62,19 +69,19 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-dark">
+    <div className="fixed inset-0 overflow-y-auto overflow-x-hidden bg-dark">
       <Suspense fallback={null}>
         <LoginHero />
       </Suspense>
       <div
         className="pointer-events-none absolute inset-0"
-        style={{ background: 'radial-gradient(60% 50% at 50% 42%, rgba(34,211,238,.16), transparent 70%)' }}
+        style={{ background: 'radial-gradient(55% 45% at 50% 42%, rgba(34,211,238,.14), transparent 70%)' }}
       />
 
-      <div className="relative flex h-full items-center justify-center p-6">
-        <div className="w-full max-w-[410px] rounded-[20px] border border-cyan/[0.22] bg-[rgba(10,15,26,.62)] p-8 text-[#EAF2F6] shadow-[0_24px_70px_rgba(0,0,0,.55)] backdrop-blur-[14px]">
-          <div className="mb-1 flex items-center gap-[11px]">
-            <span className="grid h-[34px] w-[34px] flex-none place-items-center rounded-[9px] bg-gradient-to-br from-cyan to-violet shadow-[0_0_18px_rgba(34,211,238,.5)]">
+      <div className="relative mx-auto grid min-h-full max-w-[1120px] items-center gap-12 px-6 py-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-12 lg:px-12">
+        <div className="hidden text-[#DCE7ED] lg:block">
+          <div className="mb-[34px] flex items-center gap-3">
+            <span className="grid h-[42px] w-[42px] flex-none place-items-center rounded-xl bg-gradient-to-br from-cyan to-violet shadow-[0_0_24px_rgba(34,211,238,.5)]">
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -82,7 +89,7 @@ const LoginForm: React.FC = () => {
                 strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-[19px] w-[19px]"
+                className="h-[23px] w-[23px]"
                 aria-hidden="true"
               >
                 <path d="M4 20v-1a5 5 0 0 1 5-5h1" />
@@ -90,12 +97,39 @@ const LoginForm: React.FC = () => {
                 <path d="M15 12l2.2 2.2L21 10.4" />
               </svg>
             </span>
-            <span className="font-display text-xl font-bold tracking-[-.02em]">
-              Portal<b className="text-cyan">RH</b>
+            <span className="font-display text-[23px] font-bold tracking-[-.02em] text-white">
+              Portal<span className="text-cyan">RH</span>
             </span>
           </div>
-          <p className="mb-[26px] mt-0.5 text-[13px] text-[#8CA0AD]">
-            Gestão de pessoas, admissão, férias e avaliações.
+          <h1 className="font-display text-[42px] font-bold leading-[1.07] text-white">
+            Gestão de pessoas,{' '}
+            <span className="bg-gradient-to-r from-cyan-600 to-violet bg-clip-text text-transparent">
+              do jeito moderno.
+            </span>
+          </h1>
+          <p className="mt-[18px] max-w-[410px] text-[15px] leading-relaxed text-[#93A6B3]">
+            Admissão, férias, avaliações e desligamentos em um só lugar, com a segurança e a
+            experiência que a sua equipe merece.
+          </p>
+          <div className="mt-7 flex flex-col gap-[13px]">
+            {FEATURES.map((feature) => (
+              <div key={feature} className="flex items-center gap-[11px] text-[13.5px] text-[#B9C8D2]">
+                <span className="grid h-[22px] w-[22px] flex-none place-items-center rounded-[7px] bg-cyan/[0.14]">
+                  <CheckIcon className="h-[13px] w-[13px] text-cyan" />
+                </span>
+                {feature}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="w-full max-w-[400px] justify-self-center rounded-[22px] border border-cyan/[0.22] bg-[rgba(9,14,26,.55)] p-8 text-[#EAF2F6] shadow-[0_30px_80px_rgba(0,0,0,.55)] backdrop-blur-[16px] lg:justify-self-end">
+          <div className="text-[11px] font-semibold uppercase tracking-[.12em] text-cyan">
+            Bem-vindo de volta
+          </div>
+          <h2 className="mb-1 mt-2 text-2xl font-semibold text-white">Entrar no sistema</h2>
+          <p className="mb-[22px] text-[13px] text-[#8CA0AD]">
+            Use suas credenciais para acessar o portal.
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -153,17 +187,19 @@ const LoginForm: React.FC = () => {
             <p className="mb-3 text-xs leading-relaxed text-[#9DB1BD]">
               Dados fictícios, reiniciados periodicamente. Escolha um perfil para explorar:
             </p>
-            <div className="flex flex-col gap-2">
-              {DEMO_ACCOUNTS.map((account) => (
+            <div className="grid grid-cols-2 gap-[9px]">
+              {DEMO_ACCOUNTS.map((account, index) => (
                 <button
                   key={account.email}
                   type="button"
                   disabled={isLoading}
                   onClick={() => quickAccess(account.email)}
-                  className="flex w-full min-w-0 flex-col gap-0.5 rounded-[10px] border border-[rgba(140,160,173,.2)] bg-[rgba(4,7,13,.5)] px-3 py-[9px] text-left text-[13px] text-[#DCE7ED] transition hover:border-cyan hover:bg-cyan/[0.08] disabled:cursor-not-allowed disabled:opacity-60"
+                  className="flex w-full min-w-0 flex-col gap-0.5 rounded-[11px] border border-[rgba(140,160,173,.2)] bg-[rgba(4,7,13,.5)] px-3 py-[11px] text-left text-[13px] text-[#DCE7ED] transition hover:border-cyan hover:bg-cyan/[0.08] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  <span className="font-semibold">Entrar como {account.role}</span>
-                  <span className="truncate font-mono text-[11px] text-[#7F93A0]">{account.email}</span>
+                  <span className="truncate font-semibold">
+                    {index === 0 ? 'Entrar como RH' : 'Como Funcionário'}
+                  </span>
+                  <span className="truncate font-mono text-[10px] text-[#7F93A0]">{account.email}</span>
                 </button>
               ))}
             </div>

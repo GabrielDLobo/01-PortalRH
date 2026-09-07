@@ -9,7 +9,20 @@ import {
   PreAdmissionWriteRequest,
   WORKLOAD_OPTIONS,
 } from '../../types/admission';
-import { Button, Card, Input, Select, StatusPill, TableContainer, Th, Td, Tr } from '../../components/ui';
+import {
+  Button,
+  Card,
+  Input,
+  Select,
+  StatusPill,
+  TableContainer,
+  Th,
+  Td,
+  Tr,
+  PageHero,
+  PageBody,
+  HeroButton,
+} from '../../components/ui';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { formatDate } from '../../utils/formatters';
 
@@ -94,17 +107,18 @@ export default function PreAdmissionManager() {
 
   return (
     <div>
-      <div className="mb-5 flex items-center justify-between">
-        <div>
-          <h2 className="font-display text-[23px] font-semibold text-ink">Admissão</h2>
-          <p className="mt-[5px] text-sm text-muted">Crie o pré-cadastro e gere o acesso do novo funcionário.</p>
-        </div>
-        <Button onClick={() => setShowForm((prev) => !prev)}>
-          <PlusIcon className="h-4 w-4" />
-          Nova pré-admissão
-        </Button>
-      </div>
-
+      <PageHero
+        crumb="Admissão"
+        eyebrow="Pessoas"
+        title="Admissão"
+        subtitle="Crie o pré-cadastro e gere o acesso do novo funcionário."
+        actions={
+          <HeroButton variant="solid" icon={<PlusIcon />} onClick={() => setShowForm((prev) => !prev)}>
+            Nova pré-admissão
+          </HeroButton>
+        }
+      />
+      <PageBody>
       {credentials && (
         <Card className="mb-5 border-cyan/30">
           <div className="flex items-start gap-3">
@@ -237,6 +251,7 @@ export default function PreAdmissionManager() {
           </TableContainer>
         )}
       </Card>
+      </PageBody>
     </div>
   );
 }

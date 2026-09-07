@@ -11,7 +11,18 @@ import {
   EvaluationType,
 } from '../types/performanceEvaluation';
 import { StaffEmployeeListItem } from '../types/staff';
-import { Button, Card, Input, Modal, Select, StatusPill, TableContainer, Th, Td, Tr } from '../components/ui';
+import {
+  Avatar,
+  Button,
+  Card,
+  Input,
+  Modal,
+  Select,
+  StatusPill,
+  PageHero,
+  PageBody,
+  HeroButton,
+} from '../components/ui';
 import type { PillVariant } from '../components/ui';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { formatDate } from '../utils/formatters';
@@ -140,66 +151,75 @@ const Evaluations: React.FC = () => {
 
   return (
     <div>
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="font-display text-[23px] font-semibold text-ink">Avaliações</h2>
-          <p className="mt-[5px] text-sm text-muted">Ciclo de avaliação de desempenho.</p>
+      <PageHero
+        crumb="Avaliações"
+        eyebrow="Desempenho"
+        title="Avaliações"
+        subtitle="Ciclo de avaliação de desempenho, por colaborador."
+        actions={
+          <HeroButton variant="solid" icon={<PlusIcon />} onClick={() => setShowCreate(true)}>
+            Nova avaliação
+          </HeroButton>
+        }
+      />
+      <PageBody>
+      {isLoading ? (
+        <div className="flex justify-center py-16">
+          <LoadingSpinner size="lg" />
         </div>
-        <Button onClick={() => setShowCreate(true)}>
-          <PlusIcon className="h-4 w-4" />
-          Nova avaliação
-        </Button>
-      </div>
-
-      <Card bodyClassName="p-0">
-        {isLoading ? (
-          <div className="flex justify-center py-16">
-            <LoadingSpinner size="lg" />
-          </div>
-        ) : evaluations.length === 0 ? (
-          <div className="px-[18px] py-16 text-center text-sm text-muted">Nenhuma avaliação criada ainda.</div>
-        ) : (
-          <TableContainer>
-            <thead>
-              <tr>
-                <Th>Avaliado</Th>
-                <Th>Tipo</Th>
-                <Th>Período</Th>
-                <Th>Nota final</Th>
-                <Th>Status</Th>
-                <Th></Th>
-              </tr>
-            </thead>
-            <tbody>
-              {evaluations.map((item) => (
-                <Tr key={item.id}>
-                  <Td>{item.avaliado_name}</Td>
-                  <Td>{item.tipo_display}</Td>
-                  <Td className="font-mono">
-                    {formatDate(item.periodo_inicio)} a {formatDate(item.periodo_fim)}
-                  </Td>
-                  <Td className="font-mono">{item.nota_final ?? '—'}</Td>
-                  <Td>
-                    <StatusPill variant={STATUS_PILL[item.status] ?? 'pend'} label={item.status_display} />
-                  </Td>
-                  <Td>
-                    {!item.is_completed && (
-                      <button
-                        type="button"
-                        onClick={() => openScoring(item)}
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-cyan-700 hover:underline"
-                      >
-                        <TrophyIcon className="h-3.5 w-3.5" />
-                        Avaliar
-                      </button>
-                    )}
-                  </Td>
-                </Tr>
-              ))}
-            </tbody>
-          </TableContainer>
-        )}
-      </Card>
+      ) : evaluations.length === 0 ? (
+        <Card>
+          <p className="py-8 text-center text-sm text-muted">Nenhuma avaliação criada ainda.</p>
+        </Card>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {evaluations.map((item) => {
+            const progress = item.nota_final
+              ? Math.min(100, Math.round(parseFloat(item.nota_final) * 10))
+              : item.status === 'em_andamento'
+                ? 40
+                : 0;
+            return (
+              <div key={item.id} className="rounded-2xl border border-line bg-surface p-[18px] shadow-sm">
+                <div className="mb-3.5 flex items-center gap-[11px]">
+                  <Avatar name={item.avaliado_name} size="md" />
+                  <div className="min-w-0 flex-1">
+                    <b className="block truncate text-sm font-semibold text-ink">{item.avaliado_name}</b>
+                    <span className="text-[11.5px] text-muted">{item.tipo_display}</span>
+                  </div>
+                  <span className="flex-none font-display text-xl font-bold text-cyan-700">
+                    {item.nota_final ?? '—'}
+                  </span>
+                </div>
+                <div className="mb-2.5 h-[7px] overflow-hidden rounded-full bg-surface-2">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-cyan-600 to-violet"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <StatusPill variant={STATUS_PILL[item.status] ?? 'pend'} label={item.status_display} />
+                  {!item.is_completed ? (
+                    <button
+                      type="button"
+                      onClick={() => openScoring(item)}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-cyan-700 hover:underline"
+                    >
+                      <TrophyIcon className="h-3.5 w-3.5" />
+                      Avaliar
+                    </button>
+                  ) : (
+                    <span className="text-[11.5px] text-muted">
+                      {formatDate(item.periodo_inicio, 'MM/yyyy')}
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+      </PageBody>
 
       <Modal isOpen={showCreate} onClose={() => setShowCreate(false)} title="Nova avaliação">
         <div className="grid grid-cols-1 gap-4">

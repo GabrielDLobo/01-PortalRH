@@ -5,7 +5,21 @@ import { terminationRequestService } from '../services/terminationRequestService
 import { staffService } from '../services/staffService';
 import { CreateTerminationRequest, TerminationReason, TerminationRequestListItem } from '../types/terminationRequest';
 import { StaffEmployeeListItem } from '../types/staff';
-import { Button, Card, Input, Modal, Select, StatusPill, TableContainer, Th, Td, Tr } from '../components/ui';
+import {
+  Button,
+  Card,
+  Input,
+  Modal,
+  Select,
+  StatusPill,
+  TableContainer,
+  Th,
+  Td,
+  Tr,
+  PageHero,
+  PageBody,
+  HeroButton,
+} from '../components/ui';
 import type { PillVariant } from '../components/ui';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { formatDate } from '../utils/formatters';
@@ -159,17 +173,18 @@ const Terminations: React.FC = () => {
 
   return (
     <div>
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="font-display text-[23px] font-semibold text-ink">Rescisões</h2>
-          <p className="mt-[5px] text-sm text-muted">Fluxo de desligamento de funcionários.</p>
-        </div>
-        <Button onClick={() => setShowCreate(true)}>
-          <PlusIcon className="h-4 w-4" />
-          Nova rescisão
-        </Button>
-      </div>
-
+      <PageHero
+        crumb="Rescisões"
+        eyebrow="Movimentações"
+        title="Rescisões"
+        subtitle="Processos de desligamento, com motivo e status de aprovação do RH."
+        actions={
+          <HeroButton variant="solid" icon={<PlusIcon />} onClick={() => setShowCreate(true)}>
+            Nova rescisão
+          </HeroButton>
+        }
+      />
+      <PageBody>
       <Card bodyClassName="p-0">
         {isLoading ? (
           <div className="flex justify-center py-16">
@@ -206,6 +221,7 @@ const Terminations: React.FC = () => {
           </TableContainer>
         )}
       </Card>
+      </PageBody>
 
       <Modal isOpen={showCreate} onClose={() => setShowCreate(false)} title="Nova rescisão">
         <div className="grid grid-cols-1 gap-4">

@@ -6,10 +6,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Ephyra design system (docs/design-system.md) — tokens exatos da marca.
-        bg: '#F7F9FC',
+        // Ephyra design system (docs/design-system.md e v2) — tokens exatos da marca.
+        bg: '#EEF2F8',
         surface: '#FFFFFF',
-        'surface-2': '#FBFCFE',
+        'surface-2': '#F7F9FC',
         ink: '#0B1220',
         muted: '#5B6472',
         line: '#E6EAF0',

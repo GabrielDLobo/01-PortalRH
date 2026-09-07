@@ -16,6 +16,9 @@ import {
   Th,
   Td,
   Tr,
+  PageHero,
+  PageBody,
+  HeroButton,
 } from '../components/ui';
 import type { PillVariant } from '../components/ui';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -137,19 +140,18 @@ const LeaveRequests: React.FC = () => {
 
   return (
     <div>
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="font-display text-[23px] font-semibold text-ink">Férias e afastamentos</h2>
-          <p className="mt-[5px] text-sm text-muted">
-            {isAdmin ? 'Solicitações de toda a equipe.' : 'Suas solicitações de férias e licenças.'}
-          </p>
-        </div>
-        <Button onClick={() => setShowCreate(true)}>
-          <PlusIcon className="h-4 w-4" />
-          Nova solicitação
-        </Button>
-      </div>
-
+      <PageHero
+        crumb="Férias"
+        eyebrow="Movimentações"
+        title="Férias e afastamentos"
+        subtitle={isAdmin ? 'Solicitações de toda a equipe.' : 'Suas solicitações de férias e licenças.'}
+        actions={
+          <HeroButton variant="solid" icon={<PlusIcon />} onClick={() => setShowCreate(true)}>
+            Nova solicitação
+          </HeroButton>
+        }
+      />
+      <PageBody>
       <Card bodyClassName="p-0">
         <div className="flex flex-wrap gap-3 p-[18px]">
           <div className="w-full sm:w-52">
@@ -228,6 +230,7 @@ const LeaveRequests: React.FC = () => {
           </>
         )}
       </Card>
+      </PageBody>
 
       <Modal isOpen={showCreate} onClose={() => setShowCreate(false)} title="Nova solicitação">
         <div className="grid grid-cols-1 gap-4">

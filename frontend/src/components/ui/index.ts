@@ -13,3 +13,6 @@ export type { PillVariant } from './StatusPill';
 export { TableContainer, Th, Td, Tr } from './Table';
 export { default as Sidebar } from './Sidebar';
 export { default as Topbar } from './Topbar';
+export { default as PageHero } from './PageHero';
+export { default as PageBody } from './PageBody';
+export { default as HeroButton } from './HeroButton';
