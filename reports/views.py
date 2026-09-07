@@ -10,6 +10,8 @@ from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
+from app.permissions import IsAdminRH
+
 from .models import ReportBookmark, ReportCategory, ReportExecution, ReportSchedule, ReportTemplate
 from .serializers import (
     DashboardSummarySerializer,
@@ -305,7 +307,11 @@ class ReportBookmarkViewSet(viewsets.ModelViewSet):
 
 
 class DashboardViewSet(viewsets.GenericViewSet):
-    permission_classes = [permissions.IsAuthenticated]
+    # Every action here aggregates company-wide PII (salaries, personal data
+    # across all employees) -- this is the "Relatórios" screen, which is
+    # admin_rh-only in the product design. IsAuthenticated alone let any
+    # funcionario pull the full payroll report; restrict to admin_rh.
+    permission_classes = [IsAdminRH]
 
     @action(detail=False, methods=["get"])
     def summary(self, request):
