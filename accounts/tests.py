@@ -139,3 +139,98 @@ class UserViewSetAuthorizationTestCase(TestCase):
         self.client.force_authenticate(user=self.employee_a)
         response = self.client.get(reverse("user-stats"), secure=True)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+class UserRoleEscalationTestCase(TestCase):
+    """
+    QA_REPORT.md 2026-09-07: um funcionario conseguia se auto-promover a
+    admin_rh via PATCH /users/{own_id}/ com {"role": "admin_rh"} -- o
+    serializer aceitava "role" como campo gravável e a permissão do endpoint
+    (CanUpdateOwnProfile | IsAdminRH) deixa qualquer um editar o próprio
+    registro. Corrigido em UserUpdateSerializer.validate_role().
+    """
+
+    def setUp(self):
+        self.client = APIClient()
+        self.hr_user = User.objects.create_user(
+            username="rolehr@test.com",
+            email="rolehr@test.com",
+            password="testpass123",
+            role="admin_rh",
+        )
+        self.employee = User.objects.create_user(
+            username="roleemp@test.com",
+            email="roleemp@test.com",
+            password="testpass123",
+            role="funcionario",
+        )
+
+    def test_funcionario_cannot_self_promote_to_admin_rh(self):
+        self.client.force_authenticate(user=self.employee)
+        url = reverse("user-detail", args=[self.employee.id])
+        response = self.client.patch(url, {"role": "admin_rh"}, secure=True)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.employee.refresh_from_db()
+        self.assertEqual(self.employee.role, "funcionario")
+
+    def test_funcionario_can_still_edit_own_name(self):
+        self.client.force_authenticate(user=self.employee)
+        url = reverse("user-detail", args=[self.employee.id])
+        response = self.client.patch(url, {"first_name": "Novo Nome"}, secure=True)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.employee.refresh_from_db()
+        self.assertEqual(self.employee.first_name, "Novo Nome")
+        self.assertEqual(self.employee.role, "funcionario")
+
+    def test_admin_rh_can_change_another_users_role(self):
+        self.client.force_authenticate(user=self.hr_user)
+        url = reverse("user-detail", args=[self.employee.id])
+        response = self.client.patch(url, {"role": "admin_rh"}, secure=True)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.employee.refresh_from_db()
+        self.assertEqual(self.employee.role, "admin_rh")
+
+    def test_admin_rh_patching_own_role_to_same_value_is_a_noop(self):
+        # Reenviar o valor atual (comum em PATCHes parciais) não deve falhar.
+        self.client.force_authenticate(user=self.hr_user)
+        url = reverse("user-detail", args=[self.hr_user.id])
+        response = self.client.patch(url, {"role": "admin_rh"}, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class JWTAuthTestCase(TestCase):
+    """401 sem token e com token adulterado."""
+
+    def setUp(self):
+        self.client = APIClient()
+        User.objects.create_user(
+            username="jwtuser@test.com",
+            email="jwtuser@test.com",
+            password="testpass123",
+            role="funcionario",
+        )
+
+    def test_no_token_returns_401(self):
+        response = self.client.get(reverse("user-profile"), secure=True)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_tampered_token_returns_401(self):
+        login = self.client.post(
+            reverse("token_obtain_pair"),
+            {"email": "jwtuser@test.com", "password": "testpass123"},
+            secure=True,
+        )
+        access = login.data["access"]
+        tampered = access[:-1] + ("A" if access[-1] != "A" else "B")
+
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {tampered}")
+        response = self.client.get(reverse("user-profile"), secure=True)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_malformed_token_returns_401(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Bearer not-a-real-jwt")
+        response = self.client.get(reverse("user-profile"), secure=True)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

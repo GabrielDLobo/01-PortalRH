@@ -59,6 +59,18 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         model = User
         fields = ["username", "email", "first_name", "last_name", "role"]
 
+    def validate_role(self, value):
+        # `update`/`partial_update` are reachable both by admin_rh (managing
+        # anyone) and by a user editing their own profile (CanUpdateOwnProfile).
+        # Without this check, a funcionario could PATCH their own role to
+        # admin_rh and self-promote -- the frontend simply never sends the
+        # field, which is not a real boundary against direct API calls.
+        request = self.context.get("request")
+        user = getattr(request, "user", None)
+        if user and not user.is_admin_rh and self.instance and value != self.instance.role:
+            raise serializers.ValidationError("Você não tem permissão para alterar seu papel de acesso.")
+        return value
+
 
 class PasswordChangeSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
