@@ -243,3 +243,149 @@ class LeaveRequestAuthorizationTestCase(TestCase):
         self.client.force_authenticate(user=self.employee_a)
         response = self.client.get(reverse("leave-request-stats"), secure=True)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+class LeaveRequestCreateAPIValidationTestCase(TestCase):
+    """
+    QA_REPORT.md 2026-09-07: as regras CLT (antecedência mínima, dias_gozo
+    obrigatório, abono <=10, gozo+abono <=30, datas coerentes) já existiam em
+    LeaveRequestCreateSerializer.validate() -- mas data_fim era um campo
+    obrigatório do ModelSerializer, então toda solicitação de férias sem
+    data_fim explícito (exatamente o que o frontend real envia, já que
+    data_fim é calculado a partir de dias_gozo) falhava com um 400 de campo
+    obrigatório ANTES do validate() rodar, e o caminho feliz nunca era
+    alcançado. Corrigido tornando data_fim required=False no serializer e
+    validando sua obrigatoriedade explicitamente para tipos não-férias.
+    """
+
+    def setUp(self):
+        from employees.models import Employee
+
+        self.client = APIClient()
+        self.employee = User.objects.create_user(
+            username="cltemployee@test.com",
+            email="cltemployee@test.com",
+            password="testpass123",
+            role="funcionario",
+        )
+        Employee.objects.create(user=self.employee, status="active")
+
+        self.ferias = LeaveType.objects.create(
+            nome="Férias", max_dias_ano=30, antecedencia_minima=30
+        )
+        self.licenca = LeaveType.objects.create(
+            nome="Licença Médica", max_dias_ano=15, antecedencia_minima=1
+        )
+        self.client.force_authenticate(user=self.employee)
+        self.url = reverse("leave-request-list")
+
+    def _far_enough(self, days=45):
+        return date.today() + timedelta(days=days)
+
+    def test_happy_path_vacation_without_explicit_data_fim(self):
+        """Regression: this is exactly the payload the real frontend sends."""
+        payload = {
+            "tipo": self.ferias.id,
+            "data_inicio": self._far_enough().isoformat(),
+            "dias_gozo": 20,
+            "tem_abono_pecuniario": True,
+            "dias_abono_pecuniario": 10,
+            "motivo": "Descanso anual",
+        }
+        response = self.client.post(self.url, payload, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        expected_end = self._far_enough() + timedelta(days=19)
+        self.assertEqual(response.data["data_fim"], expected_end.isoformat())
+
+    def test_insufficient_advance_notice_is_rejected(self):
+        payload = {
+            "tipo": self.ferias.id,
+            "data_inicio": (date.today() + timedelta(days=5)).isoformat(),
+            "dias_gozo": 15,
+            "motivo": "teste",
+        }
+        response = self.client.post(self.url, payload, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("data_inicio", response.data)
+
+    def test_vacation_without_dias_gozo_is_rejected(self):
+        payload = {
+            "tipo": self.ferias.id,
+            "data_inicio": self._far_enough().isoformat(),
+            "motivo": "teste",
+        }
+        response = self.client.post(self.url, payload, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("dias_gozo", response.data)
+
+    def test_abono_over_ten_days_is_rejected(self):
+        payload = {
+            "tipo": self.ferias.id,
+            "data_inicio": self._far_enough().isoformat(),
+            "dias_gozo": 15,
+            "tem_abono_pecuniario": True,
+            "dias_abono_pecuniario": 15,
+            "motivo": "teste",
+        }
+        response = self.client.post(self.url, payload, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("dias_abono_pecuniario", response.data)
+
+    def test_gozo_plus_abono_over_thirty_is_rejected(self):
+        payload = {
+            "tipo": self.ferias.id,
+            "data_inicio": self._far_enough().isoformat(),
+            "dias_gozo": 25,
+            "tem_abono_pecuniario": True,
+            "dias_abono_pecuniario": 10,
+            "motivo": "teste",
+        }
+        response = self.client.post(self.url, payload, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("dias_abono_pecuniario", response.data)
+
+    def test_gozo_plus_abono_exactly_thirty_is_accepted(self):
+        payload = {
+            "tipo": self.ferias.id,
+            "data_inicio": self._far_enough().isoformat(),
+            "dias_gozo": 20,
+            "tem_abono_pecuniario": True,
+            "dias_abono_pecuniario": 10,
+            "motivo": "teste",
+        }
+        response = self.client.post(self.url, payload, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+
+    def test_non_vacation_type_requires_explicit_data_fim(self):
+        payload = {
+            "tipo": self.licenca.id,
+            "data_inicio": self._far_enough().isoformat(),
+            "motivo": "teste",
+        }
+        response = self.client.post(self.url, payload, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("data_fim", response.data)
+
+    def test_data_fim_before_data_inicio_is_rejected(self):
+        start = self._far_enough()
+        payload = {
+            "tipo": self.licenca.id,
+            "data_inicio": start.isoformat(),
+            "data_fim": (start - timedelta(days=1)).isoformat(),
+            "motivo": "teste",
+        }
+        response = self.client.post(self.url, payload, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("data_fim", response.data)
+
+    def test_data_inicio_in_the_past_is_rejected(self):
+        past = date.today() - timedelta(days=5)
+        payload = {
+            "tipo": self.licenca.id,
+            "data_inicio": past.isoformat(),
+            "data_fim": past.isoformat(),
+            "motivo": "teste",
+        }
+        response = self.client.post(self.url, payload, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("data_inicio", response.data)
