@@ -170,3 +170,48 @@ class ReportTemplateAPIPermissionTestCase(TestCase):
         self.client.force_authenticate(user=self.owner)
         response = self.client.get(self.detail_url, secure=True)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class DashboardReportPermissionTestCase(TestCase):
+    """
+    QA_REPORT.md 2026-09-07: DashboardViewSet (a tela "Relatórios", que
+    agrega folha de pagamento, PII e dados de toda a empresa) só exigia
+    IsAuthenticated -- qualquer funcionario logado conseguia baixar o
+    relatório completo de funcionários com salários. Corrigido para
+    IsAdminRH.
+    """
+
+    def setUp(self):
+        self.client = APIClient()
+        self.hr_user = User.objects.create_user(
+            username="reporthr@test.com",
+            email="reporthr@test.com",
+            password="testpass123",
+            role="admin_rh",
+        )
+        self.employee = User.objects.create_user(
+            username="reportemp@test.com",
+            email="reportemp@test.com",
+            password="testpass123",
+            role="funcionario",
+        )
+
+    def test_funcionario_cannot_access_employees_report(self):
+        self.client.force_authenticate(user=self.employee)
+        response = self.client.get(
+            "/api/v1/reports/dashboard/employees_report/", {"format": "json"}, secure=True
+        )
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_admin_rh_can_access_employees_report(self):
+        self.client.force_authenticate(user=self.hr_user)
+        response = self.client.get(
+            "/api/v1/reports/dashboard/employees_report/", {"format": "json"}, secure=True
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_anonymous_cannot_access_employees_report(self):
+        response = self.client.get(
+            "/api/v1/reports/dashboard/employees_report/", {"format": "json"}, secure=True
+        )
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

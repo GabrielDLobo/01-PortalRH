@@ -142,6 +142,13 @@ class LeaveRequestDetailSerializer(serializers.ModelSerializer):
 
 
 class LeaveRequestCreateSerializer(serializers.ModelSerializer):
+    # For férias, data_fim is derived from data_inicio + dias_gozo (see the
+    # auto-calculation below) and the frontend never sends it -- ModelSerializer
+    # would otherwise mark it required from the model field and reject the
+    # request with a field-level "obrigatório" error before validate() ever
+    # runs, which made every vacation request 400 regardless of dias_gozo.
+    data_fim = serializers.DateField(required=False)
+
     class Meta:
         model = LeaveRequest
         fields = [
@@ -226,11 +233,20 @@ class LeaveRequestCreateSerializer(serializers.ModelSerializer):
                 calculated_end = temp_request.calcular_data_fim_automatica()
                 if calculated_end:
                     attrs["data_fim"] = calculated_end
+        else:
+            # Non-vacation types have no auto-calculation, so data_fim must
+            # come from the client. Field-level required=False (needed to let
+            # the vacation branch above omit it) means this has to be checked
+            # explicitly here instead.
+            if not attrs.get("data_fim"):
+                raise serializers.ValidationError({"data_fim": "Data de fim é obrigatória."})
 
-        # Validate dates (after potential auto-calculation)
+        # Validate dates (after potential auto-calculation). Runs regardless
+        # of whether data_fim ended up set, so a missing/invalid data_inicio
+        # is never silently skipped.
         data_fim = attrs.get("data_fim")  # Get updated data_fim
-        if data_inicio and data_fim:
-            if data_fim < data_inicio:
+        if data_inicio:
+            if data_fim and data_fim < data_inicio:
                 raise serializers.ValidationError(
                     {"data_fim": "Data de fim deve ser posterior à data de início."}
                 )

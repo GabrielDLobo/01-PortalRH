@@ -24,10 +24,6 @@ from drf_spectacular.views import (
 from app.demo_mode import reset_demo
 
 urlpatterns = [
-    # API Documentation
-    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
-    path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
-    path("api/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
     # API Endpoints - All under /api/v1/ for consistency
     path("api/v1/accounts/", include("accounts.urls")),
     path("api/v1/employees/", include("employees.urls")),
@@ -40,9 +36,15 @@ urlpatterns = [
     path("internal/reset-demo/", reset_demo, name="reset-demo"),
 ]
 
-# Admin só fica disponível fora do modo demo.
+# Admin e schema/docs da API só ficam disponíveis fora do modo demo — reduz a
+# superfície de reconhecimento (estrutura completa da API) na demo pública.
 if not settings.DEMO_MODE:
-    urlpatterns = [path("admin/", admin.site.urls)] + urlpatterns
+    urlpatterns = [
+        path("admin/", admin.site.urls),
+        path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+        path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
+        path("api/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
+    ] + urlpatterns
 
 # Serve media files during development
 if settings.DEBUG:

@@ -8,7 +8,7 @@ from rest_framework.decorators import action
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 
-from app.permissions import CanViewEmployee, IsOwnerOrAdminRH
+from app.permissions import CanViewEmployee, IsAdminRH, IsOwnerOrAdminRH
 
 from .models import AdmissionProcess, Employee, EmployeeDocument, PreAdmissionRH
 from .serializers import (
@@ -319,6 +319,18 @@ class PreAdmissionRHViewSet(viewsets.ModelViewSet):
     queryset = PreAdmissionRH.objects.all()
     serializer_class = PreAdmissionRHSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_permissions(self):
+        # get_queryset() below already scopes read/update/destroy to nothing
+        # for non-admins (get_object() 404s), but create() never calls
+        # get_queryset() -- IsAuthenticated alone let any funcionario create
+        # pre-admission (candidate) records directly.
+        if self.action in ["create", "update", "partial_update", "destroy"]:
+            permission_classes = [IsAdminRH]
+        else:
+            permission_classes = [permissions.IsAuthenticated]
+
+        return [permission() for permission in permission_classes]
 
     def get_queryset(self):
         """Filter based on user permissions - only HR and Admin can access"""

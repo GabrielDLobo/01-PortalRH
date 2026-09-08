@@ -21,5 +21,8 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./src/setupTests.ts'],
     css: true,
+    // tests/e2e is Playwright's suite (its own runner, own config) --
+    // Vitest's default include glob otherwise also picks up *.spec.ts there.
+    exclude: ['node_modules/**', 'tests/e2e/**'],
   },
 });

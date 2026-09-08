@@ -298,6 +298,66 @@ class EmployeeViewSetAuthorizationTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
+PRE_ADMISSIONS_LIST_PATH = "/api/v1/employees/pre-admissions/"
+
+
+class PreAdmissionRHAuthorizationTestCase(TestCase):
+    """
+    QA_REPORT.md 2026-09-07: PreAdmissionRHViewSet só exigia IsAuthenticated
+    e o bloqueio a não-admins vinha inteiramente de get_queryset() -- que
+    create() nunca consulta. Um funcionario conseguia POSTar registros de
+    pré-admissão (candidatos, salário oferecido) diretamente. Corrigido com
+    get_permissions() exigindo IsAdminRH para create/update/destroy.
+    """
+
+    def setUp(self):
+        self.client = APIClient()
+        self.hr_user = User.objects.create_user(
+            username="preadmhr@test.com",
+            email="preadmhr@test.com",
+            password="testpass123",
+            role="admin_rh",
+        )
+        self.employee = User.objects.create_user(
+            username="preademp@test.com",
+            email="preademp@test.com",
+            password="testpass123",
+            role="funcionario",
+        )
+        self.payload = {
+            "personal_email": "candidato@test.com",
+            "full_name": "Candidato Teste",
+            "position": "Analista",
+            "department": "TI",
+            "job_description": "x",
+            "work_schedule": "08:00 - 18:00",
+            "direct_manager": "x",
+            "weekly_workload": "40h",
+            "contract_type": "clt",
+            "salary": "5000.00",
+            "start_date": (date.today() + timedelta(days=30)).isoformat(),
+        }
+
+    def test_funcionario_cannot_create_pre_admission(self):
+        self.client.force_authenticate(user=self.employee)
+        response = self.client.post(PRE_ADMISSIONS_LIST_PATH, self.payload, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(PreAdmissionRH.objects.count(), 0)
+
+    def test_admin_rh_can_create_pre_admission(self):
+        self.client.force_authenticate(user=self.hr_user)
+        response = self.client.post(PRE_ADMISSIONS_LIST_PATH, self.payload, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+
+    def test_funcionario_list_is_empty_not_403(self):
+        # get_queryset() já devolvia .none() -- mantém esse comportamento.
+        PreAdmissionRH.objects.create(created_by=self.hr_user, **self.payload)
+        self.client.force_authenticate(user=self.employee)
+        response = self.client.get(PRE_ADMISSIONS_LIST_PATH, secure=True)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 0)
+
+
 class EmployeeDocumentUploadAuthorizationTestCase(TestCase):
     """Confirms a regular user cannot upload a document to another employee's record"""
 
