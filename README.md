@@ -1,8 +1,30 @@
-<!-- markdownlint-disable MD033 -->
+<!-- markdownlint-disable MD033 MD041 -->
 
-# PortalRH — Human Resources Management System
+<div align="center">
+  <img src="docs/assets/hero-login.png" alt="PortalRH" width="100%" />
 
-[![CI](https://github.com/GabrielDLobo/01-PortalRH/actions/workflows/ci.yml/badge.svg)](https://github.com/GabrielDLobo/01-PortalRH/actions/workflows/ci.yml)
+  <h1>PortalRH</h1>
+  <p><strong>Sistema de Gestão de Recursos Humanos</strong> — admissão, férias, avaliações, rescisões e relatórios, com demo pública segura.</p>
+
+  <p>
+    <a href="https://portalrh-frontend.vercel.app/login"><strong>🔗 Ver demo ao vivo</strong></a>
+    &nbsp;·&nbsp;
+    <a href="https://gabrieldlobo.github.io/01-PortalRH/">Documentação</a>
+  </p>
+  <p><sub>Demo: <code>rh.demo@portalrh.com.br</code> ou <code>demo@portalrh.com.br</code> · senha <code>demo1234</code></sub></p>
+
+  <p>
+    <a href="https://github.com/GabrielDLobo/01-PortalRH/actions/workflows/ci.yml"><img src="https://github.com/GabrielDLobo/01-PortalRH/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+    <img src="https://img.shields.io/badge/Django-5-092E20?logo=django" />
+    <img src="https://img.shields.io/badge/DRF%20%2B%20JWT-red" />
+    <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black" />
+    <img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white" />
+    <img src="https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white" />
+    <img src="https://img.shields.io/badge/Three.js-000?logo=three.js" />
+    <img src="https://img.shields.io/badge/PostgreSQL%20(Neon)-336791?logo=postgresql&logoColor=white" />
+    <img src="https://img.shields.io/badge/Vercel-000?logo=vercel" />
+  </p>
+</div>
 
 A Django-based Human Resources Management System that centralizes employee lifecycle operations, including admissions, leave requests, evaluations, reports, and termination workflows.
 
@@ -148,3 +170,8 @@ All current interface components are listed in the documentation page below:
 ![ ](docs/assets/projecting/13.png)
 ![Reports](docs/assets/projecting/14.png)
 ![Profile](docs/assets/projecting/15.png)
+
+## Segurança & Qualidade
+
+- [SECURITY.md](SECURITY.md) — política de segurança, controles aplicados e como reportar uma vulnerabilidade.
+- [docs/QA_REPORT.md](docs/QA_REPORT.md) — relatório do ciclo de QA e pentest (achados, correções e verificação).
